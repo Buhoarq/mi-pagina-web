@@ -429,7 +429,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
   <div class="brand">
     <div class="brand-logo"><img src="icono.svg" alt="" style="width:100%;height:100%"></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2" style="margin-left:-7px">Flow</span><span class="ver">Panel</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2" style="margin-left:-7px">Flow</span><span class="ver">Panel v2.0</span></span>
       <span class="brand-sub" id="subPanel">Hospital de Coquimbo · Administración y coordinación</span>
     </div>
   </div>
@@ -559,13 +559,32 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    ===================================================================== */
 const REPO={owner:'Buhoarq',repo:'mi-pagina-web',ruta:'tabiflow/avance.enc',rama:'main'};
-const ETAPAS=[
+const STG=[
+  {id:'est', fam:'est',nombre:'Estructura metalcon',corto:'Estructura',color:'#DC2626',forma:'cuadrado'},
+  {id:'c1p1',fam:'c1', nombre:'Cara 1 · 1ª placa',corto:'C1·P1',color:'#4ADE80',forma:'cuadrado'},
+  {id:'c1p2',fam:'c1', nombre:'Cara 1 · 2ª placa',corto:'C1·P2',color:'#16A34A',forma:'cuadrado'},
+  {id:'c1p3',fam:'c1', nombre:'Cara 1 · 3ª placa',corto:'C1·P3',color:'#14532D',forma:'cuadrado'},
+  {id:'pb',  fam:'pb', nombre:'Lámina de plomo',corto:'Plomo',color:'#7C3AED',forma:'cuadrado'},
+  {id:'ais', fam:'ais',nombre:'Aislación',corto:'Aislación',color:'#8B5A2B',forma:'circulo'},
+  {id:'c2p1',fam:'c2', nombre:'Cara 2 · 1ª placa',corto:'C2·P1',color:'#60A5FA',forma:'circulo'},
+  {id:'c2p2',fam:'c2', nombre:'Cara 2 · 2ª placa',corto:'C2·P2',color:'#2563EB',forma:'circulo'},
+  {id:'c2p3',fam:'c2', nombre:'Cara 2 · 3ª placa',corto:'C2·P3',color:'#1E3A8A',forma:'circulo'},
+  {id:'fen', fam:'fen',nombre:'Separador fenólico',corto:'Fenólico',color:'#0D9488',forma:'cuadrado'}];
+const ST=Object.fromEntries(STG.map(e=>[e.id,e]));
+/* Los indicadores se muestran por familia: cara 1 y cara 2 = promedio de sus placas */
+let ETAPAS=[
   {id:'est',nombre:'Estructura metalcon',corto:'Estructura',color:'#DC2626',forma:'cuadrado'},
-  {id:'c1', nombre:'1ª cara volcanita', corto:'1ª cara',  color:'#16A34A',forma:'cuadrado'},
-  {id:'ais',nombre:'Aislación',          corto:'Aislación',color:'#8B5A2B',forma:'circulo'},
-  {id:'c2', nombre:'2ª cara (tapado)',   corto:'2ª cara',  color:'#2563EB',forma:'circulo'}];
+  {id:'c1', nombre:'Placas cara 1',corto:'Cara 1',color:'#16A34A',forma:'cuadrado'},
+  {id:'pb', nombre:'Lámina de plomo',corto:'Plomo',color:'#7C3AED',forma:'cuadrado'},
+  {id:'ais',nombre:'Aislación',corto:'Aislación',color:'#8B5A2B',forma:'circulo'},
+  {id:'c2', nombre:'Placas cara 2 (tapado)',corto:'Cara 2',color:'#2563EB',forma:'circulo'},
+  {id:'fen',nombre:'Separador fenólico',corto:'Fenólico',color:'#0D9488',forma:'cuadrado'}];
 const ET=Object.fromEntries(ETAPAS.map(e=>[e.id,e]));
-const PESOS_DEF={est:.25,c1:.25,ais:.25,c2:.25};
+const PESOS_DEF={est:.2,c1:.2,pb:.2,ais:.2,c2:.2,fen:1};
+function seqDe(t){if(!t.np)return['fen'];const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
+const famsDe=t=>[...new Set(t.seq.map(x=>ST[x].fam))];
+const nEnFam=(t,f)=>t.seq.filter(x=>ST[x].fam===f).length||1;
+function composicion(t){if(!t.np)return'Separador fenólico';return t.np+' placa'+(t.np>1?'s':'')+' por cara'+(t.pb?' · con plomo':'');}
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
 const pad2=n=>String(n).padStart(2,'0');
 const fechaADia=d=>d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());
@@ -612,18 +631,28 @@ async function ghEscribir(u8,sha,mensaje){
   if(!r.ok){let m='';try{m=(await r.json()).message;}catch(e){}throw new Error('GitHub '+r.status+' '+m);}return r.json();}
 
 /* ---------------- datos ---------------- */
-let M=null,NIVELES=[],TAB={},TOT_A=0;
+let M=null,NIVELES=[],TAB={},TOT_A=0,TOT={},TRAMOS={};
 let AV=null;                 // consolidado (copia de trabajo)
 const TRABAJO={archivos:[],dot:{},config:null};   // cambios de esta sesión (se re-aplican sobre lo último publicado)
-function cargarModelo(j){M=j;NIVELES=j.niveles;TAB={};NIVELES.forEach(n=>{n.totA=0;n.tab.forEach(t=>{t.nv=n.id;TAB[t.g]=t;n.totA+=t.A;});});TOT_A=NIVELES.reduce((s,n)=>s+n.totA,0);}
+function cargarModelo(j){M=j;NIVELES=j.niveles;TAB={};TRAMOS={};TOT={};ETAPAS.forEach(e=>TOT[e.id]=0);
+  NIVELES.forEach(n=>{n.totA=0;n.tot={};ETAPAS.forEach(e=>n.tot[e.id]=0);n.tab.forEach(t=>{t.nv=n.id;t.seq=seqDe(t);TAB[t.g]=t;n.totA+=t.A;famsDe(t).forEach(f=>{n.tot[f]+=t.A;TOT[f]+=t.A;});if(t.gb)(TRAMOS[t.gb]=TRAMOS[t.gb]||[]).push(t.g);});});
+  TOT_A=NIVELES.reduce((s,n)=>s+n.totA,0);ETAPAS=ETAPAS.filter(e=>TOT[e.id]>0);}
+/* registros de versiones anteriores ('c1'/'c2' o tabiques luego divididos en tramos) */
+function normalizarEventos(lista){const out=[];lista.forEach(e=>{const gs=TAB[e.g]?[e.g]:(TRAMOS[e.g]||[]);
+  gs.forEach((g,i)=>{const t=TAB[g];let ets=[e.et];if(e.et==='c1'||e.et==='c2')ets=t.seq.filter(x=>x.startsWith(e.et+'p'));
+    ets.forEach(et=>{if(!t.seq.includes(et))return;out.push((gs.length>1||ets.length>1||g!==e.g)?Object.assign({},e,{id:e.id+(gs.length>1?'.'+(i+1):'')+(ets.length>1||et!==e.et?'.'+et:''),g,et}):e);});});});return out;}
 const normalizarAV=a=>Object.assign({actualizado:null,eventos:[],jornadas:[],personas:[],fuentes:[],dotacion:{},config:{}},a||{});
 const pesos=()=>Object.assign({},PESOS_DEF,(AV&&AV.config&&AV.config.pesos)||{});
-const vigentes=()=>AV.eventos.filter(e=>!e.borrado&&TAB[e.g]&&ET[e.et]);
+const vigentes=()=>normalizarEventos(AV.eventos.filter(e=>!e.borrado));
 /* crédito sin duplicar: por tabique y etapa, cada registro aporta solo lo que subió el máximo */
 function creditos(){const g=new Map();vigentes().forEach(e=>{const k=e.g+'|'+e.et;if(!g.has(k))g.set(k,[]);g.get(k).push(e);});
-  const out=[];g.forEach(l=>{l.sort((a,b)=>a.dia.localeCompare(b.dia)||(a.ts||'').localeCompare(b.ts||''));let mx=0;l.forEach(e=>{if(e.f>mx+1e-9){out.push({e,inc:e.f-mx,A:TAB[e.g].A*(e.f-mx)});mx=e.f;}});});return out;}
-const eq=o=>{const p=pesos();return ETAPAS.reduce((s,e)=>s+(o[e.id]||0)*p[e.id],0);};
-function vacioEt(){return{est:0,c1:0,ais:0,c2:0};}
+  /* cada crédito se expresa en su familia (una placa de 2 aporta la mitad de la cara) y en m² equivalentes:
+     el tabique completo vale su superficie, repartida entre sus familias según la ponderación */
+  const p=pesos();const out=[];g.forEach(l=>{l.sort((a,b)=>a.dia.localeCompare(b.dia)||(a.ts||'').localeCompare(b.ts||''));let mx=0;l.forEach(e=>{if(e.f>mx+1e-9){
+    const t=TAB[e.g],fam=ST[e.et].fam,A=t.A*(e.f-mx)/nEnFam(t,fam),sw=famsDe(t).reduce((s,f)=>s+(p[f]||0),0)||1;
+    out.push({e:Object.assign({},e,{et:fam,etapa:e.et}),inc:e.f-mx,A,Q:A*(p[fam]||0)/sw});mx=e.f;}});});return out;}
+const eq=o=>o.eq||0;
+function vacioEt(){return{est:0,c1:0,pb:0,ais:0,c2:0,fen:0,eq:0};}
 
 /* ---------------- unir archivos (misma lógica que consolidar.py) ---------------- */
 function unirEn(av,d,nombre){
@@ -632,7 +661,7 @@ function unirEn(av,d,nombre){
   const por=(d.por||'').trim()||'—';r.por=por;
   const idx=new Map(av.eventos.map(e=>[e.id,e]));
   (d.eventos||[]).forEach(e0=>{const e=Object.assign({},e0);delete e._base;
-    if(!TAB[e.g]||!ET[e.et]){r.ignorados++;return;}e.por=e.por||por;
+    if(!(TAB[e.g]||TRAMOS[e.g])||!(ST[e.et]||e.et==='c1'||e.et==='c2')){r.ignorados++;return;}e.por=e.por||por;
     const ex=idx.get(e.id);if(!ex){av.eventos.push(e);idx.set(e.id,e);r.nuevos++;if(e.borrado)r.anulados++;}
     else if(e.borrado&&!ex.borrado){ex.borrado=true;ex.borradoTs=e.borradoTs;r.anulados++;}});
   const jid=new Map(av.jornadas.map(j=>[j.id,j]));
@@ -655,13 +684,13 @@ function marcarEstado(){const n=TRABAJO.archivos.length,d=Object.keys(TRABAJO.do
 function revisiones(){
   const v=vigentes(),ge=new Map(),gd=new Map();
   v.forEach(e=>{const k=e.g+'|'+e.et;if(!ge.has(k))ge.set(k,[]);ge.get(k).push(e);
-    if(!e.auto){const k2=e.g+'|'+e.dia;if(!gd.has(k2))gd.set(k2,{});const o=gd.get(k2);o[e.por]=Math.max(o[e.por]??-1,ETAPAS.findIndex(x=>x.id===e.et));}});
+    if(!e.auto){const k2=e.g+'|'+e.dia;if(!gd.has(k2))gd.set(k2,{});const o=gd.get(k2);o[e.por]=Math.max(o[e.por]??-1,TAB[e.g].seq.indexOf(e.et));}});
   const dup=[...ge.entries()].filter(([k,l])=>new Set(l.map(x=>x.por)).size>1);
   const dif=[...gd.entries()].filter(([k,o])=>new Set(Object.values(o)).size>1);
   const best=new Map();v.forEach(e=>{const k=e.g+'|'+e.et;best.set(k,Math.max(best.get(k)||0,e.f));});
-  const inc=[];new Set(v.map(e=>e.g)).forEach(g=>{let mx=0,bad=false;for(let i=ETAPAS.length-1;i>=0;i--){const f=best.get(g+'|'+ETAPAS[i].id)||0;if(f+1e-9<mx)bad=true;mx=Math.max(mx,f);}if(bad)inc.push(g);});
+  const inc=[];new Set(v.map(e=>e.g)).forEach(g=>{const sq=TAB[g].seq;let mx=0,bad=false;for(let i=sq.length-1;i>=0;i--){const f=best.get(g+'|'+sq[i])||0;if(f+1e-9<mx)bad=true;mx=Math.max(mx,f);}if(bad)inc.push(g);});
   return{dup,dif,inc,best};}
-function rotulo(g){const t=TAB[g];return t.nv+' · '+t.t+' · '+(t.r.slice(0,2).join(' / ')||'sin recinto');}
+function rotulo(g){const t=TAB[g];return t.nv+' · '+t.t+(t.tr?' (tramo '+t.tr+'/'+t.ntr+')':'')+' · '+(t.r.slice(0,2).join(' / ')||'sin recinto');}
 
 /* =====================================================================
    GRÁFICOS (SVG simples, sin librerías: funciona sin internet)
@@ -696,11 +725,11 @@ function lineas(dias,series,opt={}){
    ===================================================================== */
 function calcular(){
   const cr=creditos();const dia={};const dot=AV.dotacion||{};
-  cr.forEach(({e,A})=>{const o=dia[e.dia]=dia[e.dia]||vacioEt();o[e.et]+=A;});
+  cr.forEach(({e,A,Q})=>{const o=dia[e.dia]=dia[e.dia]||vacioEt();o[e.et]+=A;o.eq+=Q;});
   /* corte = último día con avance registrado (la dotación ingresada a futuro no lo mueve) */
   const dAv=Object.keys(dia).sort();const corte=dAv.length?dAv[dAv.length-1]:hoyDia();
   const diasDatos=[...new Set(dAv.concat(Object.keys(dot)))].filter(d=>d<=corte).sort();
-  const acum=vacioEt();cr.forEach(({e,A})=>acum[e.et]+=A);
+  const acum=vacioEt();cr.forEach(({e,A,Q})=>{acum[e.et]+=A;acum.eq+=Q;});
   return{cr,dia,dot,diasDatos,corte,acum};}
 function ventanaDias(c){const v=parseInt($('#selVentana').value,10);if(!v)return c.diasDatos;const desde=sumarDias(c.corte,-(v-1));return c.diasDatos.filter(d=>d>=desde&&d<=c.corte);}
 function proyeccion(c){
@@ -726,41 +755,42 @@ function renderKPI(){
     k('Dotación promedio · 7 días',dDot7?fmt1(td7/dDot7):'—',dDot7?'tabiqueros por día ('+dDot7+' días)':'falta ingresar dotación','#64748B')+
     k('Proyección de término',pr?diaLarga(pr.fecha):'—',pr?'al ritmo de '+fmt0(pr.media)+' m² eq./día (L–S)':'se calcula con avance registrado','#7C3AED');
   $('#kpisEtapas').innerHTML=ETAPAS.map(e=>{const s7=d7.reduce((s,d)=>s+(c.dia[d]?c.dia[d][e.id]:0),0);
-    return k(e.nombre,fmt1(pct(c.acum[e.id],TOT_A))+'%',fmt0(c.acum[e.id])+' m² · últimos 7 días +'+fmt0(s7)+' m² · peso '+Math.round(p[e.id]*100)+'%',e.color);}).join('');
+    return k(e.nombre,fmt1(pct(c.acum[e.id],TOT[e.id]))+'%',fmt0(c.acum[e.id])+' m² · últimos 7 días +'+fmt0(s7)+' m² · peso '+Math.round(p[e.id]*100)+'%',e.color);}).join('');
   /* gráficos */
   const dv=ventanaDias(c);
   $('#gDiaria').innerHTML=barrasApiladas(dv,ETAPAS.map(e=>({id:e.id,nombre:e.corto,color:e.color,forma:e.forma})),(d,se)=>c.dia[d]?c.dia[d][se.id]:0,{u:' m²'});
   /* curva acumulada sobre todos los días calendario del periodo */
   const todos=[];if(c.diasDatos.length){let d=dv.length?dv[0]:c.diasDatos[0];while(d<=c.corte){todos.push(d);d=sumarDias(d,1);}}
-  const acum=vacioEt();const antes=dv.length?dv[0]:'';c.cr.forEach(({e,A})=>{if(e.dia<antes)acum[e.et]+=A;});
+  const acum=vacioEt();const antes=dv.length?dv[0]:'';c.cr.forEach(({e,A,Q})=>{if(e.dia<antes){acum[e.et]+=A;acum.eq+=Q;}});
   const serie={est:[],c1:[],ais:[],c2:[],pond:[]};
-  todos.forEach(d=>{if(c.dia[d])ETAPAS.forEach(e=>acum[e.id]+=c.dia[d][e.id]);ETAPAS.forEach(e=>serie[e.id].push(pct(acum[e.id],TOT_A)));serie.pond.push(pct(eq(acum),TOT_A));});
+  ETAPAS.forEach(e=>serie[e.id]=serie[e.id]||[]);
+  todos.forEach(d=>{if(c.dia[d]){ETAPAS.forEach(e=>acum[e.id]+=c.dia[d][e.id]);acum.eq+=c.dia[d].eq;}ETAPAS.forEach(e=>serie[e.id].push(pct(acum[e.id],TOT[e.id])));serie.pond.push(pct(eq(acum),TOT_A));});
   $('#gCurva').innerHTML=lineas(todos,ETAPAS.map(e=>({nombre:e.corto,color:e.color,v:serie[e.id]})).concat([{nombre:'Ponderado',color:'#0F172A',dash:true,v:serie.pond}]),{fmt:v=>fmt1(v)+'%',u:''});
   $('#gDotacion').innerHTML=Object.keys(c.dot).length?barrasApiladas(dv.filter(d=>c.dot[d]),[{id:'n',nombre:'Tabiqueros',color:'#64748B'}],(d)=>(c.dot[d]&&c.dot[d].n)||0,{u:' tabiqueros'}):'<p class="nota">Aún no se ingresa dotación. Hazlo en <b>Coordinación → Dotación de tabiqueros</b>.</p>';
   const dr=dv.filter(d=>c.dot[d]&&c.dot[d].n);
   $('#gRend').innerHTML=dr.length?lineas(dr,[{nombre:'m² eq./tabiquero-día',color:'#10B981',v:dr.map(d=>c.dia[d]?eq(c.dia[d])/c.dot[d].n:0)}],{fmt:fmt1,u:' m²/t-d'}):'<p class="nota">El rendimiento aparece cuando hay avance y dotación el mismo día.</p>';
   /* semanal */
   const sem={};c.diasDatos.forEach(d=>{const f=aFecha(d);const lun=new Date(f);lun.setDate(f.getDate()-((f.getDay()+6)%7));const k=fechaADia(lun);
-    const o=sem[k]=sem[k]||Object.assign(vacioEt(),{dias:0,td:0,eqDot:0});if(c.dia[d]){o.dias++;ETAPAS.forEach(e=>o[e.id]+=c.dia[d][e.id]);}
+    const o=sem[k]=sem[k]||Object.assign(vacioEt(),{dias:0,td:0,eqDot:0});if(c.dia[d]){o.dias++;ETAPAS.forEach(e=>o[e.id]+=c.dia[d][e.id]);o.eq+=c.dia[d].eq;}
     const n=(c.dot[d]&&c.dot[d].n)||0;o.td+=n;if(n&&c.dia[d])o.eqDot+=eq(c.dia[d]);});
   const ks=Object.keys(sem).sort().reverse();
   $('#tSemanal').innerHTML=ks.length?'<table class="tabla"><tr><th>Semana</th><th>Días con avance</th><th>Tabiqueros-día</th>'+ETAPAS.map(e=>'<th>'+icono(e)+' m²</th>').join('')+'<th>m² eq.</th><th>m² eq./t-d</th></tr>'+
     ks.map(k=>{const o=sem[k];return'<tr><td>'+diaCorta(k)+' – '+diaCorta(sumarDias(k,6))+'</td><td>'+o.dias+'</td><td>'+(o.td?fmt0(o.td):'—')+'</td>'+ETAPAS.map(e=>'<td>'+fmt0(o[e.id])+'</td>').join('')+'<td><b>'+fmt0(eq(o))+'</b></td><td>'+(o.td?fmt1(o.eqDot/o.td):'—')+'</td></tr>';}).join('')+'</table>':'<p class="nota">Sin datos.</p>';
   /* pisos */
-  const pn={};NIVELES.forEach(n=>pn[n.id]={a:vacioEt(),s7:0});c.cr.forEach(({e,A})=>{const t=TAB[e.g];pn[t.nv].a[e.et]+=A;if(e.dia>sumarDias(c.corte,-7))pn[t.nv].s7+=A*p[e.et];});
+  const pn={};NIVELES.forEach(n=>pn[n.id]={a:vacioEt(),s7:0});c.cr.forEach(({e,A,Q})=>{const t=TAB[e.g];pn[t.nv].a[e.et]+=A;pn[t.nv].a.eq+=Q;if(e.dia>sumarDias(c.corte,-7))pn[t.nv].s7+=Q;});
   const barra=(v,col)=>'<div style="display:flex;align-items:center;gap:6px"><div class="mini-prog" style="width:70px"><i style="width:'+Math.min(100,v)+'%;--c:'+col+'"></i></div><span>'+fmt1(v)+'%</span></div>';
   $('#tPisos').innerHTML='<table class="tabla"><tr><th>Piso</th><th>m² modelo</th>'+ETAPAS.map(e=>'<th>'+icono(e)+' '+e.corto+'</th>').join('')+'<th>Ponderado</th><th>m² eq. 7 días</th></tr>'+
-    NIVELES.map(n=>{const o=pn[n.id];return'<tr><td><b>'+n.id+'</b></td><td>'+fmt0(n.totA)+'</td>'+ETAPAS.map(e=>'<td>'+barra(pct(o.a[e.id],n.totA),e.color)+'</td>').join('')+'<td>'+barra(pct(eq(o.a),n.totA),'#0F172A')+'</td><td>'+fmt0(o.s7)+'</td></tr>';}).join('')+'</table>';
+    NIVELES.map(n=>{const o=pn[n.id];return'<tr><td><b>'+n.id+'</b></td><td>'+fmt0(n.totA)+'</td>'+ETAPAS.map(e=>'<td>'+(n.tot[e.id]?barra(pct(o.a[e.id],n.tot[e.id]),e.color):'·')+'</td>').join('')+'<td>'+barra(pct(eq(o.a),n.totA),'#0F172A')+'</td><td>'+fmt0(o.s7)+'</td></tr>';}).join('')+'</table>';
   /* personas */
-  const gp={};c.cr.forEach(({e,A})=>{const k=e.por||'—';const o=gp[k]=gp[k]||Object.assign(vacioEt(),{dias:new Set()});o[e.et]+=A;o.dias.add(e.dia);});
+  const gp={};c.cr.forEach(({e,A,Q})=>{const k=e.por||'—';const o=gp[k]=gp[k]||Object.assign(vacioEt(),{dias:new Set()});o[e.et]+=A;o.eq+=Q;o.dias.add(e.dia);});
   const kp=Object.keys(gp).sort();
   $('#tPersonas').innerHTML=kp.length?'<table class="tabla"><tr><th>Persona</th>'+ETAPAS.map(e=>'<th>'+icono(e)+'</th>').join('')+'<th>m² eq.</th><th>Días</th></tr>'+kp.map(k=>'<tr><td>'+escapar(k)+'</td>'+ETAPAS.map(e=>'<td>'+fmt0(gp[k][e.id])+'</td>').join('')+'<td><b>'+fmt0(eq(gp[k]))+'</b></td><td>'+gp[k].dias.size+'</td></tr>').join('')+'</table>':'<p class="nota">Sin registros.</p>';
   /* tipos */
-  const tp={};Object.values(TAB).forEach(t=>{const o=tp[t.t]=tp[t.t]||Object.assign(vacioEt(),{A:0});o.A+=t.A;});c.cr.forEach(({e,A})=>{tp[TAB[e.g].t][e.et]+=A;});
-  $('#tTipos').innerHTML='<table class="tabla"><tr><th>Tipo</th><th class="izq">Descripción</th><th>m² modelo</th>'+ETAPAS.map(e=>'<th>'+icono(e)+' '+e.corto+'</th>').join('')+'</tr>'+
-    Object.keys(tp).sort().map(k=>{const o=tp[k];return'<tr><td><b>'+escapar(k)+'</b></td><td class="izq" style="white-space:normal;min-width:220px">'+escapar(M.tipos[k]||'')+'</td><td>'+fmt0(o.A)+'</td>'+ETAPAS.map(e=>'<td>'+(o[e.id]?fmt0(o[e.id])+' · '+fmt1(pct(o[e.id],o.A))+'%':'—')+'</td>').join('')+'</tr>';}).join('')+'</table>';
+  const tp={};Object.values(TAB).forEach(t=>{const o=tp[t.t]=tp[t.t]||Object.assign(vacioEt(),{A:0,t,fams:new Set(famsDe(t))});o.A+=t.A;});c.cr.forEach(({e,A})=>{tp[TAB[e.g].t][e.et]+=A;});
+  $('#tTipos').innerHTML='<table class="tabla"><tr><th>Tipo</th><th class="izq">Descripción</th><th class="izq">Composición</th><th>m² modelo</th>'+ETAPAS.map(e=>'<th>'+icono(e)+' '+e.corto+'</th>').join('')+'</tr>'+
+    Object.keys(tp).sort().map(k=>{const o=tp[k];return'<tr><td><b>'+escapar(k)+'</b></td><td class="izq" style="white-space:normal;min-width:220px">'+escapar(M.tipos[k]||'')+'</td><td class="izq">'+composicion(o.t)+'</td><td>'+fmt0(o.A)+'</td>'+ETAPAS.map(e=>'<td>'+(!o.fams.has(e.id)?'·':o[e.id]?fmt0(o[e.id])+' · '+fmt1(pct(o[e.id],o.A))+'%':'—')+'</td>').join('')+'</tr>';}).join('')+'</table>';
   $('#notaMetodo').innerHTML='<b>Cómo se calcula:</b> m² = superficie neta de una cara de cada tabique según el modelo IFC × % registrado en cada etapa. Si dos personas registran el mismo tabique y etapa se cuenta una sola vez. '+
-    '<b>m² equivalentes</b> = suma ponderada de las 4 etapas ('+ETAPAS.map(e=>e.corto+' '+Math.round(p[e.id]*100)+'%').join(', ')+'), editable en Configuración. '+
+    '<b>Etapas por tipo de tabique</b>: estructura, 1–3 placas por cara (según tipo), lámina de plomo en los plomados y aislación; <b>Cara 1 / Cara 2</b> = promedio de sus placas; tabiques de más de 12 m divididos en tramos. <b>m² equivalentes</b>: cada tabique completo vale su superficie, repartida entre sus familias según la ponderación ('+ETAPAS.map(e=>e.corto+' '+Math.round(p[e.id]*100)+'%').join(', ')+'), editable en Configuración. '+
     '<b>Rendimiento</b> = m² eq. de los días con dotación ÷ tabiqueros-día. <b>Proyección</b>: ritmo medio de los días con avance de las últimas 2 semanas, días hábiles lunes a sábado.';
   $('#chipActualizado').textContent='📡 '+(AV.actualizado?fmtFecha(AV.actualizado):'sin publicar');
 }
@@ -771,17 +801,17 @@ function renderPisos(){
   if(!AV)return;if(!nivelSel)nivelSel=NIVELES[1].id;
   $('#selNivel').innerHTML=NIVELES.map(n=>'<button class="'+(n.id===nivelSel?'activo':'')+'" data-nv="'+n.id+'">'+n.id+'</button>').join('');
   const n=NIVELES.find(x=>x.id===nivelSel);const{best}=revisiones();const p=pesos();
-  const a=vacioEt();n.tab.forEach(t=>ETAPAS.forEach(e=>a[e.id]+=t.A*(best.get(t.g+'|'+e.id)||0)));
+  const a=vacioEt();const p2=pesos();n.tab.forEach(t=>{const fs=famsDe(t),sw=fs.reduce((s,f)=>s+(p2[f]||0),0)||1;fs.forEach(f=>{const st=t.seq.filter(x=>ST[x].fam===f);const fr=st.reduce((s,x)=>s+(best.get(t.g+'|'+x)||0),0)/st.length;a[f]+=t.A*fr;a.eq+=t.A*fr*(p2[f]||0)/sw;});});
   const k=(t,v,s,col)=>'<div class="kpi" style="--c:'+col+'"><span>'+t+'</span><b>'+v+'</b><small>'+s+'</small></div>';
-  $('#kpisNivel').innerHTML=k(n.id+' · ponderado',fmt1(pct(eq(a),n.totA))+'%',fmt0(n.tab.length)+' tabiques · '+fmt0(n.totA)+' m²','#4F46E5')+ETAPAS.map(e=>k(e.corto,fmt1(pct(a[e.id],n.totA))+'%',fmt0(a[e.id])+' m²',e.color)).join('');
-  $('#leyPlano').innerHTML=ETAPAS.map(e=>'<span>'+icono(e)+e.nombre+'</span>').join('')+'<span><i class="ic" style="--c:#94A3B8"></i>Sin avance</span>';
+  $('#kpisNivel').innerHTML=k(n.id+' · ponderado',fmt1(pct(eq(a),n.totA))+'%',fmt0(n.tab.length)+' tabiques · '+fmt0(n.totA)+' m²','#4F46E5')+ETAPAS.filter(e=>n.tot[e.id]>0).map(e=>k(e.corto,fmt1(pct(a[e.id],n.tot[e.id]))+'%',fmt0(a[e.id])+' m²',e.color)).join('');
+  $('#leyPlano').innerHTML=STG.map(e=>'<span>'+icono(e)+e.corto+'</span>').join('')+'<span><i class="ic" style="--c:#94A3B8"></i>Sin avance</span>';
   const bb=n.bbox,ruta=r=>{let s='M'+r[0]+' '+r[1];for(let i=2;i<r.length;i+=2)s+='L'+r[i]+' '+r[i+1];return s+'Z';};
   let svg='<svg class="plano-svg" viewBox="'+bb[0]+' '+bb[1]+' '+(bb[2]-bb[0])+' '+(bb[3]-bb[1])+'">';
   svg+='<path d="'+n.rec.map(r=>ruta(r.p)).join('')+'" fill="#fff" stroke="#D5DCE6" stroke-width="6"/>';
   svg+='<path d="'+n.col.concat(n.mur).map(ruta).join('')+'" fill="#475569"/>';
-  n.tab.forEach(t=>{let top=null;for(let i=ETAPAS.length-1;i>=0;i--){const f=best.get(t.g+'|'+ETAPAS[i].id)||0;if(f>0){top={e:ETAPAS[i],f};break;}}
+  n.tab.forEach(t=>{let top=null;for(let i=t.seq.length-1;i>=0;i--){const f=best.get(t.g+'|'+t.seq[i])||0;if(f>0){top={e:ST[t.seq[i]],f};break;}}
     const col=top?top.e.color:'#94A3B8';
-    svg+='<path d="'+t.p.map(ruta).join('')+'" fill="'+col+'" stroke="'+col+'" stroke-width="10" fill-opacity="'+(top&&top.f<1?.5:1)+'" stroke-opacity="'+(top&&top.f<1?.5:1)+'"><title>'+escapar(t.t+' · '+(t.r.slice(0,2).join(' / ')||'')+' · '+fmt1(t.A)+' m²\n'+ETAPAS.map(e=>e.corto+' '+Math.round((best.get(t.g+'|'+e.id)||0)*100)+'%').join(' · '))+'</title></path>';});
+    svg+='<path d="'+t.p.map(ruta).join('')+'" fill="'+col+'" stroke="'+col+'" stroke-width="10" fill-opacity="'+(top&&top.f<1?.5:1)+'" stroke-opacity="'+(top&&top.f<1?.5:1)+'"><title>'+escapar(t.t+(t.tr?' tramo '+t.tr+'/'+t.ntr:'')+' · '+composicion(t)+' · '+(t.r.slice(0,2).join(' / ')||'')+' · '+fmt1(t.A)+' m²\n'+t.seq.map(x=>ST[x].corto+' '+Math.round((best.get(t.g+'|'+x)||0)*100)+'%').join(' · '))+'</title></path>';});
   svg+='</svg>';$('#planoNivel').innerHTML=svg;}
 
 /* ---------------- coordinación ---------------- */
@@ -795,9 +825,9 @@ async function leerArchivos(files){
     TRABAJO.archivos.push({nombre:f.name,d});res.push(unirEn(AV,d,f.name));}
   const rv=revisiones();
   $('#reporteUnion').innerHTML='<div class="reporte"><h4>Archivos</h4><ul>'+res.map(r=>'<li>'+(r.error?'⚠ '+escapar(r.archivo)+': '+escapar(r.error):'✓ '+escapar(r.archivo)+' (<b>'+escapar(r.por)+'</b>): '+r.nuevos+' nuevos, '+r.anulados+' anulados'+(r.ignorados?', '+r.ignorados+' ignorados':''))+'</li>').join('')+'</ul>'+
-    '<h4>Tabiques marcados por más de una persona (se cuentan una vez): '+rv.dup.length+'</h4><ul>'+rv.dup.slice(0,40).map(([k,l])=>{const[g,et]=k.split('|');return'<li>'+escapar(rotulo(g))+' — '+ET[et].corto+': '+l.map(x=>escapar(x.por)+' '+diaCorta(x.dia)+' '+Math.round(x.f*100)+'%').join(', ')+'</li>';}).join('')+'</ul>'+
-    '<h4>Diferencias a revisar en terreno (mismo tabique y día, distinta etapa): '+rv.dif.length+'</h4><ul>'+rv.dif.slice(0,60).map(([k,o])=>{const[g,d]=k.split('|');return'<li>'+diaCorta(d)+' · '+escapar(rotulo(g))+' — '+Object.entries(o).map(([p,i])=>escapar(p)+': '+ETAPAS[i].corto).join(', ')+'</li>';}).join('')+'</ul>'+
-    '<h4>Incoherencias (etapa posterior con más % que una anterior): '+rv.inc.length+'</h4><ul>'+rv.inc.slice(0,60).map(g=>'<li>'+escapar(rotulo(g))+' — '+ETAPAS.map(e=>e.corto+' '+Math.round((rv.best.get(g+'|'+e.id)||0)*100)+'%').join(' · ')+'</li>').join('')+'</ul></div>';
+    '<h4>Tabiques marcados por más de una persona (se cuentan una vez): '+rv.dup.length+'</h4><ul>'+rv.dup.slice(0,40).map(([k,l])=>{const[g,et]=k.split('|');return'<li>'+escapar(rotulo(g))+' — '+ST[et].corto+': '+l.map(x=>escapar(x.por)+' '+diaCorta(x.dia)+' '+Math.round(x.f*100)+'%').join(', ')+'</li>';}).join('')+'</ul>'+
+    '<h4>Diferencias a revisar en terreno (mismo tabique y día, distinta etapa): '+rv.dif.length+'</h4><ul>'+rv.dif.slice(0,60).map(([k,o])=>{const[g,d]=k.split('|');return'<li>'+diaCorta(d)+' · '+escapar(rotulo(g))+' — '+Object.entries(o).map(([p,i])=>escapar(p)+': '+ST[TAB[g].seq[i]].corto).join(', ')+'</li>';}).join('')+'</ul>'+
+    '<h4>Incoherencias (etapa posterior con más % que una anterior): '+rv.inc.length+'</h4><ul>'+rv.inc.slice(0,60).map(g=>'<li>'+escapar(rotulo(g))+' — '+TAB[g].seq.map(x=>ST[x].corto+' '+Math.round((rv.best.get(g+'|'+x)||0)*100)+'%').join(' · ')+'</li>').join('')+'</ul></div>';
   marcarEstado();renderKPI();renderDotacion();toast(res.length+' archivo(s) unidos (pendiente publicar)','ok');}
 async function publicar(){
   if(!hayCambios()){toast('No hay cambios pendientes');return;}
@@ -818,10 +848,10 @@ async function descargarEnc(){const a=normalizarAV(JSON.parse(JSON.stringify(AV)
 
 /* ---------------- configuración ---------------- */
 function renderConfig(){const p=pesos();
-  $('#pesos').innerHTML=ETAPAS.map(e=>'<div class="form-linea"><label style="flex:1">'+icono(e)+' '+e.nombre+'<input type="number" min="0" max="100" step="5" data-peso="'+e.id+'" value="'+Math.round(p[e.id]*100)+'"></label></div>').join('');
+  $('#pesos').innerHTML=ETAPAS.filter(e=>e.id!=='fen').map(e=>'<div class="form-linea"><label style="flex:1">'+icono(e)+' '+e.nombre+'<input type="number" min="0" max="100" step="5" data-peso="'+e.id+'" value="'+Math.round(p[e.id]*100)+'"></label></div>').join('');
   $('#estadoToken').textContent=token()?'✓ Token guardado en este navegador':'Sin token: este PC puede ver y preparar, pero no publicar.';}
 function guardarPesos(){const v={};let s=0;$$('[data-peso]').forEach(i=>{v[i.dataset.peso]=Math.max(0,parseFloat(i.value)||0)/100;s+=v[i.dataset.peso];});
-  if(Math.abs(s-1)>0.001){toast('Los pesos deben sumar 100 % (suman '+Math.round(s*100)+' %)','error');return;}
+  if(Math.abs(s-1)>0.001){toast('Los pesos deben sumar 100 % (suman '+Math.round(s*100)+' %)','error');return;}v.fen=1;
   TRABAJO.config={pesos:v};AV.config=Object.assign({},AV.config,{pesos:v});marcarEstado();renderTodo();toast('Ponderación lista (pendiente publicar)','ok');}
 
 /* ---------------- arranque ---------------- */

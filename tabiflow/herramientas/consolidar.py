@@ -16,8 +16,35 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 
 ITER = 250000
-ETAPAS = ['est', 'c1', 'ais', 'c2']
-NOMBRE = {'est': 'Estructura', 'c1': '1ª cara', 'ais': 'Aislación', 'c2': '2ª cara'}
+ETAPAS = ['est', 'c1p1', 'c1p2', 'c1p3', 'pb', 'ais', 'c2p1', 'c2p2', 'c2p3', 'fen']
+NOMBRE = {'est': 'Estructura', 'c1p1': 'C1·P1', 'c1p2': 'C1·P2', 'c1p3': 'C1·P3', 'pb': 'Plomo', 'ais': 'Aislación',
+          'c2p1': 'C2·P1', 'c2p2': 'C2·P2', 'c2p3': 'C2·P3', 'fen': 'Fenólico',
+          'c1': 'Cara 1', 'c2': 'Cara 2'}
+FAMS = ['est', 'c1', 'pb', 'ais', 'c2', 'fen']
+FAM = {'est': 'est', 'c1p1': 'c1', 'c1p2': 'c1', 'c1p3': 'c1', 'pb': 'pb', 'ais': 'ais', 'c2p1': 'c2', 'c2p2': 'c2', 'c2p3': 'c2', 'fen': 'fen'}
+
+def seq_de(t):
+    """Etapas del tabique según su tipo: placas por cara (np) y plomo (pb). np=0 → separador fenólico."""
+    if not t.get('np'):
+        return ['fen']
+    s = ['est'] + ['c1p%d' % i for i in range(1, t['np'] + 1)] + (['pb'] if t.get('pb') else []) + ['ais'] + ['c2p%d' % i for i in range(1, t['np'] + 1)]
+    return s
+
+def normalizar(e, tab, tramos):
+    """Registros de versiones anteriores: 'c1'/'c2' → todas las placas de esa cara; GUID de un tabique dividido → cada tramo."""
+    gs = [e['g']] if e['g'] in tab else tramos.get(e['g'], [])
+    out = []
+    for i, g in enumerate(gs):
+        sq = tab[g][1]['seq']
+        ets = [x for x in sq if x.startswith(e['et'] + 'p')] if e['et'] in ('c1', 'c2') else [e['et']]
+        for et in ets:
+            if et not in sq: continue
+            x = dict(e)
+            if len(gs) > 1 or len(ets) > 1 or g != e['g']:
+                x['id'] = e['id'] + ('.%d' % (i + 1) if len(gs) > 1 else '') + ('.' + et if (len(ets) > 1 or et != e['et']) else '')
+                x['g'] = g; x['et'] = et
+            out.append(x)
+    return out
 
 def derivar(clave, salt):
     return PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=ITER).derive(clave.encode('utf8'))
@@ -52,6 +79,10 @@ def unir(a):
     base = descifrar(key, open(os.path.join(a.web, 'avance.enc'), 'rb').read())
     modelo = descifrar(key, open(os.path.join(a.web, 'modelo.enc'), 'rb').read())
     tab = {t['g']: (n['id'], t) for n in modelo['niveles'] for t in n['tab']}
+    tramos = {}
+    for g, (nv, t) in tab.items():
+        t['seq'] = seq_de(t)
+        if t.get('gb'): tramos.setdefault(t['gb'], []).append(g)
     eventos = {e['id']: e for e in base.get('eventos', [])}
     jornadas = {j['id']: j for j in base.get('jornadas', [])}
     fuentes = base.get('fuentes', [])
@@ -68,7 +99,7 @@ def unir(a):
         nuevos = borrados = ignorados = 0
         for e in d.get('eventos', []):
             e.pop('_base', None)
-            if e.get('g') not in tab or e.get('et') not in ETAPAS:
+            if (e.get('g') not in tab and e.get('g') not in tramos) or e.get('et') not in ETAPAS + ['c1', 'c2']:
                 ignorados += 1; continue
             e['por'] = e.get('por') or por
             ex = eventos.get(e['id'])
@@ -89,7 +120,7 @@ def unir(a):
             vistos.add(firma)
         resumen.append('✓ %s (%s): %d registros nuevos, %d anulados%s' % (os.path.basename(ruta), por, nuevos, borrados, (', %d ignorados (tabique inexistente)' % ignorados) if ignorados else ''))
 
-    vig = [e for e in eventos.values() if not e.get('borrado')]
+    vig = [x for e in eventos.values() if not e.get('borrado') for x in normalizar(e, tab, tramos)]
     # ---- duplicados y diferencias (solo informativo: la app ya cuenta cada tabique y etapa una vez) ----
     por_ge = collections.defaultdict(list)
     for e in vig: por_ge[(e['g'], e['et'])].append(e)
@@ -97,18 +128,24 @@ def unir(a):
     por_gd = collections.defaultdict(lambda: collections.defaultdict(int))
     for e in vig:
         if not e.get('auto'):
-            por_gd[(e['g'], e['dia'])][e.get('por')] = max(por_gd[(e['g'], e['dia'])][e.get('por')], ETAPAS.index(e['et']))
+            por_gd[(e['g'], e['dia'])][e.get('por')] = max(por_gd[(e['g'], e['dia'])][e.get('por')], tab[e['g']][1]['seq'].index(e['et']))
     difs = [(k, v) for k, v in por_gd.items() if len(set(v.values())) > 1]
     # ---- totales ----
     mejor = {}
     for e in vig:
         k = (e['g'], e['et'])
         if k not in mejor or e['f'] > mejor[k]: mejor[k] = e['f']
+    # por familia: cara 1 / cara 2 = promedio de sus placas; denominador = tabiques que tienen esa familia
     tot = collections.defaultdict(float); tot_n = collections.defaultdict(float)
-    tot_modelo = collections.defaultdict(float)
-    for g, (nv, t) in tab.items(): tot_modelo[nv] += t['A']
-    for (g, et), f in mejor.items():
-        nv, t = tab[g]; tot[(nv, et)] += t['A'] * f
+    tot_modelo = collections.defaultdict(float); tot_fam = collections.defaultdict(float)
+    for g, (nv, t) in tab.items():
+        tot_modelo[nv] += t['A']
+        fams = collections.defaultdict(list)
+        for et in t['seq']: fams[FAM[et]].append(et)
+        for fm, ets in fams.items():
+            tot_fam[(nv, fm)] += t['A']
+            f = sum(mejor.get((g, et), 0) for et in ets) / len(ets)
+            tot[(nv, fm)] += t['A'] * f
     personas = sorted({e.get('por') or '—' for e in vig})
     ahora = datetime.datetime.now(datetime.timezone.utc).isoformat()
     salida = {'actualizado': ahora, 'eventos': list(eventos.values()), 'jornadas': list(jornadas.values()), 'personas': personas, 'fuentes': fuentes,
@@ -117,32 +154,32 @@ def unir(a):
 
     # ---- reporte para Renato ----
     def rec(g):
-        nv, t = tab[g]; return '%s · %s · %s' % (nv, t['t'], ' / '.join(t['r'][:2]) or 'sin recinto')
+        nv, t = tab[g]; return '%s · %s%s · %s' % (nv, t['t'], (' tramo %d/%d' % (t['tr'], t['ntr'])) if t.get('tr') else '', ' / '.join(t['r'][:2]) or 'sin recinto')
     L = ['# Consolidación TabiFlow HCQ — %s' % datetime.datetime.now().strftime('%d/%m/%Y %H:%M'), '']
     L += ['## Archivos procesados'] + ['- ' + r for r in resumen] + ['']
-    L += ['## Avance acumulado (m², sin duplicar)', '', '| Nivel | m² modelo | ' + ' | '.join(NOMBRE[e] for e in ETAPAS) + ' |', '|---|---:|' + '---:|' * 4]
+    L += ['## Avance acumulado (m², sin duplicar)', '', '| Nivel | m² modelo | ' + ' | '.join(NOMBRE.get(e, e) if e not in ('pb','fen','est','ais') else NOMBRE[e] for e in FAMS) + ' |', '|---|---:|' + '---:|' * len(FAMS)]
     for n in modelo['niveles']:
         nv = n['id']
-        L.append('| %s | %.0f | ' % (nv, tot_modelo[nv]) + ' | '.join('%.0f (%.1f%%)' % (tot[(nv, e)], 100 * tot[(nv, e)] / tot_modelo[nv] if tot_modelo[nv] else 0) for e in ETAPAS) + ' |')
+        L.append('| %s | %.0f | ' % (nv, tot_modelo[nv]) + ' | '.join(('%.0f (%.1f%%)' % (tot[(nv, e)], 100 * tot[(nv, e)] / tot_fam[(nv, e)])) if tot_fam[(nv, e)] else '·' for e in FAMS) + ' |')
     L += ['', 'Registros vigentes: %d · personas: %s' % (len(vig), ', '.join(personas) or '—'), '']
     L += ['## Tabiques marcados por más de una persona (se cuentan una sola vez): %d' % len(confirmados)]
     for (g, et), v in sorted(confirmados, key=lambda x: x[0])[:60]:
         L.append('- %s — %s: %s' % (rec(g), NOMBRE[et], ', '.join('%s %s %d%%' % (x.get('por'), x['dia'][5:], round(x['f'] * 100)) for x in sorted(v, key=lambda x: x['ts']))))
     L += ['', '## Diferencias a revisar en terreno (mismo tabique y día, distinta etapa): %d' % len(difs)]
     for (g, dia), v in sorted(difs, key=lambda x: x[0][1])[:80]:
-        L.append('- %s · %s — %s' % (dia, rec(g), ', '.join('%s: %s' % (p, NOMBRE[ETAPAS[i]]) for p, i in v.items())))
+        L.append('- %s · %s — %s' % (dia, rec(g), ', '.join('%s: %s' % (p, NOMBRE[tab[g][1]['seq'][i]]) for p, i in v.items())))
     # ---- incoherencias: etapa posterior con más % que una anterior ----
     inc = []
     for g in {e['g'] for e in vig}:
         mx = 0; bad = False
-        for et in reversed(ETAPAS):
+        for et in reversed(tab[g][1]['seq']):
             f = mejor.get((g, et), 0)
             if f + 1e-9 < mx: bad = True
             mx = max(mx, f)
         if bad: inc.append(g)
     L += ['', '## Incoherencias (etapa posterior con más %% que una anterior): %d' % len(inc)]
     for g in inc[:80]:
-        L.append('- %s — %s' % (rec(g), ' · '.join('%s %d%%' % (NOMBRE[e], round(mejor.get((g, e), 0) * 100)) for e in ETAPAS)))
+        L.append('- %s — %s' % (rec(g), ' · '.join('%s %d%%' % (NOMBRE[e], round(mejor.get((g, e), 0) * 100)) for e in tab[g][1]['seq'])))
     dot = base.get('dotacion', {})
     if dot:
         L += ['', '## Dotación registrada (últimos 14 días)'] + ['- %s: %s tabiqueros' % (k, dot[k].get('n')) for k in sorted(dot)[-14:]]
