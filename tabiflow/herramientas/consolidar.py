@@ -111,7 +111,8 @@ def unir(a):
         nv, t = tab[g]; tot[(nv, et)] += t['A'] * f
     personas = sorted({e.get('por') or '—' for e in vig})
     ahora = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    salida = {'actualizado': ahora, 'eventos': list(eventos.values()), 'jornadas': list(jornadas.values()), 'personas': personas, 'fuentes': fuentes}
+    salida = {'actualizado': ahora, 'eventos': list(eventos.values()), 'jornadas': list(jornadas.values()), 'personas': personas, 'fuentes': fuentes,
+              'dotacion': base.get('dotacion', {}), 'config': base.get('config', {})}
     open(os.path.join(a.web, 'avance.enc'), 'wb').write(cifrar(key, salida))
 
     # ---- reporte para Renato ----
@@ -130,6 +131,21 @@ def unir(a):
     L += ['', '## Diferencias a revisar en terreno (mismo tabique y día, distinta etapa): %d' % len(difs)]
     for (g, dia), v in sorted(difs, key=lambda x: x[0][1])[:80]:
         L.append('- %s · %s — %s' % (dia, rec(g), ', '.join('%s: %s' % (p, NOMBRE[ETAPAS[i]]) for p, i in v.items())))
+    # ---- incoherencias: etapa posterior con más % que una anterior ----
+    inc = []
+    for g in {e['g'] for e in vig}:
+        mx = 0; bad = False
+        for et in reversed(ETAPAS):
+            f = mejor.get((g, et), 0)
+            if f + 1e-9 < mx: bad = True
+            mx = max(mx, f)
+        if bad: inc.append(g)
+    L += ['', '## Incoherencias (etapa posterior con más %% que una anterior): %d' % len(inc)]
+    for g in inc[:80]:
+        L.append('- %s — %s' % (rec(g), ' · '.join('%s %d%%' % (NOMBRE[e], round(mejor.get((g, e), 0) * 100)) for e in ETAPAS)))
+    dot = base.get('dotacion', {})
+    if dot:
+        L += ['', '## Dotación registrada (últimos 14 días)'] + ['- %s: %s tabiqueros' % (k, dot[k].get('n')) for k in sorted(dot)[-14:]]
     rep = '\n'.join(L)
     if a.reporte:
         open(a.reporte, 'w', encoding='utf8').write(rep)

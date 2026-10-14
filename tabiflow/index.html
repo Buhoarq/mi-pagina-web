@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiFlow v1.1 · Hospital de Coquimbo</title>
+<title>TabiFlow v1.2 · Hospital de Coquimbo</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Crect x='1.5' y='1.5' width='41' height='41' rx='11' fill='%234F46E5'/%3E%3Cpath d='M8 12.5H36M22 12.5V33M8 33H22' stroke='%23fff' stroke-width='5' stroke-linecap='square'/%3E%3Cpath d='M8 12.5H15' stroke='%23DC2626' stroke-width='5'/%3E%3Cpath d='M15 12.5H22' stroke='%2316A34A' stroke-width='5'/%3E%3Cpath d='M22 15V23' stroke='%238B5A2B' stroke-width='5'/%3E%3Cpath d='M22 23V33' stroke='%232563EB' stroke-width='5'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -429,6 +429,10 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
 .acceso-caja h2{font-size:26px;margin:6px 0 2px}
 .acceso-logo{width:64px;height:64px;filter:drop-shadow(0 4px 12px rgba(79,70,229,.45))}
 .acceso-logo svg{width:100%;height:100%}
+.slider-etapa{display:flex;align-items:center;gap:10px;padding:0 0 10px 30px;border-bottom:1px solid var(--linea)}
+.slider-etapa input{flex:1;accent-color:var(--c);height:28px}
+.slider-etapa .sl-val{min-width:44px;text-align:right;font-weight:800;color:var(--texto);font-variant-numeric:tabular-nums}
+.etapa-fila{border-bottom:none!important}
 </style>
 </head>
 <body>
@@ -450,7 +454,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
       </svg>
     </div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v1.1</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v1.2</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -466,7 +470,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiFlow v1.1 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiFlow v1.2 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
@@ -597,7 +601,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v1.1</span> · Desarrollado por <b>Renato Martínez Palominos</b> · Avance de tabiques desde modelo BIM · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v1.2</span> · Desarrollado por <b>Renato Martínez Palominos</b> · Avance de tabiques desde modelo BIM · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1028,7 +1032,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v1.1',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v1.2',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 const ETAPAS=[
   {id:'est',nombre:'Estructura metalcon',corto:'Estructura',color:'#DC2626',forma:'cuadrado',sigla:'E'},
   {id:'c1', nombre:'1ª cara volcanita', corto:'1ª cara',  color:'#16A34A',forma:'cuadrado',sigla:'1'},
@@ -1125,9 +1129,26 @@ function bboxAnillos(rs){let b=[1e12,1e12,-1e12,-1e12];rs.forEach(r=>{const q=bb
 function agregarAnillo(path,r){if(r.length<6)return;path.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)path.lineTo(r[i],r[i+1]);path.closePath();}
 /* Prepara un nivel para dibujar: Path2D por elemento e índice espacial. Se hace una sola vez. */
 const CELDA=600;
+/* Eje longitudinal del tabique (componente principal de sus vértices). La normal se orienta
+   siempre hacia abajo (muros horizontales) o hacia la derecha (verticales), para que las
+   franjas tengan el mismo orden en toda la planta: estructura arriba/izquierda … 2ª cara abajo/derecha. */
+function ejeTabique(t){const r=[].concat(...t.p);const n=r.length/2;let mx=0,my=0;for(let i=0;i<r.length;i+=2){mx+=r[i];my+=r[i+1];}mx/=n;my/=n;
+  let sxx=0,syy=0,sxy=0;for(let i=0;i<r.length;i+=2){const dx=r[i]-mx,dy=r[i+1]-my;sxx+=dx*dx;syy+=dy*dy;sxy+=dx*dy;}
+  const ang=0.5*Math.atan2(2*sxy,sxx-syy);let ux=Math.cos(ang),uy=Math.sin(ang);
+  let a=Infinity,b=-Infinity,c=Infinity,d=-Infinity;for(let i=0;i<r.length;i+=2){const dx=r[i]-mx,dy=r[i+1]-my;const p=dx*ux+dy*uy,q=-dx*uy+dy*ux;a=Math.min(a,p);b=Math.max(b,p);c=Math.min(c,q);d=Math.max(d,q);}
+  const cxp=mx+ux*(a+b)/2+(-uy)*(c+d)/2,cyp=my+uy*(a+b)/2+ux*(c+d)/2;
+  if(Math.abs(ux)>=Math.abs(uy)){if(ux<0){ux=-ux;uy=-uy;}}else{if(uy<0){ux=-ux;uy=-uy;}}
+  let vx=-uy,vy=ux;if(Math.abs(ux)>=Math.abs(uy)){if(vy<0){vx=-vx;vy=-vy;}}else{if(vx<0){vx=-vx;vy=-vy;}}
+  const L=b-a;return{x0:cxp-ux*L/2,y0:cyp-uy*L/2,ux,uy,vx,vy,L,e:d-c};}
+/* Dibuja las 4 franjas (una por etapa) a lo largo del eje; cada una se llena según su %. */
+function franjasCanvas(ctx,t,s,px){const a=t.ax;if(!a||a.L<=0)return;const w=3.2*px;
+  ctx.lineCap='butt';ctx.strokeStyle='#FFFFFF';ctx.lineWidth=4*w+2*px;ctx.beginPath();ctx.moveTo(a.x0,a.y0);ctx.lineTo(a.x0+a.ux*a.L,a.y0+a.uy*a.L);ctx.stroke();
+  ETAPAS.forEach((e,i)=>{const k=(i-1.5)*w,ox=a.vx*k,oy=a.vy*k,f=s[e.id]?s[e.id].f:0;
+    ctx.lineWidth=w*0.86;ctx.strokeStyle='#E2E8F0';ctx.beginPath();ctx.moveTo(a.x0+ox,a.y0+oy);ctx.lineTo(a.x0+ox+a.ux*a.L,a.y0+oy+a.uy*a.L);ctx.stroke();
+    if(f>0){ctx.strokeStyle=e.color;ctx.beginPath();ctx.moveTo(a.x0+ox,a.y0+oy);ctx.lineTo(a.x0+ox+a.ux*a.L*f,a.y0+oy+a.uy*a.L*f);ctx.stroke();}});}
 function prepNivel(n){
   if(n._prep)return;n._prep=true;
-  n.tab.forEach(t=>{t.bb=bboxAnillos(t.p);t.path=new Path2D();t.p.forEach(r=>agregarAnillo(t.path,r));t.cx=(t.bb[0]+t.bb[2])/2;t.cy=(t.bb[1]+t.bb[3])/2;});
+  n.tab.forEach(t=>{t.bb=bboxAnillos(t.p);t.path=new Path2D();t.p.forEach(r=>agregarAnillo(t.path,r));t.cx=(t.bb[0]+t.bb[2])/2;t.cy=(t.bb[1]+t.bb[3])/2;t.ax=ejeTabique(t);});
   n.rec.forEach(r=>{r.bb=bboxPlano(r.p);r.path=new Path2D();agregarAnillo(r.path,r.p);r.area=(r.bb[2]-r.bb[0])*(r.bb[3]-r.bb[1]);});
   n.pPue=new Path2D();n.pue.forEach(r=>agregarAnillo(n.pPue,r));
   n.pEst=new Path2D();n.col.concat(n.mur).forEach(r=>agregarAnillo(n.pEst,r));
@@ -1136,7 +1157,7 @@ function prepNivel(n){
 }
 
 /* ---------------- estado ---------------- */
-const estado={persona:'',dispositivo:'',local:[],base:{eventos:[],jornadas:[],actualizado:null,personas:[]},eventos:[],jornadas:[],diaActivo:hoyDia(),cuadrilla:'',etapa:'est',modo:'ver',vista:'etapa',previas:true,
+const estado={franjas:true,persona:'',dispositivo:'',local:[],base:{eventos:[],jornadas:[],actualizado:null,personas:[]},eventos:[],jornadas:[],diaActivo:hoyDia(),cuadrilla:'',etapa:'est',modo:'ver',vista:'etapa',previas:true,
   nivel:null,sel:null,portada:{},oscuro:false,contraste:false,infDesde:null,infHasta:null,pilaDeshacer:[]};
 let EV_POR_G=new Map();   // GlobalId -> eventos vigentes
 let ESTADO_G=new Map();   // GlobalId -> {est:{f,dia},...}
@@ -1167,6 +1188,9 @@ function reindexar(){EV_POR_G=new Map();ESTADO_G=new Map();
   EV_POR_G.forEach((_,g)=>recalcularG(g));}
 function agregarEventoIndice(e){if(!EV_POR_G.has(e.g))EV_POR_G.set(e.g,[]);EV_POR_G.get(e.g).push(e);recalcularG(e.g);}
 function fracEt(g,et){const s=ESTADO_G.get(g);return s&&s[et]?s[et].f:0;}
+/* Incoherente: una etapa posterior con más avance que una anterior (p. ej. 1ª cara 100 % y estructura 50 %) */
+function incoherente(g){const s=ESTADO_G.get(g);if(!s)return false;let mx=0;
+  for(let i=ETAPAS.length-1;i>=0;i--){const f=s[ETAPAS[i].id]?s[ETAPAS[i].id].f:0;if(f+1e-9<mx)return true;mx=Math.max(mx,f);}return false;}
 function etapaAlcanzada(g){const s=ESTADO_G.get(g);if(!s)return null;for(let i=ETAPAS.length-1;i>=0;i--){const o=s[ETAPAS[i].id];if(o&&o.f>0)return{e:ETAPAS[i],f:o.f,dia:o.dia};}return null;}
 /* Estado de un tabique a una fecha de corte (para el informe) */
 function estadoAlCorte(g,corte){const s={};(EV_POR_G.get(g)||[]).forEach(e=>{if(e.borrado||e.dia>corte)return;const o=s[e.et];if(!o||e.f>o.f)s[e.et]={f:e.f,dia:e.dia};});return s;}
@@ -1217,6 +1241,7 @@ function colorTabique(t){
   if(v==='etapa'){const a=etapaAlcanzada(t.g);return a?{c:a.e.color,a:a.f<1?.5:1}:{c:COLOR_SIN,a:1};}
   if(v==='hoy'){const evs=(EV_POR_G.get(t.g)||[]).filter(e=>!e.borrado&&e.dia===estado.diaActivo);
     if(!evs.length)return{c:'#CBD5E1',a:1};let mx=evs[0];evs.forEach(e=>{if(ordenEt(e.et)>ordenEt(mx.et))mx=e;});return{c:ET[mx.et].color,a:1};}
+  if(v==='incoh'){return incoherente(t.g)?{c:'#F59E0B',a:1}:{c:'#CBD5E1',a:1};}
   if(v.startsWith('falta:')){const et=v.slice(6);const f=fracEt(t.g,et);if(f>=1)return{c:'#CBD5E1',a:1};
     const idx=ordenEt(et),prev=idx>0?fracEt(t.g,ETAPAS[idx-1].id):1;return{c:ET[et].color,a:prev>=1?1:.35};}
   return{c:COLOR_SIN,a:1};
@@ -1248,6 +1273,13 @@ function render(){
   n.tab.forEach(t=>{if(!visible(t.bb))return;const k=colorTabique(t);const pint=k.c!==COLOR_SIN&&k.c!=='#CBD5E1';
     ctx.globalAlpha=k.a;ctx.fillStyle=k.c;ctx.strokeStyle=k.c;ctx.lineWidth=pint?minPint:minW;ctx.fill(t.path,'evenodd');ctx.stroke(t.path);});
   ctx.globalAlpha=1;
+  /* franjas por etapa: solo con zoom suficiente (1 m ≥ 22 px) y para tabiques con algún avance */
+  const conFranjas=estado.franjas&&estado.vista==='etapa'&&V.s*100>=22;
+  if(conFranjas)n.tab.forEach(t=>{if(!visible(t.bb))return;const s=ESTADO_G.get(t.g);if(s&&t.L*100*V.s>=18)franjasCanvas(ctx,t,s,px);});
+  /* incoherencias: contorno ámbar discontinuo */
+  if(estado.vista==='etapa'||estado.vista==='incoh'){ctx.save();ctx.setLineDash([5*px,3*px]);ctx.strokeStyle='#F59E0B';ctx.lineWidth=2.4*px;
+    n.tab.forEach(t=>{if(visible(t.bb)&&incoherente(t.g))ctx.stroke(t.path);});ctx.restore();}
+  estado._franjasVisibles=conFranjas;
   if(estado.sel&&TAB[estado.sel]&&TAB[estado.sel].nv===n.id){const t=TAB[estado.sel];ctx.strokeStyle='#F59E0B';ctx.lineWidth=4*px;ctx.stroke(t.path);}
   /* textos en coordenadas de pantalla */
   ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -1267,7 +1299,7 @@ function render(){
 function actualizarEtiquetaFlot(){const n=estado.nivel;if(!n)return;
   const esc=V.s>0?Math.round(1/(V.s*(96/2.54))*100)/1:0;   // aprox. escala en pantalla
   const tol=16/V.s;
-  $('#etqFlot').innerHTML='<b>'+escapar(etiquetaNivel(n))+'</b> · 1 m = '+Math.max(1,Math.round(V.s*100))+' px'+(estado.modo==='pincel'&&tol>160?' · <span style="color:var(--ambar-osc)">acerca para marcar</span>':'');}
+  $('#etqFlot').innerHTML='<b>'+escapar(etiquetaNivel(n))+'</b> · 1 m = '+Math.max(1,Math.round(V.s*100))+' px'+(estado._franjasVisibles?'<br><span style="font-weight:600">Franjas: '+ETAPAS.map(e=>'<span style="color:'+e.color+'">■</span>'+e.sigla).join(' ')+' (arriba→abajo / izq→der)</span>':'')+(estado.modo==='pincel'&&tol>160?' · <span style="color:var(--ambar-osc)">acerca para marcar</span>':'');}
 function zoomEn(f,px,py){const w=wrap().getBoundingClientRect();px=px==null?w.width/2:px;py=py==null?w.height/2:py;
   const s2=Math.max(0.004,Math.min(4,V.s*f));const k=s2/V.s;V.tx=px-(px-V.tx)*k;V.ty=py-(py-V.ty)*k;V.s=s2;gestoMovio();}
 
@@ -1359,7 +1391,7 @@ function aplicarEtapa(t,et,f,lote,silencio){
   const idx=ordenEt(et);const etapas=estado.previas?ETAPAS.slice(0,idx+1).map(e=>e.id):[et];
   const ahora=new Date().toISOString();
   etapas.forEach(id=>{
-    const actual=fracEt(t.g,id);const objetivo=id===et?f:1;
+    const actual=fracEt(t.g,id);const objetivo=f;   /* coherencia: cada etapa anterior queda al menos con el mismo % que la marcada (nunca se baja) */
     if(actual>=objetivo)return;
     const e={id:uid(),g:t.g,nv:t.nv,et:id,f:objetivo,dia:estado.diaActivo,ts:ahora,cuad:estado.cuadrilla||'',auto:id!==et,por:estado.persona,disp:estado.dispositivo};
     estado.eventos.push(e);estado.local.push(e);agregarEventoIndice(e);lote.push(e);
@@ -1400,26 +1432,31 @@ function abrirTabique(g){
     '<label class="etiqueta">Etapas · jornada activa '+diaCorta(estado.diaActivo)+(cer?' 🔒':'')+'</label>';
   ETAPAS.forEach(e=>{const o=s[e.id];const f=o?o.f:0;
     h+='<div class="etapa-fila">'+icono(e,true)+'<div class="info"><b>'+e.nombre+'</b>'+(o?(Math.round(f*100)+'% · '+diaLarga(o.dia)+(o.ev&&o.ev.por?' · '+escapar(o.ev.por):'')+(o.ev&&o.ev.cuad?' · '+escapar(o.ev.cuad):'')):'Pendiente')+'</div><div class="acc">';
-    if(!cer){[.25,.5,.75,1].forEach(v=>{h+='<button class="frac-btn'+(f>=v-1e-9&&f<v+1e-9?' on':'')+'" style="--c:'+e.color+'" data-tf="fr" data-et="'+e.id+'" data-f="'+v+'">'+(v*100)+'%</button>';});
+    if(!cer){h+='<button class="frac-btn'+(f>=1?' on':'')+'" style="--c:'+e.color+'" data-tf="fr" data-et="'+e.id+'" data-f="1">100%</button>';
       if(o&&o.dia===estado.diaActivo&&esMio(o.ev))h+='<button class="frac-btn quitar" data-tf="quitar" data-et="'+e.id+'">✕</button>';}
-    h+='</div></div>';});
-  h+='<p class="nota" style="margin:8px 0">Los % sirven para tabiques largos ejecutados en partes. Para registrar rápido varios tabiques usa <b>🖌 Pincel</b>.</p>';
+    h+='</div></div>';
+    if(!cer)h+='<div class="slider-etapa" style="--c:'+e.color+'"><input type="range" min="0" max="100" step="10" value="'+Math.round(f*100)+'" data-sl="'+e.id+'" aria-label="% '+e.corto+'"><span class="sl-val" id="slv_'+e.id+'">'+Math.round(f*100)+'%</span></div>';});
+  if(incoherente(g))h+='<div class="info-sello" style="margin-top:8px">⚠ <b>Incoherente:</b> una etapa posterior tiene más avance que una anterior. Revísalo en terreno y corrige el % que corresponda.</div>';
+  h+='<p class="nota" style="margin:8px 0">Desliza para fijar el % de cada etapa (de 10 en 10). Con "Completar etapas previas" activo, las etapas anteriores quedan al menos con el mismo %. Para marcar rápido varios tabiques usa <b>🖌 Pincel</b>.</p>';
   if(hist.length)h+='<label class="etiqueta">Historial</label><ul class="log">'+hist.map(e=>'<li>'+diaLarga(e.dia)+' '+fmtHora(e.ts)+' — '+ET[e.et].corto+' '+Math.round(e.f*100)+'%'+(e.por?' · <b>'+escapar(e.por)+'</b>':'')+(e.cuad?' · '+escapar(e.cuad):'')+(e.auto?' (automática)':'')+(e._base?'':' · <i>sin enviar</i>')+'</li>').join('')+'</ul><br>';
   h+='<p class="nota" style="word-break:break-all">ID Revit <b>'+escapar(t.id)+'</b> · GUID IFC '+escapar(t.g)+'</p>';
   abrirHoja(h);
   alCerrarHoja=()=>{estado.sel=null;pedirRender();};
 }
-async function accionFicha(e){
-  const b=e.target.closest('[data-tf]');if(!b)return;const t=TAB[estado.sel];if(!t)return;
-  if(b.dataset.tf==='fr'){const et=b.dataset.et,f=parseFloat(b.dataset.f);
-    const actual=fracEt(t.g,et);
+async function fijarFraccion(t,et,f){
+    if(f<=0){await quitarEtapa(t,et);abrirTabique(t.g);return;}
+    const actual=fracEt(t.g,et);if(Math.abs(actual-f)<1e-9)return;
     if(actual>f){ /* bajar el %: se anulan los registros de hoy de esa etapa y se registra el nuevo valor */
       const hoyEv=(EV_POR_G.get(t.g)||[]).filter(x=>!x.borrado&&x.et===et&&x.dia===estado.diaActivo&&esMio(x));
       const otros=(EV_POR_G.get(t.g)||[]).filter(x=>!x.borrado&&x.et===et&&!(x.dia===estado.diaActivo&&esMio(x)));
       if(otros.some(x=>x.f>f)){toast('Otro registro (de otro día o de otra persona) ya tiene más avance; no se puede bajar desde aquí','error');return;}
       await marcarBorrados(hoyEv);}
-    const lote=[];const prev=estado.previas;aplicarEtapa(t,et,f,lote,false);estado.previas=prev;if(lote.length)await guardarLote(lote);
+    const lote=[];aplicarEtapa(t,et,f,lote,false);if(lote.length)await guardarLote(lote);
+    if(incoherente(t.g))toast('⚠ Quedó incoherente: una etapa posterior tiene más avance que esta','error');
     abrirTabique(t.g);pedirRender();}
+async function accionFicha(e){
+  const b=e.target.closest('[data-tf]');if(!b)return;const t=TAB[estado.sel];if(!t)return;
+  if(b.dataset.tf==='fr')await fijarFraccion(t,b.dataset.et,parseFloat(b.dataset.f));
   if(b.dataset.tf==='quitar'){await quitarEtapa(t,b.dataset.et);abrirTabique(t.g);}
 }
 
@@ -1454,10 +1491,12 @@ function setModo(m){estado.modo=m;$('#segVer').classList.toggle('activo',m==='ve
   setTimeout(()=>{if(dimensionarLienzo())render();},60);}
 function aplicarEnfoque(on){document.body.classList.toggle('enfoque',!!on);$('#btnEnfoque').textContent=on?'⤡':'⤢';}
 function abrirVistaSel(){
-  const ops=[['etapa','🎨 Etapa alcanzada (color de la etapa más avanzada)'],['hoy','📅 Solo lo registrado en la jornada activa']].concat(ETAPAS.map(e=>['falta:'+e.id,'⏳ Falta '+e.corto.toLowerCase()+' (pendientes en color)']));
+  const ops=[['etapa','🎨 Etapa alcanzada (color de la etapa más avanzada)'],['hoy','📅 Solo lo registrado en la jornada activa']].concat(ETAPAS.map(e=>['falta:'+e.id,'⏳ Falta '+e.corto.toLowerCase()+' (pendientes en color)'])).concat([['incoh','⚠ Incoherencias (etapa posterior mayor que la anterior)']]);
   abrirHoja('<div class="hoja-titulo">🎨 Qué mostrar en la planta</div><div class="hoja-sub">En "Falta…", los tabiques con color intenso ya tienen lista la etapa anterior: son el frente disponible para esa cuadrilla.</div>'+
-    ops.map(o=>'<button class="menu-item" data-vista="'+o[0]+'">'+(estado.vista===o[0]?'✅ ':'')+o[1]+'</button>').join(''));}
-function etiquetaVista(){const v=estado.vista;if(v==='etapa')return'🎨 Etapa alcanzada';if(v==='hoy')return'📅 Jornada';return'⏳ Falta '+ET[v.slice(6)].corto.toLowerCase();}
+    ops.map(o=>'<button class="menu-item" data-vista="'+o[0]+'">'+(estado.vista===o[0]?'✅ ':'')+o[1]+'</button>').join('')+
+    '<label class="opcion" style="margin-top:8px"><input type="checkbox" id="chkFranjas"'+(estado.franjas?' checked':'')+'> Al acercar, mostrar las 4 franjas de avance de cada tabique</label>');
+  $('#chkFranjas').addEventListener('change',e=>{estado.franjas=e.target.checked;metaSet('franjas',estado.franjas);pedirRender();});}
+function etiquetaVista(){const v=estado.vista;if(v==='etapa')return'🎨 Etapa alcanzada';if(v==='hoy')return'📅 Jornada';if(v==='incoh')return'⚠ Incoherencias';return'⏳ Falta '+ET[v.slice(6)].corto.toLowerCase();}
 function abrirBuscar(){const n=estado.nivel;if(!n)return;
   abrirHoja('<div class="hoja-titulo">🔍 Buscar recinto en '+escapar(etiquetaNivel(n))+'</div><input id="inBuscar" class="campo" placeholder="Ej: box, baño, 3.14, pasillo" autocomplete="off"><div class="lista-busca" id="resBuscar"></div>');
   const lista=n.rec.filter(r=>r.ln||r.n);
@@ -1662,6 +1701,17 @@ function planoPDF(doc,o){
     doc.setFillColor(c[0],c[1],c[2]);doc.setDrawColor(c[0],c[1],c[2]);doc.setLineWidth(minLw);
     t.p.forEach(r=>polyPDF(doc,r,X,Y,k,'FD'));
     t._top=top;});
+  /* franjas por etapa en los sectores ampliados (lectura 100 / 80 / 60 / 0 por tabique) */
+  if(!general){const w=.42;n.tab.forEach(t=>{if(!corta(t.bb)||!t.ax)return;const s=estadoAlCorte(t.g,corte);if(!Object.keys(s).length)return;const a=t.ax;
+      if(a.L*k<4)return;const P=(d,o)=>[X(a.x0+a.ux*d+a.vx*o),Y(a.y0+a.uy*d+a.vy*o)];
+      doc.setLineCap('butt');doc.setDrawColor(255,255,255);doc.setLineWidth(4*w+.3);let p0=P(0,0),p1=P(a.L,0);doc.line(p0[0],p0[1],p1[0],p1[1]);
+      ETAPAS.forEach((e,i)=>{const o=(i-1.5)*w/k,f=s[e.id]?s[e.id].f:0;const q0=P(0,o),q1=P(a.L,o),qf=P(a.L*f,o);
+        doc.setLineWidth(w*.86);doc.setDrawColor(226,232,240);doc.line(q0[0],q0[1],q1[0],q1[1]);
+        if(f>0){const c=hexRgb(e.color);doc.setDrawColor(c[0],c[1],c[2]);doc.line(q0[0],q0[1],qf[0],qf[1]);}});});}
+  /* incoherencias al corte */
+  doc.setDrawColor(245,158,11);doc.setLineWidth(general?.3:.45);doc.setLineDashPattern([1.2,.8],0);
+  n.tab.forEach(t=>{if(!corta(t.bb))return;const s=estadoAlCorte(t.g,corte);let mx=0,inc=false;for(let i=ETAPAS.length-1;i>=0;i--){const f=s[ETAPAS[i].id]?s[ETAPAS[i].id].f:0;if(f+1e-9<mx)inc=true;mx=Math.max(mx,f);}if(inc)t.p.forEach(r=>polyPDF(doc,r,X,Y,k,'S'));});
+  doc.setLineDashPattern([],0);
   /* letra de etapa */
   if(opc.siglas&&!general){doc.setFont('helvetica','bold');doc.setFontSize(4.2);doc.setTextColor(255,255,255);
     n.tab.forEach(t=>{if(!t._top||!corta(t.bb))return;const lpx=t.L*100*k;if(lpx<3)return;doc.text(t._top.e.sigla,X(t.cx),Y(t.cy)+1.4,{align:'center'});});}
@@ -1744,7 +1794,7 @@ async function generarInforme(){
         /* mapa de ubicación */
         const kw=18,kh=Math.min(9,kw*(bb[3]-bb[1])/(bb[2]-bb[0])),kx=W-10-kw,ky=bottom+0.4;
         doc.setFillColor(255,255,255);doc.setDrawColor(100,116,139);doc.setLineWidth(.3);doc.rect(kx,ky,kw,kh,'FD');doc.setFillColor(...PT.amb);doc.rect(kx+kw*s.cc/nc,ky+kh*s.r/nr,kw/nc,kh/nr,'F');
-        leyendaPlano(doc,W,bottom+6,'Contorno negro = avance del periodo   ·   Escala aprox. 1:'+g.escala);}
+        leyendaPlano(doc,W,bottom+6,'Contorno negro = avance del periodo · Franjas: E/1/A/2 arriba→abajo o izq→der, llenas según % · Ámbar discontinuo = incoherente · Escala 1:'+g.escala);}
     }
     const np=doc.internal.getNumberOfPages();
     for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(120,130,150);
@@ -1845,6 +1895,8 @@ function bindEventos(){
   $('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');$('#btnIrInforme').onclick=()=>cambiarVista('informe');
   $('#btnMenu').onclick=abrirMenu;$('#chipJornada').onclick=()=>abrirJornada(estado.diaActivo);$('#btnReiniciarTodo').onclick=borrarAvance;
   $('#hojaContenido').addEventListener('click',e=>{manejarAccion(e);accionFicha(e);});
+  $('#hojaContenido').addEventListener('input',e=>{const sl=e.target.closest('[data-sl]');if(sl){const v=$('#slv_'+sl.dataset.sl);if(v)v.textContent=sl.value+'%';}});
+  $('#hojaContenido').addEventListener('change',e=>{const sl=e.target.closest('[data-sl]');if(!sl)return;const t=TAB[estado.sel];if(t)fijarFraccion(t,sl.dataset.sl,parseInt(sl.value,10)/100);});
   $('#inputRespaldo').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(f)importarRespaldo(f);});
   $('#btnVolverPlano').onclick=()=>cambiarVista('inicio');
   $('#btnNivelAntes').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i>0)abrirNivel(NIVELES[i-1].id);};
@@ -1910,7 +1962,7 @@ async function iniciar(){
   try{estado.local=(await getAll('eventos')).filter(e=>TAB[e.g]);estado.local.forEach(e=>{if(!e.por)e.por=estado.persona;});estado.jornadas=await getAll('jornadas');
     estado.base=(await metaGet('base'))||estado.base;
     estado.cuadrilla=(await metaGet('cuadrilla'))||'';estado.etapa=(await metaGet('etapa'))||'est';const pv=await metaGet('previas');estado.previas=pv!==false;$('#chkPrevias').checked=estado.previas;
-    estado.portada=(await metaGet('portada'))||{};estado.oscuro=!!(await metaGet('oscuro'));
+    estado.portada=(await metaGet('portada'))||{};estado.oscuro=!!(await metaGet('oscuro'));estado.franjas=(await metaGet('franjas'))!==false;
     const d=await metaGet('diaActivo');estado.diaActivo=(d&&d===hoyDia())?d:hoyDia();}catch(e){console.error(e);}
   document.documentElement.classList.toggle('oscuro',estado.oscuro);
   CAMPOS_PORT.forEach(([id,k])=>{$('#'+id).value=estado.portada[k]||'';});
