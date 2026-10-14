@@ -429,7 +429,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M510 806H662V1112Q586 1102 510 1062Z"/><path d="M724 673H877V1103Q800 1117 724 1116Z"/><path d="M940 551H1092V1010Q1025 1060 940 1087Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2" style="margin-left:-7px">Flow</span><span class="ver">Panel v2.1</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2" style="margin-left:-7px">Flow</span><span class="ver">Panel v2.2</span></span>
       <span class="brand-sub" id="subPanel">Hospital de Coquimbo · Administración y coordinación</span>
     </div>
   </div>
@@ -523,7 +523,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
     <div class="rejilla">
       <div class="tarjeta">
         <h3>⚖️ Ponderación del avance físico</h3>
-        <p class="nota" style="margin-bottom:10px">Peso de cada etapa en el "avance ponderado" y en los m² equivalentes del rendimiento. Deben sumar 100 %. Se publica junto con el avance.</p>
+        <p class="nota" style="margin-bottom:10px">Peso de cada etapa en el "avance ponderado" y en los m² equivalentes del rendimiento. Deben sumar 100 %. En los tabiques <b>sin plomo</b>, el peso del plomo se suma a la estructura (ej.: metalcon 40 % + 10 % = 50 %). Se publica junto con el avance.</p>
         <div id="pesos"></div>
         <button class="btn secundario" id="btnPesos" style="width:auto;margin-top:8px">Guardar ponderación</button>
       </div>
@@ -536,7 +536,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
       </div>
     </div>
   </section>
-  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v2.1 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
+  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v2.2 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
 </div>
 
 <div id="acceso" class="visible">
@@ -583,7 +583,9 @@ let ETAPAS=[
   {id:'c2', nombre:'Placas cara 2 (tapado)',corto:'Cara 2',color:'#2563EB',forma:'circulo'},
   {id:'fen',nombre:'Separador fenólico',corto:'Fenólico',color:'#0D9488',forma:'cuadrado'}];
 const ET=Object.fromEntries(ETAPAS.map(e=>[e.id,e]));
-const PESOS_DEF={est:.2,c1:.2,pb:.2,ais:.2,c2:.2,fen:1};
+const PESOS_DEF={est:.4,c1:.2,pb:.1,ais:.1,c2:.2,fen:1};
+/* peso de cada familia en UN tabique: si no lleva plomo, el peso del plomo pasa a la estructura (metalcon 40+10 = 50 %) */
+const pesosTab=(t,p)=>{const w={};const fs=famsDe(t);fs.forEach(f=>w[f]=p[f]||0);if(!t.pb&&fs.includes('est'))w.est+=(p.pb||0);const s=fs.reduce((a,f)=>a+w[f],0)||1;fs.forEach(f=>w[f]/=s);return w;};
 function seqDe(t){if(!t.np)return['fen'];const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
 const famsDe=t=>[...new Set(t.seq.map(x=>ST[x].fam))];
 const nEnFam=(t,f)=>t.seq.filter(x=>ST[x].fam===f).length||1;
@@ -652,8 +654,8 @@ function creditos(){const g=new Map();vigentes().forEach(e=>{const k=e.g+'|'+e.e
   /* cada crédito se expresa en su familia (una placa de 2 aporta la mitad de la cara) y en m² equivalentes:
      el tabique completo vale su superficie, repartida entre sus familias según la ponderación */
   const p=pesos();const out=[];g.forEach(l=>{l.sort((a,b)=>a.dia.localeCompare(b.dia)||(a.ts||'').localeCompare(b.ts||''));let mx=0;l.forEach(e=>{if(e.f>mx+1e-9){
-    const t=TAB[e.g],fam=ST[e.et].fam,A=t.A*(e.f-mx)/nEnFam(t,fam),sw=famsDe(t).reduce((s,f)=>s+(p[f]||0),0)||1;
-    out.push({e:Object.assign({},e,{et:fam,etapa:e.et}),inc:e.f-mx,A,Q:A*(p[fam]||0)/sw});mx=e.f;}});});return out;}
+    const t=TAB[e.g],fam=ST[e.et].fam,A=t.A*(e.f-mx)/nEnFam(t,fam);
+    out.push({e:Object.assign({},e,{et:fam,etapa:e.et}),inc:e.f-mx,A,Q:A*pesosTab(t,p)[fam]});mx=e.f;}});});return out;}
 const eq=o=>o.eq||0;
 function vacioEt(){return{est:0,c1:0,pb:0,ais:0,c2:0,fen:0,eq:0};}
 
@@ -804,7 +806,7 @@ function renderPisos(){
   if(!AV)return;if(!nivelSel)nivelSel=NIVELES[1].id;
   $('#selNivel').innerHTML=NIVELES.map(n=>'<button class="'+(n.id===nivelSel?'activo':'')+'" data-nv="'+n.id+'">'+n.id+'</button>').join('');
   const n=NIVELES.find(x=>x.id===nivelSel);const{best}=revisiones();const p=pesos();
-  const a=vacioEt();const p2=pesos();n.tab.forEach(t=>{const fs=famsDe(t),sw=fs.reduce((s,f)=>s+(p2[f]||0),0)||1;fs.forEach(f=>{const st=t.seq.filter(x=>ST[x].fam===f);const fr=st.reduce((s,x)=>s+(best.get(t.g+'|'+x)||0),0)/st.length;a[f]+=t.A*fr;a.eq+=t.A*fr*(p2[f]||0)/sw;});});
+  const a=vacioEt();const p2=pesos();n.tab.forEach(t=>{const fs=famsDe(t),w=pesosTab(t,p2);fs.forEach(f=>{const st=t.seq.filter(x=>ST[x].fam===f);const fr=st.reduce((s,x)=>s+(best.get(t.g+'|'+x)||0),0)/st.length;a[f]+=t.A*fr;a.eq+=t.A*fr*w[f];});});
   const k=(t,v,s,col)=>'<div class="kpi" style="--c:'+col+'"><span>'+t+'</span><b>'+v+'</b><small>'+s+'</small></div>';
   $('#kpisNivel').innerHTML=k(n.id+' · ponderado',fmt1(pct(eq(a),n.totA))+'%',fmt0(n.tab.length)+' tabiques · '+fmt0(n.totA)+' m²','#1C4192')+ETAPAS.filter(e=>n.tot[e.id]>0).map(e=>k(e.corto,fmt1(pct(a[e.id],n.tot[e.id]))+'%',fmt0(a[e.id])+' m²',e.color)).join('');
   $('#leyPlano').innerHTML=STG.map(e=>'<span>'+icono(e)+e.corto+'</span>').join('')+'<span><i class="ic" style="--c:#94A3B8"></i>Sin avance</span>';
