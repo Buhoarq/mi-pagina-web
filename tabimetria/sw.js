@@ -1,6 +1,6 @@
 /* TabiMetría — service worker: deja la app disponible sin conexión.
    Estrategia: responde desde caché al instante y actualiza en segundo plano. */
-const CACHE='tabimetria-v1.0';
+const CACHE='tabimetria-v2.0';
 const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));

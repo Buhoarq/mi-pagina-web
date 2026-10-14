@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiMetría v1.0 · Levantamiento de avance de tabiques</title>
+<title>TabiMetría v2.0 · Levantamiento de avance de tabiques</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Crect x='1.5' y='1.5' width='41' height='41' rx='11' fill='%234F46E5'/%3E%3Crect x='7' y='9' width='21' height='22' rx='1.2' stroke='%23fff' stroke-width='2.1' fill='none'/%3E%3Cpath d='M14 9v22M21 9v22' stroke='%23fff' stroke-width='1.7'/%3E%3Crect x='22.5' y='21.5' width='15' height='15' rx='3' fill='%23fff' stroke='%23F59E0B' stroke-width='1.6'/%3E%3Crect x='24' y='23' width='5.6' height='5.6' rx='1' fill='%23DC2626'/%3E%3Crect x='30.4' y='23' width='5.6' height='5.6' rx='1' fill='%2316A34A'/%3E%3Ccircle cx='26.8' cy='32.2' r='2.8' fill='%238B5A2B'/%3E%3Ccircle cx='33.2' cy='32.2' r='2.8' fill='%232563EB'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -316,6 +316,65 @@ h2{font-size:22px;font-weight:800;margin-bottom:4px}
 .vi-cargando{color:#94A3B8;font-size:13px;padding:40px 20px;text-align:center;line-height:1.7}
 @media(min-width:640px){.estadisticas{grid-template-columns:repeat(4,1fr)}.leyenda-tipos{grid-template-columns:repeat(4,1fr)}}
 
+/* ---------- v2: modo enfoque (plano a casi toda la pantalla) ---------- */
+body.enfoque #barra,body.enfoque #pestanas,body.enfoque #pie,body.enfoque .niveles-strip{display:none}
+body.enfoque .barra-visor{padding:4px 8px}
+body.enfoque .barra-visor .btn-icono{width:34px;height:34px}
+body.enfoque .visor-modos{padding:5px 8px}
+body.enfoque .paleta{padding:5px 8px;gap:5px}
+body.enfoque .tipo-btn{padding:5px 2px}
+body.enfoque .tipo-btn .cnt{display:none}
+.segmentado button.activo.editando{background:var(--primario);color:#fff}
+.editando .mk{touch-action:none;cursor:grab}
+.mk.sel{outline:2.5px dashed #4F46E5;outline-offset:4px;z-index:3}
+.mk.ext.asa{pointer-events:auto;width:calc(var(--mk,14px)*.85);height:calc(var(--mk,14px)*.85);outline:2px solid #4F46E5;outline-offset:2px;z-index:4}
+body.siglas .mk:not(.ext)::after{content:attr(data-sg);position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:800 calc(var(--mk,14px)*.62)/1 var(--fuente);text-shadow:0 0 2px rgba(0,0,0,.6)}
+.barra-edicion{position:absolute;left:8px;right:62px;bottom:10px;z-index:13;background:rgba(255,255,255,.97);border:1px solid var(--linea);border-radius:14px;box-shadow:var(--sombra-md);padding:8px 9px;display:flex;flex-direction:column;gap:7px}
+.barra-edicion .fila{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.barra-edicion .tit{font-size:12px;font-weight:700;color:var(--texto);flex:1;min-width:0;display:flex;align-items:center;gap:7px}
+.barra-edicion .tit small{color:var(--tenue);font-weight:600}
+.be-tipo{width:36px;height:32px;border-radius:9px;border:2px solid var(--linea);background:var(--panel2);display:grid;place-items:center}
+.be-tipo.activo{border-color:var(--c);background:#fff;box-shadow:0 0 0 2px color-mix(in srgb,var(--c) 30%,transparent)}
+.be-btn{padding:7px 10px;border-radius:9px;border:1px solid var(--linea);background:#fff;font-size:11.5px;font-weight:700;color:var(--cuerpo)}
+.be-btn.rojo{color:var(--peligro-osc);border-color:#FECACA;background:#FEF2F2}
+.be-btn.acento{color:var(--primario-osc);border-color:var(--primario-borde);background:var(--primario-suave)}
+.be-btn:disabled{opacity:.4;pointer-events:none}
+html.oscuro .barra-edicion,html.oscuro .be-btn{background:var(--panel);color:var(--texto);border-color:var(--linea)}
+/* ---------- v2: evolución día a día ---------- */
+#evolucion{position:fixed;inset:0;z-index:190;background:#0B1220;display:none;flex-direction:column;color:#E2E8F0}
+#evolucion.visible{display:flex}
+.ev-barra{flex:none;display:flex;align-items:center;gap:8px;padding:8px 10px;padding-top:calc(8px + env(safe-area-inset-top));background:#111827;border-bottom:1px solid #1F2937}
+.ev-barra .btn-icono{background:#1F2937;border-color:#334155;color:#E2E8F0}
+.ev-titulo{flex:1;min-width:0;font-family:var(--display);font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-barra .btn{width:auto;padding:8px 12px;font-size:12.5px}
+.ev-planos{flex:none;display:flex;gap:6px;overflow-x:auto;padding:7px 10px;background:#111827;scrollbar-width:none}
+.ev-planos button{flex:none;padding:6px 12px;border-radius:999px;border:1px solid #334155;background:#1F2937;color:#CBD5E1;font-size:12px;font-weight:700}
+.ev-planos button.activo{background:#4F46E5;border-color:#4F46E5;color:#fff}
+.ev-lienzo{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden}
+#evCanvas{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.5);background:#fff}
+.ev-panel{flex:none;background:#111827;border-top:1px solid #1F2937;padding:8px 10px calc(10px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px}
+.ev-tira{display:flex;gap:4px;overflow-x:auto;align-items:flex-end;padding:2px 2px 0;scrollbar-width:thin;min-height:66px}
+.ev-dia{flex:none;width:34px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;opacity:.55;border-radius:7px;padding:3px 0}
+.ev-dia.pasado{opacity:.85}
+.ev-dia.activo{opacity:1;background:#1E293B;box-shadow:inset 0 0 0 1.5px #F59E0B}
+.ev-dia .barras{width:16px;height:44px;display:flex;flex-direction:column-reverse;gap:1px}
+.ev-dia .barras i{display:block;width:100%;border-radius:2px}
+.ev-dia span{font-size:9.5px;font-weight:700;color:#94A3B8}
+.ev-controles{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.ev-controles button{min-width:40px;height:38px;border-radius:10px;border:1px solid #334155;background:#1F2937;color:#F1F5F9;font-size:15px;font-weight:800;padding:0 10px}
+.ev-controles button.play{background:#F59E0B;color:#451A03;border-color:#F59E0B;min-width:54px}
+.ev-controles select{background:#1F2937;color:#E2E8F0;border:1px solid #334155;border-radius:9px;padding:7px 8px;font-size:12px}
+.ev-controles label{font-size:12px;color:#CBD5E1;display:flex;align-items:center;gap:6px}
+.ev-controles input[type=range]{flex:1;min-width:120px;accent-color:#F59E0B}
+.grafico-diario svg{width:100%;height:auto;display:block}
+.grafico-diario .ejes text{font:600 10px var(--fuente);fill:var(--tenue)}
+.grafico-diario .valor{font:800 10px var(--fuente);fill:var(--texto)}
+.grafico-diario line{stroke:var(--linea)}
+.leyenda-graf{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;font-size:11.5px;font-weight:600;color:var(--cuerpo)}
+.leyenda-graf span{display:inline-flex;align-items:center;gap:6px}
+.etapa-edit{display:grid;grid-template-columns:44px 1fr 46px 92px;gap:7px;align-items:center;margin-bottom:8px}
+.etapa-edit input[type=color]{width:44px;height:40px;border:1px solid var(--linea);border-radius:10px;padding:2px;background:#fff}
+.etapa-edit .campo{margin:0}
 body.contraste{--bg:#fff;--linea:#767676;--linea2:#4A4A4A;--texto:#000;--cuerpo:#141414;--tenue:#333;--primario:#2A1FB0;background-image:none}
 body.contraste .zona-plano{background:#D8D8D8}
 body.contraste .mk{box-shadow:0 0 0 2.2px #fff,0 0 0 3.6px #000}
@@ -344,7 +403,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
       </svg>
     </div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Metría</span><span class="ver" id="verBadge">v1.0</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Metría</span><span class="ver" id="verBadge">v2.0</span></span>
       <span class="brand-sub" id="nombreProyecto" title="Cambiar nombre de la obra">Mi obra ✎</span>
     </div>
   </div>
@@ -381,6 +440,15 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
         <div class="stat"><b id="statMl">—</b><span>ml jornada</span></div>
       </div>
       <div class="tarjeta" id="tarjetaJornada"></div>
+      <div class="tarjeta">
+        <h3>🗓 ¿Qué pasa si mañana sigo con el avance?</h3>
+        <ol class="pasos" style="margin-top:0">
+          <li>Al abrir la app otro día, la <b>jornada cambia sola</b> a la fecha nueva. Lo de hoy queda como avance anterior; lo que marques mañana lleva el <b>anillo oscuro</b> de la jornada activa.</li>
+          <li>Si un tabique pasa a la etapa siguiente, entra a <b>✏️ Editar</b>, tócalo y usa <b>⏭ Sig. etapa</b>: se agrega la marca del nuevo color al lado, con la fecha nueva. La marca de ayer no se toca, así el historial queda completo.</li>
+          <li>En el informe eliges el <b>periodo</b> (por ejemplo 14 al 20). Las tablas separan lo acumulado de lo ejecutado en el periodo, el gráfico muestra la producción de <b>cada día</b> y la sección <b>evolución</b> dibuja un cuadro del plano por jornada.</li>
+          <li>Para verlo "como video", abre <b>▶ Evolución</b> en Avance: reproduce el plano día por día y puedes <b>exportarlo como video</b>.</li>
+        </ol>
+      </div>
       <div class="acciones-rapidas">
         <button class="btn principal" id="btnIrPlanos">＋ Cargar planos PDF</button>
         <div class="fila-btn">
@@ -417,10 +485,12 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
       <button id="btnVolverVisor" class="btn-icono" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
       <div class="visor-titulo"><strong id="tituloPlanoVisor">—</strong><span id="etiquetaPagina">—</span></div>
       <div class="visor-paginas"><button id="btnPagAntes" aria-label="Página anterior">‹</button><button id="btnPagDespues" aria-label="Página siguiente">›</button></div>
+      <button id="btnEvoVisor" class="btn-icono" aria-label="Evolución día a día" title="Evolución día a día">▶</button>
+      <button id="btnEnfoque" class="btn-icono" aria-label="Pantalla completa" title="Agrandar el plano">⤢</button>
     </div>
     <div class="niveles-strip"><button id="btnNivelAntes" class="nav" aria-label="Plano anterior">‹</button><div id="nivelChips"></div><button id="btnNivelDespues" class="nav" aria-label="Plano siguiente">›</button></div>
     <div class="visor-modos">
-      <div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segMarcar">✚ Marcar</button><button id="segEscala">📏 Escala</button></div>
+      <div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segMarcar">✚ Marcar</button><button id="segEditar">✏️ Editar</button><button id="segEscala">📏</button></div>
       <div class="visor-datos">
         <button id="chipVista" class="chip boton" title="Qué marcas mostrar">👁 Todas</button>
         <span id="chipEscala" class="chip">📏 —</span>
@@ -442,6 +512,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
       </div>
       <div class="mira oculto" id="mira"><i></i></div>
       <button class="btn ambar btn-colocar oculto" id="btnColocar">✚ Marcar aquí</button>
+      <div class="barra-edicion oculto" id="barraEdicion"></div>
       <div class="zoom-ctrl">
         <button id="btnZoomMas" aria-label="Acercar">＋</button>
         <span class="nivel" id="zoomNivel">100%</span>
@@ -456,6 +527,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
     <div class="contenedor">
       <h2>Avance</h2>
       <p class="nota" style="margin-bottom:14px">Acumulado por plano y etapa, historial de jornadas y producción por cuadrilla. Los metros lineales solo aparecen en planos con escala calibrada y marcas tipo <b>Tramo</b>.</p>
+      <div class="tarjeta">
+        <div class="cabecera-vista" style="margin-bottom:6px"><h3 style="margin:0">📊 Producción por día</h3><button class="btn ambar" id="btnEvoAvance" style="width:auto;padding:9px 14px">▶ Evolución</button></div>
+        <div id="avanceGrafico" class="grafico-diario"></div>
+      </div>
       <div id="avancePlanos"></div>
       <div class="tarjeta"><h3>👷 Producción por cuadrilla</h3><div id="avanceCuadrillas"></div></div>
       <h3 style="margin:18px 0 10px">📅 Jornadas de levantamiento</h3>
@@ -497,7 +572,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
         <label class="opcion">División del plano<select id="selDivision"><option value="2" selected>4 cuadrantes (2 × 2)</option><option value="3">9 cuadrantes (3 × 3)</option><option value="1">Sin dividir</option></select></label>
         <label class="opcion"><input type="checkbox" id="chkGeneral" checked> Incluir vista general de cada plano</label>
         <label class="opcion"><input type="checkbox" id="chkSoloConMarcas" checked> Omitir cuadrantes y páginas sin marcas</label>
+        <label class="opcion"><input type="checkbox" id="chkEvolucion" checked> Incluir evolución día a día (un cuadro del plano por jornada)</label>
+        <label class="opcion"><input type="checkbox" id="chkGrafico" checked> Incluir gráfico de producción diaria</label>
         <label class="opcion"><input type="checkbox" id="chkFechaMarca"> Rotular fecha (dd/mm) junto a cada marca</label>
+        <label class="opcion"><input type="checkbox" id="chkSiglasPdf"> Letra de la etapa dentro de cada marca (E·1·A·2), útil al imprimir en blanco y negro</label>
         <label class="opcion">Tamaño de marca en el PDF<select id="selTamPdf"><option value="2.2">Pequeña</option><option value="3" selected>Mediana</option><option value="4">Grande</option></select></label>
         <label class="opcion">Calidad del plano<select id="selCalidad"><option value="media" selected>Media (recomendada)</option><option value="alta">Alta (archivo pesado)</option><option value="baja">Baja (para correo)</option></select></label>
       </div>
@@ -513,7 +591,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiMetría</span> <span class="vpie" id="verPie">v1.0</span> · Desarrollado por <b>Renato Martínez Palominos</b> · Levantamiento de avance de tabiques en obra</footer>
+<footer id="pie"><span class="marca">TabiMetría</span> <span class="vpie" id="verPie">v2.0</span> · Desarrollado por <b>Renato Martínez Palominos</b> · Levantamiento de avance de tabiques en obra</footer>
 
 <div id="velo"></div>
 <div id="hoja"><div class="asa" id="asa"></div><div id="hojaContenido"></div></div>
@@ -529,6 +607,27 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
   </div>
   <div class="vi-cuerpo" id="viCuerpo"></div>
 </div>
+<div id="evolucion">
+  <div class="ev-barra">
+    <button id="evCerrar" class="btn-icono" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <span class="ev-titulo" id="evTitulo">Evolución día a día</span>
+    <button class="btn ambar" id="evVideo">🎬 Exportar video</button>
+  </div>
+  <div class="ev-planos" id="evPlanos"></div>
+  <div class="ev-lienzo"><canvas id="evCanvas"></canvas></div>
+  <div class="ev-panel">
+    <div class="ev-tira" id="evTira"></div>
+    <div class="ev-controles">
+      <button id="evPrimero" aria-label="Primer día">⏮</button>
+      <button id="evAntes" aria-label="Día anterior">◀</button>
+      <button id="evPlay" class="play" aria-label="Reproducir">▶</button>
+      <button id="evDespues" aria-label="Día siguiente">▶︎|</button>
+      <input type="range" id="evSlider" min="0" max="0" value="0" aria-label="Día">
+      <select id="evVel"><option value="2200">Lento</option><option value="1300" selected>Normal</option><option value="700">Rápido</option></select>
+      <label><input type="checkbox" id="evDesvanecer" checked> Atenuar días anteriores</label>
+    </div>
+  </div>
+</div>
 <input type="file" id="inputPdf" accept="application/pdf,.pdf" multiple hidden>
 <input type="file" id="inputRespaldo" accept="application/json,.json" hidden>
 <input type="file" id="inputLogo" accept="image/*" hidden>
@@ -537,17 +636,22 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 <script>
 'use strict';
 /* ================= Identidad ================= */
-const APP_VER='1.0',APP_NOMBRE='TabiMetría',APP_AUTOR='Renato Martínez Palominos',APP_LEMA='Levantamiento de avance de tabiques en obra';
+const APP_VER='2.0',APP_NOMBRE='TabiMetría',APP_AUTOR='Renato Martínez Palominos',APP_LEMA='Levantamiento de avance de tabiques en obra';
 const APP_VER_ETIQUETA='v'+APP_VER;
 
 /* Etapas de avance. El orden es el del proceso constructivo del tabique. */
-const TIPOS=[
-  {id:'est',nombre:'Estructura metalcon',corto:'Estructura',color:'#DC2626',forma:'cuadrado'},
-  {id:'c1', nombre:'1ª cara volcanita', corto:'1ª cara',  color:'#16A34A',forma:'cuadrado'},
-  {id:'ais',nombre:'Aislación',          corto:'Aislación',color:'#8B5A2B',forma:'circulo'},
-  {id:'c2', nombre:'2ª cara (tapado)',   corto:'2ª cara',  color:'#2563EB',forma:'circulo'}
+const TIPOS_BASE=[
+  {id:'est',nombre:'Estructura metalcon',corto:'Estructura',color:'#DC2626',forma:'cuadrado',sigla:'E'},
+  {id:'c1', nombre:'1ª cara volcanita', corto:'1ª cara',  color:'#16A34A',forma:'cuadrado',sigla:'1'},
+  {id:'ais',nombre:'Aislación',          corto:'Aislación',color:'#8B5A2B',forma:'circulo',sigla:'A'},
+  {id:'c2', nombre:'2ª cara (tapado)',   corto:'2ª cara',  color:'#2563EB',forma:'circulo',sigla:'2'}
 ];
-const TIPO=Object.fromEntries(TIPOS.map(t=>[t.id,t]));
+/* Las etapas se pueden personalizar (nombre, color, forma, sigla) desde el menú.
+   El id nunca cambia: así las marcas antiguas siguen apuntando a su etapa. */
+let TIPOS=TIPOS_BASE.map(t=>Object.assign({},t));
+let TIPO={};
+function reconstruirTipos(){TIPO=Object.fromEntries(TIPOS.map(t=>[t.id,t]));}
+reconstruirTipos();
 const ordenTipo=id=>TIPOS.findIndex(t=>t.id===id);
 const TAM_MARCA={s:11,m:15,l:20};
 
@@ -684,7 +788,8 @@ const estado={
   modo:'ver',herramienta:'punto',tipoActivo:'est',mira:false,tramoInicio:null,calPuntos:[],
   diaActivo:hoyDia(),cuadrillaActiva:'',filtroVista:'todas',capasOcultas:new Set(),
   tamMarca:'m',contraste:false,oscuro:false,portada:{},pilaDeshacer:[],
-  infDesde:null,infHasta:null
+  infDesde:null,infHasta:null,
+  selId:null,moviendoSel:false,enfoque:false,siglas:false
 };
 let ultimoInforme=null,informeToken=0,tokenRender=0,tareaRender=null;
 const cmpPlanos=(a,b)=>(a.orden-b.orden)||(a.fecha||'').localeCompare(b.fecha||'');
@@ -705,12 +810,18 @@ async function iniciar(){
     estado.cuadrillaActiva=(await metaGet('cuadrilla'))||'';
     estado.tipoActivo=(await metaGet('tipoActivo'))||'est';
     estado.portada=(await metaGet('portada'))||{};
+    const tc=await metaGet('tipos');
+    if(Array.isArray(tc)){TIPOS=TIPOS_BASE.map(b=>Object.assign({},b,tc.find(x=>x.id===b.id)||{}));reconstruirTipos();}
+    estado.siglas=!!(await metaGet('siglas'));
     const dia=await metaGet('diaActivo');
     /* Si la jornada guardada ya terminó (otro día), se parte en la de hoy */
     estado.diaActivo=(dia&&dia===hoyDia())?dia:hoyDia();
   }catch(e){console.error(e);}
-  aplicarTema();cargarPortadaEnCampos();aplicarPresetPeriodo('hoy');
+  aplicarTema();renderLeyendaInicio();cargarPortadaEnCampos();aplicarPresetPeriodo('hoy');
   renderTodo();actualizarLinea();
+  /* Si quedó abierta una jornada de un día anterior, se recuerda cerrarla para dejar constancia */
+  const pendientes=estado.jornadas.filter(j=>!j.cerrada&&j.id<hoyDia()&&estado.marcas.some(m=>m.fechaDia===j.id)).sort((a,b)=>a.id.localeCompare(b.id));
+  if(pendientes.length){const j=pendientes[pendientes.length-1];setTimeout(()=>toastAccion('La jornada '+diaCorta(j.id)+' quedó abierta'+(pendientes.length>1?' (y '+(pendientes.length-1)+' más)':'')+'. Ciérrala para dejar constancia.','Revisar',()=>abrirJornada(j.id)),1400);}
   if(MODO_ALM==='mem')toast('⚠ Este navegador no permite guardar: los datos se perderán al cerrar','error');
   try{if(navigator.serviceWorker&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});}catch(e){}
   if(!(await metaGet('bienvenida'))){await metaSet('bienvenida',true);pedirNombreObra(true);}
@@ -722,9 +833,11 @@ function aplicarVersion(){
   document.title=APP_NOMBRE+' '+APP_VER_ETIQUETA+' · Levantamiento de avance de tabiques';
   $('#verBadge').textContent=APP_VER_ETIQUETA;$('#verPie').textContent=APP_VER_ETIQUETA;
   $('#eyebrowInicio').textContent=APP_NOMBRE+' '+APP_VER_ETIQUETA+' · Avance de tabiques';
-  $('#leyendaInicio').innerHTML=TIPOS.map(t=>'<div class="ley">'+icono(t,true)+'<span>'+t.nombre+'</span></div>').join('');
+  renderLeyendaInicio();
 }
+function renderLeyendaInicio(){$('#leyendaInicio').innerHTML=TIPOS.map(t=>'<div class="ley">'+icono(t,true)+'<span>'+escapar(t.nombre)+'</span></div>').join('');}
 function aplicarTema(){
+  document.body.classList.toggle('siglas',!!estado.siglas);
   document.body.classList.toggle('contraste',estado.contraste);
   document.documentElement.classList.toggle('oscuro',estado.oscuro);
   $('#metaTheme').setAttribute('content',estado.oscuro?'#0B1220':'#F8FAFC');
@@ -740,6 +853,7 @@ function renderTodo(){
 }
 
 function cambiarVista(v){
+  if(v!=='visor')aplicarEnfoque(false);
   $$('.vista').forEach(s=>s.classList.remove('activa'));$('#vista-'+v).classList.add('activa');
   $$('.pestana').forEach(p=>p.classList.toggle('activa',p.dataset.v===v||(v==='visor'&&p.dataset.v==='planos')));
   if(v==='avance')renderAvance();
@@ -1029,12 +1143,29 @@ function bindZoom(){
 /* ---------- modos ---------- */
 function setModo(m){
   estado.modo=m;estado.tramoInicio=null;if(m!=='escala')estado.calPuntos=[];
+  if(m!=='editar'){estado.selId=null;estado.moviendoSel=false;}
+  /* Al marcar o editar el plano se agranda a casi toda la pantalla */
+  if(m==='marcar'||m==='editar')aplicarEnfoque(true);else if(m==='ver')aplicarEnfoque(false);
+  $('#segEditar').classList.toggle('activo',m==='editar');$('#segEditar').classList.toggle('editando',m==='editar');
   $('#segVer').classList.toggle('activo',m==='ver');
   $('#segMarcar').classList.toggle('activo',m==='marcar');$('#segMarcar').classList.toggle('marcando',m==='marcar');
   $('#segEscala').classList.toggle('activo',m==='escala');$('#segEscala').classList.toggle('escala',m==='escala');
   $('#paleta').classList.toggle('oculto',m!=='marcar');
-  const z=$('#zonaPlano');z.classList.toggle('marcando',m==='marcar');z.classList.toggle('calibrando',m==='escala');
-  actualizarMira();actualizarAviso();renderMarcas();
+  const z=$('#zonaPlano');z.classList.toggle('marcando',m==='marcar');z.classList.toggle('calibrando',m==='escala');z.classList.toggle('editando',m==='editar');
+  actualizarMira();actualizarAviso();renderMarcas();renderBarraEdicion();
+}
+function aplicarEnfoque(on){
+  estado.enfoque=!!on;document.body.classList.toggle('enfoque',!!on);
+  const b=$('#btnEnfoque');if(b){b.textContent=on?'⤡':'⤢';b.title=on?'Volver a la vista normal':'Agrandar el plano';}
+}
+async function alternarPantallaCompleta(){
+  const on=!estado.enfoque;aplicarEnfoque(on);
+  /* En Android además se pide pantalla completa real (oculta la barra del navegador).
+     iPhone no lo permite en Safari: allí se usa solo el modo enfoque. */
+  try{
+    if(on&&document.documentElement.requestFullscreen&&!document.fullscreenElement)await document.documentElement.requestFullscreen({navigationUI:'hide'});
+    else if(!on&&document.fullscreenElement)await document.exitFullscreen();
+  }catch(e){}
 }
 function actualizarMira(){
   const on=estado.mira&&(estado.modo==='marcar'||estado.modo==='escala');
@@ -1044,6 +1175,8 @@ function actualizarMira(){
 }
 function actualizarAviso(){
   const a=$('#avisoVisor'),t=$('#avisoTexto');a.classList.remove('indigo');
+  if(estado.modo==='editar'&&estado.moviendoSel){a.classList.add('indigo');t.textContent='↔ Toca el nuevo lugar de la marca (o arrástrala directamente)';a.classList.remove('oculto');return;}
+  if(estado.modo==='editar'&&!estado.selId){a.classList.add('indigo');t.textContent='✏️ Toca una marca para cambiar su etapa, moverla, eliminarla o pasarla a la siguiente etapa';a.classList.remove('oculto');return;}
   if(estado.modo==='escala'){a.classList.add('indigo');t.textContent=estado.calPuntos.length?'📏 Ahora toca el segundo extremo de la cota conocida':'📏 Toca un extremo de una cota conocida (ej: eje a eje). Amplía para ser preciso.';a.classList.remove('oculto');return;}
   if(estado.modo==='marcar'&&jornadaCerrada(estado.diaActivo)){t.textContent='🔒 La jornada '+diaCorta(estado.diaActivo)+' está cerrada: reábrela o cambia de jornada para marcar';a.classList.remove('oculto');return;}
   if(estado.modo==='marcar'&&estado.tramoInicio){t.textContent='━ Toca el otro extremo del tramo de '+TIPO[estado.tipoActivo].corto.toLowerCase();a.classList.remove('oculto');return;}
@@ -1079,14 +1212,17 @@ function renderMarcas(nuevaId){
   const pos=(x,y)=>'left:'+(x*100).toFixed(4)+'%;top:'+(y*100).toFixed(4)+'%;';
   lista.forEach(m=>{
     const t=TIPO[m.tipo];if(!t)return;
-    const cls='mk'+(t.forma==='circulo'?' ci':'')+(m.fechaDia===estado.diaActivo?' hoy':'')+(m.id===nuevaId?' nueva':'');
+    const sel=m.id===estado.selId;
+    const cls='mk'+(t.forma==='circulo'?' ci':'')+(m.fechaDia===estado.diaActivo?' hoy':'')+(m.id===nuevaId?' nueva':'')+(sel?' sel':'');
+    const sg=' data-sg="'+escAttr(t.sigla||'')+'"';
     if(m.forma==='tramo'){
       const a='x1="'+(m.x*100)+'" y1="'+(m.y*100)+'" x2="'+(m.x2*100)+'" y2="'+(m.y2*100)+'" vector-effect="non-scaling-stroke" stroke-linecap="round"';
       if(m.fechaDia===estado.diaActivo)lin+='<line '+a+' stroke="#0F172A" stroke-width="'+(px*.62+4)+'"/>';
       lin+='<line '+a+' stroke="#fff" stroke-width="'+(px*.62+2)+'"/><line '+a+' stroke="'+t.color+'" stroke-width="'+(px*.62)+'"/>';
-      dv+='<div class="mk ext'+(t.forma==='circulo'?' ci':'')+'" style="'+pos(m.x,m.y)+'--c:'+t.color+'"></div><div class="mk ext'+(t.forma==='circulo'?' ci':'')+'" style="'+pos(m.x2,m.y2)+'--c:'+t.color+'"></div>';
-      dv+='<div class="'+cls+'" data-id="'+m.id+'" style="'+pos((m.x+m.x2)/2,(m.y+m.y2)/2)+'--c:'+t.color+'"></div>';
-    }else dv+='<div class="'+cls+'" data-id="'+m.id+'" style="'+pos(m.x,m.y)+'--c:'+t.color+'"></div>';
+      const ext='mk ext'+(t.forma==='circulo'?' ci':'')+(sel&&estado.modo==='editar'?' asa':'');
+      dv+='<div class="'+ext+'" data-id="'+m.id+'" data-ext="1" style="'+pos(m.x,m.y)+'--c:'+t.color+'"></div><div class="'+ext+'" data-id="'+m.id+'" data-ext="2" style="'+pos(m.x2,m.y2)+'--c:'+t.color+'"></div>';
+      dv+='<div class="'+cls+'" data-id="'+m.id+'"'+sg+' style="'+pos((m.x+m.x2)/2,(m.y+m.y2)/2)+'--c:'+t.color+'"></div>';
+    }else dv+='<div class="'+cls+'" data-id="'+m.id+'"'+sg+' style="'+pos(m.x,m.y)+'--c:'+t.color+'"></div>';
   });
   if(estado.tramoInicio)dv+='<div class="mk-guia" style="'+pos(estado.tramoInicio.x,estado.tramoInicio.y)+'--c:'+TIPO[estado.tipoActivo].color+'"></div>';
   if(estado.modo==='escala'){
@@ -1103,6 +1239,10 @@ function puntoDesdeCliente(cx,cy){
   if(x<0||x>1||y<0||y>1)return null;return{x,y};
 }
 async function accionEnPunto(p){
+  if(estado.modo==='editar'){
+    if(estado.moviendoSel&&estado.selId){await moverMarcaA(estado.selId,p);return;}
+    estado.selId=null;renderMarcas();renderBarraEdicion();actualizarAviso();return;
+  }
   if(estado.modo==='escala'){
     estado.calPuntos.push(p);
     if(estado.calPuntos.length>=2){renderMarcas();pedirCota();}else{renderMarcas();actualizarAviso();}
@@ -1140,6 +1280,99 @@ async function deshacerUltima(){
   }
   toast('No hay marcas recientes para deshacer');renderPaleta();
 }
+/* ================= v2: edición directa de marcas ================= */
+function seleccionarMarca(id){estado.selId=id;estado.moviendoSel=false;renderMarcas();renderBarraEdicion();actualizarAviso();}
+function renderBarraEdicion(){
+  const b=$('#barraEdicion');if(!b)return;
+  const m=estado.modo==='editar'&&estado.selId&&estado.marcas.find(x=>x.id===estado.selId);
+  if(!m){b.classList.add('oculto');b.innerHTML='';return;}
+  const t=TIPO[m.tipo],cer=jornadaCerrada(m.fechaDia),idx=ordenTipo(m.tipo),l=largoTramo(m);
+  b.classList.remove('oculto');
+  b.innerHTML='<div class="fila"><div class="tit">'+icono(t,true)+'<div>'+escapar(t.nombre)+'<br><small>'+(cer?'🔒 ':'')+diaLarga(m.fechaDia)+' '+fmtHora(m.creado)+(m.forma==='tramo'?' · tramo '+(l!=null?fmtMl(l):'sin escala'):'')+(m.cuadrilla?' · '+escapar(m.cuadrilla):'')+'</small></div></div>'+
+    '<button class="be-btn" data-be="cerrar" aria-label="Quitar selección">✕</button></div>'+
+    (cer?'<div class="fila"><span class="nota" style="flex:1">Jornada cerrada: no se puede mover ni cambiar. Puedes registrar la etapa siguiente hoy.</span></div>'
+        :'<div class="fila">'+TIPOS.map(x=>'<button class="be-tipo'+(x.id===m.tipo?' activo':'')+'" data-be="tipo" data-tipo="'+x.id+'" style="--c:'+x.color+'" title="'+escAttr(x.nombre)+'">'+icono(x)+'</button>').join('')+'</div>')+
+    '<div class="fila">'+
+      (cer?'':'<button class="be-btn acento" data-be="mover">↔ Mover</button>')+
+      '<button class="be-btn acento" data-be="siguiente"'+(idx>=TIPOS.length-1?' disabled':'')+'>⏭ Sig. etapa'+(idx<TIPOS.length-1?' ('+escapar(TIPOS[idx+1].corto)+')':'')+'</button>'+
+      '<button class="be-btn" data-be="detalle">📝 Nota</button>'+
+      (cer?'':'<button class="be-btn rojo" data-be="eliminar">🗑</button>')+
+    '</div>';
+}
+async function cambiarEtapaSel(tipo){
+  const m=estado.marcas.find(x=>x.id===estado.selId);if(!m||jornadaCerrada(m.fechaDia)||m.tipo===tipo)return;
+  m.tipo=tipo;m.editado=new Date().toISOString();await storePut('marcas',m);
+  renderMarcas();renderBarraEdicion();renderPaleta();toast('Etapa cambiada a '+TIPO[tipo].corto,'ok');
+}
+async function moverMarcaA(id,p){
+  const m=estado.marcas.find(x=>x.id===id);if(!m||jornadaCerrada(m.fechaDia))return;
+  if(m.forma==='tramo'){const cx=(m.x+m.x2)/2,cy=(m.y+m.y2)/2,dx=p.x-cx,dy=p.y-cy;m.x+=dx;m.y+=dy;m.x2+=dx;m.y2+=dy;}
+  else{m.x=p.x;m.y=p.y;}
+  m.editado=new Date().toISOString();await storePut('marcas',m);
+  estado.moviendoSel=false;renderMarcas();renderBarraEdicion();actualizarAviso();toast('Marca movida','ok');
+}
+/* Registra la etapa siguiente del mismo tabique como una marca NUEVA de la jornada activa,
+   dibujada justo al lado. La marca original queda intacta: así el historial muestra
+   qué día se hizo cada etapa. */
+async function siguienteEtapa(id){
+  const m=estado.marcas.find(x=>x.id===id);if(!m)return;
+  const idx=ordenTipo(m.tipo);if(idx>=TIPOS.length-1){toast('Ese tabique ya está en la última etapa');return;}
+  if(jornadaCerrada(estado.diaActivo)){toast('La jornada activa está cerrada','error');return;}
+  const r=$('#canvasPlano').getBoundingClientRect(),px=(TAM_MARCA[estado.tamMarca]||15)*1.3;
+  const tipo=TIPOS[idx+1].id;let datos;
+  if(m.forma==='tramo'){
+    const vx=(m.x2-m.x)*r.width,vy=(m.y2-m.y)*r.height,L=Math.hypot(vx,vy)||1;
+    const ox=-vy/L*px/r.width,oy=vx/L*px/r.height;
+    datos={forma:'tramo',tipo,x:m.x+ox,y:m.y+oy,x2:m.x2+ox,y2:m.y2+oy,origen:m.id};
+  }else datos={forma:'punto',tipo,x:Math.min(1,m.x+px/r.width),y:m.y,origen:m.id};
+  const nm=await crearMarca(datos);
+  if(nm){if(estado.modo==='editar')seleccionarMarca(nm.id);toast(TIPO[tipo].corto+' registrada hoy ('+diaCorta(estado.diaActivo)+')','ok');}
+}
+async function accionBarraEdicion(e){
+  const b=e.target.closest('[data-be]');if(!b)return;e.stopPropagation();
+  const id=estado.selId;const m=estado.marcas.find(x=>x.id===id);if(!m)return;
+  switch(b.dataset.be){
+    case'cerrar':seleccionarMarca(null);break;
+    case'tipo':await cambiarEtapaSel(b.dataset.tipo);break;
+    case'mover':estado.moviendoSel=!estado.moviendoSel;actualizarAviso();break;
+    case'siguiente':await siguienteEtapa(id);break;
+    case'detalle':abrirMarca(id);break;
+    case'eliminar':await eliminarMarca(id);seleccionarMarca(null);break;
+  }
+}
+/* Arrastre directo de una marca en modo Editar */
+let arrMk=null;
+function bindArrastreMarcas(){
+  $('#capaMarcas').addEventListener('pointerdown',e=>{
+    if(estado.modo!=='editar')return;
+    const el=e.target.closest('.mk[data-id]');if(!el)return;
+    const m=estado.marcas.find(x=>x.id===el.dataset.id);if(!m)return;
+    e.preventDefault();
+    if(estado.selId!==m.id)seleccionarMarca(m.id);
+    if(jornadaCerrada(m.fechaDia))return;
+    arrMk={id:m.id,ext:el.dataset.ext||null,x0:e.clientX,y0:e.clientY,o:{x:m.x,y:m.y,x2:m.x2,y2:m.y2},mov:false};
+  });
+  window.addEventListener('pointermove',e=>{
+    if(!arrMk)return;
+    const dxp=e.clientX-arrMk.x0,dyp=e.clientY-arrMk.y0;
+    if(!arrMk.mov&&Math.hypot(dxp,dyp)<6)return;
+    arrMk.mov=true;
+    const r=$('#canvasPlano').getBoundingClientRect();const m=estado.marcas.find(x=>x.id===arrMk.id);if(!m)return;
+    const dx=dxp/r.width,dy=dyp/r.height,cl=v=>Math.max(0,Math.min(1,v)),o=arrMk.o;
+    if(arrMk.ext==='1'){m.x=cl(o.x+dx);m.y=cl(o.y+dy);}
+    else if(arrMk.ext==='2'){m.x2=cl(o.x2+dx);m.y2=cl(o.y2+dy);}
+    else{m.x=cl(o.x+dx);m.y=cl(o.y+dy);if(m.forma==='tramo'){m.x2=cl(o.x2+dx);m.y2=cl(o.y2+dy);}}
+    renderMarcas();
+  });
+  const fin=async()=>{
+    if(!arrMk)return;const a=arrMk;arrMk=null;
+    if(!a.mov)return;
+    bloquearClick=Date.now()+350;
+    const m=estado.marcas.find(x=>x.id===a.id);if(!m)return;
+    m.editado=new Date().toISOString();await storePut('marcas',m);renderBarraEdicion();toast('Marca movida','ok');
+  };
+  window.addEventListener('pointerup',fin);window.addEventListener('pointercancel',fin);
+}
 function pedirCota(){
   const [a,b]=estado.calPuntos;const p=estado.planoActual;const asp=(p.aspectos&&p.aspectos[estado.pagina])||1;
   const d=Math.hypot(b.x-a.x,(b.y-a.y)*asp);
@@ -1165,6 +1398,7 @@ function abrirMarca(id){
   abrirHoja('<div class="hoja-titulo">'+icono(t,true)+' '+t.nombre+'</div>'+
     '<div class="hoja-sub">Constatada en la jornada <b>'+diaLarga(m.fechaDia)+'</b> a las '+fmtHora(m.creado)+(m.editado?' · editada '+fmtFecha(m.editado):'')+'</div>'+
     '<div class="meta-grid"><div class="meta-item"><span>Tipo de marca</span><b>'+(m.forma==='tramo'?'Tramo · '+(l!=null?fmtMl(l):'sin escala'):'Punto')+'</b></div><div class="meta-item"><span>Cuadrilla</span><b>'+escapar(m.cuadrilla||'—')+'</b></div></div>'+
+    (ordenTipo(m.tipo)<TIPOS.length-1?'<button class="btn secundario" data-accion="mk-siguiente" data-id="'+m.id+'" style="margin-bottom:10px">⏭ Registrar hoy la etapa siguiente ('+escapar(TIPOS[ordenTipo(m.tipo)+1].corto)+') junto a esta marca</button>':'')+
     (cer?'<div class="info-sello indigo">🔒 Jornada cerrada: esta marca es solo lectura. '+(m.nota?'<br>Nota: <b>'+escapar(m.nota)+'</b>':'')+'</div><button class="btn secundario" data-accion="cerrar">Cerrar</button>'
     :'<label class="etiqueta">Etapa</label><div class="chips" id="mkTipos">'+TIPOS.map(x=>'<button class="chip-boton'+(x.id===m.tipo?' activo':'')+'" data-accion="mk-tipo" data-tipo="'+x.id+'" style="display:inline-flex;align-items:center;gap:6px">'+icono(x)+x.corto+'</button>').join('')+'</div>'+
      '<label class="etiqueta">Cuadrilla</label><input id="mkCuadrilla" class="campo" list="listaCuadrillas" maxlength="40" value="'+escAttr(m.cuadrilla||'')+'">'+
@@ -1174,11 +1408,11 @@ function abrirMarca(id){
 async function guardarMarca(id){
   const m=estado.marcas.find(x=>x.id===id);if(!m||jornadaCerrada(m.fechaDia))return;
   m.tipo=selTipoMarca||m.tipo;m.cuadrilla=($('#mkCuadrilla').value||'').trim();m.nota=($('#mkNota').value||'').trim();m.editado=new Date().toISOString();
-  await storePut('marcas',m);cerrarHoja();renderMarcas();renderPaleta();actualizarCuadrillas();toast('Marca actualizada','ok');
+  await storePut('marcas',m);cerrarHoja();renderMarcas();renderPaleta();renderBarraEdicion();actualizarCuadrillas();toast('Marca actualizada','ok');
 }
 async function eliminarMarca(id){
   const m=estado.marcas.find(x=>x.id===id);if(!m||jornadaCerrada(m.fechaDia))return;
-  await storeDel('marcas',id);estado.marcas=estado.marcas.filter(x=>x.id!==id);cerrarHoja();renderMarcas();renderPaleta();renderNiveles();
+  await storeDel('marcas',id);estado.marcas=estado.marcas.filter(x=>x.id!==id);if(estado.selId===id)estado.selId=null;cerrarHoja();renderMarcas();renderPaleta();renderNiveles();renderBarraEdicion();
   toastAccion('Marca eliminada','↩ Deshacer',async()=>{await storePut('marcas',m);estado.marcas.push(m);renderMarcas();renderPaleta();renderNiveles();});
 }
 function abrirVista(){
@@ -1196,8 +1430,37 @@ function actualizarCuadrillas(){
 
 /* ================= Vista Avance ================= */
 function celdaTipo(o,meta){return o.n+(o.ml?'<br><small>'+fmtMl(o.ml)+(meta?' · '+Math.round(o.ml/meta*100)+'%':'')+'</small>':'');}
+function datosDiarios(lista){
+  const g={};lista.forEach(m=>{(g[m.fechaDia]=g[m.fechaDia]||[]).push(m);});
+  return Object.keys(g).sort().map(d=>({dia:d,r:resumen(g[d]),n:g[d].length}));
+}
+/* Barras apiladas por día (una barra = una jornada), colores = etapas. */
+function graficoDiarioSVG(lista,maxDias){
+  let dd=datosDiarios(lista);if(maxDias&&dd.length>maxDias)dd=dd.slice(-maxDias);
+  if(!dd.length)return'<p class="nota">Aún no hay marcas para graficar.</p>';
+  const W=640,H=210,pl=30,pr=8,pt=14,pb=26,aw=W-pl-pr,ah=H-pt-pb;
+  const max=Math.max(...dd.map(d=>d.n)),paso=max<=5?1:max<=10?2:max<=25?5:max<=50?10:Math.ceil(max/50)*10;
+  const tope=Math.max(paso,Math.ceil(max/paso)*paso),y=v=>pt+ah-(v/tope)*ah;
+  const slot=aw/dd.length,bw=Math.max(4,Math.min(26,slot*.62));
+  let g='<g class="ejes">';
+  for(let v=0;v<=tope;v+=paso){g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke-width="1"/><text x="'+(pl-6)+'" y="'+(y(v)+3.5)+'" text-anchor="end">'+v+'</text>';}
+  const cadaN=Math.ceil(dd.length/12);
+  let barras='';
+  dd.forEach((d,i)=>{
+    const cx=pl+slot*i+slot/2,x=cx-bw/2;let acum=0;
+    TIPOS.forEach(t=>{const n=d.r[t.id].n;if(!n)return;const y1=y(acum+n),y0=y(acum);
+      barras+='<rect x="'+x.toFixed(1)+'" y="'+(y1+1).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(1,y0-y1-1).toFixed(1)+'" rx="2" fill="'+t.color+'"><title>'+diaLarga(d.dia)+' · '+escapar(t.nombre)+': '+n+'</title></rect>';acum+=n;});
+    barras+='<text class="valor" x="'+cx+'" y="'+(y(d.n)-4)+'" text-anchor="middle">'+d.n+'</text>';
+    if(i%cadaN===0)g+='<text x="'+cx+'" y="'+(H-8)+'" text-anchor="middle">'+diaCorta(d.dia)+'</text>';
+  });
+  g+='</g>';
+  return'<div class="leyenda-graf">'+TIPOS.map(t=>'<span>'+icono(t)+escapar(t.corto)+'</span>').join('')+'</div>'+
+    '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Marcas por día y etapa">'+g+barras+'</svg>'+
+    '<p class="nota" style="margin-top:6px">Cada barra es una jornada; la altura es la cantidad de marcas registradas ese día. Toca o pasa el cursor sobre un tramo para ver el detalle.</p>';
+}
 function renderAvance(){
   actualizarCuadrillas();
+  $('#avanceGrafico').innerHTML=graficoDiarioSVG(estado.marcas,30);
   const cp=$('#avancePlanos');
   if(!estado.planos.length){cp.innerHTML='<div class="vacio"><p>Carga planos para ver el avance.</p></div>';$('#avanceJornadas').innerHTML='';$('#avanceCuadrillas').innerHTML='';return;}
   cp.innerHTML=estado.planos.map(p=>{
@@ -1278,12 +1541,79 @@ function calidadInforme(){const v=$('#selCalidad').value;
   if(v==='baja')return{gen:1500,cuad:1900,q:.68,nombre:'baja'};
   return{gen:2300,cuad:2900,q:.82,nombre:'media'};}
 function formaPDF(doc,forma,cx,cy,h){if(forma==='circulo')doc.circle(cx,cy,h,'F');else doc.rect(cx-h,cy-h,2*h,2*h,'F');}
+let PDF_SIGLAS=false;
 function simboloPDF(doc,t,cx,cy,s,anillo){
   const h=s/2;
   if(anillo){doc.setFillColor(15,23,42);formaPDF(doc,t.forma,cx,cy,h+s*.36);}
   doc.setFillColor(255,255,255);formaPDF(doc,t.forma,cx,cy,h+s*.16);
   const c=hexRgb(t.color);doc.setFillColor(c[0],c[1],c[2]);formaPDF(doc,t.forma,cx,cy,h);
+  if(PDF_SIGLAS&&t.sigla&&s>=2.6){
+    const f=doc.getFont(),fs=doc.getFontSize();
+    doc.setFont('helvetica','bold');doc.setFontSize(s*2.3);doc.setTextColor(255,255,255);
+    doc.text(t.sigla,cx,cy,{align:'center',baseline:'middle'});
+    doc.setFont(f.fontName,f.fontStyle);doc.setFontSize(fs);
+  }
 }
+function opacidadPDF(doc,v){try{doc.setGState(new doc.GState({opacity:v}));}catch(e){}}
+/* Barras apiladas por jornada dentro del PDF */
+function graficoPDF(c,lista){
+  const doc=c.doc,dd=datosDiarios(lista);if(!dd.length)return;
+  const alto=64;if(c.y+alto+6>c.lim)c.nueva();
+  const x0=c.M+12,y0=c.y+3,w=c.W-14,hh=alto-15;
+  const max=Math.max(...dd.map(d=>d.n)),paso=max<=5?1:max<=10?2:max<=25?5:max<=50?10:Math.ceil(max/50)*10;
+  const tope=Math.max(paso,Math.ceil(max/paso)*paso),Y=v=>y0+hh-(v/tope)*hh;
+  doc.setFont('helvetica','normal');doc.setFontSize(7);
+  for(let v=0;v<=tope;v+=paso){doc.setDrawColor(226,232,240);doc.setLineWidth(.2);doc.line(x0,Y(v),x0+w,Y(v));doc.setTextColor(...PDF_TEMA.tenue);doc.text(String(v),x0-2,Y(v)+1,{align:'right'});}
+  const slot=w/dd.length,bw=Math.min(14,slot*.62),cada=Math.ceil(dd.length/28);
+  dd.forEach((d,i)=>{
+    const cx=x0+slot*i+slot/2;let ac=0;
+    TIPOS.forEach(t=>{const n=d.r[t.id].n;if(!n)return;const ya=Y(ac+n),yb=Y(ac);const col=hexRgb(t.color);doc.setFillColor(col[0],col[1],col[2]);doc.rect(cx-bw/2,ya+.25,bw,Math.max(.2,yb-ya-.25),'F');ac+=n;});
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...PDF_TEMA.texto);doc.text(String(d.n),cx,Y(d.n)-1.2,{align:'center'});
+    if(i%cada===0){doc.setFont('helvetica','normal');doc.setFontSize(6.6);doc.setTextColor(...PDF_TEMA.tenue);doc.text(diaCorta(d.dia),cx,y0+hh+4.2,{align:'center'});}
+  });
+  doc.setDrawColor(148,163,184);doc.setLineWidth(.35);doc.line(x0,y0+hh,x0+w,y0+hh);
+  let lx=x0;const ly=y0+hh+9;doc.setFont('helvetica','bold');doc.setFontSize(7.6);
+  TIPOS.forEach(t=>{simboloPDF(doc,t,lx+1.5,ly-1,2.4);doc.setTextColor(...PDF_TEMA.texto);doc.text(t.nombre,lx+4,ly);lx+=doc.getTextWidth(t.nombre)+10;});
+  c.y=y0+alto+2;
+}
+/* Cuadros "frame" del plano: uno por jornada, cada uno acumulado hasta ese día */
+async function paginasEvolucion(o){
+  const{doc,W,H,page,plano,pag,desde,hasta,soloPer,tam,cal,nomPag,todas}=o;
+  const dias=[...new Set(todas.filter(m=>m.fechaDia>=desde&&m.fechaDia<=hasta).map(m=>m.fechaDia))].sort();
+  if(!dias.length)return;
+  const frames=[];
+  if(!soloPer&&todas.some(m=>m.fechaDia<desde))frames.push({dia:null,antes:true});
+  dias.forEach(d=>frames.push({dia:d}));
+  const img=await renderRegion(page,{x:0,y:0,w:1,h:1},cal.gen,cal.q);
+  const alias='evo_'+plano.id+'_'+pag;
+  const cols=3,filas=2,gap=6,top=26,bottom=H-14,cw=(W-20-gap*(cols-1))/cols,ch=(bottom-top-gap*(filas-1))/filas,lab=8;
+  const esc=Math.min(cw/img.rwP,(ch-lab)/img.rhP),dw=img.rwP*esc,dh=img.rhP*esc;
+  const s=Math.max(1.6,tam*.5);
+  for(let k=0;k<frames.length;k++){
+    const pos=k%(cols*filas);
+    if(pos===0){doc.addPage();encabezadoPDF(doc,W,'EVOLUCIÓN DÍA A DÍA — '+truncar(nomPag,52),'Cada cuadro acumula el avance hasta ese día · en color pleno y con anillo, lo ejecutado en esa jornada',hasta);}
+    const f=frames[k],col=pos%cols,fil=Math.floor(pos/cols);
+    const cx0=10+col*(cw+gap),cy0=top+fil*(ch+gap),x0=cx0+(cw-dw)/2,y0=cy0+lab;
+    const nDia=f.antes?0:dias.indexOf(f.dia)+1;
+    const visibles=todas.filter(m=>f.antes?m.fechaDia<desde:m.fechaDia<=f.dia);
+    const nuevas=f.antes?[]:todas.filter(m=>m.fechaDia===f.dia);
+    doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(...PDF_TEMA.osc);
+    doc.text(f.antes?'Antes del periodo (al '+diaLarga(prevDia(desde))+')':'Día '+nDia+' · '+diaSemana(f.dia).slice(0,3)+' '+diaLarga(f.dia),cx0,cy0+5);
+    if(!f.antes){const r=resumen(nuevas);let rx=cx0+cw;doc.setFontSize(8);
+      for(let i=TIPOS.length-1;i>=0;i--){const t=TIPOS[i],tx='+'+r[t.id].n;doc.setTextColor(...PDF_TEMA.texto);doc.text(tx,rx,cy0+5,{align:'right'});rx-=doc.getTextWidth(tx)+1.2;simboloPDF(doc,t,rx-1.4,cy0+4,2.4);rx-=5;}}
+    doc.addImage(img.url,'JPEG',x0,y0,dw,dh,alias,'FAST');
+    doc.setDrawColor(148,163,184);doc.setLineWidth(.25);doc.rect(x0,y0,dw,dh);
+    const X=x=>x0+x*dw,Y=y=>y0+y*dh;
+    const dibujar=(lista,anillo)=>{
+      lista.filter(m=>m.forma==='tramo').forEach(m=>tramoPDF(doc,TIPO[m.tipo],X(m.x),Y(m.y),X(m.x2),Y(m.y2),s,anillo));
+      lista.filter(m=>m.forma!=='tramo').sort((a,b)=>ordenTipo(a.tipo)-ordenTipo(b.tipo)).forEach(m=>simboloPDF(doc,TIPO[m.tipo],X(m.x),Y(m.y),s,anillo));
+    };
+    const viejas=visibles.filter(m=>f.antes||m.fechaDia<f.dia);
+    opacidadPDF(doc,.38);dibujar(viejas,false);opacidadPDF(doc,1);
+    dibujar(nuevas,true);
+  }
+}
+function prevDia(k){const p=k.split('-');const d=new Date(+p[0],+p[1]-1,+p[2]);d.setDate(d.getDate()-1);return fechaADia(d);}
 function tramoPDF(doc,t,x1,y1,x2,y2,s,anillo){
   const c=hexRgb(t.color);doc.setLineCap('round');
   if(anillo){doc.setDrawColor(15,23,42);doc.setLineWidth(s*.62+.9);doc.line(x1,y1,x2,y2);}
@@ -1406,6 +1736,7 @@ async function generarInforme(){
   const desde=estado.infDesde,hasta=estado.infHasta,soloPer=$('#chkSoloPeriodo').checked;
   const div=parseInt($('#selDivision').value,10),conGeneral=$('#chkGeneral').checked||div===1,soloConMarcas=$('#chkSoloConMarcas').checked,conFecha=$('#chkFechaMarca').checked;
   const tam=parseFloat($('#selTamPdf').value)||3,cal=calidadInforme();
+  const conEvol=$('#chkEvolucion').checked,conGraf=$('#chkGrafico').checked;PDF_SIGLAS=$('#chkSiglasPdf').checked;
   const enCorte=m=>m.fechaDia<=hasta&&(!soloPer||m.fechaDia>=desde);
   const btn=$('#btnGenerarInforme');btn.disabled=true;mostrarProgreso('Preparando informe…');
   try{
@@ -1422,7 +1753,7 @@ async function generarInforme(){
     doc.setFont('helvetica','bold');doc.setFontSize(18);doc.setTextColor(...PDF_TEMA.osc);doc.text(truncar(estado.proyecto,70),10,c.y+5);c.y+=12;
     doc.setFontSize(9.5);
     [['Mandante',port.mandante],['Subcontrato tabiques',port.subcontrato],['Responsable',port.inspector],['Periodo informado',diaLarga(desde)+' al '+diaLarga(hasta)+(soloPer?' (solo marcas del periodo)':'')],['Fecha de corte',diaLarga(hasta)],['Generado',fmtFecha(new Date().toISOString())]]
-      .forEach(([k,v])=>{if(!v)return;doc.setFont('helvetica','bold');doc.setTextColor(...PDF_TEMA.osc);doc.text(k+':',10,c.y);doc.setFont('helvetica','normal');doc.setTextColor(...PDF_TEMA.texto);const lw=doc.getTextWidth(k+':');doc.setFont('helvetica','normal');doc.text(String(v),10+lw+3,c.y);c.y+=5.6;});
+      .forEach(([k,v])=>{if(!v)return;doc.setFont('helvetica','bold');doc.setTextColor(...PDF_TEMA.osc);doc.text(k+':',10,c.y);doc.setFont('helvetica','normal');doc.setTextColor(...PDF_TEMA.texto);doc.setFont('helvetica','normal');doc.text(String(v),10+42,c.y);c.y+=5.6;});
     c.y+=2;
     /* leyenda */
     doc.setFillColor(...PDF_TEMA.zebra);doc.setDrawColor(226,232,240);doc.roundedRect(10,c.y,W-20,13,2,2,'FD');
@@ -1448,6 +1779,8 @@ async function generarInforme(){
       tablaPDF(c,cj,lj.map(d=>{const j=getJornada(d),r=resumen(estado.marcas.filter(m=>m.fechaDia===d&&planos.some(p=>p.id===m.planoId)));
         return[diaLarga(d)+' '+diaSemana(d).slice(0,3),j&&j.cerrada?'Cerrada '+fmtFecha(j.cerradaEn).slice(0,16):'Abierta',j?j.inspector||'—':'—'].concat(TIPOS.map(t=>String(r[t.id].n))).concat([mlTotal(r)?mlTotal(r).toFixed(1):'—',j&&j.obs?j.obs:'']);}));
     }
+    if(conGraf){const pg=estado.marcas.filter(m=>m.fechaDia>=desde&&m.fechaDia<=hasta&&planos.some(p=>p.id===m.planoId));
+      if(pg.length){tituloSeccion(c,'Producción diaria del periodo (marcas por jornada y etapa)');graficoPDF(c,pg);}}
     /* cuadrillas */
     const per=estado.marcas.filter(m=>m.fechaDia>=desde&&m.fechaDia<=hasta&&planos.some(p=>p.id===m.planoId));
     const g={};per.forEach(m=>{const k=m.cuadrilla||'Sin cuadrilla';(g[k]=g[k]||[]).push(m);});
@@ -1481,6 +1814,8 @@ async function generarInforme(){
             await paginaRegion(Object.assign({},base,{general:false,reg,celda:{r,c:col},titulo:'CUADRANTE '+L+' — '+truncar(nomPag,56),sub:'Ampliación '+div+'×'+div+' con 2,5% de traslape entre cuadrantes'}));
           }
         }
+        if(conEvol){setProgreso('"'+plano.nombre+'" · evolución día a día…');await pausa();
+          await paginasEvolucion(Object.assign({},base,{nomPag,todas:estado.marcas.filter(m=>m.planoId===plano.id&&m.pagina===pag&&m.fechaDia<=hasta)}));}
         try{page.cleanup();}catch(e){}
       }
       try{pdf.destroy();}catch(e){}
@@ -1513,6 +1848,170 @@ async function abrirVisorInforme(){
   }catch(e){if(mi===informeToken)cu.innerHTML='<div class="vi-cargando">No se pudo mostrar la vista previa.<br>Usa ⬇ Descargar.</div>';}
 }
 function cerrarVisorInforme(){informeToken++;$('#visorInforme').classList.remove('visible');setTimeout(()=>{$('#viCuerpo').innerHTML='';},300);}
+
+/* ================= v2: Evolución día a día (reproductor y video) ================= */
+const evo={abierto:false,planoId:null,pagina:1,bg:null,dias:[],i:0,play:false,t:0,ult:0,vel:1300,desv:true,sucio:true,grabando:false};
+function combosConMarcas(){
+  const cnt=new Map();estado.marcas.forEach(m=>{const k=m.planoId+'|'+m.pagina;cnt.set(k,(cnt.get(k)||0)+1);});
+  const out=[];estado.planos.forEach(p=>{for(let pg=1;pg<=p.paginas;pg++){const n=cnt.get(p.id+'|'+pg);if(n)out.push({planoId:p.id,pagina:pg,n});}});
+  return out;
+}
+function marcasEvo(){return estado.marcas.filter(m=>m.planoId===evo.planoId&&m.pagina===evo.pagina);}
+async function abrirEvolucion(planoId,pagina){
+  const combos=combosConMarcas();
+  if(!combos.length){toast('Aún no hay marcas para mostrar la evolución','error');return;}
+  const c=combos.find(x=>x.planoId===planoId&&x.pagina===pagina)||combos.find(x=>x.planoId===planoId)||combos[0];
+  $('#evPlanos').innerHTML=combos.map(x=>{const p=estado.planos.find(q=>q.id===x.planoId);return'<button data-k="'+x.planoId+'|'+x.pagina+'">'+escapar(p.corto||p.nombre)+(p.paginas>1?' p'+x.pagina:'')+' · '+x.n+'</button>';}).join('');
+  $('#evolucion').classList.add('visible');evo.abierto=true;evo.ult=0;
+  await cargarEvo(c.planoId,c.pagina);
+  requestAnimationFrame(evLoop);
+}
+function cerrarEvolucion(){evo.abierto=false;evo.play=false;$('#evolucion').classList.remove('visible');}
+async function cargarEvo(planoId,pagina){
+  evo.play=false;actualizarBotonPlay();
+  evo.planoId=planoId;evo.pagina=pagina;evo.bg=null;
+  const plano=estado.planos.find(p=>p.id===planoId);
+  $('#evTitulo').textContent='Evolución · '+plano.nombre+(plano.paginas>1?' · pág '+pagina:'');
+  $$('#evPlanos button').forEach(b=>b.classList.toggle('activo',b.dataset.k===planoId+'|'+pagina));
+  evo.dias=[...new Set(marcasEvo().map(m=>m.fechaDia))].sort();
+  evo.i=Math.max(0,evo.dias.length-1);evo.t=0;
+  $('#evSlider').max=Math.max(0,evo.dias.length-1);renderTira();
+  mostrarProgreso('Preparando el plano…');
+  try{
+    await cargarLib('pdfjs');
+    let doc,propio=false;
+    if(estado.pdfDocId===planoId&&estado.pdfDoc)doc=estado.pdfDoc;
+    else{doc=await window.pdfjsLib.getDocument({data:await plano.archivo.arrayBuffer()}).promise;propio=true;}
+    const page=await doc.getPage(pagina),v1=page.getViewport({scale:1});
+    let w=Math.min(2200,Math.round(Math.max(window.innerWidth,window.innerHeight)*Math.min(window.devicePixelRatio||1,2))),h=Math.round(w*v1.height/v1.width);
+    if(w*h>9e6){const k=Math.sqrt(9e6/(w*h));w=Math.round(w*k);h=Math.round(h*k);}
+    const cv=document.createElement('canvas');cv.width=w;cv.height=h;const ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+    await page.render({canvasContext:ctx,viewport:page.getViewport({scale:w/v1.width})}).promise;
+    evo.bg=cv;if(propio){try{doc.destroy();}catch(e){}}
+  }catch(e){console.error(e);toast('No se pudo preparar el plano: '+e.message,'error');}
+  ocultarProgreso();evo.sucio=true;sincronizarEvoUI();
+}
+function renderTira(){
+  const ms=marcasEvo();const dd=evo.dias.map(d=>{const l=ms.filter(m=>m.fechaDia===d);return{d,r:resumen(l),n:l.length};});
+  const max=Math.max(1,...dd.map(x=>x.n));
+  $('#evTira').innerHTML=dd.map((x,i)=>'<div class="ev-dia" data-i="'+i+'" title="'+diaLarga(x.d)+' · '+x.n+' marcas"><div class="barras">'+
+    TIPOS.map(t=>x.r[t.id].n?'<i style="background:'+t.color+';height:'+Math.max(2,x.r[t.id].n/max*44)+'px"></i>':'').join('')+'</div><span>'+diaCorta(x.d)+'</span></div>').join('');
+}
+function sincronizarEvoUI(){
+  $('#evSlider').value=evo.i;
+  $$('#evTira .ev-dia').forEach((el,i)=>{el.classList.toggle('activo',i===evo.i);el.classList.toggle('pasado',i<evo.i);});
+  const a=$('#evTira .ev-dia.activo');if(a)a.scrollIntoView({inline:'center',block:'nearest'});
+}
+function actualizarBotonPlay(){const b=$('#evPlay');if(b){b.textContent=evo.play?'⏸':'▶';b.setAttribute('aria-label',evo.play?'Pausa':'Reproducir');}}
+function altoFrame(W){const ph=Math.round(W*evo.bg.height/evo.bg.width),band=Math.max(70,Math.round(W*.095));return{ph,band,H:ph+band};}
+function formaCanvas(ctx,forma,cx,cy,h){if(forma==='circulo'){ctx.beginPath();ctx.arc(cx,cy,h,0,Math.PI*2);ctx.fill();}else ctx.fillRect(cx-h,cy-h,2*h,2*h);}
+function simboloCanvas(ctx,t,cx,cy,s,anillo){
+  const h=s/2;
+  if(anillo){ctx.fillStyle='#0F172A';formaCanvas(ctx,t.forma,cx,cy,h+s*.36);}
+  ctx.fillStyle='#fff';formaCanvas(ctx,t.forma,cx,cy,h+s*.16);
+  ctx.fillStyle=t.color;formaCanvas(ctx,t.forma,cx,cy,h);
+  if(estado.siglas&&t.sigla&&s>=10){ctx.fillStyle='#fff';ctx.font='800 '+Math.round(s*.66)+'px Inter,system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(t.sigla,cx,cy+.5);}
+}
+function tramoCanvas(ctx,t,x1,y1,x2,y2,s,anillo){
+  ctx.lineCap='round';
+  const linea=(c,w)=>{ctx.strokeStyle=c;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();};
+  if(anillo)linea('#0F172A',s*.62+s*.5);linea('#fff',s*.62+s*.25);linea(t.color,s*.62);
+}
+/* Dibuja un cuadro completo: banda superior con la fecha y los conteos + plano con las marcas acumuladas */
+function pintarFrame(ctx,W,i,prog){
+  const{ph,band}=altoFrame(W),N=evo.dias.length,dia=evo.dias[i],plano=estado.planos.find(p=>p.id===evo.planoId);
+  const ms=marcasEvo(),vis=ms.filter(m=>m.fechaDia<=dia),nuevas=vis.filter(m=>m.fechaDia===dia),acum=resumen(vis),hoyR=resumen(nuevas);
+  ctx.save();ctx.textAlign='left';ctx.textBaseline='alphabetic';
+  ctx.fillStyle='#0F172A';ctx.fillRect(0,0,W,band);
+  const barra=Math.max(3,band*.06);ctx.fillStyle='#312E81';ctx.fillRect(0,band-barra,W,barra);
+  ctx.fillStyle='#F59E0B';ctx.fillRect(0,band-barra,W*((i+Math.min(1,prog))/Math.max(1,N)),barra);
+  const fs=band*.27,pad=band*.24;
+  ctx.fillStyle='#fff';ctx.font='800 '+fs+'px "Plus Jakarta Sans",Inter,system-ui,sans-serif';
+  ctx.fillText('Día '+(i+1)+' de '+N+' · '+diaSemana(dia)+' '+diaLarga(dia),pad,band*.42);
+  ctx.fillStyle='#C7D2FE';ctx.font='600 '+(fs*.62)+'px Inter,system-ui,sans-serif';
+  ctx.fillText(truncar(estado.proyecto+' · '+plano.nombre,70)+'   ·   '+APP_NOMBRE,pad,band*.72);
+  /* conteos a la derecha: acumulado (+ del día) */
+  let rx=W-pad;const fy=band*.5,fz=fs*.62;
+  for(let k=TIPOS.length-1;k>=0;k--){
+    const t=TIPOS[k],tx=acum[t.id].n+(hoyR[t.id].n?' (+'+hoyR[t.id].n+')':'');
+    ctx.font='700 '+fz+'px Inter,system-ui,sans-serif';ctx.fillStyle='#F1F5F9';ctx.textAlign='right';ctx.fillText(tx,rx,fy+fz*.36);
+    rx-=ctx.measureText(tx).width+fz*.5;simboloCanvas(ctx,t,rx-fz*.5,fy,fz*.9,false);rx-=fz*1.6;
+  }
+  ctx.textAlign='left';
+  ctx.drawImage(evo.bg,0,band,W,ph);
+  const s=Math.max(7,W*.0085)*({s:.8,m:1,l:1.3}[estado.tamMarca]||1);
+  const X=x=>x*W,Y=y=>band+y*ph;
+  const dibujar=(lista,anillo)=>{
+    lista.filter(m=>m.forma==='tramo').forEach(m=>tramoCanvas(ctx,TIPO[m.tipo],X(m.x),Y(m.y),X(m.x2),Y(m.y2),s,anillo));
+    lista.filter(m=>m.forma!=='tramo').sort((a,b)=>ordenTipo(a.tipo)-ordenTipo(b.tipo)).forEach(m=>simboloCanvas(ctx,TIPO[m.tipo],X(m.x),Y(m.y),s,anillo));
+  };
+  ctx.globalAlpha=evo.desv?.36:1;dibujar(vis.filter(m=>m.fechaDia<dia),false);ctx.globalAlpha=1;
+  /* pulso de aparición de las marcas del día */
+  if(prog<.65){const k=prog/.65;ctx.strokeStyle='rgba(245,158,11,'+(1-k)+')';ctx.lineWidth=Math.max(2,s*.25);
+    nuevas.forEach(m=>{const cx=m.forma==='tramo'?(m.x+m.x2)/2:m.x,cy=m.forma==='tramo'?(m.y+m.y2)/2:m.y;ctx.beginPath();ctx.arc(X(cx),Y(cy),s*(1+k*2.6),0,Math.PI*2);ctx.stroke();});}
+  dibujar(nuevas,true);
+  ctx.restore();
+}
+function pintarEvoPantalla(){
+  if(!evo.bg||!evo.dias.length)return;
+  const cv=$('#evCanvas'),W=evo.bg.width,{H}=altoFrame(W);
+  if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
+  pintarFrame(cv.getContext('2d'),W,evo.i,evo.play?evo.t/evo.vel:1);
+}
+function evLoop(ts){
+  if(!evo.abierto)return;
+  const dt=evo.ult?Math.min(100,ts-evo.ult):0;evo.ult=ts;
+  if(evo.play&&!evo.grabando){
+    evo.t+=dt;evo.sucio=true;
+    if(evo.t>=evo.vel){evo.t=0;if(evo.i<evo.dias.length-1){evo.i++;sincronizarEvoUI();}else{evo.play=false;actualizarBotonPlay();}}
+  }
+  if(evo.sucio&&!evo.grabando){pintarEvoPantalla();evo.sucio=false;}
+  requestAnimationFrame(evLoop);
+}
+function irDiaEvo(i){evo.i=Math.max(0,Math.min(evo.dias.length-1,i));evo.t=0;evo.sucio=true;sincronizarEvoUI();}
+async function exportarVideo(){
+  if(!evo.bg||!evo.dias.length)return;
+  const cvProto=HTMLCanvasElement.prototype;
+  if(!window.MediaRecorder||!cvProto.captureStream){toast('Este navegador no puede grabar video. Prueba con Chrome en Android o en el computador','error');return;}
+  const tipos=['video/mp4;codecs=avc1','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'];
+  const mime=tipos.find(t=>{try{return MediaRecorder.isTypeSupported(t);}catch(e){return false;}})||'';
+  let W=Math.min(1280,evo.bg.width);W-=W%2;let{H}=altoFrame(W);H-=H%2;
+  const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+  pintarFrame(ctx,W,0,0);
+  const stream=c.captureStream(25);
+  let rec;try{rec=new MediaRecorder(stream,mime?{mimeType:mime,videoBitsPerSecond:5000000}:undefined);}catch(e){toast('No se pudo iniciar la grabación','error');return;}
+  const trozos=[];rec.ondataavailable=e=>{if(e.data&&e.data.size)trozos.push(e.data);};
+  const fin=new Promise(r=>rec.onstop=r);
+  evo.grabando=true;evo.play=false;actualizarBotonPlay();
+  mostrarProgreso('Grabando video…');rec.start(250);
+  try{
+    for(let i=0;i<evo.dias.length;i++){
+      const hold=i===evo.dias.length-1?evo.vel*2.5:evo.vel,t0=performance.now();
+      setProgreso('Grabando video… día '+(i+1)+' de '+evo.dias.length);
+      while(performance.now()-t0<hold){pintarFrame(ctx,W,i,(performance.now()-t0)/evo.vel);await new Promise(r=>setTimeout(r,40));}
+    }
+  }finally{rec.stop();await fin;evo.grabando=false;evo.sucio=true;ocultarProgreso();}
+  const tipo=rec.mimeType||mime||'video/webm',ext=/mp4/.test(tipo)?'mp4':'webm';
+  const blob=new Blob(trozos,{type:tipo});
+  if(!blob.size){toast('El video quedó vacío: este navegador no grabó el lienzo','error');return;}
+  const plano=estado.planos.find(p=>p.id===evo.planoId);
+  const nombre='Evolucion_'+(plano.nombre||'plano').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w-]+/g,'_')+'_'+evo.dias[0]+'_a_'+evo.dias[evo.dias.length-1]+'.'+ext;
+  await compartirArchivo(blob,nombre,'Evolución del avance de tabiques');
+  if(ext==='webm')toast('Video en formato WebM: se abre en Chrome, Android y WhatsApp web. Si tu equipo no lo reproduce, conviértelo a MP4','ok');
+}
+function bindEvolucion(){
+  $('#evCerrar').addEventListener('click',cerrarEvolucion);
+  $('#evVideo').addEventListener('click',exportarVideo);
+  $('#evPlanos').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const[p,pg]=b.dataset.k.split('|');cargarEvo(p,parseInt(pg,10));});
+  $('#evTira').addEventListener('click',e=>{const d=e.target.closest('[data-i]');if(!d)return;evo.play=false;actualizarBotonPlay();irDiaEvo(parseInt(d.dataset.i,10));});
+  $('#evPlay').addEventListener('click',()=>{if(!evo.dias.length)return;if(!evo.play&&evo.i>=evo.dias.length-1)irDiaEvo(0);evo.play=!evo.play;evo.t=0;actualizarBotonPlay();evo.sucio=true;});
+  $('#evPrimero').addEventListener('click',()=>{evo.play=false;actualizarBotonPlay();irDiaEvo(0);});
+  $('#evAntes').addEventListener('click',()=>{evo.play=false;actualizarBotonPlay();irDiaEvo(evo.i-1);});
+  $('#evDespues').addEventListener('click',()=>{evo.play=false;actualizarBotonPlay();irDiaEvo(evo.i+1);});
+  $('#evSlider').addEventListener('input',e=>{evo.play=false;actualizarBotonPlay();irDiaEvo(parseInt(e.target.value,10));});
+  $('#evVel').addEventListener('change',e=>{evo.vel=parseInt(e.target.value,10)||1300;});
+  $('#evDesvanecer').addEventListener('change',e=>{evo.desv=e.target.checked;evo.sucio=true;});
+}
 
 /* ================= Respaldo (exportar / importar con fusión) ================= */
 async function exportarRespaldo(){
@@ -1566,6 +2065,8 @@ function abrirMenu(){
   const alm=MODO_ALM==='idb'?'en el dispositivo':'temporal (no se guarda)';
   abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">'+APP_NOMBRE+' '+APP_VER_ETIQUETA+' · datos '+alm+' · por '+APP_AUTOR+'</div>'+
     '<button class="menu-item" data-accion="m-tam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="7" height="7" rx="1"/><circle cx="16.5" cy="16.5" r="4"/></svg>Tamaño de marcas en pantalla <span class="chip" style="margin-left:auto">'+({s:'pequeño',m:'mediano',l:'grande'}[estado.tamMarca])+'</span></button>'+
+    '<button class="menu-item" data-accion="m-etapas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/></svg>Personalizar etapas (colores, nombres, forma)</button>'+
+    '<button class="menu-item" data-accion="m-siglas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 9h4M12 9v7"/></svg>Letra de etapa dentro de la marca <span class="chip" style="margin-left:auto">'+(estado.siglas?'sí':'no')+'</span></button>'+
     '<button class="menu-item" data-accion="m-oscuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 14.5A8.5 8.5 0 1 1 12.5 3 7 7 0 0 0 21 14.5z"/></svg>Modo oscuro <span class="chip" style="margin-left:auto">'+(estado.oscuro?'sí':'no')+'</span></button>'+
     '<button class="menu-item" data-accion="m-contraste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>Alto contraste (pleno sol) <span class="chip" style="margin-left:auto">'+(estado.contraste?'sí':'no')+'</span></button>'+
     '<button class="menu-item" data-accion="m-csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 20h16M8 4v12M12 8v8M16 6v10"/></svg>Exportar marcas a CSV (Excel)</button>'+
@@ -1574,6 +2075,23 @@ function abrirMenu(){
     '<button class="menu-item" data-accion="m-offline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 12a9 9 0 1 1-2.6-6.3M21 3v6h-6"/></svg>Preparar modo offline</button>'+
     '<button class="menu-item rojo" data-accion="m-reiniciar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>Reiniciar todos los datos</button>');
 }
+function abrirEtapas(){
+  abrirHoja('<div class="hoja-titulo">🎨 Etapas de avance</div><div class="hoja-sub">Cambia el color, el nombre, la letra o la forma de cada etapa. El cambio se aplica a todas las marcas de esa etapa, incluidas las antiguas. El orden (estructura → 2ª cara) define qué es la "etapa siguiente".</div>'+
+    TIPOS.map(t=>'<div class="etapa-edit"><input type="color" data-et-color="'+t.id+'" value="'+t.color+'" aria-label="Color"><input class="campo" data-et-nombre="'+t.id+'" maxlength="30" value="'+escAttr(t.nombre)+'"><input class="campo" data-et-sigla="'+t.id+'" maxlength="1" value="'+escAttr(t.sigla||'')+'" style="text-align:center;padding:10px 4px" aria-label="Letra"><select class="campo" data-et-forma="'+t.id+'" style="padding:9px 6px"><option value="cuadrado"'+(t.forma==='cuadrado'?' selected':'')+'>■ Cuadrado</option><option value="circulo"'+(t.forma==='circulo'?' selected':'')+'>● Círculo</option></select></div>').join('')+
+    '<div class="info-sello indigo" style="margin-top:6px">Consejo: rojo y verde se confunden para personas con daltonismo. Si alguien del equipo lo es, activa la <b>letra de etapa</b> en el menú o usa formas distintas.</div>'+
+    '<div class="fila-btn"><button class="btn secundario" data-accion="etapas-restaurar">Restaurar originales</button><button class="btn principal" data-accion="etapas-guardar">Guardar</button></div>');
+}
+async function guardarEtapas(){
+  TIPOS.forEach(t=>{
+    const c=$('[data-et-color="'+t.id+'"]').value,n=($('[data-et-nombre="'+t.id+'"]').value||'').trim(),sg=($('[data-et-sigla="'+t.id+'"]').value||'').trim(),f=$('[data-et-forma="'+t.id+'"]').value;
+    if(/^#[0-9a-f]{6}$/i.test(c))t.color=c.toUpperCase();
+    if(n&&n!==t.nombre){t.nombre=n;t.corto=n.length<=12?n:n.split(/\s+/)[0].slice(0,12);}
+    t.sigla=sg.slice(0,1);t.forma=f==='circulo'?'circulo':'cuadrado';
+  });
+  reconstruirTipos();await metaSet('tipos',TIPOS.map(t=>({id:t.id,nombre:t.nombre,corto:t.corto,color:t.color,forma:t.forma,sigla:t.sigla})));
+  cerrarHoja();refrescarEtapas();toast('Etapas actualizadas','ok');
+}
+function refrescarEtapas(){renderLeyendaInicio();renderTodo();renderPaleta();renderBarraEdicion();}
 function exportarCSV(){
   const nom=id=>{const p=estado.planos.find(x=>x.id===id);return p?p.nombre:'';};
   const filas=[['Fecha jornada','Hora','Plano','Pagina','Etapa','Forma','Metros','Cuadrilla','Nota','Jornada cerrada']];
@@ -1612,6 +2130,11 @@ async function manejarAccionHoja(e){
     case'm-oscuro':estado.oscuro=!estado.oscuro;if(estado.oscuro)estado.contraste=false;await metaSet('oscuro',estado.oscuro);await metaSet('contraste',estado.contraste);aplicarTema();abrirMenu();break;
     case'm-contraste':estado.contraste=!estado.contraste;if(estado.contraste)estado.oscuro=false;await metaSet('oscuro',estado.oscuro);await metaSet('contraste',estado.contraste);aplicarTema();abrirMenu();break;
     case'm-csv':cerrarHoja();exportarCSV();break;
+    case'm-etapas':abrirEtapas();break;
+    case'm-siglas':estado.siglas=!estado.siglas;await metaSet('siglas',estado.siglas);aplicarTema();abrirMenu();break;
+    case'etapas-guardar':await guardarEtapas();break;
+    case'etapas-restaurar':TIPOS=TIPOS_BASE.map(t=>Object.assign({},t));reconstruirTipos();await metaSet('tipos',null);abrirEtapas();refrescarEtapas();toast('Etapas restauradas','ok');break;
+    case'mk-siguiente':{const id=b.dataset.id;cerrarHoja();await siguienteEtapa(id);break;}
     case'm-exportar':cerrarHoja();exportarRespaldo();break;
     case'm-importar':cerrarHoja();$('#inputRespaldo').click();break;
     case'm-offline':cerrarHoja();prepararOffline(false);break;
@@ -1646,7 +2169,15 @@ function bindEventos(){
   $('#segVer').addEventListener('click',()=>setModo('ver'));
   $('#segMarcar').addEventListener('click',()=>{setModo('marcar');renderPaleta();});
   $('#segEscala').addEventListener('click',()=>{estado.calPuntos=[];setModo('escala');});
-  $('#btnCancelarAviso').addEventListener('click',()=>{if(estado.modo==='escala'){setModo('ver');return;}estado.tramoInicio=null;renderMarcas();actualizarAviso();actualizarMira();});
+  $('#segEditar').addEventListener('click',()=>setModo('editar'));
+  $('#btnEnfoque').addEventListener('click',alternarPantallaCompleta);
+  $('#barraEdicion').addEventListener('click',accionBarraEdicion);
+  $('#btnEvoVisor').addEventListener('click',()=>abrirEvolucion(estado.planoActual&&estado.planoActual.id,estado.pagina));
+  $('#btnEvoAvance').addEventListener('click',()=>abrirEvolucion(null));
+  bindArrastreMarcas();bindEvolucion();
+  document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&estado.enfoque&&estado.modo==='ver')aplicarEnfoque(false);});
+  $('#btnCancelarAviso').addEventListener('click',()=>{if(estado.modo==='escala'){setModo('ver');return;}
+    if(estado.modo==='editar'){if(estado.moviendoSel){estado.moviendoSel=false;actualizarAviso();}else setModo('ver');return;}estado.tramoInicio=null;renderMarcas();actualizarAviso();actualizarMira();});
   $('#chipVista').addEventListener('click',abrirVista);
   $('#chipCuadrilla').addEventListener('click',()=>abrirJornada(estado.diaActivo));
   $('#paletaTipos').addEventListener('click',e=>{const b=e.target.closest('[data-tipo]');if(!b)return;estado.tipoActivo=b.dataset.tipo;metaSet('tipoActivo',estado.tipoActivo);renderPaleta();actualizarMira();if(estado.tramoInicio)renderMarcas();});
@@ -1661,6 +2192,7 @@ function bindEventos(){
     if(estado.mira&&estado.modo!=='ver')return; /* con mira se marca solo con el botón */
     if(Date.now()<bloquearClick)return;
     if(estado.modo==='ver'){const mk=e.target.closest('.mk[data-id]');if(mk){abrirMarca(mk.dataset.id);return;}}
+    if(estado.modo==='editar'&&e.target.closest('.mk[data-id]'))return; /* ya lo manejó el arrastre */
     const p=puntoDesdeCliente(e.clientX,e.clientY);if(p)accionEnPunto(p);
   });
   bindZoom();
