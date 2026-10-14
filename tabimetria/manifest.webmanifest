@@ -1,0 +1,13 @@
+{
+  "name": "TabiMetría · Avance de tabiques",
+  "short_name": "TabiMetría",
+  "description": "Levantamiento de avance de tabiques en obra. Desarrollado por Renato Martínez Palominos.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F8FAFC",
+  "theme_color": "#4F46E5",
+  "lang": "es-CL",
+  "icons": [{"src": "icono.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]
+}
