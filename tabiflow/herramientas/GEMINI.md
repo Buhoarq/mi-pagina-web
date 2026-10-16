@@ -5,7 +5,7 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
 
 ## Reglas (obligatorias)
 
-1. **Solo puedes modificar `tabiflow/avance.enc`.** No toques `index.html`, `panel.html`, `sw.js`,
+1. **Solo puedes modificar `tabiflow/avance.enc` y `tabiflow/adjuntos.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
    `modelo.enc`, `clave.json`, ni nada en `tabiflow/herramientas/`. Esos archivos los mantiene Claude.
    Si algo de eso parece necesitar cambios, avísale a Renato en vez de cambiarlo.
 2. **Nunca escribas la clave de obra** en ningún archivo, commit, mensaje de commit ni log.
@@ -36,17 +36,18 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
    - une los registros sin duplicar (cada registro tiene un id único; si un archivo se envía dos veces no cambia nada),
    - lleva al modelo nuevo los registros hechos con el modelo anterior (usa `mapa_migracion.json`),
    - conserva la ponderación y la dotación ya publicadas,
-   - reescribe `tabiflow/avance.enc` (cifrado) e imprime un reporte.
+   - une las fotos y notas por tabique (desde la v5.0): el índice queda en `avance.enc` y las imágenes en `adjuntos.enc`,
+   - reescribe `tabiflow/avance.enc` y `tabiflow/adjuntos.enc` (cifrados) e imprime un reporte.
 5. Revisa el reporte. Si dice `⚠` en algún archivo (no es de TabiFlow o no se pudo leer), avísale a Renato.
-6. Sube **solo** el avance:
+6. Sube **solo** el avance y las fotos:
    ```bash
-   git add tabiflow/avance.enc
+   git add tabiflow/avance.enc tabiflow/adjuntos.enc
    git commit -m "Avance consolidado DD/MM/AAAA (nombres de quienes enviaron)"
    git push
    ```
    Verifica con `git status` que no quedó ningún otro archivo agregado.
 7. Entrégale a Renato un resumen corto, sacado del reporte:
-   - archivos procesados y registros nuevos/anulados por persona,
+   - archivos procesados y registros nuevos/anulados por persona, y fotos/notas nuevas,
    - tabla de m² y % por nivel (solo los niveles con avance),
    - cantidad de **tabiques marcados por más de una persona** (se cuentan una vez),
    - **diferencias a revisar en terreno** (mismo tabique y día, distinta etapa),

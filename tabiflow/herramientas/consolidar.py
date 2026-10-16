@@ -84,6 +84,11 @@ def unir(a):
         t['seq'] = seq_de(t)
         if t.get('gb'): tramos.setdefault(t['gb'], []).append(g)
     eventos = {e['id']: e for e in base.get('eventos', [])}
+    # fotos y notas (v5): índice en avance.enc, imágenes aparte en adjuntos.enc
+    adj = {x['id']: x for x in base.get('adjuntos', [])}
+    ruta_adj = os.path.join(a.web, 'adjuntos.enc')
+    fotos = descifrar(key, open(ruta_adj, 'rb').read()).get('fotos', {}) if os.path.exists(ruta_adj) else {}
+    n_adj = 0
     jornadas = {j['id']: j for j in base.get('jornadas', [])}
     fuentes = base.get('fuentes', [])
     vistos = {f.get('firma') for f in fuentes}
@@ -118,6 +123,13 @@ def unir(a):
                 if e.get('borrado'): borrados += 1
             elif e.get('borrado') and not ex.get('borrado'):
                 ex['borrado'] = True; ex['borradoTs'] = e.get('borradoTs'); borrados += 1
+        for x in d.get('adjuntos', []):
+            if x.get('g') not in tab and x.get('g') not in tramos: continue
+            x = dict(x); f = x.pop('foto', None)
+            if f: fotos[x['id']] = f; x['tieneFoto'] = True
+            ex = adj.get(x['id'])
+            if ex is None: adj[x['id']] = x; n_adj += 1
+            elif x.get('borrado') and not ex.get('borrado'): ex['borrado'] = True; ex['borradoTs'] = x.get('borradoTs')
         for j in d.get('jornadas', []):
             jid = j['id'].split('|')[0] + '|' + (j.get('por') or por)
             j = dict(j, id=jid, por=j.get('por') or por)
@@ -159,8 +171,11 @@ def unir(a):
     personas = sorted({e.get('por') or '—' for e in vig})
     ahora = datetime.datetime.now(datetime.timezone.utc).isoformat()
     salida = {'actualizado': ahora, 'eventos': list(eventos.values()), 'jornadas': list(jornadas.values()), 'personas': personas, 'fuentes': fuentes,
-              'dotacion': base.get('dotacion', {}), 'config': base.get('config', {})}
+              'dotacion': base.get('dotacion', {}), 'config': base.get('config', {}), 'adjuntos': list(adj.values())}
     open(os.path.join(a.web, 'avance.enc'), 'wb').write(cifrar(key, salida))
+    if fotos or os.path.exists(ruta_adj):
+        vivos = {i for i, x in adj.items() if not x.get('borrado')}
+        open(ruta_adj, 'wb').write(cifrar(key, {'fotos': {i: f for i, f in fotos.items() if i in vivos}}))
 
     # ---- reporte para Renato ----
     def rec(g):
@@ -171,7 +186,7 @@ def unir(a):
     for n in modelo['niveles']:
         nv = n['id']
         L.append('| %s | %.0f | ' % (nv, tot_modelo[nv]) + ' | '.join(('%.0f (%.1f%%)' % (tot[(nv, e)], 100 * tot[(nv, e)] / tot_fam[(nv, e)])) if tot_fam[(nv, e)] else '·' for e in FAMS) + ' |')
-    L += ['', 'Registros vigentes: %d · personas: %s' % (len(vig), ', '.join(personas) or '—'), '']
+    L += ['', 'Registros vigentes: %d · personas: %s · fotos/notas nuevas: %d (total %d)' % (len(vig), ', '.join(personas) or '—', n_adj, sum(1 for x in adj.values() if not x.get('borrado'))), '']
     L += ['## Tabiques marcados por más de una persona (se cuentan una sola vez): %d' % len(confirmados)]
     for (g, et), v in sorted(confirmados, key=lambda x: x[0])[:60]:
         L.append('- %s — %s: %s' % (rec(g), NOMBRE[et], ', '.join('%s %s %d%%' % (x.get('por'), x['dia'][5:], round(x['f'] * 100)) for x in sorted(v, key=lambda x: x['ts']))))

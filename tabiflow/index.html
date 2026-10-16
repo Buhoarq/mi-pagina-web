@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiFlow v4.1 · Hospital de Coquimbo</title>
+<title>TabiFlow v5.0 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,6 +380,18 @@ body.contraste .zona-plano{background:#D8D8D8}
 body.contraste .mk{box-shadow:0 0 0 2.2px #fff,0 0 0 3.6px #000}
 body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 
+/* v5 · fotos y observaciones */
+.adj-lista{display:grid;gap:8px;margin:4px 0 8px}
+.adj-item{display:flex;gap:10px;align-items:flex-start;background:var(--panel2);border:1px solid var(--linea);border-radius:12px;padding:8px}
+.adj-item img{width:76px;height:76px;object-fit:cover;border-radius:9px;flex:none;cursor:zoom-in}
+.adj-sinfoto{width:76px;height:76px;border-radius:9px;background:var(--linea);display:grid;place-items:center;text-align:center;font-size:11px;color:var(--tenue);flex:none}
+.adj-txt{flex:1;min-width:0;font-size:13px;line-height:1.35;word-break:break-word}
+.adj-acciones{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 8px}
+.adj-btn{flex:1;min-width:140px;text-align:center;cursor:pointer}
+.visor-foto{position:fixed;inset:0;z-index:999;background:rgba(2,6,23,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px}
+.visor-foto img{max-width:100%;max-height:82vh;border-radius:10px}
+.visor-foto p{color:#E2E8F0;font-size:13px;text-align:center;margin:0}
+
 /* ================= TabiFlow ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
@@ -443,7 +455,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M510 806H662V1112Q586 1102 510 1062Z"/><path d="M724 673H877V1103Q800 1117 724 1116Z"/><path d="M940 551H1092V1010Q1025 1060 940 1087Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v4.1</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v5.0</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -459,12 +471,12 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiFlow v4.1 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiFlow v5.0 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
         <p>Los <b id="heroeN">—</b> tabiques del modelo de interiores ya están cargados por nivel, con su tipo, largo y superficie. No hay que subir planos: <b>elige el nivel, la etapa y toca los muros</b>. Los m² y el % de avance se calculan solos.</p>
-        <div class="info-sello verde" style="margin-top:10px">✅ <b>Modelo actualizado</b> al 15-10-2026 (interiores). El avance registrado se traspasó al modelo nuevo: los tabiques que ahora llevan 1 placa por cara ya cuentan su cara completa.</div>
+        <div class="info-sello verde" style="margin-top:10px">🆕 <b>Novedades v5.0</b>: 📷 fotos y notas en la ficha de cada tabique · 📆 comparar dos fechas en la planta (botón de vista) · 📤 enviar tu avance directo por WhatsApp o correo. Modelo de interiores actualizado al 15-10-2026.</div>
         <div class="leyenda-tipos" id="leyendaInicio"></div>
       </div>
       <div class="tarjeta" id="tarjetaEquipo"></div>
@@ -591,7 +603,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v4.1</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v5.0</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1024,7 +1036,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v4.1',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v5.0',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1088,7 +1100,7 @@ function escAttr(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/<
 function hexRgb(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
 function icono(e,g){return'<i class="ic '+(e.forma==='circulo'?'ci':'')+(g?' g':'')+'" style="--c:'+e.color+'"></i>';}
 function descargar(blob,nombre){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=nombre;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),20000);}
-async function compartirArchivo(blob,nombre,titulo){try{const f=new File([blob],nombre,{type:blob.type});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:titulo||nombre});return;}}catch(e){if(e&&e.name==='AbortError')return;}descargar(blob,nombre);}
+async function compartirArchivo(blob,nombre,titulo,texto){try{const f=new File([blob],nombre,{type:blob.type});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share(Object.assign({files:[f],title:titulo||nombre},texto?{text:texto}:{}));return;}}catch(e){if(e&&e.name==='AbortError')return;}descargar(blob,nombre);}
 function toast(msg,tipo){const t=document.createElement('div');t.className='toast '+(tipo||'');t.textContent=msg;$('#toasts').appendChild(t);setTimeout(()=>{t.classList.add('fuera');setTimeout(()=>t.remove(),350);},3200);}
 function toastAccion(msg,txt,fn){const t=document.createElement('div');t.className='toast';t.style.cssText='pointer-events:auto;display:flex;align-items:center;gap:10px';
   const s=document.createElement('span');s.style.flex='1';s.textContent=msg;const b=document.createElement('button');b.textContent=txt;
@@ -1113,10 +1125,10 @@ function cerrarHoja(){$('#hoja').classList.remove('abierta');$('#velo').classLis
   $('#velo').addEventListener('click',cerrarHoja);})();
 
 /* ---------------- almacenamiento ---------------- */
-let DB=null,MODO_ALM='mem';const mem={eventos:{},jornadas:{},meta:{}};
+let DB=null,MODO_ALM='mem';const mem={eventos:{},jornadas:{},meta:{},adjuntos:{}};
 function abrirDB(){return new Promise((res,rej)=>{if(!('indexedDB' in window)){rej(new Error('sin IndexedDB'));return;}
-  let rq;try{rq=indexedDB.open('TabiFlowHCQ',1);}catch(e){rej(e);return;}
-  rq.onupgradeneeded=e=>{const db=e.target.result;['eventos','jornadas','meta'].forEach(s=>{if(!db.objectStoreNames.contains(s))db.createObjectStore(s,{keyPath:'id'});});};
+  let rq;try{rq=indexedDB.open('TabiFlowHCQ',2);}catch(e){rej(e);return;}
+  rq.onupgradeneeded=e=>{const db=e.target.result;['eventos','jornadas','meta','adjuntos'].forEach(s=>{if(!db.objectStoreNames.contains(s))db.createObjectStore(s,{keyPath:'id'});});};
   rq.onsuccess=()=>{DB=rq.result;res(DB);};rq.onerror=()=>rej(rq.error);rq.onblocked=()=>rej(new Error('bloqueado'));});}
 function tx(s,modo,fn){return new Promise((res,rej)=>{const t=DB.transaction(s,modo);const r=fn(t.objectStore(s));t.oncomplete=()=>res(r?r.result:true);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error);});}
 async function put(s,v){if(MODO_ALM!=='idb'){mem[s][v.id]=v;return;}try{await tx(s,'readwrite',st=>st.put(v));}catch(e){toast('No se pudo guardar: '+(e&&e.message||e),'error');throw e;}}
@@ -1278,12 +1290,53 @@ function pedirRender(){if(rafRender)return;rafRender=requestAnimationFrame(()=>{
    al soltar se redibuja todo en vectores, nítido a cualquier zoom. */
 function aplicarCSS(){const k=V.s/REND.s;lienzo().style.transform='translate('+(V.tx-REND.tx*k)+'px,'+(V.ty-REND.ty*k)+'px) scale('+k+')';}
 function gestoMovio(){aplicarCSS();clearTimeout(tFinGesto);tFinGesto=setTimeout(pedirRender,140);actualizarEtiquetaFlot();}
+
+/* ---------------- fotos y observaciones por tabique (v5) ---------------- */
+/* Cada adjunto: {id,g,nv,dia,ts,por,disp,nota,foto(dataURL jpeg o null),borrado}. Los propios viven en IndexedDB y
+   viajan en "Enviar mi avance". El consolidado trae solo el índice (sin la imagen) y las fotos en adjuntos.enc. */
+const FOTOS_EQUIPO=new Map();let _fotosCargadas=false;
+function adjuntosDe(g){const m=new Map();((estado.base&&estado.base.adjuntos)||[]).forEach(a=>m.set(a.id,a));(estado.adjLocal||[]).forEach(a=>m.set(a.id,Object.assign({},m.get(a.id)||{},a)));
+  return [...m.values()].filter(a=>a.g===g&&!a.borrado).sort((a,b)=>a.ts.localeCompare(b.ts));}
+function tieneAdjuntos(g){return adjuntosDe(g).length>0;}
+async function cargarFotosEquipo(){if(_fotosCargadas||!CLAVE)return;try{const buf=await bajar('adjuntos.enc',true);const d=await descifrar(CLAVE,buf);Object.entries(d.fotos||{}).forEach(([k,v])=>FOTOS_EQUIPO.set(k,v));_fotosCargadas=true;}catch(e){}}
+function fotoDe(a){return a.foto||FOTOS_EQUIPO.get(a.id)||null;}
+function comprimirFoto(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onerror=()=>rej(fr.error);fr.onload=()=>{const im=new Image();im.onerror=()=>rej(new Error('imagen no válida'));
+  im.onload=()=>{const M=1280,k=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+    c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.62));};im.src=fr.result;};fr.readAsDataURL(file);});}
+async function guardarAdjunto(t,nota,foto){const a={id:uid(),g:t.g,nv:t.nv,dia:estado.diaActivo,ts:new Date().toISOString(),por:estado.persona,disp:estado.dispositivo,nota:nota||'',foto:foto||null};
+  estado.adjLocal=(estado.adjLocal||[]).concat([a]);await put('adjuntos',a);pedirRender();return a;}
+async function borrarAdjunto(id){const a=(estado.adjLocal||[]).find(x=>x.id===id);if(!a){toast('Solo puedes borrar tus propias fotos y notas','error');return;}
+  a.borrado=true;a.borradoTs=new Date().toISOString();await put('adjuntos',a);pedirRender();}
+function htmlAdjuntos(t){const l=adjuntosDe(t.g);let h='<label class="etiqueta">📷 Fotos y observaciones</label>';
+  if(!l.length)h+='<p class="nota" style="margin:2px 0 8px">Sin fotos ni notas. Útil antes de tapar: instalaciones, refuerzos, observaciones de la ITO.</p>';
+  else h+='<div class="adj-lista">'+l.map(a=>{const f=fotoDe(a);const mio=(estado.adjLocal||[]).some(x=>x.id===a.id);
+    return '<div class="adj-item">'+(f?'<img src="'+f+'" alt="Foto del tabique" data-tf="verfoto" data-id="'+a.id+'">':(a.tieneFoto?'<div class="adj-sinfoto">📷<br>sin conexión</div>':''))+
+      '<div class="adj-txt">'+(a.nota?'<b>'+escapar(a.nota)+'</b><br>':'')+'<span class="nota">'+diaLarga(a.dia)+' '+fmtHora(a.ts)+(a.por?' · '+escapar(a.por):'')+'</span>'+
+      (mio?' <button class="frac-btn quitar" data-tf="adjborrar" data-id="'+a.id+'" title="Borrar">✕</button>':'')+'</div></div>';}).join('')+'</div>';
+  h+='<div class="adj-acciones"><label class="btn secundario adj-btn">📷 Agregar foto<input type="file" accept="image/*" capture="environment" id="adjFoto" hidden></label>'+
+     '<button class="btn secundario adj-btn" data-tf="adjnota">📝 Agregar nota</button></div>'+
+     '<div id="adjNotaCaja" hidden><textarea id="adjNotaTxt" class="campo" rows="2" maxlength="280" placeholder="Ej.: falta pasada de corriente débil antes de tapar cara 2"></textarea>'+
+     '<div class="fila-btn" style="margin-top:6px"><button class="btn principal" data-tf="adjnotaok">Guardar nota</button></div></div>';
+  return h;}
+function enlazarAdjuntos(t){const inp=$('#adjFoto');if(inp)inp.addEventListener('change',async()=>{const f=inp.files&&inp.files[0];if(!f)return;
+  try{mostrarProgreso('Comprimiendo foto…');const d=await comprimirFoto(f);await guardarAdjunto(t,'',d);toast('Foto guardada en el tabique','ok');}
+  catch(e){toast('No se pudo guardar la foto: '+e.message,'error');}finally{ocultarProgreso&&ocultarProgreso();abrirTabique(t.g);}});
+  if(adjuntosDe(t.g).some(a=>a.tieneFoto&&!fotoDe(a)))cargarFotosEquipo().then(()=>{if(estado.sel===t.g)abrirTabique(t.g);});}
+function verFoto(id){const a=adjuntosDe(TAB[estado.sel].g).find(x=>x.id===id);const f=a&&fotoDe(a);if(!f)return;
+  const v=document.createElement('div');v.className='visor-foto';v.innerHTML='<img src="'+f+'" alt="Foto"><p>'+(a.nota?escapar(a.nota)+' · ':'')+diaLarga(a.dia)+' '+fmtHora(a.ts)+(a.por?' · '+escapar(a.por):'')+'</p>';
+  v.addEventListener('click',()=>v.remove());document.body.appendChild(v);}
+/* ---------------- comparar dos fechas en la planta (v5) ---------------- */
+function lunesDe(dia){const p=dia.split('-');const d=new Date(+p[0],+p[1]-1,+p[2]);const w=(d.getDay()+6)%7;d.setDate(d.getDate()-w);return fechaADia(d);}
+function colorRango(t){const d=estado.rgDesde,h=estado.rgHasta;const evs=(EV_POR_G.get(t.g)||[]).filter(e=>!e.borrado&&e.dia>=d&&e.dia<=h);
+  if(!evs.length)return{c:'#CBD5E1',a:1};let mx=evs[0];evs.forEach(e=>{if(ordenEt(e.et)>ordenEt(mx.et))mx=e;});return{c:ET[mx.et].color,a:1};}
+
 function colorTabique(t){
   const v=estado.vista;
   if(v==='etapa'){const a=etapaAlcanzada(t.g);return a?{c:a.e.color,a:a.f<1?.5:1}:{c:COLOR_SIN,a:1};}
   if(v==='hoy'){const evs=(EV_POR_G.get(t.g)||[]).filter(e=>!e.borrado&&e.dia===estado.diaActivo);
     if(!evs.length)return{c:'#CBD5E1',a:1};let mx=evs[0];evs.forEach(e=>{if(ordenEt(e.et)>ordenEt(mx.et))mx=e;});return{c:ET[mx.et].color,a:1};}
   if(v==='incoh'){return incoherente(t.g)?{c:'#F59E0B',a:1}:{c:'#CBD5E1',a:1};}
+  if(v==='rango')return colorRango(t);
   if(v.startsWith('falta:')){const fam=v.slice(6);const f=famFrac(t.g,fam);if(f==null||f>=1-1e-9)return{c:'#CBD5E1',a:1};
     const i0=t.seq.findIndex(x=>ET[x].fam===fam),pr=i0>=0?preDe(t,t.seq[i0]):null,prev=pr?fracEt(t.g,pr):1;return{c:FA[fam].color,a:prev>=1?1:.35};}
   return{c:COLOR_SIN,a:1};
@@ -1321,6 +1374,9 @@ function render(){
   /* incoherencias: contorno ámbar discontinuo */
   if(estado.vista==='etapa'||estado.vista==='incoh'){ctx.save();ctx.setLineDash([5*px,3*px]);ctx.strokeStyle='#F59E0B';ctx.lineWidth=2.4*px;
     n.tab.forEach(t=>{if(visible(t.bb)&&incoherente(t.g))ctx.stroke(t.path);});ctx.restore();}
+  /* tabiques con fotos o notas: punto azul con borde blanco */
+  {const conAdj=new Set([...((estado.base&&estado.base.adjuntos)||[]),...(estado.adjLocal||[])].filter(a=>!a.borrado).map(a=>a.g));
+   if(conAdj.size){ctx.lineWidth=1.5*px;n.tab.forEach(t=>{if(!conAdj.has(t.g)||!visible(t.bb))return;ctx.beginPath();ctx.arc(t.cx,t.cy,Math.max(4.5*px,12),0,Math.PI*2);ctx.fillStyle='#1C4192';ctx.fill();ctx.strokeStyle='#FFFFFF';ctx.stroke();});}}
   estado._franjasVisibles=conFranjas;
   if(estado.sel&&TAB[estado.sel]&&TAB[estado.sel].nv===n.id){const t=TAB[estado.sel];ctx.strokeStyle='#F59E0B';ctx.lineWidth=4*px;ctx.stroke(t.path);}
   /* textos en coordenadas de pantalla */
@@ -1482,9 +1538,10 @@ function abrirTabique(g){
     if(!cer)h+='<div class="slider-etapa" style="--c:'+e.color+'"><input type="range" min="0" max="100" step="10" value="'+Math.round(f*100)+'" data-sl="'+e.id+'" aria-label="% '+e.corto+'"><span class="sl-val" id="slv_'+e.id+'">'+Math.round(f*100)+'%</span></div>';});
   if(incoherente(g))h+='<div class="info-sello" style="margin-top:8px">⚠ <b>Incoherente:</b> una etapa posterior tiene más avance que una anterior. Revísalo en terreno y corrige el % que corresponda.</div>';
   h+='<p class="nota" style="margin:8px 0">Desliza para fijar el % de cada etapa (de 10 en 10). Con "Completar etapas previas" activo, las etapas anteriores quedan al menos con el mismo % (la aislación solo exige la 1ª placa de la cara 1). Para marcar rápido varios tabiques usa <b>🖌 Pincel</b>.</p>';
+  h+=htmlAdjuntos(t);
   if(hist.length)h+='<label class="etiqueta">Historial</label><ul class="log">'+hist.map(e=>'<li>'+diaLarga(e.dia)+' '+fmtHora(e.ts)+' — '+ET[e.et].corto+' '+Math.round(e.f*100)+'%'+(e.por?' · <b>'+escapar(e.por)+'</b>':'')+(e.cuad?' · '+escapar(e.cuad):'')+(e.auto?' (automática)':'')+(e._base?'':' · <i>sin enviar</i>')+'</li>').join('')+'</ul><br>';
   h+='<p class="nota" style="word-break:break-all">ID Revit <b>'+escapar(t.id)+'</b> · GUID IFC '+escapar(t.gb||t.g)+(t.tr?' (tramo '+t.tr+')':'')+'</p>';
-  abrirHoja(h);
+  abrirHoja(h);enlazarAdjuntos(t);
   alCerrarHoja=()=>{estado.sel=null;pedirRender();};
 }
 async function fijarFraccion(t,et,f){
@@ -1502,6 +1559,10 @@ async function accionFicha(e){
   const b=e.target.closest('[data-tf]');if(!b)return;const t=TAB[estado.sel];if(!t)return;
   if(b.dataset.tf==='fr')await fijarFraccion(t,b.dataset.et,parseFloat(b.dataset.f));
   if(b.dataset.tf==='quitar'){await quitarEtapa(t,b.dataset.et);abrirTabique(t.g);}
+  if(b.dataset.tf==='adjnota'){const c=$('#adjNotaCaja');c.hidden=!c.hidden;if(!c.hidden)$('#adjNotaTxt').focus();}
+  if(b.dataset.tf==='adjnotaok'){const v=($('#adjNotaTxt').value||'').trim();if(!v){toast('Escribe la observación');return;}await guardarAdjunto(t,v,null);toast('Nota guardada','ok');abrirTabique(t.g);}
+  if(b.dataset.tf==='adjborrar'){await borrarAdjunto(b.dataset.id);abrirTabique(t.g);}
+  if(b.dataset.tf==='verfoto')verFoto(b.dataset.id);
 }
 
 /* ---------------- UI del plano ---------------- */
@@ -1538,9 +1599,15 @@ function abrirVistaSel(){
   const ops=[['etapa','🎨 Etapa alcanzada (color de la etapa más avanzada)'],['hoy','📅 Solo lo registrado en la jornada activa']].concat(FAMILIAS.map(e=>['falta:'+e.id,'⏳ Falta '+e.corto.toLowerCase()+' (pendientes en color)'])).concat([['incoh','⚠ Incoherencias (etapa posterior mayor que la anterior)']]);
   abrirHoja('<div class="hoja-titulo">🎨 Qué mostrar en la planta</div><div class="hoja-sub">En "Falta…", los tabiques con color intenso ya tienen lista la etapa anterior: son el frente disponible para esa cuadrilla.</div>'+
     ops.map(o=>'<button class="menu-item" data-vista="'+o[0]+'">'+(estado.vista===o[0]?'✅ ':'')+o[1]+'</button>').join('')+
+    '<div class="tarjeta" style="margin-top:10px;padding:10px"><b>📆 Comparar dos fechas</b><p class="nota" style="margin:2px 0 6px">Pinta solo lo que avanzó entre esas fechas (color de la etapa más avanzada registrada en el periodo).</p>'+
+    '<div class="fila-btn"><input type="date" class="campo" id="rgDesde" value="'+(estado.rgDesde||lunesDe(estado.diaActivo))+'"><input type="date" class="campo" id="rgHasta" value="'+(estado.rgHasta||estado.diaActivo)+'"></div>'+
+    '<button class="btn principal" id="rgVer" style="margin-top:6px;width:100%">Ver avance entre fechas</button></div>'+
     '<label class="opcion" style="margin-top:8px"><input type="checkbox" id="chkFranjas"'+(estado.franjas?' checked':'')+'> Al acercar, mostrar las 4 franjas de avance de cada tabique</label>');
-  $('#chkFranjas').addEventListener('change',e=>{estado.franjas=e.target.checked;metaSet('franjas',estado.franjas);pedirRender();});}
-function etiquetaVista(){const v=estado.vista;if(v==='etapa')return'🎨 Etapa alcanzada';if(v==='hoy')return'📅 Jornada';if(v==='incoh')return'⚠ Incoherencias';return'⏳ Falta '+FA[v.slice(6)].corto.toLowerCase();}
+  $('#chkFranjas').addEventListener('change',e=>{estado.franjas=e.target.checked;metaSet('franjas',estado.franjas);pedirRender();});
+  $('#rgVer').addEventListener('click',()=>{let d=$('#rgDesde').value,h=$('#rgHasta').value;if(!d||!h){toast('Elige las dos fechas','error');return;}if(d>h){const x=d;d=h;h=x;}
+    estado.rgDesde=d;estado.rgHasta=h;estado.vista='rango';$('#chipVista').textContent=etiquetaVista();cerrarHoja();pedirRender();
+    const r=areaPeriodo(d,h);toast('Avance '+diaCorta(d)+' → '+diaCorta(h)+': '+FAMILIAS.map(e=>e.corto+' '+fmt0(totalEtapa(r,e.id))+' m²').join(' · '),'ok');});}
+function etiquetaVista(){const v=estado.vista;if(v==='rango')return'📆 '+diaCorta(estado.rgDesde)+' → '+diaCorta(estado.rgHasta);if(v==='etapa')return'🎨 Etapa alcanzada';if(v==='hoy')return'📅 Jornada';if(v==='incoh')return'⚠ Incoherencias';return'⏳ Falta '+FA[v.slice(6)].corto.toLowerCase();}
 function abrirBuscar(){const n=estado.nivel;if(!n)return;
   abrirHoja('<div class="hoja-titulo">🔍 Buscar recinto en '+escapar(etiquetaNivel(n))+'</div><input id="inBuscar" class="campo" placeholder="Ej: box, baño, 3.14, pasillo" autocomplete="off"><div class="lista-busca" id="resBuscar"></div>');
   const lista=n.rec.filter(r=>r.ln||r.n);
@@ -1871,13 +1938,15 @@ async function generarInforme(){
    Reenviar el mismo archivo o uno más nuevo no duplica nada: cada registro tiene un id único. */
 async function exportarAvance(){
   const mios=estado.local.filter(e=>e.por===estado.persona);
-  if(!mios.length){toast('Aún no tienes avance registrado para enviar');return;}
+  if(!mios.length&&!(estado.adjLocal||[]).length){toast('Aún no tienes avance registrado para enviar');return;}
   const d={app:'TabiFlowHCQ',tipo:'avance',ver:2,por:estado.persona,disp:estado.dispositivo,exportado:new Date().toISOString(),
-    eventos:mios.map(e=>{const o=Object.assign({},e);delete o._base;return o;}),jornadas:estado.jornadas.map(j=>Object.assign({por:estado.persona},j))};
+    eventos:mios.map(e=>{const o=Object.assign({},e);delete o._base;return o;}),adjuntos:(estado.adjLocal||[]).filter(a=>a.por===estado.persona),jornadas:estado.jornadas.map(j=>Object.assign({por:estado.persona},j))};
   const slug=(estado.persona||'persona').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Avance_'+slug+'_'+hoyDia()+'_'+new Date().toTimeString().slice(0,5).replace(':','h')+'.json';
-  await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,'Avance TabiFlow · '+estado.persona);
-  await metaSet('ultimoEnvio',new Date().toISOString());toast('Archivo listo: envíaselo a Renato por WhatsApp o correo','ok');}
+  const hoyEv=mios.filter(e=>!e.borrado&&e.dia===estado.diaActivo);const tabs=new Set(hoyEv.map(e=>e.g));const nAdj=(estado.adjLocal||[]).filter(a=>!a.borrado&&a.dia===estado.diaActivo&&a.por===estado.persona).length;
+  const resumen='Avance TabiFlow · '+estado.persona+' · '+diaCorta(estado.diaActivo)+': '+tabs.size+' tabiques, '+hoyEv.length+' registros'+(nAdj?', '+nAdj+' fotos/notas':'');
+  await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,resumen,resumen);
+  await metaSet('ultimoEnvio',new Date().toISOString());toast('Listo: elige WhatsApp o correo y envíaselo al coordinador','ok');}
 async function exportarRespaldo(){return exportarAvance();}
 async function importarRespaldo(file){
   /* Restaura en este teléfono un archivo de avance PROPIO (p. ej. al cambiar de celular) */
@@ -1904,7 +1973,7 @@ async function borrarAvance(){
   await clearStore('eventos');await clearStore('jornadas');estado.local=[];estado.jornadas=[];estado.pilaDeshacer=[];combinar();renderTodo();pedirRender();toast('Tu avance local fue borrado (el consolidado del equipo se mantiene)','ok');}
 function abrirMenu(){
   abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">'+APP_NOMBRE+' '+APP_VER+' · '+OBRA+' · datos '+(MODO_ALM==='idb'?'en el dispositivo':'temporales')+' · por '+APP_AUTOR+'</div>'+
-    '<button class="menu-item" data-accion="m-exportar">📤 Enviar mi avance (archivo para Renato)</button>'+
+    '<button class="menu-item" data-accion="m-exportar">📤 Enviar mi avance por WhatsApp o correo</button>'+
     '<button class="menu-item" data-accion="m-base">🔄 Actualizar avance del equipo</button>'+
     '<button class="menu-item" data-accion="m-csv">📑 Exportar estado de tabiques a CSV (Excel, con GUID)</button>'+
     '<button class="menu-item" data-accion="m-importar">⬇️ Restaurar mi avance desde un archivo</button>'+
@@ -2015,7 +2084,7 @@ async function iniciar(){
   $('#leyendaInicio').innerHTML=ETAPAS.map(e=>'<div class="ley">'+icono(e,true)+'<span>'+e.nombre+'</span></div>').join('')+'<p class="nota" style="grid-column:1/-1">Cada tabique muestra solo las etapas de su tipo: 1, 2 o 3 placas por cara y lámina de plomo en los plomados. Tabiques de más de 12 m vienen divididos en tramos.</p>';
   $('#notaModelo').innerHTML='Modelos: <b>'+escapar(M.modelo)+'</b>. Se cargaron solo los muros de tipo tabique ("05ARQ_Tabq_…"), cortados en planta a 1,1 m sobre su base; columnas y muros de hormigón vienen del modelo de cálculo como referencia. Cantidades: largo, alto y superficie neta (una cara) informados por el modelo. Total: <b>'+fmt0(Object.keys(TAB).length)+' tabiques · '+fmt0(TOT_A)+' m²</b>.';
   bindEventos();
-  try{estado.local=(await getAll('eventos')).filter(e=>TAB[e.g]||TRAMOS[e.g]);estado.local.forEach(e=>{if(!e.por)e.por=estado.persona;});estado.jornadas=await getAll('jornadas');
+  try{estado.local=(await getAll('eventos')).filter(e=>TAB[e.g]||TRAMOS[e.g]);estado.local.forEach(e=>{if(!e.por)e.por=estado.persona;});estado.jornadas=await getAll('jornadas');try{estado.adjLocal=(await getAll('adjuntos'))||[];}catch(e){estado.adjLocal=[];}
     estado.base=(await metaGet('base'))||estado.base;
     estado.cuadrilla=(await metaGet('cuadrilla'))||'';estado.etapa=(await metaGet('etapa'))||'est';const pv=await metaGet('previas');estado.previas=pv!==false;$('#chkPrevias').checked=estado.previas;
     estado.portada=(await metaGet('portada'))||{};estado.oscuro=!!(await metaGet('oscuro'));estado.franjas=(await metaGet('franjas'))!==false;

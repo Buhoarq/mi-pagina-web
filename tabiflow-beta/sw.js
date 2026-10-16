@@ -1,19 +1,3 @@
-/* TabiFlow HCQ — service worker: la app y el modelo cifrado quedan disponibles sin conexión.
-   avance.enc (consolidado del equipo) se pide siempre a la red primero y, sin señal, se usa la copia guardada. */
-const CACHE='tabiflow-beta-v5.0';
-const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','./clave.json','./modelo.enc'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
-self.addEventListener('fetch',e=>{
-  const req=e.request;if(req.method!=='GET')return;
-  const url=new URL(req.url);if(url.origin!==location.origin){return;}
-  const clave=url.pathname.replace(/^.*\//,'');
-  const redPrimero=/^(avance\.enc|adjuntos\.enc|clave\.json|index\.html|panel\.html|)$/.test(clave)||req.mode==='navigate';
-  if(redPrimero){
-    e.respondWith(fetch(req).then(r=>{if(r.ok){const cp=r.clone();caches.open(CACHE).then(c=>c.put(new Request(url.origin+url.pathname),cp));}return r;})
-      .catch(()=>caches.match(new Request(url.origin+url.pathname)).then(h=>h||caches.match('./index.html'))));
-    return;}
-  e.respondWith(caches.match(new Request(url.origin+url.pathname)).then(hit=>{
-    const red=fetch(req).then(r=>{if(r.ok){const cp=r.clone();caches.open(CACHE).then(c=>c.put(new Request(url.origin+url.pathname),cp));}return r;}).catch(()=>hit);
-    return hit||red;}));
-});
+// beta retirada: el service worker se desinstala solo y borra su caché
+self.addEventListener('install',()=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil((async()=>{for(const k of await caches.keys())if(k.startsWith('tabiflow-beta'))await caches.delete(k);await self.registration.unregister();for(const c of await self.clients.matchAll())c.navigate(c.url);})()));
