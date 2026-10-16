@@ -5,7 +5,7 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
 
 ## Reglas (obligatorias)
 
-1. **Solo puedes modificar `tabiflow/avance.enc` y `tabiflow/adjuntos.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
+1. **Solo puedes modificar `tabiflow/avance.enc`, `tabiflow/adjuntos.enc` y `paviflow/avance.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
    `modelo.enc`, `clave.json`, ni nada en `tabiflow/herramientas/`. Esos archivos los mantiene Claude.
    Si algo de eso parece necesitar cambios, avísale a Renato en vez de cambiarlo.
 2. **Nunca escribas la clave de obra** en ningún archivo, commit, mensaje de commit ni log.
@@ -65,6 +65,18 @@ Los celulares y el panel ven el avance nuevo 1–2 minutos después del `git pus
 - **Registros "ignorados (tabique inexistente)"** → el archivo trae tabiques que no están en el modelo actual
   (por ejemplo, de un celular con una versión muy antigua). Infórmalo a Renato con el nombre del archivo.
 - Ante cualquier duda, **no publiques** y consulta a Renato.
+
+## PaviFlow (pavimentos) · desde el 16-10-2026
+
+Los archivos que empiezan con `Avance_PaviFlow_` son del módulo de pavimentos. Se consolidan aparte y solo tocan `paviflow/avance.enc`:
+
+```bash
+python3 tabiflow/herramientas/consolidar_pavi.py unir --web paviflow --clave-web tabiflow ../avances_recibidos/Avance_PaviFlow_*.json
+git add paviflow/avance.enc
+git commit -m "Avance PaviFlow consolidado DD/MM/AAAA (nombres)"
+git push
+```
+Usa la misma `TABIFLOW_CLAVE`. Nunca mezcles archivos de PaviFlow con el comando de TabiFlow (o al revés): cada script avisa con ⚠ si un archivo no le corresponde.
 
 ---
 © 2026 Renato Martínez Palominos – Todos los derechos reservados.
