@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiFlow v5.0 · Hospital de Coquimbo</title>
+<title>TabiFlow v5.1 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -392,6 +392,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .visor-foto img{max-width:100%;max-height:82vh;border-radius:10px}
 .visor-foto p{color:#E2E8F0;font-size:13px;text-align:center;margin:0}
 
+/* v5.1 · saludo con el nombre del usuario */
+.saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
+.saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
+
 /* ================= TabiFlow ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
@@ -455,7 +459,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M510 806H662V1112Q586 1102 510 1062Z"/><path d="M724 673H877V1103Q800 1117 724 1116Z"/><path d="M940 551H1092V1010Q1025 1060 940 1087Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v5.0</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v5.1</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -468,15 +472,16 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <section id="vista-inicio" class="vista activa">
     <div class="contenedor">
       <div class="tarjeta heroe">
+        <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiFlow v5.0 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiFlow v5.1 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
         <p>Los <b id="heroeN">—</b> tabiques del modelo de interiores ya están cargados por nivel, con su tipo, largo y superficie. No hay que subir planos: <b>elige el nivel, la etapa y toca los muros</b>. Los m² y el % de avance se calculan solos.</p>
-        <div class="info-sello verde" style="margin-top:10px">🆕 <b>Novedades v5.0</b>: 📷 fotos y notas en la ficha de cada tabique · 📆 comparar dos fechas en la planta (botón de vista) · 📤 enviar tu avance directo por WhatsApp o correo. Modelo de interiores actualizado al 15-10-2026.</div>
+        <div class="info-sello verde" style="margin-top:10px">🆕 <b>Novedades v5.1</b>: 📷 fotos y notas en la ficha de cada tabique · 📆 comparar dos fechas en la planta (botón de vista) · 📤 enviar tu avance directo por WhatsApp o correo. Modelo de interiores actualizado al 15-10-2026.</div>
         <div class="leyenda-tipos" id="leyendaInicio"></div>
       </div>
       <div class="tarjeta" id="tarjetaEquipo"></div>
@@ -603,7 +608,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v5.0</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v5.1</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1036,7 +1041,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v5.0',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v5.1',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1635,6 +1640,7 @@ function renderInicio(){
   $('#statEst').textContent=pct(totalEtapa(r,'est'),TOT.est).toFixed(1);
   $('#statTap').textContent=pct(totalEtapa(r,'c2'),TOT.c2).toFixed(1);
   $('#statHoy').textContent=fmt0(FAMILIAS.reduce((s,e)=>s+totalEtapa(h,e.id),0));
+  pintarSaludo(h);
   $('#matrizInicio').innerHTML=matrizHTML(r,true);
   $$('#matrizInicio [data-nv]').forEach(tr=>tr.addEventListener('click',()=>abrirNivel(tr.dataset.nv)));
   const j=getJornada(estado.diaActivo),cer=j&&j.cerrada;
@@ -2057,6 +2063,12 @@ async function cargarBase(manual){
     estado.base=b;await metaSet('base',b);combinar();renderTodo();pedirRender();
     if(manual)toast('Avance del equipo actualizado ('+(b.actualizado?fmtFecha(b.actualizado):'—')+')','ok');}
   catch(e){if(manual)toast(navigator.onLine?'No se pudo leer el avance del equipo: '+e.message:'Sin conexión: se muestra el último avance del equipo guardado','error');}}
+
+/* v5.1 · siempre saludar con el nombre con que se identificó el usuario */
+function saludoHora(){const h=new Date().getHours();return h<12?'Buenos días':h<20?'Buenas tardes':'Buenas noches';}
+function pintarSaludo(h){const el=$('#saludo');if(!el)return;const nom=(estado.persona||'').trim().split(/\s+/)[0]||'';
+  let n=0;try{n=new Set((estado.local||[]).filter(e=>e.por===estado.persona&&!e.borrado&&!e._base&&e.dia===estado.diaActivo).map(e=>e.g)).size;}catch(e){}
+  el.innerHTML=saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>'+(n>0?'Hoy llevas '+n+(n===1?' tabique marcado':' tabiques marcados')+'. ¡Buen trabajo!':'Jornada del '+diaCorta(estado.diaActivo)+' · elige un nivel y empieza a marcar.')+'</small>';}
 function setAcceso(t){const e=$('#accesoEstado');if(e)e.textContent=t||'';}
 function mostrarAcceso(){const a=$('#acceso');a.classList.add('visible');
   return new Promise(res=>{
