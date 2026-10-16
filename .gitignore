@@ -1,0 +1,5 @@
+# Datos de obra que no deben publicarse
+Avance_*.json
+*_reporte*.txt
+avances_recibidos/
+__pycache__/
