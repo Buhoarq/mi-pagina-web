@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiFlow v4.0 · Hospital de Coquimbo</title>
+<title>TabiFlow v4.1 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -443,7 +443,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M510 806H662V1112Q586 1102 510 1062Z"/><path d="M724 673H877V1103Q800 1117 724 1116Z"/><path d="M940 551H1092V1010Q1025 1060 940 1087Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v4.0</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v4.1</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -459,7 +459,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiFlow v4.0 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiFlow v4.1 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
@@ -591,7 +591,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v4.0</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v4.1</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1024,7 +1024,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v4.0',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v4.1',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1052,6 +1052,12 @@ const KEYS=ETAPAS.map(e=>e.id).concat(['c1','c2']);
 /* Secuencia de etapas de un tabique según su tipo (placas por cara y plomo) */
 function seqDe(t){if(!t.np)return['fen'];const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
 const famsDe=t=>[...new Set(t.seq.map(x=>ET[x].fam))];
+/* Requisito de cada etapa: la anterior en la secuencia, salvo la AISLACIÓN, que solo requiere la 1ª placa de la cara 1
+   (puede instalarse sin la 2ª/3ª placa de la cara 1 ni el plomo). */
+function preDe(t,et){const i=t.seq.indexOf(et);if(i<=0)return null;if(et==='ais'&&t.seq.includes('c1p1'))return 'c1p1';return t.seq[i-1];}
+function cadenaDe(t,et){const r=[];let x=et;while(x){r.unshift(x);x=preDe(t,x);}return r;}
+function hayIncoherencia(t,fr){return t.seq.some(et=>{const p=preDe(t,et);return p&&fr(et)>fr(p)+1e-9;});}
+
 const nEnFam=(t,fam)=>t.seq.filter(x=>ET[x].fam===fam).length||1;
 function composicion(t){if(!t.np)return'Separador fenólico';return t.np+' placa'+(t.np>1?'s':'')+' por cara'+(t.pb?' · con plomo':'');}
 /* Una etapa pedida que el tabique no tiene se lleva a la equivalente: "C1 · P3" en un tabique de 2 placas = su 2ª placa (cara completa) */
@@ -1218,8 +1224,7 @@ function reindexar(){EV_POR_G=new Map();ESTADO_G=new Map();
 function agregarEventoIndice(e){if(!EV_POR_G.has(e.g))EV_POR_G.set(e.g,[]);EV_POR_G.get(e.g).push(e);recalcularG(e.g);}
 function fracEt(g,et){const s=ESTADO_G.get(g);return s&&s[et]?s[et].f:0;}
 /* Incoherente: una etapa posterior con más avance que una anterior (p. ej. 1ª cara 100 % y estructura 50 %) */
-function incoherente(g){const s=ESTADO_G.get(g),t=TAB[g];if(!s||!t)return false;let mx=0;
-  for(let i=t.seq.length-1;i>=0;i--){const f=s[t.seq[i]]?s[t.seq[i]].f:0;if(f+1e-9<mx)return true;mx=Math.max(mx,f);}return false;}
+function incoherente(g){const s=ESTADO_G.get(g),t=TAB[g];if(!s||!t)return false;return hayIncoherencia(t,et=>s[et]?s[et].f:0);}
 function etapaAlcanzada(g){const s=ESTADO_G.get(g),t=TAB[g];if(!s||!t)return null;for(let i=t.seq.length-1;i>=0;i--){const o=s[t.seq[i]];if(o&&o.f>0)return{e:ET[t.seq[i]],f:o.f,dia:o.dia};}return null;}
 /* % de una familia en un tabique (promedio de sus placas) */
 function famFrac(g,fam){const t=TAB[g];const st=t.seq.filter(x=>ET[x].fam===fam);if(!st.length)return null;return st.reduce((a,x)=>a+fracEt(g,x),0)/st.length;}
@@ -1280,7 +1285,7 @@ function colorTabique(t){
     if(!evs.length)return{c:'#CBD5E1',a:1};let mx=evs[0];evs.forEach(e=>{if(ordenEt(e.et)>ordenEt(mx.et))mx=e;});return{c:ET[mx.et].color,a:1};}
   if(v==='incoh'){return incoherente(t.g)?{c:'#F59E0B',a:1}:{c:'#CBD5E1',a:1};}
   if(v.startsWith('falta:')){const fam=v.slice(6);const f=famFrac(t.g,fam);if(f==null||f>=1-1e-9)return{c:'#CBD5E1',a:1};
-    const i0=t.seq.findIndex(x=>ET[x].fam===fam),prev=i0>0?fracEt(t.g,t.seq[i0-1]):1;return{c:FA[fam].color,a:prev>=1?1:.35};}
+    const i0=t.seq.findIndex(x=>ET[x].fam===fam),pr=i0>=0?preDe(t,t.seq[i0]):null,prev=pr?fracEt(t.g,pr):1;return{c:FA[fam].color,a:prev>=1?1:.35};}
   return{c:COLOR_SIN,a:1};
 }
 function render(){
@@ -1427,7 +1432,7 @@ async function tocar(px,py){
 function aplicarEtapa(t,et,f,lote,silencio){
   if(jornadaCerrada(estado.diaActivo)){if(!silencio||!lote.length)toast('La jornada '+diaCorta(estado.diaActivo)+' está cerrada','error');return;}
   et=mapearEtapa(t,et);if(!et){if(lote)lote._omitidos=(lote._omitidos||0)+1;return;}
-  const idx=t.seq.indexOf(et);const etapas=estado.previas?t.seq.slice(0,idx+1):[et];
+  const idx=t.seq.indexOf(et);const etapas=estado.previas?cadenaDe(t,et):[et];
   const ahora=new Date().toISOString();
   etapas.forEach(id=>{
     const actual=fracEt(t.g,id);const objetivo=f;   /* coherencia: cada etapa anterior queda al menos con el mismo % que la marcada (nunca se baja) */
@@ -1451,7 +1456,7 @@ async function quitarEtapa(t,et){
   if(!evs.length){toast('Ese registro lo hizo otra persona: solo puedes quitar lo tuyo','error');return;}
   /* si se quita una etapa, también las posteriores registradas hoy (no puede haber tapado sin estructura) */
   const idx=t.seq.indexOf(et);
-  const post=(EV_POR_G.get(t.g)||[]).filter(e=>!e.borrado&&t.seq.indexOf(e.et)>idx&&e.dia===estado.diaActivo);
+  const post=(EV_POR_G.get(t.g)||[]).filter(e=>!e.borrado&&e.et!==et&&cadenaDe(t,e.et).includes(et)&&e.dia===estado.diaActivo);
   await marcarBorrados(evs.concat(post));pedirRender();refrescarPlanoUI();
 }
 async function deshacer(){
@@ -1476,7 +1481,7 @@ function abrirTabique(g){
     h+='</div></div>';
     if(!cer)h+='<div class="slider-etapa" style="--c:'+e.color+'"><input type="range" min="0" max="100" step="10" value="'+Math.round(f*100)+'" data-sl="'+e.id+'" aria-label="% '+e.corto+'"><span class="sl-val" id="slv_'+e.id+'">'+Math.round(f*100)+'%</span></div>';});
   if(incoherente(g))h+='<div class="info-sello" style="margin-top:8px">⚠ <b>Incoherente:</b> una etapa posterior tiene más avance que una anterior. Revísalo en terreno y corrige el % que corresponda.</div>';
-  h+='<p class="nota" style="margin:8px 0">Desliza para fijar el % de cada etapa (de 10 en 10). Con "Completar etapas previas" activo, las etapas anteriores quedan al menos con el mismo %. Para marcar rápido varios tabiques usa <b>🖌 Pincel</b>.</p>';
+  h+='<p class="nota" style="margin:8px 0">Desliza para fijar el % de cada etapa (de 10 en 10). Con "Completar etapas previas" activo, las etapas anteriores quedan al menos con el mismo % (la aislación solo exige la 1ª placa de la cara 1). Para marcar rápido varios tabiques usa <b>🖌 Pincel</b>.</p>';
   if(hist.length)h+='<label class="etiqueta">Historial</label><ul class="log">'+hist.map(e=>'<li>'+diaLarga(e.dia)+' '+fmtHora(e.ts)+' — '+ET[e.et].corto+' '+Math.round(e.f*100)+'%'+(e.por?' · <b>'+escapar(e.por)+'</b>':'')+(e.cuad?' · '+escapar(e.cuad):'')+(e.auto?' (automática)':'')+(e._base?'':' · <i>sin enviar</i>')+'</li>').join('')+'</ul><br>';
   h+='<p class="nota" style="word-break:break-all">ID Revit <b>'+escapar(t.id)+'</b> · GUID IFC '+escapar(t.gb||t.g)+(t.tr?' (tramo '+t.tr+')':'')+'</p>';
   abrirHoja(h);
@@ -1759,7 +1764,7 @@ function planoPDF(doc,o){
         if(f>0){const c=hexRgb(e.color);doc.setDrawColor(c[0],c[1],c[2]);doc.line(q0[0],q0[1],qf[0],qf[1]);}});});}
   /* incoherencias al corte */
   doc.setDrawColor(245,158,11);doc.setLineWidth(general?.3:.45);doc.setLineDashPattern([1.2,.8],0);
-  n.tab.forEach(t=>{if(!corta(t.bb))return;const s=estadoAlCorte(t.g,corte);let mx=0,inc=false;for(let i=t.seq.length-1;i>=0;i--){const f=s[t.seq[i]]?s[t.seq[i]].f:0;if(f+1e-9<mx)inc=true;mx=Math.max(mx,f);}if(inc)t.p.forEach(r=>polyPDF(doc,r,X,Y,k,'S'));});
+  n.tab.forEach(t=>{if(!corta(t.bb))return;const s=estadoAlCorte(t.g,corte);const inc=hayIncoherencia(t,et=>s[et]?s[et].f:0);if(inc)t.p.forEach(r=>polyPDF(doc,r,X,Y,k,'S'));});
   doc.setLineDashPattern([],0);
   /* letra de etapa */
   if(opc.siglas&&!general){doc.setFont('helvetica','bold');doc.setFontSize(4.2);doc.setTextColor(255,255,255);
