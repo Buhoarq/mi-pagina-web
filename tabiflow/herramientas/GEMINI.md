@@ -5,7 +5,7 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
 
 ## Reglas (obligatorias)
 
-1. **Solo puedes modificar `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc` y `tabiflow-beta/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
+1. **Solo puedes modificar `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
    `modelo.enc`, `clave.json`, ni nada en `tabiflow/herramientas/`. Esos archivos los mantiene Claude.
    Si algo de eso parece necesitar cambios, avísale a Renato en vez de cambiarlo.
 2. **Nunca escribas la clave de obra** en ningún archivo, commit, mensaje de commit ni log.
@@ -78,14 +78,14 @@ git push
 ```
 Usa la misma `TABIFLOW_CLAVE`. Nunca mezcles archivos de PaviFlow con el comando de TabiFlow (o al revés): cada script avisa con ⚠ si un archivo no le corresponde.
 
-## Plan semanal (TabiFlow 6.0 beta · Last Planner) · desde el 17-10-2026
+## Plan semanal (página Last Planner, `lastplanner/`) · desde el 17-10-2026
 
-Los mismos archivos `Avance_….json` de TabiFlow pueden traer, además del avance, **compromisos** y **causas** del plan semanal.
-Después de consolidar el avance de TabiFlow como siempre, pasa **los mismos archivos** por este comando (solo toca `tabiflow-beta/plan.enc`):
+Los jefes de terreno envían archivos `Avance_Plan_….json` con **compromisos** y **causas** del plan semanal (no traen avance).
+Después de consolidar el avance de TabiFlow como siempre, pasa **los mismos archivos** por este comando (solo toca `lastplanner/plan.enc`):
 
 ```bash
-python3 tabiflow/herramientas/consolidar_plan.py unir --web tabiflow-beta ../avances_recibidos/Avance_*.json
-git add tabiflow-beta/plan.enc
+python3 tabiflow/herramientas/consolidar_plan.py unir --web lastplanner ../avances_recibidos/Avance_*.json
+git add lastplanner/plan.enc
 git commit -m "Plan semanal consolidado DD/MM/AAAA (nombres)"
 git push
 ```

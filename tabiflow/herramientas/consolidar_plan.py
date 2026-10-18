@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""TabiFlow v6 β · Plan semanal (Last Planner): consolida compromisos y causas, y administra las claves de subcontrato.
+"""Last Planner (TabiFlow v6.1 β) · Plan semanal (Last Planner): consolida compromisos y causas, y administra las claves de subcontrato.
 Uso (desde la raíz del repositorio; la clave de obra va en la variable TABIFLOW_CLAVE, nunca en el repositorio):
 
-  python3 tabiflow/herramientas/consolidar_plan.py unir --web tabiflow-beta ../avances_recibidos/Avance_*.json
-      Une los compromisos y causas de los archivos "Avance_….json" en tabiflow-beta/plan.enc (sin duplicar, por id).
+  python3 tabiflow/herramientas/consolidar_plan.py unir --web lastplanner ../avances_recibidos/Avance_*.json
+      Une los compromisos y causas de los archivos "Avance_….json" en lastplanner/plan.enc (sin duplicar, por id).
       El avance (eventos) de esos mismos archivos se sigue consolidando con consolidar.py en tabiflow/avance.enc.
 
-  python3 tabiflow/herramientas/consolidar_plan.py sub-agregar --web tabiflow-beta "Nombre del subcontrato"
+  python3 tabiflow/herramientas/consolidar_plan.py sub-agregar --web lastplanner "Nombre del subcontrato"
       Crea (o renueva) la clave propia de ese subcontrato e imprime la clave para entregársela en persona.
 
-  python3 tabiflow/herramientas/consolidar_plan.py sub-quitar --web tabiflow-beta "Nombre del subcontrato"
-  python3 tabiflow/herramientas/consolidar_plan.py sub-lista --web tabiflow-beta
+  python3 tabiflow/herramientas/consolidar_plan.py sub-quitar --web lastplanner "Nombre del subcontrato"
+  python3 tabiflow/herramientas/consolidar_plan.py sub-lista --web lastplanner
 
 La clave de subcontrato da acceso de consulta filtrado a sus propios compromisos (filtro de la app, no aislamiento total).
 © 2026 Renato Martínez Palominos – Todos los derechos reservados."""
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest='cmd', required=True)
     for nom, fn in (('unir', unir), ('sub-agregar', sub_agregar), ('sub-quitar', sub_quitar), ('sub-lista', sub_lista)):
         p = sp.add_parser(nom); p.set_defaults(fn=fn)
-        p.add_argument('--web', default='tabiflow-beta'); p.add_argument('--clave-web', default='tabiflow')
+        p.add_argument('--web', default='lastplanner'); p.add_argument('--clave-web', default='tabiflow')
         p.add_argument('--clave', default=os.environ.get('TABIFLOW_CLAVE'))
         if nom == 'unir': p.add_argument('archivos', nargs='*')
         if nom in ('sub-agregar', 'sub-quitar'): p.add_argument('nombre')
