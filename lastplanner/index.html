@@ -574,7 +574,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
       </div>
     </div>
     <div class="paleta oculto" id="paletaPlan">
-      <div class="fila-herr"><button class="herr-btn" id="btnPlanSem">📅 —</button><select id="selPlanSub" class="sel-sub" aria-label="Subcontrato"></select></div>
+      <div class="fila-herr"><button class="herr-btn" id="btnPlanSem">📅 —</button><button class="herr-btn" id="btnPlanPdf">📄 PDF obra</button><button class="herr-btn" id="btnPlanEnviar">📤 Coordinador</button></div>
       <div class="paleta-tipos" id="paletaPlanEt"></div>
       <div class="lp-meta" id="paletaPlanMeta"></div>
       <div class="fila-herr"><span class="nota" id="planResumen" style="flex:1">—</span><button class="herr-btn" id="btnPlanDeshacer">↩ Deshacer</button></div>
@@ -655,7 +655,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.1 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.2 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -664,7 +664,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
     <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo de obra</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
-    <label class="etiqueta">Clave de obra o de subcontrato</label>
+    <label class="etiqueta">Clave de obra</label>
     <input id="accPass" class="campo" type="password" placeholder="Clave entregada por Oficina Técnica" autocomplete="current-password">
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
@@ -1088,7 +1088,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v6.1 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v6.2 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -2009,9 +2009,9 @@ async function exportarAvance(){
   const slug=(estado.persona||'persona').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Avance_Plan_'+slug+'_'+hoyDia()+'_'+new Date().toTimeString().slice(0,5).replace(':','h')+'.json';
   const hoyEv=mios.filter(e=>!e.borrado&&e.dia===estado.diaActivo);const tabs=new Set(hoyEv.map(e=>e.g));const nAdj=(estado.adjLocal||[]).filter(a=>!a.borrado&&a.dia===estado.diaActivo&&a.por===estado.persona).length;
-  const nCs=misComp.filter(c=>!c.borrado&&c.sem===lunesDe(hoyDia())).length;const resumen='Plan semanal (Last Planner) · '+estado.persona+' · '+diaCorta(estado.diaActivo)+': '+tabs.size+' tabiques, '+hoyEv.length+' registros'+(nAdj?', '+nAdj+' fotos/notas':'')+(nCs?', '+nCs+' compromisos de la semana':'');
+  const resumen=resumenEnvio();
   await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,resumen,resumen);
-  await metaSet('ultimoEnvio',new Date().toISOString());toast('Listo: elige WhatsApp o correo y envíaselo a Renato','ok');}
+  await metaSet('ultimoEnvio',new Date().toISOString());toast('Listo: elige WhatsApp o correo y envíaselo al coordinador','ok');}
 async function exportarRespaldo(){return exportarAvance();}
 async function importarRespaldo(file){
   /* Restaura en este teléfono un archivo de avance PROPIO (p. ej. al cambiar de celular) */
@@ -2039,7 +2039,7 @@ async function borrarAvance(){
   await clearStore('eventos');await clearStore('jornadas');try{await clearStore('adjuntos');await clearStore('compromisos');await clearStore('causas');}catch(e){}estado.adjLocal=[];estado.compLocal=[];estado.causasLocal=[];reindexarPlan();estado.local=[];estado.jornadas=[];estado.pilaDeshacer=[];combinar();renderTodo();pedirRender();toast('Tu avance local fue borrado (el consolidado del equipo se mantiene)','ok');}
 function abrirMenu(){
   abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">'+APP_NOMBRE+' '+APP_VER+' · '+OBRA+' · datos '+(MODO_ALM==='idb'?'en el dispositivo':'temporales')+' · por '+APP_AUTOR+'</div>'+
-    (estado.rol==='sub'?'<div class="info-sello indigo">Entraste como subcontrato <b>'+escapar(estado.subNombre)+'</b>: ves solo tus compromisos (consulta).</div>':'<button class="menu-item" data-accion="m-exportar">📤 Enviar mi plan por WhatsApp o correo</button>')+
+    (estado.rol==='sub'?'<div class="info-sello indigo">Entraste como subcontrato <b>'+escapar(estado.subNombre)+'</b>: ves solo tus compromisos (consulta).</div>':'<button class="menu-item" data-accion="m-exportar">📤 Enviar mi plan al coordinador</button>')+
     '<button class="menu-item" data-accion="m-base">🔄 Actualizar avance y plan del equipo</button>'+
     '<button class="menu-item" data-accion="m-importar">⬇️ Restaurar mi plan desde un archivo</button>'+
     '<a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (versión oficial)</a>'+'<a class="menu-item" href="../obraflow/">🏗️ Ir a ObraFlow</a>'+
@@ -2093,7 +2093,7 @@ function bindEventos(){
   $('#btnVolverPlano').onclick=()=>cambiarVista('inicio');
   $('#btnNivelAntes').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i>0)abrirNivel(NIVELES[i-1].id);};
   $('#btnNivelDespues').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i<NIVELES.length-1)abrirNivel(NIVELES[i+1].id);};
-  $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#segPlan').onclick=()=>setModo('planificar');bindPlan();$('#lpInicio').addEventListener('click',accionInicioLP);
+  $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#segPlan').onclick=()=>setModo('planificar');bindPlan();bindInicioLP();
   $('#btnEnfoque').onclick=()=>{aplicarEnfoque(!document.body.classList.contains('enfoque'));setTimeout(()=>{if(dimensionarLienzo())render();},60);};
   $('#chipVista').onclick=abrirVistaSel;$('#btnBuscar').onclick=abrirBuscar;$('#chipCuadrilla').onclick=()=>abrirJornada(estado.diaActivo);
   $('#btnCerrarAviso').onclick=()=>$('#avisoPlano').classList.add('oculto');
@@ -2136,7 +2136,7 @@ function mostrarAcceso(){const a=$('#acceso');a.classList.add('visible');
     const enviar=async()=>{const pass=$('#accPass').value,nom=($('#accNombre').value||'').trim();
       if(!pass){setAcceso('Escribe la clave de obra');return;}if(nom.length<2){setAcceso('Escribe tu nombre');return;}
       $('#accEntrar').disabled=true;setAcceso('Verificando clave…');
-      try{let key,sub='';try{key=await intentarDesbloqueo(pass);}catch(e){setAcceso('Verificando clave de subcontrato…');const r=await desbloqueoSub(pass);key=r.key;sub=r.sub;}
+      try{let key,sub='';try{key=await intentarDesbloqueo(pass);}catch(e){const r=await desbloqueoSub(pass);key=r.key;sub=r.sub;}
         estado.persona=nom;estado.rol=sub?'sub':'obra';estado.subNombre=sub;await metaSet('persona',nom);await metaSet('clave',key);await metaSet('rol',estado.rol);await metaSet('subNombre',sub);await metaSet('noAuto',false);res(key);}
       catch(e){setAcceso(navigator.onLine?'Clave incorrecta':'Sin conexión: la primera vez necesitas internet');$('#accEntrar').disabled=false;}};
     $('#accEntrar').onclick=enviar;$('#accPass').addEventListener('keydown',e=>{if(e.key==='Enter')enviar();});});}
@@ -2147,7 +2147,7 @@ async function iniciar(){
   estado.persona=(await metaGet('persona'))||'';
   estado.dispositivo=(await metaGet('dispositivo'))||uid().slice(0,8);await metaSet('dispositivo',estado.dispositivo);
   $('#accNombre').value=estado.persona;
-  let key=await metaGet('clave');estado.rol=(await metaGet('rol'))||'obra';estado.subNombre=(await metaGet('subNombre'))||'';
+  let key=await metaGet('clave');estado.rol='obra';estado.subNombre=(await metaGet('subNombre'))||'';
   if(!key&&!(await metaGet('noAuto'))){const t=await claveDeTabiFlow();if(t){key=t.key;estado.rol='obra';await metaSet('clave',key);await metaSet('rol','obra');if(!estado.persona&&t.per){estado.persona=t.per;await metaSet('persona',t.per);$('#accNombre').value=t.per;}}}
   for(;;){
     if(!key)key=await mostrarAcceso();
@@ -2160,14 +2160,14 @@ async function iniciar(){
   $('#notaModelo').innerHTML='Modelos: <b>'+escapar(M.modelo)+'</b>. Se cargaron solo los muros de tipo tabique ("05ARQ_Tabq_…"), cortados en planta a 1,1 m sobre su base; columnas y muros de hormigón vienen del modelo de cálculo como referencia. Cantidades: largo, alto y superficie neta (una cara) informados por el modelo. Total: <b>'+fmt0(Object.keys(TAB).length)+' tabiques · '+fmt0(TOT_A)+' m²</b>.';
   bindEventos();
   try{estado.local=(await getAll('eventos')).filter(e=>TAB[e.g]||TRAMOS[e.g]);estado.local.forEach(e=>{if(!e.por)e.por=estado.persona;});estado.jornadas=await getAll('jornadas');try{estado.adjLocal=(await getAll('adjuntos'))||[];}catch(e){estado.adjLocal=[];}
-    try{estado.compLocal=(await getAll('compromisos'))||[];estado.causasLocal=(await getAll('causas'))||[];}catch(e){}estado.planBase=(await metaGet('planBase'))||estado.planBase;estado.planSub=(await metaGet('planSub'))||'';estado.planEt=(await metaGet('planEt'))||'est';estado.planMeta=(await metaGet('planMeta'))||1;estado.lpSoloMios=!!(await metaGet('lpSoloMios'));estado.extProd=await leerAvanceTabiFlow();estado.vista='plan';
+    try{estado.compLocal=(await getAll('compromisos'))||[];estado.causasLocal=(await getAll('causas'))||[];}catch(e){}estado.planBase=(await metaGet('planBase'))||estado.planBase;estado.planSub=(await metaGet('planSub'))||'';estado.planEt=(await metaGet('planEt'))||'est';estado.planMeta=(await metaGet('planMeta'))||1;estado.lpSoloMios=!!(await metaGet('lpSoloMios'));estado.lpPiso=(await metaGet('lpPiso'))||'';estado.lpSoloPiso=!!(await metaGet('lpSoloPiso'));estado.extProd=await leerAvanceTabiFlow();estado.vista='plan';
     estado.base=(await metaGet('base'))||estado.base;
     estado.cuadrilla=(await metaGet('cuadrilla'))||'';estado.etapa=(await metaGet('etapa'))||'est';const pv=await metaGet('previas');estado.previas=pv!==false;$('#chkPrevias').checked=estado.previas;
     estado.portada=(await metaGet('portada'))||{};estado.oscuro=!!(await metaGet('oscuro'));estado.franjas=(await metaGet('franjas'))!==false;
     const d=await metaGet('diaActivo');estado.diaActivo=(d&&d===hoyDia())?d:hoyDia();}catch(e){console.error(e);}
   document.documentElement.classList.toggle('oscuro',estado.oscuro);
   CAMPOS_PORT.forEach(([id,k])=>{$('#'+id).value=estado.portada[k]||'';});
-  estado.planSem=lunesDe(hoyDia());document.body.classList.toggle('rol-sub',estado.rol==='sub');reindexarPlan();
+  estado.planSem=semActual();document.body.classList.toggle('rol-sub',estado.rol==='sub');reindexarPlan();
   combinar();aplicarPreset('hoy');renderTodo();
   $('#subMarca').textContent='Hospital de Coquimbo · '+estado.persona+(estado.rol==='sub'?' · '+estado.subNombre:'');
   if(!estado.persona)pedirNombre(false);
@@ -2177,63 +2177,80 @@ async function iniciar(){
   if(pend.length){const j=pend[pend.length-1];setTimeout(()=>toastAccion('La jornada '+diaCorta(j.id)+' quedó abierta. Ciérrala para dejar constancia.','Revisar',()=>abrirJornada(j.id)),1200);}
 }
 /* =====================================================================
-   PLAN SEMANAL · LAST PLANNER (v6 β)
-   Compromiso = un tabique + una etapa + una semana (lunes) + un subcontrato, hecho por un jefe de terreno.
-   Se cumple si esa etapa llega a la meta (25/50/75/100 %) registrada hasta el domingo de esa semana.
-   v6.1: página propia de Last Planner. La causa de un no cumplimiento la registra el mismo jefe que lo planificó.
-   PPC (porcentaje de plan cumplido) = cumplidos / comprometidos.
+   LAST PLANNER · PLAN SEMANAL DE TABIQUES (v6.2 β)
+   - Compromiso = tabique + etapa + meta (25/50/75/100 %) + semana. Lo hace un jefe de terreno (por piso).
+     No se asigna a nadie: el jefe decide a quién envía el PDF (tabiqueros, subcontrato o supervisores).
+   - Semana de plan: de jueves a miércoles (DIA_INI). Se planifica el jueves.
+   - Cumplido = la etapa llega a la meta registrada hasta el último día de la semana. PPC = cumplidos / comprometidos.
+   - Antes de planificar una semana nueva, el jefe justifica (causa) lo suyo que no se cumplió.
+     Lo no cumplido queda registrado como no cumplido y puede pasarse a la semana siguiente.
    ===================================================================== */
+const DIA_INI=4;   /* 4 = jueves */
+const DSEM=['dom','lun','mar','mié','jue','vie','sáb'];
 const CAUSAS=[['mat','Falta de material'],['fre','Frente no liberado / área ocupada'],['ins','Instalaciones pendientes'],['mo','Falta de mano de obra'],
   ['dis','Diseño o RFI pendiente'],['ito','Espera o rechazo de ITO'],['pre','Etapa previa no terminada'],['cli','Clima / acceso / equipos'],['otr','Otra causa']];
 const CAUSA_N=Object.fromEntries(CAUSAS);
 const EST_C={ok:{n:'Cumplido',c:'#16A34A'},curso:{n:'En curso',c:'#F59E0B'},pend:{n:'Pendiente',c:'#2563EB'},no:{n:'No cumplido',c:'#DC2626'}};
 const RANGO_C={no:3,pend:2,curso:1,ok:0};
 function sumarDias(dia,n){const p=dia.split('-');const d=new Date(+p[0],+p[1]-1,+p[2]);d.setDate(d.getDate()+n);return fechaADia(d);}
+function inicioSem(dia){const p=dia.split('-');const d=new Date(+p[0],+p[1]-1,+p[2]);d.setDate(d.getDate()-((d.getDay()-DIA_INI+7)%7));return fechaADia(d);}
+function diaSem(dia){const p=dia.split('-');return DSEM[new Date(+p[0],+p[1]-1,+p[2]).getDay()];}
 const finSem=s=>sumarDias(s,6);
+const semActual=()=>inicioSem(hoyDia());
 const semCerrada=s=>hoyDia()>finSem(s);
-function etiquetaSem(s){return diaCorta(s)+' al '+diaCorta(finSem(s));}
+function etiquetaSem(s){return diaSem(s)+' '+diaCorta(s)+' al '+diaSem(finSem(s))+' '+diaCorta(finSem(s));}
+function etiquetaSemLarga(s){return diaSem(s)+' '+diaLarga(s)+' al '+diaSem(finSem(s))+' '+diaLarga(finSem(s));}
 let COMP=[],COMP_G=new Map(),CAUSA=new Map();
 function compromisosTodos(){const m=new Map();((estado.planBase&&estado.planBase.compromisos)||[]).forEach(c=>m.set(c.id,c));(estado.compLocal||[]).forEach(c=>m.set(c.id,c));
   return[...m.values()].filter(c=>!c.borrado&&TAB[c.g]);}
-function reindexarPlan(){if(!estado.planSem)estado.planSem=lunesDe(hoyDia());
-  COMP=compromisosTodos();if(estado.rol==='sub')COMP=COMP.filter(c=>c.sub===estado.subNombre);
+function reindexarPlan(){if(!estado.planSem)estado.planSem=semActual();
+  COMP=compromisosTodos();
   CAUSA=new Map();((estado.planBase&&estado.planBase.causas)||[]).concat(estado.causasLocal||[]).forEach(c=>{const o=CAUSA.get(c.id);if(!o||c.ts>=o.ts)CAUSA.set(c.id,c);});
   COMP_G=new Map();COMP.forEach(c=>{if(c.sem!==estado.planSem)return;if(!COMP_G.has(c.g))COMP_G.set(c.g,[]);COMP_G.get(c.g).push(c);});}
+const areaEt=c=>{const t=TAB[c.g];return t.A/nEnFam(t,ET[c.et].fam);};
+const fIni=c=>{const s=estadoAlCorte(c.g,sumarDias(c.sem,-1));return s[c.et]?s[c.et].f:0;};
+const m2Pedido=c=>areaEt(c)*Math.max(0,(c.meta||1)-fIni(c));
 function estadoComp(c){const s=estadoAlCorte(c.g,finSem(c.sem));const f=s[c.et]?s[c.et].f:0;
-  if(f>=(c.meta||1)-1e-9)return{k:'ok',f};if(semCerrada(c.sem))return{k:'no',f};return{k:f>0?'curso':'pend',f};}
+  if(f>=(c.meta||1)-1e-9)return{k:'ok',f};if(semCerrada(c.sem))return{k:'no',f};return{k:f>fIni(c)+1e-9?'curso':'pend',f};}
+function causaDe(c){const x=CAUSA.get('ca-'+c.id);return x&&!x.borrado?x:null;}
+function resumenComp(lista){const r={n:lista.length,ok:0,no:0,curso:0,pend:0,A:0,Alog:0,fam:{}};
+  lista.forEach(c=>{const e=estadoComp(c);r[e.k]++;const a=m2Pedido(c),f0=fIni(c),m=c.meta||1;const lo=areaEt(c)*Math.max(0,Math.min(m,e.f)-f0);
+    r.A+=a;r.Alog+=lo;const fm=ET[c.et].fam;r.fam[fm]=r.fam[fm]||{A:0,Alog:0,n:0};r.fam[fm].A+=a;r.fam[fm].Alog+=lo;r.fam[fm].n++;});
+  r.ppc=r.n?r.ok/r.n*100:0;return r;}
+const pendientesCausa=()=>COMP.filter(c=>c.por===estado.persona&&semCerrada(c.sem)&&estadoComp(c).k==='no'&&!causaDe(c));
+function famTexto(fam,sep){return FAMILIAS.filter(f=>fam[f.id]&&fam[f.id].A>=.5).map(f=>fmt0(fam[f.id].A)+' m² '+f.corto.toLowerCase()).join(sep||' · ');}
+function pisoTxt(id){const n=nivelPorId(id);return n?cortoNivel(n):id;}
+
+/* ---------- dibujo del plan en la planta ---------- */
+/* relleno = avance real (mismos colores que TabiFlow) */
 function colorPlan(t){const a=etapaAlcanzada(t.g);return a?{c:a.e.color,a:a.f<1?.5:1}:{c:COLOR_SIN,a:1};}
 function peorEstado(l){let w='ok';l.forEach(c=>{const k=estadoComp(c).k;if(RANGO_C[k]>RANGO_C[w])w=k;});return w;}
-/* Dibujo del plan sobre la planta: 1) halo punteado con el color de la etapa comprometida (debajo del relleno de avance) */
+const etapaMayor=l=>l.reduce((a,b)=>ordenEt(b.et)>ordenEt(a.et)?b:a);
+/* comprometido = halo punteado con el color de la etapa (debajo del relleno) */
 function planHalos(ctx,n,visible,px,minPint){ctx.save();ctx.lineJoin='round';ctx.setLineDash([7*px,4*px]);ctx.lineWidth=minPint+5*px;
-  n.tab.forEach(t=>{const l=COMP_G.get(t.g);if(!l||!visible(t.bb))return;const c=l.reduce((a,b)=>ordenEt(b.et)>ordenEt(a.et)?b:a);ctx.strokeStyle=ET[c.et].color;ctx.stroke(t.path);});ctx.restore();}
-/* 2) con franjas visibles: lo que falta para la meta, en la franja de esa etapa (color tenue) */
+  n.tab.forEach(t=>{const l=COMP_G.get(t.g);if(!l||!visible(t.bb))return;ctx.strokeStyle=ET[etapaMayor(l).et].color;ctx.stroke(t.path);});ctx.restore();}
+/* con zoom: líneas punteadas a ambos lados del tabique y lo que falta hasta la meta, tenue, en la franja de su etapa */
 function planMetas(ctx,t,px){const l=COMP_G.get(t.g);const a=t.ax;if(!l||!a||a.L<=0)return;const n=t.seq.length,w=Math.max(1.6,Math.min(3.2,15/n))*px;
-  const ce=l.reduce((x,y)=>ordenEt(y.et)>ordenEt(x.et)?y:x),bo=n*w/2+2.6*px;ctx.save();ctx.strokeStyle=ET[ce.et].color;ctx.lineWidth=1.8*px;ctx.setLineDash([5*px,3*px]);
+  const bo=n*w/2+2.6*px;ctx.save();ctx.strokeStyle=ET[etapaMayor(l).et].color;ctx.lineWidth=1.8*px;ctx.setLineDash([5*px,3*px]);
   [-bo,bo].forEach(k=>{ctx.beginPath();ctx.moveTo(a.x0+a.vx*k,a.y0+a.vy*k);ctx.lineTo(a.x0+a.vx*k+a.ux*a.L,a.y0+a.vy*k+a.uy*a.L);ctx.stroke();});ctx.restore();
   l.forEach(c=>{const i=t.seq.indexOf(c.et);if(i<0)return;const f=fracEt(t.g,c.et),m=c.meta||1;if(f>=m)return;const k=(i-(n-1)/2)*w,ox=a.vx*k,oy=a.vy*k;
     ctx.save();ctx.globalAlpha=.42;ctx.strokeStyle=ET[c.et].color;ctx.lineWidth=w*0.86;ctx.lineCap='butt';ctx.setLineDash([2.2*px,1.4*px]);ctx.beginPath();ctx.moveTo(a.x0+ox+a.ux*a.L*f,a.y0+oy+a.uy*a.L*f);ctx.lineTo(a.x0+ox+a.ux*a.L*m,a.y0+oy+a.uy*a.L*m);ctx.stroke();ctx.restore();});}
-/* 3) marca de cumplimiento: verde cumplido, ámbar en curso, rojo no cumplido */
+/* punto: verde cumplido, ámbar en curso, rojo no cumplido */
 function planMarcas(ctx,n,visible,px){ctx.lineWidth=1.6*px;n.tab.forEach(t=>{const l=COMP_G.get(t.g);if(!l||!visible(t.bb))return;const w=peorEstado(l);if(w==='pend')return;
   ctx.beginPath();ctx.arc(t.cx,t.cy,Math.max(5*px,10),0,Math.PI*2);ctx.fillStyle=EST_C[w].c;ctx.fill();ctx.strokeStyle='#FFFFFF';ctx.stroke();});}
-function causaDe(c){const x=CAUSA.get('ca-'+c.id);return x&&!x.borrado?x:null;}
-function resumenComp(lista){const r={n:lista.length,ok:0,no:0,curso:0,pend:0,A:0,Aok:0};
-  lista.forEach(c=>{const k=estadoComp(c).k;r[k]++;const t=TAB[c.g];const a=t.A/nEnFam(t,ET[c.et].fam);r.A+=a;if(k==='ok')r.Aok+=a;});
-  r.ppc=r.n?r.ok/r.n*100:0;return r;}
-function subcontratos(){const s=new Set(((estado.planBase&&estado.planBase.subcontratos)||[]).map(x=>typeof x==='string'?x:x.nombre));
-  compromisosTodos().forEach(c=>c.sub&&s.add(c.sub));if(estado.planSub)s.add(estado.planSub);return[...s].sort((a,b)=>a.localeCompare(b));}
 
-/* ---------- planificar en la planta ---------- */
+/* ---------- planificar ---------- */
 function comprometer(t,lote,soloAgregar){
-  if(semCerrada(estado.planSem)){if(!lote._avisoSem){lote._avisoSem=1;toast('La semana del '+etiquetaSem(estado.planSem)+' ya terminó: elige esta semana o una próxima','error');}return;}
+  if(semCerrada(estado.planSem)){if(!lote._aviso){lote._aviso=1;toast('Esa semana ya terminó: elige la semana actual o la próxima','error');}return;}
+  const pc=pendientesCausa();if(pc.length){if(!lote._aviso){lote._aviso=1;toastAccion('Antes de planificar, justifica lo que no se cumplió ('+pc.length+')','Justificar',irAJustificar);}return;}
   const et=mapearEtapa(t,estado.planEt);if(!et){lote._omitidos=(lote._omitidos||0)+1;return;}
   const ex=compromisosTodos().find(c=>c.g===t.g&&c.et===et&&c.sem===estado.planSem);
   if(ex){if(soloAgregar)return;
-    if(ex.por!==estado.persona){toast('Lo comprometió '+(ex.por||'otra persona')+': solo quien lo planificó puede quitarlo','error');return;}
+    if(ex.por!==estado.persona){toast('Lo planificó '+(ex.por||'otra persona')+': solo quien lo planificó puede quitarlo','error');return;}
     let loc=(estado.compLocal||[]).find(c=>c.id===ex.id);if(!loc){loc=Object.assign({},ex);estado.compLocal.push(loc);}
     loc.borrado=true;loc.borradoTs=new Date().toISOString();(lote.mod=lote.mod||[]).push(loc);return;}
   const meta=estado.planMeta||1;if(fracEt(t.g,et)>=meta-1e-9){lote._hechos=(lote._hechos||0)+1;return;}
-  if(!estado.planSub){if(!lote._avisoSub){lote._avisoSub=1;toast('Primero elige el subcontrato','error');}return;}
-  const c={id:uid(),sem:estado.planSem,g:t.g,nv:t.nv,et,meta,sub:estado.planSub,por:estado.persona,disp:estado.dispositivo,ts:new Date().toISOString()};
+  const c={id:uid(),sem:estado.planSem,g:t.g,nv:t.nv,et,meta,por:estado.persona,disp:estado.dispositivo,ts:new Date().toISOString()};
   estado.compLocal.push(c);lote.push(c);reindexarPlan();pedirRender();}
 function revertirPlan(lote){const ids=new Set(lote.map(c=>c.id));estado.compLocal=estado.compLocal.filter(c=>!ids.has(c.id));lote.length=0;reindexarPlan();pedirRender();}
 async function guardarPlan(lote,trazo){const cambios=lote.concat(lote.mod||[]);
@@ -2245,102 +2262,114 @@ async function guardarPlan(lote,trazo){const cambios=lote.concat(lote.mod||[]);
 async function deshacerPlan(){const ids=estado.pilaPlan.pop();if(!ids){toast('No hay nada que deshacer');return;}
   const l=estado.compLocal.filter(c=>ids.includes(c.id)&&!c.borrado);const ahora=new Date().toISOString();l.forEach(c=>{c.borrado=true;c.borradoTs=ahora;});
   await putMuchos('compromisos',l);reindexarPlan();pedirRender();renderPaletaPlan();toast('Deshecho ('+l.length+')','ok');}
+/* lo no cumplido de una semana cerrada se vuelve a comprometer en la semana actual (el original queda como no cumplido) */
+async function arrastrar(semOrigen){const dest=semActual();if(semOrigen>=dest)return;
+  if(pendientesCausa().length){toast('Primero justifica lo que no se cumplió','error');return;}
+  const ya=new Set(compromisosTodos().filter(c=>c.sem===dest).map(c=>c.g+'|'+c.et));const ahora=new Date().toISOString();
+  const nuevos=COMP.filter(c=>c.sem===semOrigen&&c.por===estado.persona&&estadoComp(c).k==='no'&&!ya.has(c.g+'|'+c.et)&&fracEt(c.g,c.et)<(c.meta||1)-1e-9)
+    .map(c=>({id:uid(),sem:dest,g:c.g,nv:c.nv,et:c.et,meta:c.meta||1,por:estado.persona,disp:estado.dispositivo,ts:ahora,arr:semOrigen}));
+  if(!nuevos.length){toast('No hay pendientes para pasar a la semana actual');return;}
+  estado.compLocal.push(...nuevos);await putMuchos('compromisos',nuevos);estado.pilaPlan.push(nuevos.map(c=>c.id));elegirSemana(dest);renderTodo();
+  toast(nuevos.length+' compromiso(s) pasados a la semana '+etiquetaSem(dest),'ok');}
 function renderPaletaPlan(){if(!$('#paletaPlan'))return;const n=estado.nivel;
-  $('#btnPlanSem').textContent='📅 Sem. '+etiquetaSem(estado.planSem)+(estado.planSem===lunesDe(hoyDia())?' (esta)':'');
-  const subs=subcontratos();$('#selPlanSub').innerHTML='<option value="">— Subcontrato —</option>'+subs.map(s=>'<option'+(s===estado.planSub?' selected':'')+'>'+escapar(s)+'</option>').join('')+'<option value="__nuevo">➕ Agregar subcontrato…</option>';
+  $('#btnPlanSem').textContent='📅 '+etiquetaSem(estado.planSem)+(estado.planSem===semActual()?' (actual)':'');
   $('#paletaPlanEt').innerHTML=ETAPAS.filter(e=>!n||n.tot[e.id]>0).map(e=>'<button class="tipo-btn'+(e.id===estado.planEt?' activo':'')+'" data-pet="'+e.id+'" style="--c:'+e.color+'">'+icono(e,true)+'<span>'+e.corto+'</span></button>').join('');
-  $('#paletaPlanMeta').innerHTML='<span class="nota" style="font-weight:800">Meta de la semana:</span>'+[.25,.5,.75,1].map(m=>'<button class="chip-boton'+((estado.planMeta||1)===m?' activo':'')+'" data-pmeta="'+m+'">'+(m*100)+' %</button>').join('');
-  const sem=COMP.filter(c=>c.sem===estado.planSem),deNivel=n?sem.filter(c=>c.nv===n.id):[],mios=sem.filter(c=>c.sub===estado.planSub);
-  $('#planResumen').innerHTML='<b>'+sem.length+'</b> compromisos en la semana'+(n?' · '+deNivel.length+' en '+cortoNivel(n):'')+(estado.planSub?' · '+mios.length+' de '+escapar(truncar(estado.planSub,18)):'');
+  $('#paletaPlanMeta').innerHTML='<span class="nota" style="font-weight:800">Meta:</span>'+[.25,.5,.75,1].map(m=>'<button class="chip-boton'+((estado.planMeta||1)===m?' activo':'')+'" data-pmeta="'+m+'">'+(m*100)+' %</button>').join('');
+  const l=COMP.filter(c=>c.sem===estado.planSem&&c.por===estado.persona&&(!n||c.nv===n.id)),r=resumenComp(l);
+  $('#planResumen').innerHTML=n?'<b>'+cortoNivel(n)+'</b>: '+(l.length?l.length+' tabiques-etapa · '+famTexto(r.fam):'aún sin plan tuyo esta semana'):'';
   $('#btnPlanDeshacer').disabled=!estado.pilaPlan.length;}
-function semanasConPlan(){const s=new Set(COMP.map(c=>c.sem));const h=lunesDe(hoyDia());s.add(h);s.add(sumarDias(h,7));return[...s].sort();}
-function abrirSemanas(){const h=lunesDe(hoyDia());const set=new Set(semanasConPlan());[-14,-7,14].forEach(d=>set.add(sumarDias(h,d)));
+function semanasConPlan(){const s=new Set(COMP.map(c=>c.sem));const h=semActual();s.add(h);s.add(sumarDias(h,7));return[...s].sort();}
+function abrirSemanas(){const h=semActual();const set=new Set(semanasConPlan());[-14,-7,14].forEach(d=>set.add(sumarDias(h,d)));
   const lista=[...set].sort().reverse();
-  abrirHoja('<div class="hoja-titulo">📅 Semana del plan</div><div class="hoja-sub">Los compromisos se hacen por semana (lunes a domingo). Se puede planificar la semana en curso y las siguientes; las pasadas quedan para revisar su cumplimiento.</div>'+
-    lista.map(s=>{const l=COMP.filter(c=>c.sem===s),r=resumenComp(l);return'<button class="menu-item" data-psem="'+s+'">'+(s===estado.planSem?'✅ ':'')+'Semana '+etiquetaSem(s)+(s===h?' · <b>esta semana</b>':s>h?' · próxima':'')+
-      '<span class="chip" style="margin-left:auto">'+(l.length?l.length+' comp.'+(semCerrada(s)||s===h?' · PPC '+r.ppc.toFixed(0)+'%':''):'sin plan')+'</span></button>';}).join(''));}
+  abrirHoja('<div class="hoja-titulo">📅 Semana del plan</div><div class="hoja-sub">La semana de plan va de <b>jueves a miércoles</b>: el jueves se justifica lo no cumplido y se planifica la semana. Se puede planificar la semana actual y las siguientes.</div>'+
+    lista.map(s=>{const l=COMP.filter(c=>c.sem===s),r=resumenComp(l);return'<button class="menu-item" data-psem="'+s+'">'+(s===estado.planSem?'✅ ':'')+etiquetaSem(s)+(s===h?' · <b>actual</b>':s>h?' · próxima':'')+
+      '<span class="chip" style="margin-left:auto">'+(l.length?l.length+' comp.'+(s<=h?' · PPC '+r.ppc.toFixed(0)+'%':''):'sin plan')+'</span></button>';}).join(''));}
 function elegirSemana(s){estado.planSem=s;reindexarPlan();renderPaletaPlan();if(estado.vista==='plan')$('#chipVista').textContent=etiquetaVista();pedirRender();if($('#vista-plan').classList.contains('activa'))renderPlan();}
-function pedirSubcontrato(){abrirHoja('<div class="hoja-titulo">➕ Subcontrato</div><div class="hoja-sub">Nombre de la empresa o cuadrilla que se compromete. Para que el subcontrato vea su plan con clave propia, pídele a Renato que le genere una clave con este mismo nombre.</div>'+
-  '<input id="inSub" class="campo" maxlength="40" placeholder="Ej.: Tabiques del Norte" list="listaSubs"><datalist id="listaSubs">'+subcontratos().map(s=>'<option value="'+escAttr(s)+'">').join('')+'</datalist><button class="btn principal" id="btnSubOk">Usar este subcontrato</button>');
-  setTimeout(()=>{const i=$('#inSub');if(i)i.focus();},300);
-  $('#btnSubOk').onclick=async()=>{const v=($('#inSub').value||'').trim();if(v.length<2){toast('Escribe el nombre','error');return;}estado.planSub=v;await metaSet('planSub',v);cerrarHoja();renderPaletaPlan();};}
 function bindPlan(){
   $('#btnPlanSem').onclick=abrirSemanas;$('#btnPlanDeshacer').onclick=deshacerPlan;
-  $('#selPlanSub').addEventListener('change',async e=>{const v=e.target.value;if(v==='__nuevo'){e.target.value=estado.planSub;pedirSubcontrato();return;}estado.planSub=v;await metaSet('planSub',v);renderPaletaPlan();});
+  $('#btnPlanPdf').onclick=()=>generarPdfPlanObra(estado.nivel?estado.nivel.id:estado.lpPiso,estado.planSem);
+  $('#btnPlanEnviar').onclick=()=>exportarAvance();
   $('#paletaPlanMeta').addEventListener('click',e=>{const b=e.target.closest('[data-pmeta]');if(!b)return;estado.planMeta=parseFloat(b.dataset.pmeta);metaSet('planMeta',estado.planMeta);renderPaletaPlan();});
   $('#paletaPlanEt').addEventListener('click',e=>{const b=e.target.closest('[data-pet]');if(!b)return;estado.planEt=b.dataset.pet;metaSet('planEt',estado.planEt);renderPaletaPlan();});
   $('#hojaContenido').addEventListener('click',e=>{const b=e.target.closest('[data-psem]');if(b){cerrarHoja();elegirSemana(b.dataset.psem);}});
   $('#planContenido').addEventListener('click',accionPlan);
   $('#planContenido').addEventListener('change',cambioPlan);}
 
-/* ---------- pestaña Plan ---------- */
-function filaComp(c,conCausa){const t=TAB[c.g],e=estadoComp(c),ca=causaDe(c),n=nivelPorId(c.nv);
-  let h='<div class="plan-fila"><i class="marca" style="--c:'+EST_C[e.k].c+'"></i><div class="det"><b>'+icono(ET[c.et])+' '+ET[c.et].corto+'</b> · '+escapar(t.t)+' · '+(n?cortoNivel(n):c.nv)+
-    '<small>'+(t.r.length?escapar(truncar(t.r.join(' · '),60))+' · ':'')+fmt1(t.A/nEnFam(t,ET[c.et].fam))+' m² · '+escapar(c.sub||'—')+' · meta '+Math.round((c.meta||1)*100)+'% · '+EST_C[e.k].n+(e.f>0&&e.f<(c.meta||1)?' (lleva '+Math.round(e.f*100)+'%)':'')+(c.por&&c.por!==estado.persona?' · planificó '+escapar(c.por):'')+'</small></div>'+
+/* ---------- pestaña Cumplimiento ---------- */
+function filaComp(c,conCausa){const t=TAB[c.g],e=estadoComp(c),ca=causaDe(c);
+  let h='<div class="plan-fila"><i class="marca" style="--c:'+EST_C[e.k].c+'"></i><div class="det"><b>'+icono(ET[c.et])+' '+ET[c.et].corto+' '+Math.round((c.meta||1)*100)+'%</b> · '+escapar(t.t)+' · '+pisoTxt(c.nv)+
+    '<small>'+(t.r.length?escapar(truncar(t.r.join(' · '),60))+' · ':'')+fmt1(m2Pedido(c))+' m² · '+EST_C[e.k].n+(e.f>0&&e.f<(c.meta||1)?' (lleva '+Math.round(e.f*100)+'%)':'')+(c.arr?' · viene de la sem. '+diaCorta(c.arr):'')+(c.por&&c.por!==estado.persona?' · planificó '+escapar(c.por):'')+'</small></div>'+
     '<button class="herr-btn" data-ir="'+c.g+'" title="Ver en la planta">📍</button>';
-  if(conCausa){if(estado.rol==='sub'||c.por!==estado.persona)h+='<div class="causa nota">'+(ca?'Causa: <b>'+escapar(CAUSA_N[ca.causa]||ca.causa)+'</b>'+(ca.nota?' · '+escapar(ca.nota):''):'Causa pendiente · la registra '+escapar(c.por||'quien lo planificó'))+'</div>';
-    else h+='<div class="causa"><select data-causa="'+c.id+'"><option value="">— Causa de no cumplimiento —</option>'+CAUSAS.map(([k,v])=>'<option value="'+k+'"'+(ca&&ca.causa===k?' selected':'')+'>'+v+'</option>').join('')+'</select>'+
+  if(conCausa){if(c.por!==estado.persona)h+='<div class="causa nota">'+(ca?'Causa: <b>'+escapar(CAUSA_N[ca.causa]||ca.causa)+'</b>'+(ca.nota?' · '+escapar(ca.nota):''):'Causa pendiente · la registra '+escapar(c.por||'quien lo planificó'))+'</div>';
+    else h+='<div class="causa"><select data-causa="'+c.id+'"><option value="">— ¿Por qué no se cumplió? —</option>'+CAUSAS.map(([k,v])=>'<option value="'+k+'"'+(ca&&ca.causa===k?' selected':'')+'>'+v+'</option>').join('')+'</select>'+
       '<input data-cnota="'+c.id+'" maxlength="120" placeholder="Detalle (opcional)" value="'+escAttr(ca?ca.nota:'')+'"></div>';}
   return h+'</div>';}
 function barrasH(items,max,fmt){return items.map(it=>'<div class="barra-h"><span>'+it.l+'</span><div class="bh"><i style="width:'+(max?Math.min(100,it.v/max*100):0)+'%;--c:'+(it.c||'var(--primario)')+'"></i></div><b>'+fmt(it)+'</b></div>').join('');}
-function historialPPC(){const h=lunesDe(hoyDia());const sems=[...new Set(COMP.map(c=>c.sem))].filter(s=>s<=h).sort().slice(-10);
-  return sems.map(s=>{const r=resumenComp(COMP.filter(c=>c.sem===s));return{s,r,cerr:semCerrada(s)};});}
-function paretoCausas(){const cnt={};COMP.forEach(c=>{if(estadoComp(c).k!=='no')return;const ca=causaDe(c);const k=ca?ca.causa:'sin';cnt[k]=(cnt[k]||0)+1;});
+function filtroPlan(l){if(estado.lpSoloMios)l=l.filter(c=>c.por===estado.persona);if(estado.lpSoloPiso&&estado.lpPiso)l=l.filter(c=>c.nv===estado.lpPiso);return l;}
+function historialPPC(lista){const h=semActual();const sems=[...new Set(lista.map(c=>c.sem))].filter(s=>s<=h).sort().slice(-10);
+  return sems.map(s=>{const r=resumenComp(lista.filter(c=>c.sem===s));return{s,r,cerr:semCerrada(s)};});}
+function paretoCausas(lista){const cnt={};lista.forEach(c=>{if(estadoComp(c).k!=='no')return;const ca=causaDe(c);const k=ca?ca.causa:'sin';cnt[k]=(cnt[k]||0)+1;});
   return Object.entries(cnt).sort((a,b)=>b[1]-a[1]);}
+function tablaGrupoHTML(titulo,lista,clave,nombre,cerr,conCausas){const g={};lista.forEach(c=>{const k=clave(c);(g[k]=g[k]||[]).push(c);});
+  return'<div class="tarjeta"><h3>'+titulo+'</h3><table class="tabla"><tr><th></th><th>Comp.</th><th>Cumpl.</th><th>PPC</th><th>m² pedidos</th><th>m² logrados</th>'+(conCausas?'<th>Causas pend.</th>':'')+'</tr>'+
+    Object.keys(g).sort().map(k=>{const x=resumenComp(g[k]);const pc=g[k].filter(c=>estadoComp(c).k==='no'&&!causaDe(c)).length;
+      return'<tr><td style="text-align:left">'+escapar(nombre(k))+'</td><td>'+x.n+'</td><td>'+x.ok+'</td><td><b>'+x.ppc.toFixed(0)+'%</b></td><td>'+fmt0(x.A)+'</td><td>'+fmt0(x.Alog)+'</td>'+(conCausas?'<td>'+(cerr?pc:'—')+'</td>':'')+'</tr>';}).join('')+'</table></div>';}
+function famChips(fam){return'<div class="ppc-est" style="margin-top:8px">'+FAMILIAS.filter(f=>fam[f.id]&&fam[f.id].A>=.5).map(f=>'<span><i style="--c:'+f.color+'"></i>'+fmt0(fam[f.id].A)+' m² '+f.corto.toLowerCase()+'</span>').join('')+'</div>';}
 function renderPlan(){const el=$('#planContenido');if(!el||!M)return;reindexarPlan();
-  const s=estado.planSem,hoyL=lunesDe(hoyDia()),lTodo=COMP.filter(c=>c.sem===s),soloMios=estado.rol!=='sub'&&estado.lpSoloMios,l=soloMios?lTodo.filter(c=>c.por===estado.persona):lTodo,r=resumenComp(l),cerr=semCerrada(s);
-  let h='<h2>✅ Cumplimiento del plan'+(estado.rol==='sub'?' · '+escapar(estado.subNombre):'')+'</h2><p class="nota" style="margin-bottom:12px">'+(estado.rol==='sub'?'Tabiques y etapas que tu empresa se comprometió a ejecutar cada semana, y cómo va su cumplimiento según el avance registrado en obra.':'Compromisos tabique por tabique que planificó cada jefe de terreno. Se cumplen cuando la etapa llega a su meta registrada hasta el domingo. <b>PPC</b> = % de compromisos cumplidos. Cada jefe registra la causa de lo que él mismo planificó y no se cumplió.')+'</p>';
-  h+='<div class="plan-sem"><button class="btn-icono" data-pnav="-7" aria-label="Semana anterior">‹</button><b>Semana '+etiquetaSem(s)+'<br><span class="chip '+(cerr?'':(s===hoyL?'acento':''))+'" style="margin-top:4px">'+(cerr?'cerrada':(s===hoyL?'en curso':'próxima'))+'</span></b><button class="btn-icono" data-pnav="7" aria-label="Semana siguiente">›</button></div>'+(estado.rol==='sub'?'':'<label class="opcion" style="margin-bottom:10px"><input type="checkbox" data-lpmios'+(soloMios?' checked':'')+'> Ver solo lo que yo planifiqué</label>');
-  if(!l.length){h+='<div class="tarjeta"><div class="vacio"><p>'+(estado.rol==='sub'?'No tienes compromisos esta semana.':'Sin compromisos para esta semana.')+'</p></div>'+(estado.rol==='sub'?'':'<button class="btn principal grande" data-pacc="planificar">📋 Planificar en la planta</button><p class="nota" style="margin-top:8px">En la planta toca <b>📋 Planificar</b>, elige subcontrato y etapa, y toca o arrastra sobre los tabiques que se harán esta semana.</p>')+'</div>';}
+  const s=estado.planSem,hoyL=semActual(),lTodo=COMP.filter(c=>c.sem===s),l=filtroPlan(lTodo),r=resumenComp(l),cerr=semCerrada(s),pc=pendientesCausa();
+  let h='<h2>✅ Cumplimiento del plan</h2><p class="nota" style="margin-bottom:12px">Semana de plan de jueves a miércoles. Un compromiso se cumple cuando la etapa llega a su meta registrada en TabiFlow hasta el miércoles. <b>PPC</b> = % de compromisos cumplidos. Cada jefe de terreno justifica lo que él planificó y no se cumplió.</p>';
+  if(pc.length&&s!==pc[0].sem)h+='<div class="info-sello">⚠ Tienes <b>'+pc.length+' compromiso(s) sin justificar</b>. Hasta justificarlos no puedes planificar.<br><button class="btn ambar" data-pacc="justificar" style="margin-top:8px">Justificar ahora</button></div>';
+  h+='<div class="plan-sem"><button class="btn-icono" data-pnav="-7" aria-label="Semana anterior">‹</button><b>'+etiquetaSem(s)+'<br><span class="chip '+(cerr?'':(s===hoyL?'acento':''))+'" style="margin-top:4px">'+(cerr?'cerrada':(s===hoyL?'en curso':'próxima'))+'</span></b><button class="btn-icono" data-pnav="7" aria-label="Semana siguiente">›</button></div>';
+  h+='<label class="opcion"><input type="checkbox" data-lpmios'+(estado.lpSoloMios?' checked':'')+'> Solo lo que yo planifiqué</label>'+(estado.lpPiso?'<label class="opcion" style="margin-bottom:10px"><input type="checkbox" data-lppiso'+(estado.lpSoloPiso?' checked':'')+'> Solo mi piso ('+pisoTxt(estado.lpPiso)+')</label>':'');
+  if(!l.length){h+='<div class="tarjeta"><div class="vacio"><p>Sin compromisos para esta semana'+(estado.lpSoloMios||estado.lpSoloPiso?' con este filtro':'')+'.</p></div>'+(cerr?'':'<button class="btn principal grande" data-pacc="planificar">📋 Planificar en la planta</button>')+'</div>';}
   else{
-    h+='<div class="tarjeta"><div class="ppc-caja"><div class="ppc-num">'+r.ppc.toFixed(0)+'<small>%</small></div><div><b>'+(cerr?'PPC de la semana':'PPC parcial (semana en curso)')+'</b><p class="nota">'+r.ok+' de '+r.n+' compromisos cumplidos · '+fmt0(r.Aok)+' de '+fmt0(r.A)+' m²</p></div></div>'+
-      '<div class="ppc-est" style="margin-top:10px">'+['ok','curso','pend','no'].filter(k=>r[k]).map(k=>'<span><i style="--c:'+EST_C[k].c+'"></i>'+EST_C[k].n+' '+r[k]+'</span>').join('')+'</div>'+
-      '<div class="fila-btn" style="margin-top:12px"><button class="btn secundario" data-pacc="planta">🗺️ Ver en la planta</button>'+(estado.rol==='sub'?'':'<button class="btn secundario" data-pacc="planificar">📋 Planificar</button>')+'</div></div>';
-    /* por subcontrato */
-    const subs={};l.forEach(c=>{(subs[c.sub||'—']=subs[c.sub||'—']||[]).push(c);});
-    if(estado.rol!=='sub'&&!soloMios){const jf={};lTodo.forEach(c=>{(jf[c.por||'—']=jf[c.por||'—']||[]).push(c);});h+='<div class="tarjeta"><h3>👷 Por jefe de terreno (quien planificó)</h3><table class="tabla"><tr><th>Planificó</th><th>Comp.</th><th>Cumpl.</th><th>PPC</th><th>Causas pend.</th></tr>'+
-      Object.keys(jf).sort().map(k=>{const x=resumenComp(jf[k]);const pc=jf[k].filter(c=>estadoComp(c).k==='no'&&!causaDe(c)).length;return'<tr><td style="text-align:left">'+escapar(k)+(k===estado.persona?' (tú)':'')+'</td><td>'+x.n+'</td><td>'+x.ok+'</td><td><b>'+x.ppc.toFixed(0)+'%</b></td><td>'+(cerr?pc:'—')+'</td></tr>';}).join('')+'</table></div>';}
-    if(estado.rol!=='sub'){h+='<div class="tarjeta"><h3>🏗️ Cumplimiento por subcontrato</h3><table class="tabla"><tr><th>Subcontrato</th><th>Comp.</th><th>Cumpl.</th><th>No cumpl.</th><th>PPC</th><th>m²</th></tr>'+
-      Object.keys(subs).sort().map(k=>{const x=resumenComp(subs[k]);return'<tr><td style="text-align:left">'+escapar(k)+'</td><td>'+x.n+'</td><td>'+x.ok+'</td><td>'+(x.no||(cerr?0:'—'))+'</td><td><b>'+x.ppc.toFixed(0)+'%</b></td><td>'+fmt0(x.A)+'</td></tr>';}).join('')+'</table></div>';}
-    /* por etapa */
-    const ets={};l.forEach(c=>{(ets[c.et]=ets[c.et]||[]).push(c);});
-    h+='<div class="tarjeta"><h3>🧱 Por etapa</h3>'+barrasH(Object.keys(ets).sort((a,b)=>ordenEt(a)-ordenEt(b)).map(k=>{const x=resumenComp(ets[k]);return{l:icono(ET[k])+' '+ET[k].corto,v:x.ppc,c:ET[k].color,x};}),100,it=>it.x.ok+'/'+it.x.n+' · '+it.v.toFixed(0)+'%')+'</div>';
-    /* detalle */
+    h+='<div class="tarjeta"><div class="ppc-caja"><div class="ppc-num">'+r.ppc.toFixed(0)+'<small>%</small></div><div><b>'+(cerr?'PPC de la semana':'PPC a hoy (semana en curso)')+'</b><p class="nota">'+r.ok+' de '+r.n+' compromisos cumplidos · '+fmt0(r.Alog)+' de '+fmt0(r.A)+' m² pedidos</p></div></div>'+
+      famChips(r.fam)+'<div class="ppc-est" style="margin-top:6px">'+['ok','curso','pend','no'].filter(k=>r[k]).map(k=>'<span><i style="--c:'+EST_C[k].c+'"></i>'+EST_C[k].n+' '+r[k]+'</span>').join('')+'</div>'+
+      '<div class="fila-btn" style="margin-top:12px"><button class="btn secundario" data-pacc="planta">🗺️ Ver en la planta</button><button class="btn secundario" data-pacc="pdfobra">📄 PDF para la obra</button></div></div>';
     const no=l.filter(c=>estadoComp(c).k==='no'),abiertos=l.filter(c=>['pend','curso'].includes(estadoComp(c).k)),ok=l.filter(c=>estadoComp(c).k==='ok');
     const orden=(a,b)=>a.nv.localeCompare(b.nv)||ordenEt(a.et)-ordenEt(b.et);
-    if(no.length){const sinC=no.filter(c=>!causaDe(c)&&c.por===estado.persona).length;h+='<div class="tarjeta"><h3>❌ No cumplidos ('+no.length+')</h3>'+(estado.rol==='sub'?'':'<p class="nota">Registra la causa de lo que <b>tú</b> planificaste y no se cumplió'+(sinC?': te faltan <b>'+sinC+'</b>':' ✓')+'. Así se ve qué frena el plan y la próxima semana se planifica mejor. Las causas viajan en "Enviar mi plan".</p>')+no.sort(orden).slice(0,300).map(c=>filaComp(c,true)).join('')+'</div>';}
+    if(no.length){const mios=no.filter(c=>c.por===estado.persona),sinC=mios.filter(c=>!causaDe(c)).length;
+      h+='<div class="tarjeta" id="tarjetaNo"><h3>❌ No cumplidos ('+no.length+')</h3><p class="nota">'+(mios.length?'Registra por qué no se cumplió lo que <b>tú</b> planificaste'+(sinC?': te faltan <b>'+sinC+'</b>':' ✓')+'. Lo no cumplido queda registrado; si sigue pendiente, pásalo a la semana actual.':'Las causas las registra quien planificó cada compromiso.')+'</p>'+
+        no.sort(orden).slice(0,300).map(c=>filaComp(c,true)).join('')+
+        (mios.length&&!sinC&&s<hoyL?'<button class="btn principal" data-pacc="arrastrar" style="margin-top:10px;width:100%">↪ Pasar lo no cumplido a la semana actual</button>':'')+'</div>';}
     if(abiertos.length)h+='<div class="tarjeta"><h3>⏳ Por cumplir ('+abiertos.length+')</h3>'+abiertos.sort(orden).slice(0,300).map(c=>filaComp(c,false)).join('')+'</div>';
-    if(ok.length)h+='<details class="tarjeta"><summary><b>✅ Cumplidos ('+ok.length+')</b></summary>'+ok.sort(orden).slice(0,300).map(c=>filaComp(c,false)).join('')+'</details>';}
-  /* historial y causas */
-  const hist=historialPPC();
-  if(hist.length){h+='<div class="tarjeta"><h3>📈 PPC por semana</h3>'+barrasH(hist.map(x=>({l:'Sem. '+diaCorta(x.s)+(x.cerr?'':' (en curso)'),v:x.r.ppc,c:x.cerr?(x.r.ppc>=80?'#16A34A':x.r.ppc>=60?'#F59E0B':'#DC2626'):'#94A3B8',x})),100,it=>it.v.toFixed(0)+'% · '+it.x.r.n)+
-    '<p class="nota" style="margin-top:6px">Verde ≥ 80 % · ámbar 60–79 % · rojo &lt; 60 %. La semana en curso se muestra en gris (parcial).</p></div>';}
-  const par=paretoCausas();
-  if(par.length){const tot=par.reduce((a,x)=>a+x[1],0);let ac=0;h+='<div class="tarjeta"><h3>🔎 Causas de no cumplimiento (todas las semanas)</h3>'+barrasH(par.map(([k,v])=>{ac+=v;return{l:k==='sin'?'<i>Sin causa registrada</i>':escapar(CAUSA_N[k]||k),v,c:k==='sin'?'#94A3B8':'#DC2626',ac};}),par[0][1],it=>it.v+' · '+(it.ac/tot*100).toFixed(0)+'% ac.')+'</div>';}
-  h+='<button class="btn principal grande" data-pacc="pdf" style="margin-top:4px">📄 Informe de cumplimiento PDF</button>';
-  if(estado.rol!=='sub')h+='<p class="nota" style="margin-top:10px">El plan se comparte con <b>Menú → Enviar mi plan</b>. Renato lo consolida y todos lo ven al tocar 🔄 Actualizar equipo.</p>';
+    if(ok.length)h+='<details class="tarjeta"><summary><b>✅ Cumplidos ('+ok.length+')</b></summary>'+ok.sort(orden).slice(0,300).map(c=>filaComp(c,false)).join('')+'</details>';
+    if(!estado.lpSoloMios)h+=tablaGrupoHTML('👷 Por jefe de terreno (quien planificó)',l,c=>c.por||'—',k=>k+(k===estado.persona?' (tú)':''),cerr,true);
+    h+=tablaGrupoHTML('🏢 Por piso',l,c=>c.nv,pisoTxt,cerr,false);}
+  const base=filtroPlan(COMP),hist=historialPPC(base);
+  if(hist.length){h+='<div class="tarjeta"><h3>📈 PPC por semana</h3>'+barrasH(hist.map(x=>({l:diaCorta(x.s)+(x.cerr?'':' (en curso)'),v:x.r.ppc,c:x.cerr?(x.r.ppc>=80?'#16A34A':x.r.ppc>=60?'#F59E0B':'#DC2626'):'#94A3B8',x})),100,it=>it.v.toFixed(0)+'% · '+it.x.r.n)+
+    '<p class="nota" style="margin-top:6px">Verde ≥ 80 % · ámbar 60–79 % · rojo &lt; 60 %. La semana en curso va en gris.</p></div>';}
+  const par=paretoCausas(base);
+  if(par.length){const tot=par.reduce((a,x)=>a+x[1],0);let ac=0;h+='<div class="tarjeta"><h3>🔎 Causas de no cumplimiento (todas las semanas)</h3>'+barrasH(par.map(([k,v])=>{ac+=v;return{l:k==='sin'?'<i>Sin justificar</i>':escapar(CAUSA_N[k]||k),v,c:k==='sin'?'#94A3B8':'#DC2626',ac};}),par[0][1],it=>it.v+' · '+(it.ac/tot*100).toFixed(0)+'% ac.')+'</div>';}
+  h+='<div class="fila-btn" style="margin-top:4px"><button class="btn secundario" data-pacc="enviar">📤 Enviar al coordinador</button><button class="btn principal" data-pacc="pdf">📄 Informe de cumplimiento</button></div>';
   el.innerHTML=h;}
 async function accionPlan(e){const b=e.target.closest('[data-pnav],[data-pacc],[data-ir]');if(!b)return;
   if(b.dataset.pnav){elegirSemana(sumarDias(estado.planSem,parseInt(b.dataset.pnav,10)));return;}
   if(b.dataset.ir){irATabique(b.dataset.ir);return;}
   const a=b.dataset.pacc;
-  if(a==='planta'||a==='planificar'){const l=COMP.filter(c=>c.sem===estado.planSem);const nv=l.length?l[0].nv:(estado.nivel?estado.nivel.id:NIVELES[1].id);
-    estado.vista='plan';$('#chipVista').textContent=etiquetaVista();if(!estado.nivel||(l.length&&!l.some(c=>c.nv===estado.nivel.id)))abrirNivel(nv);else cambiarVista('plano');setModo(a==='planificar'?'planificar':'ver');}
-  if(a==='pdf')generarInformePlan();}
-async function cambioPlan(e){const f=e.target.closest('[data-lpmios]');if(f){estado.lpSoloMios=f.checked;metaSet('lpSoloMios',f.checked);renderPlan();return;}
+  if(a==='planta'||a==='planificar')irAPlanificar(a==='planificar');
+  if(a==='pdf')generarInformePlan();if(a==='enviar')exportarAvance();
+  if(a==='pdfobra')generarPdfPlanObra(estado.lpSoloPiso?estado.lpPiso:(estado.lpPiso||null),estado.planSem);
+  if(a==='arrastrar')arrastrar(estado.planSem);if(a==='justificar')irAJustificar();}
+function irAJustificar(){const pc=pendientesCausa();if(!pc.length){cambiarVista('plan');return;}estado.lpSoloMios=true;estado.lpSoloPiso=false;elegirSemana(pc.sort((a,b)=>a.sem.localeCompare(b.sem))[0].sem);cambiarVista('plan');
+  setTimeout(()=>{const t=$('#tarjetaNo');if(t)t.scrollIntoView({block:'start'});},80);}
+async function cambioPlan(e){const f=e.target.closest('[data-lpmios],[data-lppiso]');
+  if(f){if(f.hasAttribute('data-lpmios')){estado.lpSoloMios=f.checked;metaSet('lpSoloMios',f.checked);}else{estado.lpSoloPiso=f.checked;metaSet('lpSoloPiso',f.checked);}renderPlan();return;}
   const s=e.target.closest('[data-causa],[data-cnota]');if(!s)return;const id=s.dataset.causa||s.dataset.cnota;const c=COMP.find(x=>x.id===id);if(!c)return;
-  if(c.por!==estado.persona){toast('La causa la registra quien planificó este compromiso ('+(c.por||'—')+')','error');renderPlan();return;}
+  if(c.por!==estado.persona){toast('La causa la registra quien planificó ('+(c.por||'—')+')','error');renderPlan();return;}
   const fila=s.closest('.causa');const causa=fila.querySelector('[data-causa]').value,nota=(fila.querySelector('[data-cnota]').value||'').trim();
-  if(!causa&&!nota){const x={id:'ca-'+c.id,cid:c.id,sem:c.sem,g:c.g,et:c.et,sub:c.sub,causa:'',nota:'',borrado:true,por:estado.persona,ts:new Date().toISOString()};await guardarCausa(x);return;}
-  await guardarCausa({id:'ca-'+c.id,cid:c.id,sem:c.sem,g:c.g,et:c.et,sub:c.sub,causa:causa||'otr',nota,por:estado.persona,ts:new Date().toISOString()});
-  if(!causa)fila.querySelector('[data-causa]').value='otr';if(s.dataset.causa)toast('Causa guardada','ok');}
-async function guardarCausa(x){estado.causasLocal=(estado.causasLocal||[]).filter(c=>c.id!==x.id).concat([x]);await put('causas',x);reindexarPlan();}
+  const base={id:'ca-'+c.id,cid:c.id,sem:c.sem,g:c.g,et:c.et,nv:c.nv,por:estado.persona,ts:new Date().toISOString()};
+  if(!causa&&!nota){await guardarCausa(Object.assign(base,{causa:'',nota:'',borrado:true}));return;}
+  await guardarCausa(Object.assign(base,{causa:causa||'otr',nota}));
+  if(!causa)fila.querySelector('[data-causa]').value='otr';
+  if(s.dataset.causa){const q=pendientesCausa().length;toast(q?'Causa guardada · faltan '+q:'Causa guardada ✓ ya puedes planificar','ok');if(!q)renderPlan();}}
+async function guardarCausa(x){estado.causasLocal=(estado.causasLocal||[]).filter(c=>c.id!==x.id).concat([x]);await put('causas',x);reindexarPlan();renderInicioLP();}
 function irATabique(g){const t=TAB[g];if(!t)return;estado.vista='plan';$('#chipVista').textContent=etiquetaVista();abrirNivel(t.nv,true);
   requestAnimationFrame(()=>{const m=600;ajustarVista([t.bb[0]-m,t.bb[1]-m,t.bb[2]+m,t.bb[3]+m]);estado.sel=g;render();});}
 
-/* ---------- datos: plan.enc (consolidado del plan) e importación ---------- */
+/* ---------- datos ---------- */
 async function cargarPlan(manual){if(!CLAVE)return;
-  try{const buf=await bajar('plan.enc',true);const b=await descifrar(CLAVE,buf);estado.planBase=Object.assign({compromisos:[],causas:[],subcontratos:[]},b);await metaSet('planBase',estado.planBase);
+  try{const buf=await bajar('plan.enc',true);const b=await descifrar(CLAVE,buf);estado.planBase=Object.assign({compromisos:[],causas:[]},b);await metaSet('planBase',estado.planBase);
     reindexarPlan();renderTodo();pedirRender();if(manual)toast('Plan del equipo actualizado','ok');}
   catch(e){if(manual)toast('No se pudo leer el plan del equipo: '+e.message,'error');}}
 async function importarPlan(d){const loc=new Map((estado.compLocal||[]).map(c=>[c.id,c]));const cam=[];
@@ -2348,115 +2377,194 @@ async function importarPlan(d){const loc=new Map((estado.compLocal||[]).map(c=>[
   if(cam.length)await putMuchos('compromisos',cam);
   const cs=[];(d.causas||[]).forEach(x=>{const ex=(estado.causasLocal||[]).find(c=>c.id===x.id);if(!ex||x.ts>ex.ts){estado.causasLocal=(estado.causasLocal||[]).filter(c=>c.id!==x.id).concat([x]);cs.push(x);}});
   if(cs.length)await putMuchos('causas',cs);reindexarPlan();}
-
-/* ---------- acceso: clave propia por subcontrato ----------
-   subclaves.json guarda, por subcontrato, la clave de obra cifrada con la clave del subcontrato.
-   Es un filtro de acceso (ve solo sus compromisos), no un aislamiento total de datos. */
-async function desbloqueoSub(pass){let sc=null;
-  try{sc=await (await fetch('subclaves.json?t='+Date.now(),{cache:'no-store'})).json();}catch(e){try{sc=await (await caches.match('subclaves.json')).json();}catch(_){}}
-  for(const s of (sc&&sc.subs)||[]){try{const k=await derivarClave(pass,s.salt,s.iter);const d=await descifrar(k,Uint8Array.from(atob(s.w),c=>c.charCodeAt(0)).buffer);
-    const key=await intentarDesbloqueo(d.pass);return{key,sub:d.sub};}catch(e){}}
-  throw new Error('Clave incorrecta');}
+/* texto que acompaña el archivo enviado al coordinador por WhatsApp o correo */
+function resumenEnvio(){const s=semActual(),l=COMP.filter(c=>c.sem===s&&c.por===estado.persona),r=resumenComp(l),pis=[...new Set(l.map(c=>pisoTxt(c.nv)))];
+  const ant=sumarDias(s,-7),la=COMP.filter(c=>c.sem===ant&&c.por===estado.persona),ra=resumenComp(la);
+  return'Plan semanal (Last Planner) · '+estado.persona+(pis.length?' · '+pis.join(', '):'')+' · '+etiquetaSem(s)+': '+(l.length?l.length+' compromisos, '+fmt0(r.A)+' m² ('+famTexto(r.fam,', ')+')':'sin compromisos')+
+    (la.length?' · semana anterior: PPC '+ra.ppc.toFixed(0)+'% ('+ra.ok+'/'+ra.n+')':'');}
+async function desbloqueoSub(){throw new Error('Clave incorrecta');}
 async function verificarClave(key){const info=await (await fetch(DATOS+'clave.json',{cache:'no-store'}).catch(()=>caches.match(DATOS+'clave.json'))||await caches.match(DATOS+'clave.json')).json();
   await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer);}
-/* Si este teléfono ya tiene TabiFlow abierto con la clave de obra, la beta entra sin pedirla */
+/* si este teléfono ya tiene TabiFlow abierto con la clave de obra, entra sin pedirla */
 async function claveDeTabiFlow(){try{const db=await new Promise((res,rej)=>{const q=indexedDB.open('TabiFlowHCQ');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);q.onupgradeneeded=()=>{};});
   if(!db.objectStoreNames.contains('meta')){db.close();return null;}
   const get=k=>new Promise(r=>{const q=db.transaction('meta','readonly').objectStore('meta').get(k);q.onsuccess=()=>r(q.result?q.result.v:null);q.onerror=()=>r(null);});
   const key=await get('clave'),per=await get('persona');db.close();if(key){await verificarClave(key);return{key,per};}}catch(e){}return null;}
+/* lo marcado en TabiFlow en este mismo teléfono (aún sin consolidar) también se ve al planificar */
+async function leerAvanceTabiFlow(){try{const db=await new Promise((res,rej)=>{const q=indexedDB.open('TabiFlowHCQ');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);q.onupgradeneeded=()=>{};});
+  if(!db.objectStoreNames.contains('eventos')){db.close();return[];}
+  const l=await new Promise(r=>{const q=db.transaction('eventos','readonly').objectStore('eventos').getAll();q.onsuccess=()=>r(q.result||[]);q.onerror=()=>r([]);});db.close();return l.filter(e=>TAB[e.g]||TRAMOS[e.g]);}catch(e){return[];}}
 
-/* ---------- informe de cumplimiento (PDF carta vertical) ---------- */
-async function generarInformePlan(){
-  const s=estado.planSem,l=COMP.filter(c=>c.sem===s);if(!l.length){toast('No hay compromisos en la semana '+etiquetaSem(s),'error');return;}
-  mostrarProgreso('Preparando informe de cumplimiento…');await pausa();
-  try{const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'p',unit:'mm',format:'letter',compress:true});
-    const W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight(),r=resumenComp(l),cerr=semCerrada(s);
-    const tit='CUMPLIMIENTO DEL PLAN SEMANAL',sub='Last Planner · semana '+diaLarga(s)+' al '+diaLarga(finSem(s))+(estado.rol==='sub'?' · '+estado.subNombre:'');
-    const corte=cerr?finSem(s):hoyDia();
-    encabezado(doc,W,tit,sub,corte);
-    const c={doc,M:10,W:W-20,y:30,lim:H-14,nueva(){doc.addPage();encabezado(doc,W,tit+' (cont.)',sub,corte);this.y=30;}};
-    /* PPC */
-    doc.setFillColor(...PT.suave);doc.roundedRect(c.M,c.y,c.W,30,3,3,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(34);doc.setTextColor(...PT.prim);doc.text(r.ppc.toFixed(0)+'%',c.M+6,c.y+20);
-    doc.setFontSize(11);doc.setTextColor(...PT.osc);doc.text(cerr?'PPC · porcentaje de plan cumplido':'PPC parcial · semana en curso al '+diaLarga(hoyDia()),c.M+48,c.y+10);
-    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...PT.texto);
-    doc.text(r.ok+' de '+r.n+' compromisos cumplidos · '+fmt0(r.Aok)+' de '+fmt0(r.A)+' m2 comprometidos',c.M+48,c.y+16.5);
-    let x=c.M+48;['ok','curso','pend','no'].forEach(k=>{if(!r[k])return;const col=hexRgb(EST_C[k].c);doc.setFillColor(...col);doc.rect(x,c.y+20.6,3,3,'F');doc.text(EST_C[k].n+': '+r[k],x+4.5,c.y+23.2);x+=doc.getTextWidth(EST_C[k].n+': '+r[k])+11;});
-    c.y+=37;
-    doc.setFontSize(8);doc.setTextColor(...PT.tenue);const nota=doc.splitTextToSize('Compromiso cumplido = la etapa comprometida del tabique quedó al 100 % registrada en TabiFlow hasta el domingo de la semana. Generado el '+fmtFecha(new Date().toISOString())+' por '+estado.persona+'.',c.W);doc.text(nota,c.M,c.y);c.y+=nota.length*3.6+4;
-    /* por subcontrato */
-    const subs={};l.forEach(q=>{(subs[q.sub||'—']=subs[q.sub||'—']||[]).push(q);});
-    tituloSec(c,'Cumplimiento por subcontrato');
-    const fs=Object.keys(subs).sort().map(k=>{const z=resumenComp(subs[k]);return[k,z.n,z.ok,z.curso+z.pend,z.no,z.ppc.toFixed(0)+' %',fmt0(z.A)];});
-    fs.push(Object.assign(['TOTAL',r.n,r.ok,r.curso+r.pend,r.no,r.ppc.toFixed(0)+' %',fmt0(r.A)],{total:true}));
-    tablaPDF(c,[{t:'Subcontrato',w:60},{t:'Comprometidos',w:30,r:1},{t:'Cumplidos',w:22,r:1},{t:'Por cumplir',w:22,r:1},{t:'No cumplidos',w:24,r:1},{t:'PPC',w:16,r:1},{t:'m2',w:c.W-174,r:1}],fs);
-    /* por etapa */
-    const ets={};l.forEach(q=>{(ets[q.et]=ets[q.et]||[]).push(q);});
-    tituloSec(c,'Cumplimiento por etapa');
-    tablaPDF(c,[{t:'Etapa',w:70},{t:'Comprometidos',w:30,r:1},{t:'Cumplidos',w:30,r:1},{t:'PPC',w:30,r:1},{t:'m2',w:c.W-160,r:1}],
-      Object.keys(ets).sort((a,b)=>ordenEt(a)-ordenEt(b)).map(k=>{const z=resumenComp(ets[k]);return[ET[k].nombre,z.n,z.ok,z.ppc.toFixed(0)+' %',fmt0(z.A)];}));
-    /* historial PPC (barras) */
-    const hist=historialPPC();
-    if(hist.length>1){tituloSec(c,'PPC por semana');if(c.y+48>c.lim)c.nueva();const x0=c.M+12,y0=c.y,w=c.W-14,hh=34,slot=w/hist.length,bw=Math.min(16,slot*.6);
-      doc.setFont('helvetica','normal');doc.setFontSize(7);[0,50,80,100].forEach(v=>{const yy=y0+hh-v/100*hh;doc.setDrawColor(226,232,240);doc.setLineWidth(.2);doc.line(x0,yy,x0+w,yy);doc.setTextColor(...PT.tenue);doc.text(v+'%',x0-2,yy+1,{align:'right'});});
-      hist.forEach((z,i)=>{const cx=x0+slot*i+slot/2,v=z.r.ppc,yy=y0+hh-v/100*hh;const col=hexRgb(!z.cerr?'#94A3B8':v>=80?'#16A34A':v>=60?'#F59E0B':'#DC2626');doc.setFillColor(...col);doc.rect(cx-bw/2,yy,bw,Math.max(.3,y0+hh-yy),'F');
-        doc.setFont('helvetica','bold');doc.setTextColor(...PT.texto);doc.text(v.toFixed(0)+'%',cx,yy-1.2,{align:'center'});doc.setFont('helvetica','normal');doc.setTextColor(...PT.tenue);doc.text(diaCorta(z.s)+(z.cerr?'':'*'),cx,y0+hh+4,{align:'center'});});
-      c.y=y0+hh+7;doc.setFontSize(7);doc.text('* semana en curso (parcial). Verde: 80 % o más; ámbar: 60 a 79 %; rojo: menos de 60 %.',c.M,c.y);c.y+=7;}
-    /* causas */
-    const par=paretoCausas();
-    if(par.length){tituloSec(c,'Causas de no cumplimiento (acumulado)');const tot=par.reduce((a,z)=>a+z[1],0);let ac=0;
-      tablaPDF(c,[{t:'Causa',w:100},{t:'Compromisos',w:30,r:1},{t:'%',w:30,r:1},{t:'% acumulado',w:c.W-160,r:1}],par.map(([k,v])=>{ac+=v;return[k==='sin'?'Sin causa registrada':(CAUSA_N[k]||k),v,(v/tot*100).toFixed(0)+' %',(ac/tot*100).toFixed(0)+' %'];}));}
-    /* detalle */
-    const orden=(a,b)=>a.nv.localeCompare(b.nv)||ordenEt(a.et)-ordenEt(b.et);
-    const fila=q=>{const t=TAB[q.g],e=estadoComp(q),ca=causaDe(q),n=nivelPorId(q.nv);return[n?cortoNivel(n):q.nv,t.t,truncar(t.r.join(' · '),40),ET[q.et].corto,q.sub||'—',Math.round(e.f*100)+' %',EST_C[e.k].n,ca?(CAUSA_N[ca.causa]||ca.causa)+(ca.nota?' · '+ca.nota:''):''];};
-    const cols=[{t:'Nivel',w:12},{t:'Tipo',w:24},{t:'Recintos',w:44},{t:'Etapa',w:18},{t:'Subcontrato',w:30},{t:'Logrado',w:15,r:1},{t:'Estado',w:20},{t:'Causa',w:c.W-163}];
-    const no=l.filter(q=>estadoComp(q).k==='no').sort(orden),resto=l.filter(q=>estadoComp(q).k!=='no').sort(orden);
-    if(no.length){tituloSec(c,'Detalle de compromisos no cumplidos');tablaPDF(c,cols,no.map(fila));}
-    tituloSec(c,'Detalle de compromisos '+(no.length?'cumplidos y por cumplir':''));tablaPDF(c,cols,resto.map(fila));
-    const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...PT.tenue);
-      doc.text(APP_NOMBRE+' '+APP_VER.replace('β','beta')+' · © 2026 '+APP_AUTOR+' · '+OBRA,c.M,H-6);doc.text('Hoja '+i+' de '+np,W-c.M,H-6,{align:'right'});}
-    const blob=doc.output('blob'),nombre='TabiFlow_HCQ_cumplimiento_semana_'+s+'.pdf';
-    ocultarProgreso();
-    abrirHoja('<div class="hoja-titulo">✓ Informe de cumplimiento listo</div><div class="hoja-sub">'+nombre+' · '+np+' hoja(s) carta · PPC '+r.ppc.toFixed(0)+' %</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><button class="btn secundario" id="ipVer">👁 Abrir</button><button class="btn secundario" id="ipBajar">⬇ Bajar</button><button class="btn principal" id="ipComp">Compartir</button></div>');
-    $('#ipVer').onclick=()=>window.open(URL.createObjectURL(blob),'_blank');$('#ipBajar').onclick=()=>descargar(blob,nombre);$('#ipComp').onclick=()=>compartirArchivo(blob,nombre,'Cumplimiento plan semanal HCQ');
-    window.__ultimoInformePlan={blob,nombre,np};
-  }catch(e){console.error(e);ocultarProgreso();toast('Error generando el informe: '+e.message,'error');}}
-
-/* ---------- v6.1 · página Last Planner: inicio, ficha y avance del teléfono ---------- */
+/* ---------- página Last Planner: inicio y ficha ---------- */
 const LP=true;
 function htmlCompTab(t){const l=compromisosTodos().filter(c=>c.g===t.g).sort((a,b)=>b.sem.localeCompare(a.sem)||ordenEt(a.et)-ordenEt(b.et));
   let h='<label class="etiqueta">📋 Compromisos de este tabique</label>';
   if(!l.length)return h+'<p class="nota" style="margin:2px 0 10px">Sin compromisos. Para comprometerlo usa 📋 Planificar.</p>';
-  return h+l.slice(0,12).map(c=>{const e=estadoComp(c),ca=causaDe(c);return'<div class="plan-fila" style="grid-template-columns:auto 1fr"><i class="marca" style="--c:'+EST_C[e.k].c+'"></i><div class="det"><b>Sem. '+etiquetaSem(c.sem)+'</b> · '+icono(ET[c.et])+' '+ET[c.et].corto+' meta '+Math.round((c.meta||1)*100)+'%<small>'+escapar(c.sub||'—')+' · planificó '+escapar(c.por||'—')+' · '+EST_C[e.k].n+(ca?' · causa: '+escapar(CAUSA_N[ca.causa]||ca.causa):'')+'</small></div></div>';}).join('')+'<br>';}
+  return h+l.slice(0,12).map(c=>{const e=estadoComp(c),ca=causaDe(c);return'<div class="plan-fila" style="grid-template-columns:auto 1fr"><i class="marca" style="--c:'+EST_C[e.k].c+'"></i><div class="det"><b>'+etiquetaSem(c.sem)+'</b> · '+icono(ET[c.et])+' '+ET[c.et].corto+' meta '+Math.round((c.meta||1)*100)+'%<small>planificó '+escapar(c.por||'—')+' · '+EST_C[e.k].n+(ca?' · causa: '+escapar(CAUSA_N[ca.causa]||ca.causa):'')+'</small></div></div>';}).join('')+'<br>';}
 function renderInicioLP(){const el=$('#lpInicio');if(!el||!M)return;
-  const nom=(estado.persona||'').trim().split(/\s+/)[0]||'',hoyL=lunesDe(hoyDia()),pas=sumarDias(hoyL,-7),prox=sumarDias(hoyL,7);
-  const mia=c=>estado.rol==='sub'||c.por===estado.persona;
-  const esta=COMP.filter(c=>c.sem===hoyL),estaM=esta.filter(mia),proxM=COMP.filter(c=>c.sem===prox&&mia(c)),pasM=COMP.filter(c=>c.sem===pas&&mia(c));
-  const rEsta=resumenComp(estaM),rPas=resumenComp(pasM),rEq=resumenComp(esta);
-  const pendC=estado.rol==='sub'?0:COMP.filter(c=>c.por===estado.persona&&estadoComp(c).k==='no'&&!causaDe(c)).length;
-  let h='<div class="tarjeta heroe"><div class="saludo">'+saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>'+(estado.rol==='sub'?'Plan de '+escapar(estado.subNombre)+' · semana del '+etiquetaSem(hoyL):'Semana del '+etiquetaSem(hoyL)+(estaM.length?' · tienes '+estaM.length+' compromisos':' · aún no planificas esta semana'))+'</small></div>'+
-    '<div class="heroe-top"><div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg></div><div><span class="eyebrow">Last Planner · plan semanal de tabiques · versión de prueba</span><h2>'+(estado.rol==='sub'?'Lo que tu empresa se comprometió a hacer':'Planifica sobre el avance real')+'</h2></div></div>'+
-    '<p>'+(estado.rol==='sub'?'Cada tabique comprometido aparece con borde punteado del color de la etapa. Su relleno es el avance ya registrado en obra.':'En la planta ves el <b>avance que ya está</b> (mismos colores que TabiFlow). Elige etapa y meta, y pinta los tabiques que se harán: quedan con <b>borde punteado del color de la etapa</b>. Al cerrar la semana, tú mismo registras por qué no se cumplió lo que planificaste.')+'</p>'+
-    '<div class="lp-kpis"><div><b>'+estaM.length+'</b><span>'+(estado.rol==='sub'?'compromisos':'mis compromisos')+' esta semana</span></div><div><b>'+(estaM.length?rEsta.ppc.toFixed(0)+'%':'—')+'</b><span>cumplido a hoy</span></div><div><b>'+(pasM.length?rPas.ppc.toFixed(0)+'%':'—')+'</b><span>PPC semana pasada</span></div></div>'+
-    (pendC?'<div class="info-sello">⚠ Tienes <b>'+pendC+' compromiso(s) no cumplido(s) sin causa</b>. Registrarla te ayuda a planificar mejor la próxima semana.<br><button class="btn ambar" data-lpi="causas" style="margin-top:8px">Registrar causas</button></div>':'')+
-    (estado.rol==='sub'?'<button class="btn principal grande" data-lpi="cumpl">✅ Ver mis compromisos</button><button class="btn secundario" data-lpi="planta" style="margin-top:8px;width:100%">🗺️ Verlos en la planta</button>'
-      :'<button class="btn principal grande" data-lpi="plan-esta">📋 Planificar esta semana</button><div class="fila-btn" style="margin-top:8px"><button class="btn secundario" data-lpi="plan-prox">📅 Próxima semana'+(proxM.length?' ('+proxM.length+')':'')+'</button><button class="btn secundario" data-lpi="cumpl">✅ Cumplimiento</button></div>')+'</div>';
-  if(estado.rol!=='sub')h+='<div class="tarjeta"><h3>👥 Equipo esta semana</h3><p class="nota">'+(esta.length?esta.length+' compromisos de '+new Set(esta.map(c=>c.por)).size+' jefe(s) de terreno · '+rEq.ok+' cumplidos ('+rEq.ppc.toFixed(0)+'%)':'Nadie ha planificado esta semana todavía.')+(estado.planBase&&estado.planBase.actualizado?'<br>Plan del equipo publicado el '+fmtFecha(estado.planBase.actualizado)+'.':'')+'</p>'+
-    '<div class="fila-btn" style="margin-top:10px"><button class="btn principal" data-lpi="enviar">📤 Enviar mi plan</button><button class="btn secundario" data-lpi="actualizar">🔄 Actualizar equipo</button></div></div>';
-  h+='<div class="tarjeta"><h3>¿Cómo funciona?</h3><ol class="nota" style="padding-left:18px;line-height:1.6"><li><b>Planificar</b>: en la planta elige semana, subcontrato, etapa y meta (25–100 %); toca o arrastra sobre los tabiques.</li><li>Durante la semana el equipo marca el avance en <a href="../tabiflow/">TabiFlow</a>, como siempre.</li><li><b>Cumplimiento</b>: un compromiso se cumple si la etapa llega a la meta hasta el domingo. PPC = % cumplido.</li><li>Lo no cumplido lo explica <b>quien lo planificó</b>, eligiendo la causa.</li><li>Al terminar, <b>Enviar mi plan</b> por WhatsApp o correo a Renato.</li></ol></div>';
+  const nom=(estado.persona||'').trim().split(/\s+/)[0]||'',hoyS=semActual(),ant=sumarDias(hoyS,-7),prox=sumarDias(hoyS,7),piso=estado.lpPiso;
+  const mios=c=>c.por===estado.persona;
+  const esta=COMP.filter(c=>c.sem===hoyS&&mios(c)),antM=COMP.filter(c=>c.sem===ant&&mios(c)),proxM=COMP.filter(c=>c.sem===prox&&mios(c));
+  const rE=resumenComp(esta),rA=resumenComp(antM),pc=pendientesCausa();
+  const paso=(n,ok,tit,txt,btn)=>'<div class="plan-fila" style="grid-template-columns:auto 1fr"><i class="marca" style="--c:'+(ok?'#16A34A':'#94A3B8')+';width:22px;height:22px;border-radius:50%;color:#fff;font-style:normal;font-size:12px;font-weight:800;display:grid;place-items:center">'+(ok?'✓':n)+'</i><div class="det"><b>'+tit+'</b><small>'+txt+'</small>'+(btn||'')+'</div></div>';
+  let h='<div class="tarjeta heroe"><div class="saludo">'+saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>Semana de plan '+etiquetaSem(hoyS)+(piso?' · '+pisoTxt(piso):'')+'</small></div>'+
+    '<div class="heroe-top"><div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg></div><div><span class="eyebrow">Last Planner · plan semanal de tabiques · versión de prueba</span><h2>Planifica tu piso sobre el avance real</h2></div></div>'+
+    '<label class="etiqueta">Mi piso</label><select class="campo" data-lppisosel><option value="">— Elige tu piso —</option>'+NIVELES.map(n=>'<option value="'+n.id+'"'+(n.id===piso?' selected':'')+'>'+escapar(etiquetaNivel(n))+' · '+n.id+'</option>').join('')+'</select>'+
+    '<div class="lp-kpis"><div><b>'+(esta.length?fmt0(rE.A):'—')+'</b><span>m² planificados esta semana</span></div><div><b>'+(esta.length?rE.ppc.toFixed(0)+'%':'—')+'</b><span>cumplido a hoy</span></div><div><b>'+(antM.length?rA.ppc.toFixed(0)+'%':'—')+'</b><span>PPC semana anterior</span></div></div>'+
+    (esta.length?famChips(rE.fam):'')+'</div>';
+  h+='<div class="tarjeta"><h3>🗓️ Tu jueves de planificación</h3>'+
+    paso(1,!pc.length,'Justificar lo no cumplido',pc.length?'Tienes <b>'+pc.length+'</b> compromiso(s) no cumplidos sin causa. Hasta justificarlos no puedes planificar.':'Todo lo no cumplido tiene su causa.',pc.length?'<button class="btn ambar" data-lpi="justificar" style="margin-top:6px">Justificar ahora</button>':'')+
+    paso(2,esta.length>0,'Planificar la semana '+etiquetaSem(hoyS),esta.length?esta.length+' compromisos · '+fmt0(rE.A)+' m²':'Pinta en la planta lo que se hará: etapa y meta.','<div class="fila-btn" style="margin-top:6px"><button class="btn principal" data-lpi="plan-esta"'+(pc.length?' disabled':'')+'>📋 Planificar</button><button class="btn secundario" data-lpi="plan-prox"'+(pc.length?' disabled':'')+'>Próxima'+(proxM.length?' ('+proxM.length+')':'')+'</button></div>')+
+    paso(3,!!estado._planEnviado,'Enviar el plan al coordinador','Así el administrador sabe cuánto planificó cada jefe de terreno y cuánto se cumplió.','<button class="btn secundario" data-lpi="enviar" style="margin-top:6px">📤 Enviar al coordinador</button>')+
+    paso(4,false,'Mandar el PDF a la obra','Plano y m² por etapa de lo que se pide avanzar, sin destinatario: tú decides si va a tabiqueros, subcontrato o supervisores.','<button class="btn secundario" data-lpi="pdf" style="margin-top:6px">📄 PDF para WhatsApp</button>')+'</div>';
+  h+='<div class="tarjeta"><h3>👥 Equipo esta semana</h3><p class="nota">'+(()=>{const l=COMP.filter(c=>c.sem===hoyS),r=resumenComp(l);return l.length?l.length+' compromisos de '+new Set(l.map(c=>c.por)).size+' jefe(s) de terreno · '+fmt0(r.A)+' m² · '+r.ok+' cumplidos ('+r.ppc.toFixed(0)+'%)':'Nadie ha planificado esta semana todavía.';})()+
+    (estado.planBase&&estado.planBase.actualizado?'<br>Plan del equipo publicado el '+fmtFecha(estado.planBase.actualizado)+'.':'')+'</p><button class="btn secundario" data-lpi="cumpl" style="margin-top:8px;width:100%">✅ Ver cumplimiento</button></div>';
   el.innerHTML=h;}
-async function accionInicioLP(e){const b=e.target.closest('[data-lpi]');if(!b)return;const a=b.dataset.lpi,hoyL=lunesDe(hoyDia());
-  if(a==='plan-esta'||a==='plan-prox'){elegirSemana(a==='plan-esta'?hoyL:sumarDias(hoyL,7));irAPlanificar(true);}
-  if(a==='planta'){elegirSemana(hoyL);irAPlanificar(false);}
-  if(a==='cumpl'){elegirSemana(hoyL);cambiarVista('plan');}
-  if(a==='causas'){const c=COMP.filter(c=>c.por===estado.persona&&estadoComp(c).k==='no'&&!causaDe(c)).sort((x,y)=>y.sem.localeCompare(x.sem))[0];if(c)elegirSemana(c.sem);estado.lpSoloMios=true;cambiarVista('plan');}
-  if(a==='enviar')exportarAvance();if(a==='actualizar')cargarBase(true);}
-function irAPlanificar(planificar){estado.vista='plan';$('#chipVista').textContent=etiquetaVista();const l=COMP.filter(c=>c.sem===estado.planSem);
-  const nv=estado.nivel?estado.nivel.id:(l.length?l[0].nv:'EP-N1');estado._lpModoIni=true;abrirNivel(nv,!!estado.nivel);setModo(planificar&&estado.rol!=='sub'?'planificar':'ver');}
-/* Lo marcado en TabiFlow en este mismo teléfono (aún sin consolidar) también se ve al planificar */
-async function leerAvanceTabiFlow(){try{const db=await new Promise((res,rej)=>{const q=indexedDB.open('TabiFlowHCQ');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);q.onupgradeneeded=()=>{};});
-  if(!db.objectStoreNames.contains('eventos')){db.close();return[];}
-  const l=await new Promise(r=>{const q=db.transaction('eventos','readonly').objectStore('eventos').getAll();q.onsuccess=()=>r(q.result||[]);q.onerror=()=>r([]);});db.close();return l.filter(e=>TAB[e.g]||TRAMOS[e.g]);}catch(e){return[];}}
+async function accionInicioLP(e){const b=e.target.closest('[data-lpi]');if(!b||b.disabled)return;const a=b.dataset.lpi,hoyS=semActual();
+  if(a==='plan-esta'||a==='plan-prox'){elegirSemana(a==='plan-esta'?hoyS:sumarDias(hoyS,7));irAPlanificar(true);}
+  if(a==='cumpl'){elegirSemana(hoyS);cambiarVista('plan');}
+  if(a==='justificar')irAJustificar();
+  if(a==='enviar'){await exportarAvance();estado._planEnviado=true;renderInicioLP();}
+  if(a==='pdf')generarPdfPlanObra(estado.lpPiso||null,hoyS);}
+function bindInicioLP(){$('#lpInicio').addEventListener('click',accionInicioLP);
+  $('#lpInicio').addEventListener('change',async e=>{const s=e.target.closest('[data-lppisosel]');if(!s)return;estado.lpPiso=s.value||'';await metaSet('lpPiso',estado.lpPiso);
+    if(estado.lpPiso){estado.lpSoloPiso=true;metaSet('lpSoloPiso',true);}renderInicioLP();toast(estado.lpPiso?'Tu piso: '+pisoTxt(estado.lpPiso):'Sin piso fijo','ok');});}
+function irAPlanificar(planificar){estado.vista='plan';$('#chipVista').textContent=etiquetaVista();
+  const nv=estado.lpPiso||(estado.nivel?estado.nivel.id:'EP-N1');estado._lpModoIni=true;abrirNivel(nv,!!estado.nivel&&estado.nivel.id===nv);setModo(planificar?'planificar':'ver');}
+
+/* ---------- PDF para la obra: lo que se pide avanzar esta semana (gráfico, sin destinatario) ---------- */
+function encabezadoPlan(doc,W,titulo,sub,der){
+  doc.setFillColor(...PT.osc);doc.rect(0,0,W,20,'F');doc.setFillColor(...PT.prim);doc.rect(0,20,W,1.4,'F');doc.setFillColor(...PT.amb);doc.rect(0,21.4,W,.6,'F');
+  logoPDF(doc,8,2.5,15);doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text(titulo,27,9.6);
+  doc.setFont('helvetica','normal');doc.setFontSize(8.6);doc.setTextColor(199,210,254);doc.text(sub,27,15.6);
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(255,255,255);doc.text(OBRA+' · Edificio Principal',W-10,9.6,{align:'right'});
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(199,210,254);doc.text(der,W-10,15.6,{align:'right'});}
+/* planta con lo comprometido en el color de su etapa; el resto en gris */
+function planoPlanPDF(doc,o){const{n,reg,x0,y0,aw,ah,comps,general,celdas}=o;
+  const rw=reg[2]-reg[0],rh=reg[3]-reg[1],k=Math.min(aw/rw,ah/rh);const dw=rw*k,dh=rh*k,ox=x0+(aw-dw)/2,oy=y0+(ah-dh)/2;
+  const X=x=>ox+(x-reg[0])*k,Y=y=>oy+(y-reg[1])*k;const corta=bb=>!(bb[2]<reg[0]||bb[0]>reg[2]||bb[3]<reg[1]||bb[1]>reg[3]);
+  const porG=new Map();comps.forEach(c=>{const x=porG.get(c.g);if(!x||ordenEt(c.et)>ordenEt(x.et))porG.set(c.g,c);});
+  doc.saveGraphicsState();doc.rect(ox,oy,dw,dh,null);doc.clip();doc.discardPath();
+  doc.setLineWidth(.12);doc.setDrawColor(213,220,230);doc.setFillColor(255,255,255);n.rec.forEach(r=>{if(corta(r.bb))polyPDF(doc,r.p,X,Y,k,'FD');});
+  doc.setDrawColor(239,154,154);doc.setLineWidth(.15);doc.setLineDashPattern([2,1.2],0);n.ejes.forEach(e=>{doc.line(X(e.p[0]),Y(e.p[1]),X(e.p[e.p.length-2]),Y(e.p[e.p.length-1]));});doc.setLineDashPattern([],0);
+  doc.setFillColor(226,232,240);n.pue.forEach(r=>{if(corta(bboxPlano(r)))polyPDF(doc,r,X,Y,k,'F');});
+  doc.setFillColor(100,116,139);n.col.concat(n.mur).forEach(r=>{if(corta(bboxPlano(r)))polyPDF(doc,r,X,Y,k,'F');});
+  doc.setFillColor(203,213,225);doc.setDrawColor(203,213,225);doc.setLineWidth(general?.15:.12);n.tab.forEach(t=>{if(!porG.has(t.g)&&corta(t.bb))t.p.forEach(r=>polyPDF(doc,r,X,Y,k,'FD'));});
+  /* comprometidos: halo oscuro + color de la etapa */
+  doc.setLineJoin('round');doc.setDrawColor(15,23,42);doc.setLineWidth(general?.55:.8);porG.forEach((c,g)=>{const t=TAB[g];if(corta(t.bb))t.p.forEach(r=>polyPDF(doc,r,X,Y,k,'S'));});
+  porG.forEach((c,g)=>{const t=TAB[g];if(!corta(t.bb))return;const col=hexRgb(ET[c.et].color);doc.setFillColor(...col);doc.setDrawColor(...col);doc.setLineWidth(general?.35:.4);t.p.forEach(r=>polyPDF(doc,r,X,Y,k,'FD'));});
+  doc.setLineJoin('miter');
+  if(!general){doc.setFont('helvetica','normal');doc.setFontSize(4.6);doc.setTextColor(100,116,139);
+    n.rec.forEach(r=>{if(!r.ln||!corta(r.bb))return;const w=(r.bb[2]-r.bb[0])*k;if(w<14)return;doc.text(textoAncho(doc,r.ln,w-1.5),X(r.c[0]),Y(r.c[1])+.8,{align:'center'});});
+    /* letra de etapa y meta sobre cada tabique comprometido */
+    doc.setFont('helvetica','bold');doc.setFontSize(4.4);porG.forEach((c,g)=>{const t=TAB[g];if(!corta(t.bb)||t.L*100*k<5)return;const m=Math.round((c.meta||1)*100);
+      const tx=ET[c.et].corto.replace(/\s/g,'')+(m<100?' '+m+'%':'');const w=doc.getTextWidth(tx)+1.4;doc.setFillColor(255,255,255);doc.roundedRect(X(t.cx)-w/2,Y(t.cy)-1.6,w,3.2,.6,.6,'F');doc.setTextColor(15,23,42);doc.text(tx,X(t.cx),Y(t.cy)+.9,{align:'center'});});}
+  if(celdas){doc.setLineDashPattern([1.6,1.2],0);celdas.forEach(cl=>{doc.setDrawColor(28,65,146);doc.setLineWidth(.35);doc.rect(X(cl.reg[0]),Y(cl.reg[1]),(cl.reg[2]-cl.reg[0])*k,(cl.reg[3]-cl.reg[1])*k);});doc.setLineDashPattern([],0);
+    celdas.forEach(cl=>{const cx=X(cl.reg[0])+4.2,cy=Y(cl.reg[1])+4.2;doc.setFillColor(28,65,146);doc.circle(cx,cy,3.2,'F');doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(255,255,255);doc.text(String(cl.num),cx,cy+1.1,{align:'center'});});}
+  doc.setFont('helvetica','bold');doc.setFontSize(general?4:6);n.ejes.forEach(e=>{[[0,1],[e.p.length-2,e.p.length-1]].forEach(([i,j])=>{const x=X(e.p[i]),y=Y(e.p[j]);
+    if(x<ox-1||x>ox+dw+1||y<oy-1||y>oy+dh+1)return;const rr=general?1.8:2.6;doc.setFillColor(255,255,255);doc.setDrawColor(220,38,38);doc.setLineWidth(.2);doc.circle(x,y,rr,'FD');doc.setTextColor(185,28,28);doc.text(e.t,x,y+(general?1.3:2),{align:'center'});});});
+  doc.restoreGraphicsState();doc.setDrawColor(148,163,184);doc.setLineWidth(.3);doc.rect(ox,oy,dw,dh);return{ox,oy,dw,dh};}
+/* bloque gráfico de m² por etapa: cuadro de color, cifra grande y barra */
+function bloqueM2PDF(doc,x,y,w,fam){const fs=FAMILIAS.filter(f=>fam[f.id]&&fam[f.id].A>=.5);const max=Math.max(...fs.map(f=>fam[f.id].A),1);
+  fs.forEach(f=>{const v=fam[f.id];const col=hexRgb(f.color);doc.setFillColor(...col);doc.roundedRect(x,y,9,9,1.4,1.4,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(...PT.osc);doc.text(fmt0(v.A)+' m2',x+12,y+5.6);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...PT.tenue);doc.text(f.nombre+' · '+v.n+' tabique'+(v.n===1?'':'s'),x+12,y+9.6);
+    doc.setFillColor(232,238,248);doc.rect(x,y+11.6,w,2,'F');doc.setFillColor(...col);doc.rect(x,y+11.6,Math.max(.6,w*v.A/max),2,'F');y+=18;});
+  return y;}
+function leyendaPlanPDF(doc,x,y,fams){let lx=x;doc.setFontSize(7.4);fams.forEach(f=>{const c=hexRgb(f.color);doc.setFillColor(...c);doc.rect(lx,y-2.2,3.6,3.2,'F');doc.setFont('helvetica','bold');doc.setTextColor(...PT.texto);doc.text(f.corto,lx+5,y);lx+=doc.getTextWidth(f.corto)+10;});
+  doc.setFillColor(203,213,225);doc.rect(lx,y-2.2,3.6,3.2,'F');doc.setFont('helvetica','normal');doc.setTextColor(...PT.tenue);doc.text('Sin trabajo esta semana · rótulo = etapa y meta si es parcial',lx+5,y);}
+async function generarPdfPlanObra(piso,sem){reindexarPlan();
+  let l=COMP.filter(c=>c.sem===sem&&(!piso||c.nv===piso));const mios=l.filter(c=>c.por===estado.persona);if(mios.length)l=mios;
+  if(!l.length){toast('No hay compromisos '+(piso?'en '+pisoTxt(piso)+' ':'')+'para la semana '+etiquetaSem(sem),'error');return;}
+  mostrarProgreso('Preparando el PDF del plan…');await pausa();
+  try{const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'l',unit:'mm',format:'letter',compress:true});const W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight();
+    const niveles=NIVELES.filter(n=>l.some(c=>c.nv===n.id));const sub='Semana '+etiquetaSemLarga(sem);let primera=true;const rTot=resumenComp(l);
+    for(const n of niveles){prepNivel(n);const cs=l.filter(c=>c.nv===n.id),r=resumenComp(cs);const nTab=new Set(cs.map(c=>c.g)).size;
+      if(!primera)doc.addPage();primera=false;
+      encabezadoPlan(doc,W,'PLAN DE AVANCE SEMANAL · '+etiquetaNivel(n).toUpperCase(),sub,'Planificó: '+estado.persona);
+      let y=32;doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...PT.tenue);doc.text('A AVANZAR ESTA SEMANA',10,y);y+=11;
+      doc.setFontSize(28);doc.setTextColor(...PT.prim);doc.text(fmt0(r.A)+' m2',10,y);y+=6;doc.setFont('helvetica','normal');doc.setFontSize(8.6);doc.setTextColor(...PT.texto);
+      doc.text(nTab+' tabiques en '+etiquetaNivel(n),10,y);y+=9;
+      y=bloqueM2PDF(doc,10,y,78,r.fam);
+      /* sectores: celdas del nivel con trabajo */
+      const[nx,ny]=divisionNivel(n,'4x2',170,170);const bb=n.bbox,cw=(bb[2]-bb[0])/nx,chh=(bb[3]-bb[1])/ny;const celdas=[];let num=0;
+      for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){const reg=[bb[0]+i*cw,bb[1]+j*chh,bb[0]+(i+1)*cw,bb[1]+(j+1)*chh];
+        const cc=cs.filter(c=>{const t=TAB[c.g];return t.cx>=reg[0]&&t.cx<reg[2]&&t.cy>=reg[1]&&t.cy<reg[3];});if(cc.length)celdas.push({num:++num,reg,cs:cc});}
+      if(y<H-40){doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...PT.osc);doc.text('Sectores (detalle en las hojas siguientes)',10,y+2);y+=7;doc.setFontSize(7.6);
+        celdas.forEach(cl=>{if(y>H-14)return;const rr=resumenComp(cl.cs);const ej=ejesEnRango(n,cl.reg);doc.setFont('helvetica','bold');doc.setTextColor(...PT.prim);doc.text('S'+cl.num,10,y);
+          doc.setFont('helvetica','normal');doc.setTextColor(...PT.texto);doc.text(textoAncho(doc,fmt0(rr.A)+' m2'+(ej?' · ejes '+ej:''),70),18,y);y+=4.4;});}
+      planoPlanPDF(doc,{n,reg:n.bbox,x0:96,y0:27,aw:W-106,ah:H-46,comps:cs,general:true,celdas});
+      leyendaPlanPDF(doc,96,H-12,FAMILIAS.filter(f=>r.fam[f.id]));
+      for(const cl of celdas){doc.addPage();const rr=resumenComp(cl.cs);const ej=ejesEnRango(n,cl.reg);
+        encabezadoPlan(doc,W,'PLAN DE AVANCE · '+cortoNivel(n)+' · SECTOR '+cl.num,sub+(ej?' · ejes '+ej:''),'Planificó: '+estado.persona);
+        let y2=34;doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(...PT.prim);doc.text(fmt0(rr.A)+' m2',10,y2);y2+=5;doc.setFont('helvetica','normal');doc.setFontSize(8.4);doc.setTextColor(...PT.texto);
+        doc.text(new Set(cl.cs.map(c=>c.g)).size+' tabiques · sector '+cl.num,10,y2);y2+=8;y2=bloqueM2PDF(doc,10,y2,70,rr.fam);
+        const recs=[...new Set(cl.cs.flatMap(c=>TAB[c.g].r))].filter(Boolean);
+        if(recs.length&&y2<H-30){doc.setFont('helvetica','bold');doc.setFontSize(8.6);doc.setTextColor(...PT.osc);doc.text('Recintos',10,y2+2);y2+=6;doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...PT.texto);
+          recs.slice(0,28).forEach(x=>{if(y2>H-12)return;doc.text(textoAncho(doc,'· '+x,74),10,y2);y2+=3.6;});}
+        const m=250,reg=[cl.reg[0]-m,cl.reg[1]-m,cl.reg[2]+m,cl.reg[3]+m];
+        planoPlanPDF(doc,{n,reg,x0:88,y0:27,aw:W-98,ah:H-46,comps:cs,general:false});
+        leyendaPlanPDF(doc,88,H-12,FAMILIAS.filter(f=>rr.fam[f.id]));}}
+    const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...PT.tenue);
+      doc.text('TabiFlow Last Planner · © 2026 '+APP_AUTOR+' · '+OBRA,10,H-5);doc.text('Hoja '+i+' de '+np,W-10,H-5,{align:'right'});}
+    const blob=doc.output('blob'),pis=niveles.map(cortoNivel).join('-'),nombre='Plan_semanal_'+pis+'_'+sem+'.pdf';
+    const texto='Plan de avance semanal '+niveles.map(cortoNivel).join(', ')+' · '+etiquetaSem(sem)+': '+fmt0(rTot.A)+' m² ('+famTexto(rTot.fam,', ')+'). Detalle por sector en el PDF.';
+    ocultarProgreso();
+    abrirHoja('<div class="hoja-titulo">📄 PDF del plan listo</div><div class="hoja-sub">'+nombre+' · '+np+' hoja(s) carta<br>'+escapar(texto)+'</div><p class="nota" style="margin-bottom:10px">No va dirigido a nadie: compártelo con quien corresponda (tabiqueros, subcontrato o supervisores).</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><button class="btn secundario" id="ipVer">👁 Abrir</button><button class="btn secundario" id="ipBajar">⬇ Bajar</button><button class="btn principal" id="ipComp">WhatsApp</button></div>');
+    $('#ipVer').onclick=()=>window.open(URL.createObjectURL(blob),'_blank');$('#ipBajar').onclick=()=>descargar(blob,nombre);$('#ipComp').onclick=()=>compartirArchivo(blob,nombre,'Plan de avance semanal',texto);
+    window.__ultimoPdfPlan={blob,nombre,np,texto};
+  }catch(e){console.error(e);ocultarProgreso();toast('Error generando el PDF: '+e.message,'error');}}
+
+/* ---------- informe de cumplimiento (para el coordinador y el administrador) ---------- */
+async function generarInformePlan(){
+  const s=estado.planSem,l=filtroPlan(COMP.filter(c=>c.sem===s));if(!l.length){toast('No hay compromisos en la semana '+etiquetaSem(s),'error');return;}
+  mostrarProgreso('Preparando informe de cumplimiento…');await pausa();
+  try{const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'p',unit:'mm',format:'letter',compress:true});
+    const W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight(),r=resumenComp(l),cerr=semCerrada(s);
+    const tit='CUMPLIMIENTO DEL PLAN SEMANAL',sub='Last Planner · '+etiquetaSemLarga(s),der=cerr?'Semana cerrada':'Al '+diaLarga(hoyDia());
+    encabezadoPlan(doc,W,tit,sub,der);
+    const c={doc,M:10,W:W-20,y:30,lim:H-14,nueva(){doc.addPage();encabezadoPlan(doc,W,tit+' (cont.)',sub,der);this.y=30;}};
+    doc.setFillColor(...PT.suave);doc.roundedRect(c.M,c.y,c.W,30,3,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(34);doc.setTextColor(...PT.prim);doc.text(r.ppc.toFixed(0)+'%',c.M+6,c.y+20);
+    doc.setFontSize(11);doc.setTextColor(...PT.osc);doc.text(cerr?'PPC · porcentaje de plan cumplido':'PPC a hoy · semana en curso',c.M+48,c.y+10);
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...PT.texto);
+    doc.text(r.ok+' de '+r.n+' compromisos cumplidos · '+fmt0(r.Alog)+' de '+fmt0(r.A)+' m2 pedidos',c.M+48,c.y+16.5);
+    let x=c.M+48;['ok','curso','pend','no'].forEach(k=>{if(!r[k])return;doc.setFillColor(...hexRgb(EST_C[k].c));doc.rect(x,c.y+20.6,3,3,'F');doc.text(EST_C[k].n+': '+r[k],x+4.5,c.y+23.2);x+=doc.getTextWidth(EST_C[k].n+': '+r[k])+11;});
+    c.y+=37;
+    const nota=doc.splitTextToSize('Semana de plan de jueves a miércoles. Compromiso cumplido = la etapa del tabique llegó a su meta registrada en TabiFlow hasta el miércoles. m2 pedidos = superficie de la etapa x (meta - avance al inicio de la semana). Generado el '+fmtFecha(new Date().toISOString())+' por '+estado.persona+'.',c.W);
+    doc.setFontSize(8);doc.setTextColor(...PT.tenue);doc.text(nota,c.M,c.y);c.y+=nota.length*3.6+4;
+    const tabla=(tt,clave,nombre)=>{const g={};l.forEach(q=>{const k=clave(q);(g[k]=g[k]||[]).push(q);});tituloSec(c,tt);
+      const fs=Object.keys(g).sort().map(k=>{const z=resumenComp(g[k]);return[nombre(k),z.n,z.ok,z.no,z.ppc.toFixed(0)+' %',fmt0(z.A),fmt0(z.Alog)];});
+      fs.push(Object.assign(['TOTAL',r.n,r.ok,r.no,r.ppc.toFixed(0)+' %',fmt0(r.A),fmt0(r.Alog)],{total:true}));
+      tablaPDF(c,[{t:'',w:58},{t:'Comprometidos',w:26,r:1},{t:'Cumplidos',w:22,r:1},{t:'No cumplidos',w:24,r:1},{t:'PPC',w:16,r:1},{t:'m2 pedidos',w:24,r:1},{t:'m2 logrados',w:c.W-170,r:1}],fs);};
+    tabla('Por jefe de terreno (quien planificó)',q=>q.por||'—',k=>k);
+    tabla('Por piso',q=>q.nv,pisoTxt);
+    tituloSec(c,'Por etapa');
+    tablaPDF(c,[{t:'Etapa',w:70},{t:'Comprometidos',w:30,r:1},{t:'Cumplidos',w:26,r:1},{t:'PPC',w:20,r:1},{t:'m2 pedidos',w:24,r:1},{t:'m2 logrados',w:c.W-170,r:1}],
+      FAMILIAS.filter(f=>r.fam[f.id]).map(f=>{const z=resumenComp(l.filter(q=>ET[q.et].fam===f.id));return[f.nombre,z.n,z.ok,z.ppc.toFixed(0)+' %',fmt0(z.A),fmt0(z.Alog)];}));
+    const hist=historialPPC(filtroPlan(COMP));
+    if(hist.length>1){tituloSec(c,'PPC por semana');if(c.y+48>c.lim)c.nueva();const x0=c.M+12,y0=c.y,w=c.W-14,hh=34,slot=w/hist.length,bw=Math.min(16,slot*.6);
+      doc.setFont('helvetica','normal');doc.setFontSize(7);[0,50,80,100].forEach(v=>{const yy=y0+hh-v/100*hh;doc.setDrawColor(226,232,240);doc.setLineWidth(.2);doc.line(x0,yy,x0+w,yy);doc.setTextColor(...PT.tenue);doc.text(v+'%',x0-2,yy+1,{align:'right'});});
+      hist.forEach((z,i)=>{const cx=x0+slot*i+slot/2,v=z.r.ppc,yy=y0+hh-v/100*hh;doc.setFillColor(...hexRgb(!z.cerr?'#94A3B8':v>=80?'#16A34A':v>=60?'#F59E0B':'#DC2626'));doc.rect(cx-bw/2,yy,bw,Math.max(.3,y0+hh-yy),'F');
+        doc.setFont('helvetica','bold');doc.setTextColor(...PT.texto);doc.text(v.toFixed(0)+'%',cx,yy-1.2,{align:'center'});doc.setFont('helvetica','normal');doc.setTextColor(...PT.tenue);doc.text(diaCorta(z.s)+(z.cerr?'':'*'),cx,y0+hh+4,{align:'center'});});
+      c.y=y0+hh+7;doc.setFontSize(7);doc.text('* semana en curso. Verde: 80 % o más; ámbar: 60 a 79 %; rojo: menos de 60 %.',c.M,c.y);c.y+=7;}
+    const par=paretoCausas(filtroPlan(COMP));
+    if(par.length){tituloSec(c,'Causas de no cumplimiento (acumulado)');const tot=par.reduce((a,z)=>a+z[1],0);let ac=0;
+      tablaPDF(c,[{t:'Causa',w:100},{t:'Compromisos',w:30,r:1},{t:'%',w:30,r:1},{t:'% acumulado',w:c.W-160,r:1}],par.map(([k,v])=>{ac+=v;return[k==='sin'?'Sin justificar':(CAUSA_N[k]||k),v,(v/tot*100).toFixed(0)+' %',(ac/tot*100).toFixed(0)+' %'];}));}
+    const orden=(a,b)=>a.nv.localeCompare(b.nv)||ordenEt(a.et)-ordenEt(b.et);
+    const fila=q=>{const t=TAB[q.g],e=estadoComp(q),ca=causaDe(q);return[pisoTxt(q.nv),t.t,truncar(t.r.join(' · '),40),ET[q.et].corto+' '+Math.round((q.meta||1)*100)+'%',q.por||'—',Math.round(e.f*100)+' %',EST_C[e.k].n,ca?(CAUSA_N[ca.causa]||ca.causa)+(ca.nota?' · '+ca.nota:''):''];};
+    const cols=[{t:'Piso',w:12},{t:'Tipo',w:22},{t:'Recintos',w:42},{t:'Etapa · meta',w:22},{t:'Planificó',w:28},{t:'Logrado',w:15,r:1},{t:'Estado',w:20},{t:'Causa',w:c.W-161}];
+    const no=l.filter(q=>estadoComp(q).k==='no').sort(orden),resto=l.filter(q=>estadoComp(q).k!=='no').sort(orden);
+    if(no.length){tituloSec(c,'Detalle de compromisos no cumplidos');tablaPDF(c,cols,no.map(fila));}
+    if(resto.length){tituloSec(c,'Detalle de compromisos cumplidos y por cumplir');tablaPDF(c,cols,resto.map(fila));}
+    const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...PT.tenue);
+      doc.text('TabiFlow Last Planner · © 2026 '+APP_AUTOR+' · '+OBRA,c.M,H-6);doc.text('Hoja '+i+' de '+np,W-c.M,H-6,{align:'right'});}
+    const blob=doc.output('blob'),nombre='Cumplimiento_plan_semanal_'+s+'.pdf';
+    ocultarProgreso();
+    abrirHoja('<div class="hoja-titulo">✓ Informe de cumplimiento listo</div><div class="hoja-sub">'+nombre+' · '+np+' hoja(s) carta · PPC '+r.ppc.toFixed(0)+' %</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><button class="btn secundario" id="ipVer">👁 Abrir</button><button class="btn secundario" id="ipBajar">⬇ Bajar</button><button class="btn principal" id="ipComp">Compartir</button></div>');
+    $('#ipVer').onclick=()=>window.open(URL.createObjectURL(blob),'_blank');$('#ipBajar').onclick=()=>descargar(blob,nombre);$('#ipComp').onclick=()=>compartirArchivo(blob,nombre,'Cumplimiento plan semanal');
+    window.__ultimoInformePlan={blob,nombre,np};
+  }catch(e){console.error(e);ocultarProgreso();toast('Error generando el informe: '+e.message,'error');}}
 
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',iniciar);else iniciar();
 

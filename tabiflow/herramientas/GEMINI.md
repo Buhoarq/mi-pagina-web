@@ -89,7 +89,7 @@ git add lastplanner/plan.enc
 git commit -m "Plan semanal consolidado DD/MM/AAAA (nombres)"
 git push
 ```
-No uses los comandos `sub-agregar` / `sub-quitar` (claves de subcontrato): eso lo hace solo Renato. No excluyas los archivos `Avance_PaviFlow_` a mano: el script los rechaza con ⚠.
+Los archivos `Avance_Plan_….json` de los jefes de terreno solo traen compromisos y causas (sin avance); pásalos también por este comando. Los archivos `Avance_PaviFlow_` el script los rechaza con ⚠.
 
 ---
 © 2026 Renato Martínez Palominos – Todos los derechos reservados.
