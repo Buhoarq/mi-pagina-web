@@ -5,3 +5,15 @@
 - No modifiques ningún otro archivo del repositorio (la app, el panel, el modelo y las demás páginas los mantiene Claude).
 - Antes de trabajar: `git pull --rebase`. Nunca `git push --force`.
 - Nunca escribas la clave de obra en archivos ni commits.
+
+## PuertaFlow (puertas) · desde el 19-10-2026
+
+Los archivos que empiezan con `Avance_PuertaFlow_` son del módulo de puertas. Se consolidan aparte y solo tocan `puertaflow/avance.enc`:
+
+```bash
+python3 tabiflow/herramientas/consolidar_puerta.py unir --web puertaflow --clave-web tabiflow ../avances_recibidos/Avance_PuertaFlow_*.json
+git add puertaflow/avance.enc
+git commit -m "Avance PuertaFlow consolidado DD/MM/AAAA (nombres)"
+git push
+```
+Usa la misma `TABIFLOW_CLAVE`. `puertaflow/avance.enc` se suma a la lista de archivos que puedes modificar; no toques `puertaflow/puertas.enc` (es el modelo de puertas y lo mantiene Claude).

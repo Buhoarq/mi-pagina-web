@@ -93,3 +93,15 @@ Los archivos `Avance_Plan_….json` de los jefes de terreno solo traen compromis
 
 ---
 © 2026 Renato Martínez Palominos – Todos los derechos reservados.
+
+## PuertaFlow (puertas) · desde el 19-10-2026
+
+Los archivos que empiezan con `Avance_PuertaFlow_` son del módulo de puertas. Se consolidan aparte y solo tocan `puertaflow/avance.enc`:
+
+```bash
+python3 tabiflow/herramientas/consolidar_puerta.py unir --web puertaflow --clave-web tabiflow ../avances_recibidos/Avance_PuertaFlow_*.json
+git add puertaflow/avance.enc
+git commit -m "Avance PuertaFlow consolidado DD/MM/AAAA (nombres)"
+git push
+```
+Usa la misma `TABIFLOW_CLAVE`. `puertaflow/avance.enc` se suma a la lista de archivos que puedes modificar; no toques `puertaflow/puertas.enc` (es el modelo de puertas y lo mantiene Claude).
