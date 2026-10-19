@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiFlow v5.6 · Hospital de Coquimbo</title>
+<title>TabiFlow v5.8 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -459,7 +459,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M520 1080H1080V1130H520Z"/><path d="M560 760H700V1060H560Z"/><path d="M730 640H870V1060H730Z" opacity=".75"/><path d="M900 520H1040V1060H900Z" opacity=".5"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v5.6</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v5.8</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -476,7 +476,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiFlow v5.6 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiFlow v5.8 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
@@ -525,7 +525,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
     </div>
     <div class="niveles-strip"><button id="btnNivelAntes" class="nav" aria-label="Nivel inferior">‹</button><div id="nivelChips"></div><button id="btnNivelDespues" class="nav" aria-label="Nivel superior">›</button></div>
     <div class="visor-modos">
-      <div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button></div>
+      <div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button><button id="segVarios">☑ Seleccionar varios</button></div>
       <div class="visor-datos"><button id="chipVista" class="chip boton chip-vista">🎨 Etapa alcanzada</button></div>
     </div>
     <div class="paleta oculto" id="paleta">
@@ -534,6 +534,14 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <label class="toggle-mini" title="Al marcar una etapa, completa también las anteriores que falten"><input type="checkbox" id="chkPrevias" checked> Completar etapas previas</label>
         <button class="herr-btn" id="btnDeshacer">↩ Deshacer</button>
         <span class="chip" id="chipCuadrilla" style="cursor:pointer">👷 —</span>
+      </div>
+    </div>
+    <div class="paleta oculto" id="barraVarios">
+      <div class="fila-herr">
+        <span class="chip" id="chipVarios">☑ 0 tabiques</span>
+        <button class="herr-btn activo" id="btnVariosAvance">✔ Dar avance</button>
+        <button class="herr-btn" id="btnVariosLimpiar">✕ Limpiar</button>
+        <button class="herr-btn" id="btnVariosDeshacer">↩ Deshacer</button>
       </div>
     </div>
     <div id="avisoPlano" class="aviso oculto"><span id="avisoTexto"></span><button id="btnCerrarAviso">OK</button></div>
@@ -608,7 +616,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v5.6</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v5.8</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1041,7 +1049,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v5.6',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v5.8',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1210,7 +1218,7 @@ function prepNivel(n){
 
 /* ---------------- estado ---------------- */
 const estado={franjas:true,persona:'',dispositivo:'',local:[],base:{eventos:[],jornadas:[],actualizado:null,personas:[]},eventos:[],jornadas:[],diaActivo:hoyDia(),cuadrilla:'',etapa:'est',modo:'ver',vista:'etapa',previas:true,
-  nivel:null,sel:null,portada:{},oscuro:false,contraste:false,infDesde:null,infHasta:null,pilaDeshacer:[]};
+  nivel:null,sel:null,portada:{},oscuro:false,contraste:false,infDesde:null,infHasta:null,pilaDeshacer:[],multi:new Set(),vaEt:null,vaF:1};
 let EV_POR_G=new Map();   // GlobalId -> eventos vigentes
 let ESTADO_G=new Map();   // GlobalId -> {est:{f,dia},...}
 function eventosVigentes(){return estado.eventos.filter(e=>!e.borrado);}
@@ -1383,6 +1391,8 @@ function render(){
   {const conAdj=new Set([...((estado.base&&estado.base.adjuntos)||[]),...(estado.adjLocal||[])].filter(a=>!a.borrado).map(a=>a.g));
    if(conAdj.size){ctx.lineWidth=1.5*px;n.tab.forEach(t=>{if(!conAdj.has(t.g)||!visible(t.bb))return;ctx.beginPath();ctx.arc(t.cx,t.cy,Math.max(4.5*px,12),0,Math.PI*2);ctx.fillStyle='#1C4192';ctx.fill();ctx.strokeStyle='#FFFFFF';ctx.stroke();});}}
   estado._franjasVisibles=conFranjas;
+  if(estado.multi.size){ctx.save();ctx.fillStyle='rgba(245,158,11,.28)';ctx.strokeStyle='#F59E0B';ctx.lineWidth=3.5*px;
+    n.tab.forEach(t=>{if(estado.multi.has(t.g)&&visible(t.bb)){ctx.fill(t.path);ctx.stroke(t.path);}});ctx.restore();}
   if(estado.sel&&TAB[estado.sel]&&TAB[estado.sel].nv===n.id){const t=TAB[estado.sel];ctx.strokeStyle='#F59E0B';ctx.lineWidth=4*px;ctx.stroke(t.path);}
   /* textos en coordenadas de pantalla */
   ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -1402,7 +1412,7 @@ function render(){
 function actualizarEtiquetaFlot(){const n=estado.nivel;if(!n)return;
   const esc=V.s>0?Math.round(1/(V.s*(96/2.54))*100)/1:0;   // aprox. escala en pantalla
   const tol=16/V.s;
-  $('#etqFlot').innerHTML='<b>'+escapar(etiquetaNivel(n))+'</b> · 1 m = '+Math.max(1,Math.round(V.s*100))+' px'+(estado._franjasVisibles?'<br><span style="font-weight:600">Franjas en orden constructivo (arriba→abajo / izq→der): Estructura · placas cara 1 · plomo · aislación · placas cara 2</span>':'')+(estado.modo==='pincel'&&tol>160?' · <span style="color:var(--ambar-osc)">acerca para marcar</span>':'');}
+  $('#etqFlot').innerHTML='<b>'+escapar(etiquetaNivel(n))+'</b> · 1 m = '+Math.max(1,Math.round(V.s*100))+' px'+(estado._franjasVisibles?'<br><span style="font-weight:600">Franjas en orden constructivo (arriba→abajo / izq→der): Estructura · placas cara 1 · plomo · aislación · placas cara 2</span>':'')+((estado.modo==='pincel'||estado.modo==='varios')&&tol>160?' · <span style="color:var(--ambar-osc)">acerca para marcar</span>':'');}
 function zoomEn(f,px,py){const w=wrap().getBoundingClientRect();px=px==null?w.width/2:px;py=py==null?w.height/2:py;
   const s2=Math.max(0.004,Math.min(4,V.s*f));const k=s2/V.s;V.tx=px-(px-V.tx)*k;V.ty=py-(py-V.ty)*k;V.s=s2;gestoMovio();}
 
@@ -1435,11 +1445,11 @@ function bindGestos(){
     const r=w.getBoundingClientRect();const p={x:e.clientX-r.left,y:e.clientY-r.top,b:e.button,tipo:e.pointerType};
     punteros.set(e.pointerId,p);
     if(punteros.size===2){
-      if(gesto&&gesto.tipo==='pintar'&&gesto.lote.length){revertirLote(gesto.lote);}   // el 2º dedo convierte el trazo en zoom
+      if(gesto&&gesto.tipo==='pintar'&&gesto.lote.length){revertirLote(gesto.lote);}if(gesto&&gesto.nuevos&&gesto.nuevos.length){gesto.nuevos.forEach(g=>estado.multi.delete(g));renderVarios();}   // el 2º dedo convierte el trazo en zoom
       const [a,b]=[...punteros.values()];gesto={tipo:'pinch',d:Math.hypot(a.x-b.x,a.y-b.y),cx:(a.x+b.x)/2,cy:(a.y+b.y)/2,s:V.s,tx:V.tx,ty:V.ty};return;}
     if(punteros.size>2)return;
-    const pintar=estado.modo==='pincel'&&!(e.pointerType==='mouse'&&e.button!==0);
-    gesto={tipo:pintar?'pintar':'pan',x0:p.x,y0:p.y,lx:p.x,ly:p.y,tx:V.tx,ty:V.ty,mov:false,t0:Date.now(),lote:[],tocados:new Set()};
+    const pintar=(estado.modo==='pincel'||estado.modo==='varios')&&!(e.pointerType==='mouse'&&e.button!==0);
+    gesto={tipo:pintar?'pintar':'pan',x0:p.x,y0:p.y,lx:p.x,ly:p.y,tx:V.tx,ty:V.ty,mov:false,t0:Date.now(),lote:[],tocados:new Set(),nuevos:[]};
   });
   w.addEventListener('pointermove',e=>{
     const p=punteros.get(e.pointerId);if(!p||!gesto)return;
@@ -1455,7 +1465,7 @@ function bindGestos(){
       /* trazo de pincel: muestrea el recorrido cada ~6 px y marca los tabiques que toca */
       const pasos=Math.max(1,Math.ceil(Math.hypot(p.x-gesto.lx,p.y-gesto.ly)/6));
       for(let i=1;i<=pasos;i++){const qx=gesto.lx+(p.x-gesto.lx)*i/pasos,qy=gesto.ly+(p.y-gesto.ly)*i/pasos;const[mx,my]=aModelo(qx,qy);
-        const t=tabiqueEn(mx,my,Math.min(9/V.s,60));if(t&&!gesto.tocados.has(t.g)){gesto.tocados.add(t.g);aplicarEtapa(t,estado.etapa,1,gesto.lote,true);}}
+        const t=tabiqueEn(mx,my,Math.min(9/V.s,60));if(t&&!gesto.tocados.has(t.g)){gesto.tocados.add(t.g);if(estado.modo==='varios'){if(!estado.multi.has(t.g)){estado.multi.add(t.g);gesto.nuevos.push(t.g);pedirRender();}}else aplicarEtapa(t,estado.etapa,1,gesto.lote,true);}}
       gesto.lx=p.x;gesto.ly=p.y;
     }
   });
@@ -1464,6 +1474,7 @@ function bindGestos(){
     if(!gesto)return;
     if(gesto.tipo==='pinch'){if(punteros.size<2){gesto=null;pedirRender();}return;}
     const g=gesto;gesto=null;
+    if(g.tipo==='pintar'&&g.mov&&estado.modo==='varios'){renderVarios();pedirRender();return;}
     if(g.tipo==='pintar'&&g.mov){if(g.lote.length){await guardarLote(g.lote);}if(g.tocados.size)toast(ET[estado.etapa].corto+': '+g.tocados.size+' tabique(s)'+(g.lote._omitidos?' · '+g.lote._omitidos+' no llevan esta etapa':''),'ok');return;}
     if(!g.mov&&p&&e.type==='pointerup')tocar(p.x,p.y);
     else pedirRender();
@@ -1473,6 +1484,11 @@ function bindGestos(){
 }
 async function tocar(px,py){
   const[mx,my]=aModelo(px,py);const tol=16/V.s;
+  if(estado.modo==='varios'){
+    if(tol>160){toast('Acerca más el plano para seleccionar con precisión');return;}
+    const t=tabiqueEn(mx,my,tol);if(!t)return;
+    if(estado.multi.has(t.g))estado.multi.delete(t.g);else estado.multi.add(t.g);
+    renderVarios();pedirRender();return;}
   if(estado.modo==='pincel'){
     if(tol>160){toast('Acerca más el plano para marcar con precisión');return;}
     const t=tabiqueEn(mx,my,tol);if(!t){return;}
@@ -1526,6 +1542,51 @@ async function deshacer(){
   if(evs.some(e=>jornadaCerrada(e.dia))){toast('Ese avance pertenece a una jornada cerrada','error');return;}
   await marcarBorrados(evs);pedirRender();refrescarPlanoUI();renderInicio();toast('Deshecho ('+evs.length+' registro'+(evs.length===1?'':'s')+')','ok');
 }
+
+/* ---------------- selección múltiple (v5.8): mismo avance a varios tabiques ---------------- */
+function renderVarios(){const c=$('#chipVarios');if(!c)return;let A=0,n=0;estado.multi.forEach(g=>{const t=TAB[g];if(t){A+=t.A;n++;}});
+  c.textContent='☑ '+n+' tabique'+(n===1?'':'s')+' · '+fmt0(A)+' m²';$('#btnVariosAvance').disabled=!n;$('#btnVariosLimpiar').disabled=!n;$('#btnVariosDeshacer').disabled=!estado.pilaDeshacer.length;}
+function abrirVarios(){
+  const ts=[...estado.multi].map(g=>TAB[g]).filter(Boolean);if(!ts.length){toast('Primero toca los tabiques que quieres seleccionar');return;}
+  if(jornadaCerrada(estado.diaActivo)){toast('La jornada '+diaCorta(estado.diaActivo)+' está cerrada','error');return;}
+  const cuenta={};ETAPAS.forEach(e=>{cuenta[e.id]=ts.filter(t=>mapearEtapa(t,e.id)).length;});
+  const disp=ETAPAS.filter(e=>cuenta[e.id]>0);if(!disp.length)return;
+  if(!estado.vaEt||!cuenta[estado.vaEt])estado.vaEt=cuenta[estado.etapa]?estado.etapa:disp[0].id;
+  const e0=ET[estado.vaEt];const A=ts.reduce((s,t)=>s+t.A,0);const nvs=[...new Set(ts.map(t=>t.nv))];
+  let h='<div class="hoja-titulo">☑ Mismo avance a '+ts.length+' tabique'+(ts.length===1?'':'s')+'</div><div class="hoja-sub">'+fmt1(A)+' m² · '+nvs.map(escapar).join(' · ')+' · jornada '+diaCorta(estado.diaActivo)+'</div>';
+  h+='<label class="etiqueta">Etapa</label><div class="paleta-tipos">'+disp.map(e=>'<button class="tipo-btn'+(e.id===estado.vaEt?' activo':'')+'" data-vaet="'+e.id+'" style="--c:'+e.color+'">'+icono(e,true)+'<span>'+e.corto+'</span><span class="pct">'+cuenta[e.id]+' de '+ts.length+'</span></button>').join('')+'</div>';
+  h+='<label class="etiqueta">Avance de '+e0.nombre.toLowerCase()+'</label><div class="slider-etapa" style="--c:'+e0.color+'"><input type="range" min="10" max="100" step="10" value="'+Math.round(estado.vaF*100)+'" data-vasl="1" aria-label="% a aplicar"><span class="sl-val" id="vaVal">'+Math.round(estado.vaF*100)+'%</span></div>';
+  const sin=ts.length-cuenta[estado.vaEt];
+  h+='<p class="nota" style="margin:8px 0">'+(sin?'⚠ '+sin+' tabique'+(sin===1?' no lleva':'s no llevan')+' esta etapa: se saltan. ':'')+'Si un tabique ya tiene más avance, no se le baja salvo que lo confirmes.'+(estado.previas?' Las etapas anteriores quedan al menos con el mismo % ("Completar etapas previas").':'')+'</p>';
+  h+='<button class="btn principal" style="width:100%" data-va="aplicar">Aplicar '+e0.corto+' '+Math.round(estado.vaF*100)+'% a '+cuenta[estado.vaEt]+' tabique'+(cuenta[estado.vaEt]===1?'':'s')+'</button>';
+  abrirHoja(h);}
+async function accionVarios(e){
+  const b=e.target.closest('[data-vaet],[data-va]');if(!b)return;
+  if(b.dataset.vaet){estado.vaEt=b.dataset.vaet;abrirVarios();return;}
+  if(b.dataset.va==='aplicar')await aplicarVarios();}
+async function aplicarVarios(){
+  if(jornadaCerrada(estado.diaActivo)){toast('La jornada '+diaCorta(estado.diaActivo)+' está cerrada','error');return;}
+  const et=estado.vaEt,f=estado.vaF,nom=ET[et].corto;const lote=[];let ok=0,igual=0,omit=0;const mayor=[];
+  [...estado.multi].forEach(g=>{const t=TAB[g];if(!t)return;const etM=mapearEtapa(t,et);if(!etM){omit++;return;}
+    const a=fracEt(g,etM);if(a>f+1e-9){mayor.push([t,etM]);return;}if(Math.abs(a-f)<1e-9){igual++;return;}
+    aplicarEtapa(t,et,f,lote,true);ok++;});
+  if(lote.length)await guardarLote(lote);
+  cerrarHoja();
+  let bajados=0,noBaja=0;
+  if(mayor.length&&await confirmar('Bajar avance',mayor.length+' tabique'+(mayor.length===1?' ya tiene':'s ya tienen')+' más de '+Math.round(f*100)+'% en '+nom.toLowerCase()+'. ¿Bajarlos a '+Math.round(f*100)+'%? Solo se puede bajar lo que registraste tú en esta jornada.','Bajar a '+Math.round(f*100)+'%',true)){
+    const lote2=[];
+    for(const [t,etM] of mayor){const evs=(EV_POR_G.get(t.g)||[]).filter(x=>!x.borrado&&x.et===etM);
+      const hoy=evs.filter(x=>x.dia===estado.diaActivo&&esMio(x)),otros=evs.filter(x=>!(x.dia===estado.diaActivo&&esMio(x)));
+      if(!hoy.length||otros.some(x=>x.f>f+1e-9)){noBaja++;continue;}
+      await marcarBorrados(hoy);aplicarEtapa(t,etM,f,lote2,true);bajados++;}
+    if(lote2.length)await guardarLote(lote2);}
+  pedirRender();refrescarPlanoUI();renderVarios();
+  const p=[nom+' '+Math.round(f*100)+'%: '+ok+' tabique'+(ok===1?'':'s')];
+  if(bajados)p.push(bajados+' bajado'+(bajados===1?'':'s'));
+  if(igual)p.push(igual+' ya lo tenía'+(igual===1?'':'n'));
+  if(mayor.length-bajados)p.push((mayor.length-bajados)+' con más avance sin cambiar'+(noBaja?' (registro de otro día o persona)':''));
+  if(omit)p.push(omit+' no lleva'+(omit===1?'':'n')+' esta etapa');
+  toast(p.join(' · '),ok||bajados?'ok':'');}
 
 /* ---------------- ficha de tabique ---------------- */
 function abrirTabique(g){
@@ -1590,12 +1651,14 @@ function renderNiveles(){const c=$('#nivelChips');const r=areaEjecutada(()=>true
 function renderPaleta(){const n=estado.nivel;if(!n)return;const r=areaEjecutada(()=>true)[n.id];const h=areaEjecutada(e=>e.dia===estado.diaActivo)[n.id];
   $('#paletaTipos').innerHTML=ETAPAS.filter(e=>n.tot[e.id]>0).map(e=>'<button class="tipo-btn'+(e.id===estado.etapa?' activo':'')+'" data-et="'+e.id+'" style="--c:'+e.color+'">'+icono(e,true)+'<span>'+e.corto+'</span><span class="pct">'+pct(r[e.id].A,n.tot[e.id]).toFixed(0)+'%'+(h[e.id].A?' · +'+fmt0(h[e.id].A):'')+'</span></button>').join('');
   $('#chipCuadrilla').textContent='👷 '+(estado.cuadrilla?truncar(estado.cuadrilla,16):'Sin cuadrilla');
-  $('#btnDeshacer').disabled=!estado.pilaDeshacer.length;}
+  $('#btnDeshacer').disabled=!estado.pilaDeshacer.length;if($('#btnVariosDeshacer'))$('#btnVariosDeshacer').disabled=!estado.pilaDeshacer.length;}
 function refrescarPlanoUI(){renderPaleta();renderNiveles();actualizarSubNivel();renderChipJornada();}
-function setModo(m){estado.modo=m;$('#segVer').classList.toggle('activo',m==='ver');$('#segPincel').classList.toggle('activo',m==='pincel');$('#segPincel').classList.toggle('marcando',m==='pincel');
-  $('#paleta').classList.toggle('oculto',m!=='pincel');wrap().classList.toggle('pincel',m==='pincel');aplicarEnfoque(m==='pincel');
+function setModo(m){if(m!=='varios'&&estado.multi.size){estado.multi.clear();pedirRender();}
+  estado.modo=m;$('#segVer').classList.toggle('activo',m==='ver');$('#segVarios').classList.toggle('activo',m==='varios');$('#segVarios').classList.toggle('marcando',m==='varios');$('#barraVarios').classList.toggle('oculto',m!=='varios');renderVarios();$('#segPincel').classList.toggle('activo',m==='pincel');$('#segPincel').classList.toggle('marcando',m==='pincel');
+  $('#paleta').classList.toggle('oculto',m!=='pincel');wrap().classList.toggle('pincel',m==='pincel'||m==='varios');aplicarEnfoque(m==='pincel');
   const a=$('#avisoPlano');
-  if(m==='pincel'&&jornadaCerrada(estado.diaActivo)){$('#avisoTexto').textContent='🔒 La jornada '+diaCorta(estado.diaActivo)+' está cerrada: reábrela o cambia de jornada para marcar';a.classList.remove('oculto');}
+  if(m==='varios'&&!estado._ayudaVarios){estado._ayudaVarios=true;$('#avisoTexto').textContent='☑ Toca los tabiques (o arrastra un dedo) para agregarlos o quitarlos de la selección; pueden ser de distinto tipo. Luego "Dar avance". Con dos dedos mueves y haces zoom.';a.classList.remove('oculto');}
+  else if(m==='pincel'&&jornadaCerrada(estado.diaActivo)){$('#avisoTexto').textContent='🔒 La jornada '+diaCorta(estado.diaActivo)+' está cerrada: reábrela o cambia de jornada para marcar';a.classList.remove('oculto');}
   else if(m==='pincel'&&!estado._ayudaPincel){estado._ayudaPincel=true;$('#avisoTexto').textContent='🖌 Toca o arrastra un dedo sobre los tabiques para pintarlos. Con dos dedos mueves y haces zoom.';a.classList.remove('oculto');}
   else a.classList.add('oculto');
   setTimeout(()=>{if(dimensionarLienzo())render();},60);}
@@ -2025,14 +2088,15 @@ function bindEventos(){
   $$('.pestana').forEach(b=>b.addEventListener('click',()=>cambiarVista(b.dataset.v)));
   $('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');$('#btnIrInforme').onclick=()=>cambiarVista('informe');
   $('#btnMenu').onclick=abrirMenu;$('#chipJornada').onclick=()=>abrirJornada(estado.diaActivo);$('#btnReiniciarTodo').onclick=borrarAvance;
-  $('#hojaContenido').addEventListener('click',e=>{manejarAccion(e);accionFicha(e);});
-  $('#hojaContenido').addEventListener('input',e=>{const sl=e.target.closest('[data-sl]');if(sl){const v=$('#slv_'+sl.dataset.sl);if(v)v.textContent=sl.value+'%';}});
+  $('#hojaContenido').addEventListener('click',e=>{manejarAccion(e);accionFicha(e);accionVarios(e);});
+  $('#hojaContenido').addEventListener('input',e=>{const va=e.target.closest('[data-vasl]');if(va){estado.vaF=parseInt(va.value,10)/100;const v=$('#vaVal');if(v)v.textContent=va.value+'%';const b=$('[data-va="aplicar"]');if(b)b.textContent=b.textContent.replace(/\d+%/,va.value+'%');return;}const sl=e.target.closest('[data-sl]');if(sl){const v=$('#slv_'+sl.dataset.sl);if(v)v.textContent=sl.value+'%';}});
   $('#hojaContenido').addEventListener('change',e=>{const sl=e.target.closest('[data-sl]');if(!sl)return;const t=TAB[estado.sel];if(t)fijarFraccion(t,sl.dataset.sl,parseInt(sl.value,10)/100);});
   $('#inputRespaldo').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(f)importarRespaldo(f);});
   $('#btnVolverPlano').onclick=()=>cambiarVista('inicio');
   $('#btnNivelAntes').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i>0)abrirNivel(NIVELES[i-1].id);};
   $('#btnNivelDespues').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i<NIVELES.length-1)abrirNivel(NIVELES[i+1].id);};
-  $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');
+  $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#segVarios').onclick=()=>setModo('varios');
+  $('#btnVariosAvance').onclick=abrirVarios;$('#btnVariosLimpiar').onclick=()=>{estado.multi.clear();renderVarios();pedirRender();};$('#btnVariosDeshacer').onclick=async()=>{await deshacer();renderVarios();};
   $('#btnEnfoque').onclick=()=>{aplicarEnfoque(!document.body.classList.contains('enfoque'));setTimeout(()=>{if(dimensionarLienzo())render();},60);};
   $('#chipVista').onclick=abrirVistaSel;$('#btnBuscar').onclick=abrirBuscar;$('#chipCuadrilla').onclick=()=>abrirJornada(estado.diaActivo);
   $('#btnCerrarAviso').onclick=()=>$('#avisoPlano').classList.add('oculto');
