@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PuertaFlow v0.5 β · Hospital de Coquimbo</title>
+<title>PuertaFlow v0.6 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -475,6 +475,16 @@ html.oscuro .ley-f{background:var(--panel);color:var(--texto)}
 .btn-filtro{padding:7px 12px;border-radius:10px;border:1px solid var(--linea);background:#fff;font-size:12.5px;font-weight:800;color:var(--cuerpo)}
 .btn-filtro.activo{background:#DC2626;border-color:#DC2626;color:#fff}
 html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
+
+.lista-busca button b,.bdg{white-space:nowrap;flex:none}
+.lista-busca button small{white-space:nowrap}
+#visor{position:fixed;inset:0;z-index:250;display:none;flex-direction:column;background:#fff}
+#visor.visible{display:flex}
+html.oscuro #visor{background:#0F172A}
+.visor-barra{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--linea)}
+.visor-barra .t{flex:1;min-width:0}.visor-barra .t b{display:block;font-size:14px;color:var(--texto)}.visor-barra .t small{display:block;font-size:10.5px;color:var(--tenue);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#visorCaja{flex:1;overflow:auto;background:#fff;-webkit-overflow-scrolling:touch}
+#visorImg{display:block;max-width:none;background:#fff}
 .log{font-size:12px;color:var(--tenue);padding-left:18px}
 .ic.g{display:inline-block;width:15px;height:15px;border-radius:4px}
 </style>
@@ -484,7 +494,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.5 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.6 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Puertas</span>
     </div>
   </div>
@@ -499,7 +509,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M6 3h10l2 1v16l-2 1H6z"/><circle cx="14" cy="12" r="1"/></svg></div>
-          <div><span class="eyebrow">PuertaFlow v0.5 β · Módulo de puertas de FlujoPlan (maqueta)</span><h2>Ubica cada tipo de puerta y marca su avance</h2></div>
+          <div><span class="eyebrow">PuertaFlow v0.6 β · Módulo de puertas de FlujoPlan (maqueta)</span><h2>Ubica cada tipo de puerta y marca su avance</h2></div>
         </div>
         <p>Las 4.164 puertas del modelo de interiores ya están cargadas por nivel, con su tipo, resistencia al fuego y clasificación acústica. Usa <b>🎯 Filtrar tipos</b> para encerrar en un círculo de color uno o varios tipos (por ejemplo las cortafuego) y ubícalas piso por piso. Las puertas RF y acústicas llevan la etapa de <b>refuerzo metálico</b>.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#64748B"></span>Trazado</span><span class="ley"><span class="ic g" style="background:#DC2626"></span>Refuerzo</span><span class="ley"><span class="ic g" style="background:#F59E0B"></span>Recibido</span><span class="ley"><span class="ic g" style="background:#2563EB"></span>Marco</span><span class="ley"><span class="ic g" style="background:#7C3AED"></span>Hoja</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>Quincallería</span></div>
@@ -514,6 +524,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
       <div class="tarjeta"><h3>🏢 Avance por nivel <span class="nota" style="font-weight:600">· toca un nivel para abrirlo</span></h3><div id="matrizInicio"></div></div>
       <div class="acciones-rapidas">
         <button class="btn principal grande" id="btnIrPlano">🗺️ Marcar avance en planta</button>
+        <button class="btn secundario" id="btnDetalles">📐 Detalles oficiales de refuerzo y puertas cortafuego</button>
         <a class="btn secundario" href="coordinacion.html" style="text-align:center">🤝 Coordinación de refuerzos · trazado ↔ subcontrato</a>
         <div class="fila-btn"><button class="btn secundario" id="btnIrFiltro">🎯 Ubicar por tipo</button><button class="btn secundario" id="btnIrAvance">📊 Avance</button><a class="btn secundario" href="../obraflow/" style="text-align:center">🏗️ FlujoPlan</a></div>
       </div>
@@ -555,7 +566,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">v0.5 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">v0.6 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -570,6 +581,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
     <p class="nota" style="margin-top:14px;font-size:10.5px">PuertaFlow · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
   </div>
 </div>
+<div id="visor"><div class="visor-barra"><div class="t"><b id="visorTitulo">Detalle</b><small id="visorSub"></small></div><button class="btn-icono" id="visorMenos" aria-label="Alejar">−</button><button class="btn-icono" id="visorMas" aria-label="Acercar">＋</button><button class="btn-icono" id="visorCerrar" aria-label="Cerrar">✕</button></div><div id="visorCaja"><img id="visorImg" alt="Detalle oficial"></div></div>
 <div id="velo"></div>
 <div id="hoja"><div class="asa" id="asa"></div><div id="hojaContenido"></div></div>
 <div id="progreso"><div class="spinner"></div><p id="progresoTexto"></p></div>
@@ -580,7 +592,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.5 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.6 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas: las puertas resistentes al fuego (RF) y acústicas llevan refuerzo metálico (lámina 9418) ---------------- */
@@ -663,8 +675,9 @@ async function cargarModelos(){progreso('Abriendo los planos…');
       p.rad=Math.max(45,Math.hypot(p.bb[2]-p.bb[0],p.bb[3]-p.bb[1])/2);PUE.set(p.g,p);});});
   progreso(null);}
 /* tickets de la página de coordinación: frente liberado → trazado, refuerzo instalado → refuerzo, recibido conforme → recibido */
+let KCOORD=null,FOF=null;
 async function cargarCoord(){try{const acc=await (await fetch('coord_acceso.json?t='+Date.now(),{cache:'no-store'})).json();const e=acc.roles.find(x=>x.rol==='obra');
-  const o=await descifrar(CLAVE,Uint8Array.from(atob(e.w),c=>c.charCodeAt(0)).buffer);const kc=await crypto.subtle.importKey('raw',Uint8Array.from(atob(o.k),c=>c.charCodeAt(0)),{name:'AES-GCM'},false,['decrypt']);
+  const o=await descifrar(CLAVE,Uint8Array.from(atob(e.w),c=>c.charCodeAt(0)).buffer);const kc=await crypto.subtle.importKey('raw',Uint8Array.from(atob(o.k),c=>c.charCodeAt(0)),{name:'AES-GCM'},false,['decrypt']);KCOORD=kc;
   let tk=[];try{tk=(await descifrar(kc,await bajar('coordavance.enc',true))).tickets||[];}catch(x){}
   try{const db=await abrirDB('PuertaCoordHCQ',1,['tickets','meta']);const l=await new Promise(r=>{const q=db.transaction('tickets','readonly').objectStore('tickets').getAll();q.onsuccess=()=>r(q.result||[]);q.onerror=()=>r([]);});db.close();tk=tk.concat(l);}catch(x){}
   const m=new Map();tk.forEach(t=>{const p=m.get(t.id);if(!p||t.borrado)m.set(t.id,t);});const MAP={lib:'traz',inst:'ref',ok:'rec'};COORD=[];
@@ -792,6 +805,7 @@ function abrirFicha(p){const w=pesosDe(p),t=TIPOS[p.t]||{};const hist=[];const m
   abrirHoja('<div class="hoja-titulo">🚪 Puerta '+escapar(p.t)+'</div><div class="hoja-sub">'+escapar(t.uso||'')+' '+badges(p)+'<br>'+(p.r.length?'Recintos: <b>'+[...new Set(p.r)].map(escapar).join(' ↔ ')+'</b>':'')+'</div>'+
    '<div class="ficha"><div class="meta-item"><span>Vano</span><b>'+(p.an?p.an+'×'+p.al+' cm':'—')+'</b></div><div class="meta-item"><span>Hojas</span><b>'+(p.h2?'2':'1')+'</b></div><div class="meta-item"><span>Refuerzo</span><b>'+(p.ref?'Sí 🔩':'No')+'</b></div></div>'+
    (p.ref?'<div class="info-sello" style="margin:4px 0 8px">🔩 Lleva <b>refuerzo metálico</b> (perfil cajón 150×100×4 mm de losa a losa con anclajes, lámina 9418) antes del marco.</div>':'')+
+   (/^PFA-/.test(p.t)?'<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin:0 0 8px"><button class="btn secundario" style="flex:1 1 45%" data-det="tipo:'+escapar(p.t)+'">📐 Detalle '+escapar(p.t)+'</button><button class="btn secundario" style="flex:1 1 45%" data-det="refuerzo">🔩 Detalle refuerzo</button></div>':'')+
    '<label class="etiqueta">Etapas · jornada '+diaCorta(hoyDia())+'</label>'+
    etapasDe(p).map(et=>{const f=fEt(p.g,et),ev=(ESTADO.get(p.g)||{})[et];return '<div class="etapa-fila"><span class="ic g" style="background:'+ETAPAS[et].color+';width:18px;height:18px;border-radius:5px;display:inline-block"></span><div class="info"><b>'+escapar(ETAPAS[et].n)+' <span style="font-weight:600;color:var(--tenue)">· '+w[et]+'%</span></b>'+(ev?Math.round(f*100)+'% · '+diaCorta(ev.ev.dia)+' · '+escapar(ev.ev.por||''):'Pendiente')+'</div><div class="acc"><button class="frac-btn'+(f>=1?' on':'')+'" style="--c:'+ETAPAS[et].color+'" data-fr="'+et+'">100%</button></div></div>'+
      '<div class="slider-etapa" style="--c:'+ETAPAS[et].color+'"><input type="range" min="0" max="100" step="10" value="'+Math.round(f*100)+'" data-et="'+et+'"><span class="sl-val">'+Math.round(f*100)+'%</span></div>';}).join('')+
@@ -801,6 +815,22 @@ function abrirFicha(p){const w=pesosDe(p),t=TIPOS[p.t]||{};const hist=[];const m
   const fijar=async(et,v)=>{const lote=[];await aplicar(p,et,v,lote);if(lote.length)estado.deshacer.push(lote);render();renderNiveles();renderPaleta();abrirFicha(p);};
   $$('#hojaContenido input[type=range]').forEach(i=>{i.oninput=()=>{i.nextElementSibling.textContent=i.value+'%';};i.onchange=()=>fijar(i.dataset.et,+i.value/100);});
   $$('#hojaContenido [data-fr]').forEach(b=>b.onclick=()=>fijar(b.dataset.fr,1));}
+/* ---------------- ficha oficial de puertas cortafuego (vectorial, dentro de coord.enc) ---------------- */
+async function cargarFicha(){if(FOF)return FOF;if(!KCOORD)await cargarCoord();if(!KCOORD)throw new Error('sin acceso');progreso('Abriendo la ficha oficial…');
+  try{const d=await descifrar(KCOORD,await bajar('coord.enc'));FOF={svg:d.ficha.svg,det:d.ficha.detalles,rev:d.ficha.rev,fecha:d.ficha.fecha,cod:d.ficha.codigo,tipos:d.tipos};}finally{progreso(null);}return FOF;}
+let visorURL=null;
+async function abrirDetalle(cual){let F;try{F=await cargarFicha();}catch(e){toast('No se pudo abrir la ficha oficial','error');return;}let caja,tit;
+  if(cual.startsWith('tipo:')){const t=F.tipos[cual.slice(5)];caja=t&&t.caja;tit=cual.slice(5)+(t?' · '+t.d+' '+t.rf:'');}else{const d=F.det.find(x=>x.id===cual);caja=d&&d.caja;tit=d&&d.n;}
+  if(!caja){toast('Ese tipo no está en la ficha oficial');return;}const [x,y,w,h]=caja;
+  const svg=F.svg.replace(/<svg([^>]*?)width="[^"]*" height="[^"]*" viewBox="[^"]*"/,'<svg$1width="'+w+'" height="'+h+'" viewBox="'+x+' '+y+' '+w+' '+h+'"');
+  if(visorURL)URL.revokeObjectURL(visorURL);visorURL=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+  $('#visorTitulo').textContent=tit;$('#visorSub').textContent='Ficha oficial '+F.cod+' · rev. '+F.rev+' · '+F.fecha;const img=$('#visorImg');img.style.width='100%';img.dataset.z='1';img.src=visorURL;$('#visor').classList.add('visible');$('#visorCaja').scrollTo(0,0);}
+function zoomVisor(f){const img=$('#visorImg'),c=$('#visorCaja');const z0=+img.dataset.z||1,z=Math.max(1,Math.min(12,z0*f));const cx=(c.scrollLeft+c.clientWidth/2)/c.scrollWidth,cy=(c.scrollTop+c.clientHeight/2)/c.scrollHeight;
+  img.dataset.z=z;img.style.width=(z*100)+'%';requestAnimationFrame(()=>{c.scrollLeft=cx*c.scrollWidth-c.clientWidth/2;c.scrollTop=cy*c.scrollHeight-c.clientHeight/2;});}
+async function abrirDetalles(){let F;try{F=await cargarFicha();}catch(e){toast('No se pudo abrir la ficha oficial','error');return;}
+  abrirHoja('<div class="hoja-titulo">📐 Detalles oficiales · puertas cortafuego</div><div class="hoja-sub">Ficha '+escapar(F.cod)+' · rev. '+escapar(F.rev)+' · '+escapar(F.fecha)+'</div>'+
+    '<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin:8px 0"><button class="btn principal" style="flex:1 1 45%" data-det="refuerzo">🔩 Refuerzo metálico</button><button class="btn secundario" style="flex:1 1 45%" data-det="marcos">🧱 Marcos en tabique</button><button class="btn secundario" style="flex:1 1 100%" data-det="ficha">📄 Ficha completa</button></div>'+
+    '<label class="etiqueta">Por tipo de puerta</label><div class="lista-busca">'+Object.entries(F.tipos).sort((a,b)=>a[0].localeCompare(b[0])).map(([k,t])=>'<button data-det="tipo:'+escapar(k)+'"><b>'+escapar(k)+'</b>&nbsp;'+escapar(t.d)+' <span class="bdg rf">🔥 '+escapar(t.rf)+'</span><small>'+escapar(t.vano)+' mm</small></button>').join('')+'</div>');}
 /* ---------------- enviar / restaurar ---------------- */
 async function exportar(){const mios=estado.local.filter(e=>e.por===estado.persona);if(!mios.length){toast('Todavía no tienes registros');return;}
   const d={app:'PuertaFlowHCQ',modulo:'puerta',tipo:'avance',ver:1,por:estado.persona,disp:estado.disp,exportado:new Date().toISOString(),eventos:mios.map(e=>{const o=Object.assign({},e);delete o.enviado;return o;})};
@@ -824,6 +854,7 @@ document.addEventListener('click',async e=>{
   const fg=e.target.closest('[data-fgrupo]');if(fg){filtrarGrupo(fg.dataset.fgrupo);abrirFiltro();renderFiltroUI();renderNiveles();render();return;}
   const qt=e.target.closest('[data-quitar]');if(qt){alternarTipo(qt.dataset.quitar);renderFiltroUI();renderNiveles();render();return;}
   const ir=e.target.closest('[data-ir]');if(ir){irAPuerta(ir.dataset.ir);return;}
+  const dt=e.target.closest('[data-det]');if(dt){abrirDetalle(dt.dataset.det);return;}
   const b=e.target.closest('[data-acc]');if(!b)return;const a=b.dataset.acc;
   if(a==='enviar'){cerrarHoja();exportar();}else if(a==='equipo'){cerrarHoja();cargarEquipo(true);}else if(a==='restaurar'){cerrarHoja();$('#inputRespaldo').click();}
   else if(a==='cerrar')cerrarHoja();else if(a==='filtro')abrirFiltro();else if(a==='ubicaciones')abrirUbicaciones();
@@ -856,6 +887,7 @@ async function iniciar(){
 window.addEventListener('DOMContentLoaded',()=>{cv=$('#lienzo');ctx=cv.getContext('2d');initGestos();
   try{if(localStorage.getItem('tf_tema')==='oscuro')document.documentElement.classList.add('oscuro');}catch(e){}
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');
+  $('#btnDetalles').onclick=abrirDetalles;$('#visorCerrar').onclick=()=>$('#visor').classList.remove('visible');$('#visorMas').onclick=()=>zoomVisor(1.6);$('#visorMenos').onclick=()=>zoomVisor(1/1.6);$('#visorImg').ondblclick=()=>zoomVisor(2);
   $('#btnIrFiltro').onclick=()=>{cambiarVista('plano');setTimeout(abrirFiltro,120);};
   $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#btnDeshacer').onclick=deshacer;$('#chkPrevias').onchange=e=>estado.previas=e.target.checked;
   $('#btnFiltro').onclick=abrirFiltro;
