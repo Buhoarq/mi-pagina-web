@@ -17,3 +17,15 @@ git commit -m "Avance PuertaFlow consolidado DD/MM/AAAA (nombres)"
 git push
 ```
 Usa la misma `TABIFLOW_CLAVE`. `puertaflow/avance.enc` se suma a la lista de archivos que puedes modificar; no toques `puertaflow/puertas.enc` (es el modelo de puertas y lo mantiene Claude).
+
+## PuertaFlow · Coordinación de refuerzos · desde el 19-10-2026
+
+Los archivos que empiezan con `Coord_PuertaFlow_` son tickets de coordinación (trazadores, subcontrato de refuerzos y obra). Se consolidan aparte y solo tocan `puertaflow/coordavance.enc`:
+
+```bash
+python3 tabiflow/herramientas/consolidar_coord.py unir --web puertaflow --clave-web tabiflow ../avances_recibidos/Coord_PuertaFlow_*.json
+git add puertaflow/coordavance.enc
+git commit -m "Coordinación PuertaFlow consolidada DD/MM/AAAA (nombres)"
+git push
+```
+Usa la misma `TABIFLOW_CLAVE`. `puertaflow/coordavance.enc` se suma a los archivos que puedes modificar; no toques `coord.enc` ni `coord_acceso.json` (los mantiene Claude).

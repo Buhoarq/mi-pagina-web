@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PuertaFlow v0.2 β · Hospital de Coquimbo</title>
+<title>PuertaFlow v0.3 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -484,7 +484,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.2 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.3 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Puertas</span>
     </div>
   </div>
@@ -499,7 +499,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M6 3h10l2 1v16l-2 1H6z"/><circle cx="14" cy="12" r="1"/></svg></div>
-          <div><span class="eyebrow">PuertaFlow v0.2 β · Módulo de puertas de FlujoPlan (maqueta)</span><h2>Ubica cada tipo de puerta y marca su avance</h2></div>
+          <div><span class="eyebrow">PuertaFlow v0.3 β · Módulo de puertas de FlujoPlan (maqueta)</span><h2>Ubica cada tipo de puerta y marca su avance</h2></div>
         </div>
         <p>Las 4.164 puertas del modelo de interiores ya están cargadas por nivel, con su tipo, resistencia al fuego y clasificación acústica. Usa <b>🎯 Filtrar tipos</b> para encerrar en un círculo de color uno o varios tipos (por ejemplo las cortafuego) y ubícalas piso por piso. Las puertas RF y acústicas llevan la etapa de <b>refuerzo metálico</b>.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#64748B"></span>Trazado</span><span class="ley"><span class="ic g" style="background:#DC2626"></span>Refuerzo</span><span class="ley"><span class="ic g" style="background:#F59E0B"></span>Recibido</span><span class="ley"><span class="ic g" style="background:#2563EB"></span>Marco</span><span class="ley"><span class="ic g" style="background:#7C3AED"></span>Hoja</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>Quincallería</span></div>
@@ -514,6 +514,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
       <div class="tarjeta"><h3>🏢 Avance por nivel <span class="nota" style="font-weight:600">· toca un nivel para abrirlo</span></h3><div id="matrizInicio"></div></div>
       <div class="acciones-rapidas">
         <button class="btn principal grande" id="btnIrPlano">🗺️ Marcar avance en planta</button>
+        <a class="btn secundario" href="coordinacion.html" style="text-align:center">🤝 Coordinación de refuerzos · trazado ↔ subcontrato</a>
         <div class="fila-btn"><button class="btn secundario" id="btnIrFiltro">🎯 Ubicar por tipo</button><button class="btn secundario" id="btnIrAvance">📊 Avance</button><a class="btn secundario" href="../obraflow/" style="text-align:center">🏗️ FlujoPlan</a></div>
       </div>
     </div>
@@ -554,7 +555,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">v0.2 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">v0.3 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -579,7 +580,7 @@ html.oscuro .btn-filtro{background:var(--panel);color:var(--texto)}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.2 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.3 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas: las puertas resistentes al fuego (RF) y acústicas llevan refuerzo metálico (lámina 9418) ---------------- */
@@ -627,8 +628,8 @@ async function infoClave(){return (await fetch(RUTA_TABI+'clave.json?t='+Date.no
 async function verificar(key){const info=await infoClave();await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer);return key;}
 /* ---------------- estado ---------------- */
 const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nivel:null,modo:'ver',etapa:'ref',previas:true,sel:null,deshacer:[],filtro:[],atenuar:true};
-let CLAVE=null,MOD=null,NIVELES=[],PUE=new Map(),ESTADO=new Map(),TIPOS={};
-function combinar(){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
+let CLAVE=null,MOD=null,NIVELES=[],PUE=new Map(),ESTADO=new Map(),TIPOS={},COORD=[];
+function combinar(){const m=new Map();COORD.forEach(e=>m.set(e.id,e));((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
   ESTADO=new Map();for(const e of m.values()){if(e.borrado||!PUE.has(e.g))continue;let s=ESTADO.get(e.g);if(!s){s={};ESTADO.set(e.g,s);}const o=s[e.et];
     if(!o||e.ts>o.ev.ts)s[e.et]={f:e.f,ev:e};}}
 const fEt=(g,et)=>{const s=ESTADO.get(g);return s&&s[et]?s[et].f:0;};
@@ -661,6 +662,14 @@ async function cargarModelos(){progreso('Abriendo los planos…');
     n.pue.forEach(p=>{p.nv=n.id;p.path=new Path2D();p.p.forEach(r=>{for(let i=0;i<r.length;i+=2)i?p.path.lineTo(r[i],r[i+1]):p.path.moveTo(r[i],r[i+1]);p.path.closePath();});
       p.rad=Math.max(45,Math.hypot(p.bb[2]-p.bb[0],p.bb[3]-p.bb[1])/2);PUE.set(p.g,p);});});
   progreso(null);}
+/* tickets de la página de coordinación: frente liberado → trazado, refuerzo instalado → refuerzo, recibido conforme → recibido */
+async function cargarCoord(){try{const acc=await (await fetch('coord_acceso.json?t='+Date.now(),{cache:'no-store'})).json();const e=acc.roles.find(x=>x.rol==='obra');
+  const o=await descifrar(CLAVE,Uint8Array.from(atob(e.w),c=>c.charCodeAt(0)).buffer);const kc=await crypto.subtle.importKey('raw',Uint8Array.from(atob(o.k),c=>c.charCodeAt(0)),{name:'AES-GCM'},false,['decrypt']);
+  let tk=[];try{tk=(await descifrar(kc,await bajar('coordavance.enc',true))).tickets||[];}catch(x){}
+  try{const db=await abrirDB('PuertaCoordHCQ',1,['tickets','meta']);const l=await new Promise(r=>{const q=db.transaction('tickets','readonly').objectStore('tickets').getAll();q.onsuccess=()=>r(q.result||[]);q.onerror=()=>r([]);});db.close();tk=tk.concat(l);}catch(x){}
+  const m=new Map();tk.forEach(t=>{const p=m.get(t.id);if(!p||t.borrado)m.set(t.id,t);});const MAP={lib:'traz',inst:'ref',ok:'rec'};COORD=[];
+  for(const t of m.values()){if(t.borrado||!MAP[t.tipo])continue;t.g.forEach(g=>COORD.push({id:'co-'+t.id+'-'+g,g,et:MAP[t.tipo],f:1,dia:t.dia,ts:t.ts,por:(t.por||'')+' (coordinación)',coord:true}));}
+  combinar();renderTodo();}catch(e){}}
 async function cargarEquipo(manual){try{const b=await descifrar(CLAVE,await bajar('avance.enc',true));estado.base=b;await metaSet('base',b);combinar();renderTodo();if(manual)toast('Avance del equipo actualizado','ok');}
   catch(e){if(manual)toast(navigator.onLine?'Todavía no hay avance publicado de puertas':'Sin conexión: se muestra lo último guardado');}}
 /* ---------------- vistas ---------------- */
@@ -807,7 +816,7 @@ async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.ap
 function abrirMenu(){abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">PuertaFlow '+APP_VER+' · '+OBRA+' · por Renato Martínez Palominos</div>'+
   '<button class="menu-item" data-acc="enviar">📤 Enviar mi avance por WhatsApp o correo</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
   '<button class="menu-item" data-acc="restaurar">⬇️ Restaurar mi avance desde un archivo</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
-  '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a>'+
+  '<a class="menu-item" href="coordinacion.html">🤝 Coordinación de refuerzos (trazadores ↔ subcontrato)</a><a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a>'+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
 function pedirNombre(){abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');}
 document.addEventListener('click',async e=>{
@@ -843,7 +852,7 @@ async function iniciar(){
   try{await cargarModelos();}catch(e){progreso(null);toast('No se pudo abrir el modelo: '+e.message,'error');return;}
   estado.filtro=estado.filtro.filter(t=>TIPOS[t]);
   combinar();pintarSaludo();$('#chipJornada').textContent='📅 '+diaCorta(hoyDia());
-  renderInicio();cargarEquipo(false);}
+  renderInicio();cargarEquipo(false);cargarCoord();}
 window.addEventListener('DOMContentLoaded',()=>{cv=$('#lienzo');ctx=cv.getContext('2d');initGestos();
   try{if(localStorage.getItem('tf_tema')==='oscuro')document.documentElement.classList.add('oscuro');}catch(e){}
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');
