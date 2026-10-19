@@ -117,3 +117,8 @@ git commit -m "Coordinación PuertaFlow consolidada DD/MM/AAAA (nombres)"
 git push
 ```
 Usa la misma `TABIFLOW_CLAVE`. `puertaflow/coordavance.enc` se suma a los archivos que puedes modificar; no toques `coord.enc` ni `coord_acceso.json` (los mantiene Claude).
+
+Desde el 19-10-2026 el mismo comando también guarda las fotos de los tickets (interferencias para RDI) en `puertaflow/coordfotos.enc`. Súbelo junto a `coordavance.enc`:
+```bash
+git add puertaflow/coordavance.enc puertaflow/coordfotos.enc
+```
