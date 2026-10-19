@@ -655,7 +655,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.3 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.4 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1088,7 +1088,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v6.3 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v6.4 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -2042,7 +2042,7 @@ function abrirMenu(){
     (estado.rol==='sub'?'<div class="info-sello indigo">Entraste como subcontrato <b>'+escapar(estado.subNombre)+'</b>: ves solo tus compromisos (consulta).</div>':'<button class="menu-item" data-accion="m-exportar">📤 Enviar mi plan al coordinador</button>')+
     '<button class="menu-item" data-accion="m-base">🔄 Actualizar avance y plan del equipo</button>'+
     '<button class="menu-item" data-accion="m-importar">⬇️ Restaurar mi plan desde un archivo</button>'+
-    '<a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (versión oficial)</a>'+'<a class="menu-item" href="../obraflow/">🏗️ Ir a ObraFlow</a>'+
+    '<a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (versión oficial)</a>'+'<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a>'+
     '<button class="menu-item" data-accion="m-nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
     '<button class="menu-item" data-accion="m-salir">🔒 Olvidar la clave en este teléfono</button>'+
     '<button class="menu-item" data-accion="m-oscuro">🌙 Modo oscuro <span class="chip" style="margin-left:auto">'+(estado.oscuro?'sí':'no')+'</span></button>'+
