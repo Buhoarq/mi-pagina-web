@@ -468,6 +468,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
         <label>Periodo de gráficos<select id="selVentana"><option value="14">Últimos 14 días</option><option value="30" selected>Últimos 30 días</option><option value="90">Últimos 90 días</option><option value="0">Todo</option></select></label>
         <button class="btn secundario" id="btnRecargar">🔄 Actualizar</button>
         <button class="btn secundario" id="btnImprimir">🖨 Imprimir / PDF</button>
+        <button class="btn secundario" id="btnRevit" title="CSV con el avance por muro para pintar el modelo en Revit con el Dynamo TabiFlow_Revit">🧱 Descargar para Revit</button>
       </div>
     </div>
     <div class="kpis" id="kpis"></div>
@@ -552,7 +553,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
       </div>
     </div>
   </section>
-  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v5.6 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
+  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v5.9.1 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
 </div>
 
 <div id="acceso" class="visible">
@@ -896,11 +897,45 @@ async function entrar(){
     cargarModelo(await descifrar(await (await fetch('modelo.enc')).arrayBuffer()));await cargarAvance();}
   catch(e){$('#accEstado').textContent='No se pudo abrir: '+e.message;$('#accEntrar').disabled=false;return;}
   $('#acceso').classList.remove('visible');renderTodo();}
+/* ---------------- exportar a Revit (v5.9.1): un CSV con una fila por muro de Revit, para el Dynamo TabiFlow_Revit ---------------- */
+const RV_FAMS=['est','c1','pb','ais','c2','fen'],RV_NOMF={est:'Estructura',c1:'Cara 1',pb:'Plomo',ais:'Aislacion',c2:'Cara 2',fen:'Fenolico'};
+const RV_NOME={est:'Estructura',c1p1:'Cara 1 placa 1',c1p2:'Cara 1 placa 2',c1p3:'Cara 1 placa 3',pb:'Plomo',ais:'Aislacion',c2p1:'Cara 2 placa 1',c2p2:'Cara 2 placa 2',c2p3:'Cara 2 placa 3',fen:'Fenolico'};
+const RV_ORD=STG.map(e=>e.id);
+function rvEje(lst){const X0=M.origen[0],Y1=M.origen[1];const P=[];lst.forEach(t=>t.p.forEach(r=>{for(let i=0;i<r.length;i+=2)P.push([r[i]/100+X0,Y1-r[i+1]/100]);}));
+  const n=P.length;let cx=0,cy=0;P.forEach(p=>{cx+=p[0];cy+=p[1];});cx/=n;cy/=n;let sxx=0,syy=0,sxy=0;P.forEach(p=>{const dx=p[0]-cx,dy=p[1]-cy;sxx+=dx*dx;syy+=dy*dy;sxy+=dx*dy;});
+  const th=0.5*Math.atan2(2*sxy,sxx-syy),ux=Math.cos(th),uy=Math.sin(th);let mn=Infinity,mx=-Infinity;P.forEach(p=>{const v=(p[0]-cx)*ux+(p[1]-cy)*uy;if(v<mn)mn=v;if(v>mx)mx=v;});
+  const q=v=>Math.round(v*1000)/1000;return[q(cx+ux*mn),q(cy+uy*mn),q(cx+ux*mx),q(cy+uy*mx)];}
+function exportarRevit(){
+  if(!M||!AV){toast('Primero entra con la clave de obra','error');return;}
+  const p=pesos();const ult=new Map();const mas=(a,b)=>(a.dia+'|'+(a.ts||''))>(b.dia+'|'+(b.ts||''));
+  vigentes().forEach(e=>{const k=e.g+'|'+e.et;const o=ult.get(k);if(!o||mas(e,o))ult.set(k,e);});
+  const fr=(g,et)=>{const e=ult.get(g+'|'+et);return e?e.f:0;};
+  const ELEV={};NIVELES.forEach(n=>ELEV[n.id]=n.elev);
+  const grupos=new Map();NIVELES.forEach(n=>n.tab.forEach(t=>{const k=t.gb||t.g;if(!grupos.has(k))grupos.set(k,[]);grupos.get(k).push(t);}));
+  const limpio=v=>String(v==null?'':v).replace(/[,\r\n]+/g,' ');const filas=[];
+  grupos.forEach((lst,gb)=>{const L=lst.reduce((s,t)=>s+t.L,0)||1,t0=lst[0];const agg={};let ultimo=null,top=-1;
+    lst.forEach(t=>{RV_FAMS.forEach(f=>{const st=t.seq.filter(x=>ST[x].fam===f);if(st.length){const v=st.reduce((s,x)=>s+fr(t.g,x),0)/st.length;agg[f]=(agg[f]||0)+v*t.L/L;}});
+      t.seq.forEach(x=>{const e=ult.get(t.g+'|'+x);if(e&&(!ultimo||mas(e,ultimo)))ultimo=e;if(e&&e.f>0&&RV_ORD.indexOf(x)>top)top=RV_ORD.indexOf(x);});});
+    const fs=Object.keys(agg);const w={};fs.forEach(f=>w[f]=p[f]||0);if(!t0.pb&&fs.includes('est'))w.est+=(p.pb||0);const sw=fs.reduce((s,f)=>s+w[f],0)||1;
+    const pond=fs.reduce((s,f)=>s+agg[f]*w[f]/sw,0);let fam='Sin avance';RV_FAMS.forEach(f=>{if((agg[f]||0)>0)fam=RV_NOMF[f];});
+    let etapa='Sin avance',etPct='',estado='';
+    if(top>=0){const et=RV_ORD[top];etapa=RV_NOME[et];const fe=lst.reduce((s,t)=>s+(t.seq.includes(et)?fr(t.g,et):0)*t.L,0)/L;etPct=Math.round(fe*100);estado=fe>=1-1e-9?'Completa':'Parcial';}
+    const pc=v=>Math.round(v*100);const e4=rvEje(lst);
+    filas.push({ElementId:t0.id||'',IfcGUID:gb,Nivel:t0.nv,Tipo:limpio(t0.t),Largo_m:Math.round(L*100)/100,Alto_m:t0.H,Sup_m2:Math.round(lst.reduce((s,t)=>s+t.A,0)*100)/100,Tramos:lst.length,
+      TF_Etapa:etapa,TF_EtapaPct:etPct,TF_Estado:estado,TF_Familia:fam,TF_Avance:Math.round(pond*1000)/10,
+      TF_Est:pc(agg.est||0),TF_C1:pc(agg.c1||0),TF_PB:'pb' in agg?pc(agg.pb):'',TF_AIS:pc(agg.ais||0),TF_C2:pc(agg.c2||0),TF_FEN:'fen' in agg?pc(agg.fen):'',
+      TF_Fecha:ultimo?ultimo.dia:'',TF_Por:ultimo?limpio(ultimo.por||''):'',Elev:ELEV[t0.nv],X1:e4[0],Y1:e4[1],X2:e4[2],Y2:e4[3]});});
+  filas.sort((a,b)=>a.Nivel.localeCompare(b.Nivel)||((a.TF_Etapa==='Sin avance')-(b.TF_Etapa==='Sin avance'))||String(a.ElementId).localeCompare(String(b.ElementId)));
+  const cab=Object.keys(filas[0]);const txt='﻿'+[cab.join(',')].concat(filas.map(f=>cab.map(c=>f[c]).join(','))).join('\r\n')+'\r\n';
+  descargar(new Blob([txt],{type:'text/csv;charset=utf-8'}),'TabiFlow_Revit_avance.csv');
+  const con=filas.filter(f=>f.TF_Etapa!=='Sin avance').length;
+  toast('Archivo para Revit descargado: '+fmt0(filas.length)+' muros ('+fmt0(con)+' con avance). Úsalo con el Dynamo "TabiFlow_Revit".','ok');}
+
 function bind(){
   $('#accEntrar').onclick=entrar;$('#accPass').addEventListener('keydown',e=>{if(e.key==='Enter')entrar();});
   $$('#tabs button').forEach(b=>b.onclick=()=>{$$('#tabs button').forEach(x=>x.classList.toggle('activo',x===b));$$('.seccion').forEach(s=>s.classList.toggle('activa',s.id==='sec-'+b.dataset.sec));if(b.dataset.sec==='pisos')renderPisos();});
   if(location.hash==='#coordinacion')setTimeout(()=>$('#tabs [data-sec="coord"]').click(),0);
-  $('#selVentana').onchange=renderKPI;$('#btnImprimir').onclick=()=>window.print();
+  $('#selVentana').onchange=renderKPI;$('#btnImprimir').onclick=()=>window.print();$('#btnRevit').onclick=exportarRevit;
   $('#btnRecargar').onclick=async()=>{try{await cargarAvance();renderTodo();toast('Datos actualizados','ok');}catch(e){toast('No se pudo actualizar: '+e.message,'error');}};
   $('#selNivel').onclick=e=>{const b=e.target.closest('[data-nv]');if(b){nivelSel=b.dataset.nv;renderPisos();}};
   $('#dFecha').value=hoyDia();$('#sFecha').value=hoyDia();
