@@ -505,7 +505,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.4 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.5 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -523,7 +523,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
           <div><span class="eyebrow">PuertaFlow · Coordinación de refuerzos de puertas cortafuego (ficha oficial)</span><h2>Liberar frentes y avanzar</h2></div>
         </div>
         <p id="rolTexto"></p>
-        <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#F59E0B"></span>📅 Programada · por trazar</span><span class="ley"><span class="ic g" style="background:#2563EB"></span>✅ Frente liberado</span><span class="ley"><span class="ic g" style="background:#7C3AED"></span>🔩 Refuerzo instalado</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>✔ Recibido</span><span class="ley"><span class="ic g" style="background:#EA580C"></span>⚠ Observado</span></div>
+        <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#F59E0B"></span>📅 Solicitada · por liberar</span><span class="ley"><span class="ic g" style="background:#2563EB"></span>✅ Frente liberado</span><span class="ley"><span class="ic g" style="background:#7C3AED"></span>🔩 Refuerzo instalado</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>✔ Recibido</span><span class="ley"><span class="ic g" style="background:#EA580C"></span>⚠ Observado</span></div>
       </div>
       <div id="avisoEnvio"></div>
       <div class="tarjeta">
@@ -557,12 +557,12 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.4 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.5 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <h2><span style="color:#0F766E">Puerta</span><span style="color:var(--ambar)">Flow</span></h2>
-    <p class="nota" style="margin-bottom:16px">Coordinación de refuerzos · Hospital de Coquimbo<br>Entra con la clave que te entregó Oficina Técnica (trazadores, subcontrato de refuerzos u obra).</p>
+    <p class="nota" style="margin-bottom:16px">Coordinación de refuerzos · Hospital de Coquimbo<br>Entra con la clave que te entregó Oficina Técnica (jefe de terreno, trazadores, subcontrato de refuerzos u obra).</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
     <label class="etiqueta">Clave</label>
@@ -583,18 +583,23 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.4 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.5 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- estados de cada puerta (según el último ticket) ---------------- */
-const EST={sin:{n:'Sin programar',c:'Sin programar',color:'#94A3B8'},prog:{n:'Programada · por trazar',c:'Por trazar',color:'#F59E0B'},
+const EST={sin:{n:'Sin programar',c:'Sin programar',color:'#94A3B8'},prog:{n:'Solicitada · por liberar',c:'Solicitada',color:'#F59E0B'},
   lib:{n:'Frente liberado · por instalar refuerzo',c:'Liberada',color:'#2563EB'},inst:{n:'Refuerzo instalado · por recibir',c:'Instalado',color:'#7C3AED'},
   obs:{n:'Observado · corregir refuerzo',c:'Observada',color:'#EA580C'},ok:{n:'Refuerzo recibido conforme',c:'Recibida',color:'#16A34A'}};
 const ORDEN_EST=['sin','prog','lib','inst','obs','ok'];
-const TK={prog:{n:'Programar trazado',c:'Programar',ic:'📅'},lib:{n:'Frente liberado (trazo listo)',c:'Liberar frente',ic:'✅'},inst:{n:'Refuerzo instalado',c:'Instalado',ic:'🔩'},
+const TK={prog:{n:'Solicitar frente',c:'Solicitar',ic:'📅'},lib:{n:'Frente liberado (trazo listo)',c:'Liberar frente',ic:'✅'},inst:{n:'Refuerzo instalado',c:'Instalado',ic:'🔩'},
   ok:{n:'Refuerzo recibido conforme',c:'Recibir',ic:'✔'},obs:{n:'Refuerzo observado',c:'Observar',ic:'⚠'},prob:{n:'Problema en el frente',c:'Problema',ic:'🚧'}};
-const ROL={obra:{n:'Oficina Técnica / obra',tk:['prog','lib','inst','ok','obs','prob'],mios:['inst','sin']},
-  trazador:{n:'Trazador',tk:['lib','prob'],mios:['prog']},refuerzos:{n:'Subcontrato de refuerzos',tk:['inst','prob'],mios:['lib','obs']}};
+/* la comunicación va en todos los sentidos: obra, jefe de terreno y subcontrato pueden solicitar frentes;
+   obra, jefe de terreno y trazadores pueden liberarlos (aunque nadie los haya solicitado) */
+const ROL={obra:{n:'Oficina Técnica / obra',tk:['prog','lib','inst','ok','obs','prob'],mios:['inst']},
+  jefe:{n:'Jefe de terreno',tk:['prog','lib','prob'],mios:['prog']},
+  trazador:{n:'Trazador',tk:['lib','prog','prob'],mios:['prog']},
+  refuerzos:{n:'Subcontrato de refuerzos',tk:['inst','prog','prob'],mios:['lib','obs']}};
+const CHIP={obra:'🏗️ Obra',jefe:'👷 Jefe de terreno',trazador:'📐 Trazador',refuerzos:'🔩 Refuerzos'};
 /* ---------------- utilidades ---------------- */
 const fmt0=n=>Math.round(n).toLocaleString('es-CL');
 const hoyDia=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
@@ -655,7 +660,7 @@ function combinar(){ESTADO=new Map();const ts=ticketsTodos().filter(t=>!t.borrad
     if(t.tipo==='prob'){s.prob=t;continue;}s.est=t.tipo;s.ult=t;s.prob=null;if(t.tipo==='prog')s.prog=t;}}
 const est=g=>(ESTADO.get(g)||{est:'sin'}).est;
 const info=g=>ESTADO.get(g)||{est:'sin',hist:[],prob:null};
-const paraMi=p=>{const r=ROL[estado.rol];if(estado.rol==='obra')return est(p.g)==='inst'||!!info(p.g).prob;return r.mios.includes(est(p.g));};
+const paraMi=p=>{const r=ROL[estado.rol];if(estado.rol==='obra'||estado.rol==='jefe')return r.mios.includes(est(p.g))||!!info(p.g).prob;return r.mios.includes(est(p.g));};
 const pendientesEnvio=()=>estado.local.filter(t=>t.por===estado.persona&&!t.enviado).length;
 /* ---------------- carga ---------------- */
 async function cargar(){progreso('Abriendo la planta de coordinación…');const d=await descifrar(KC,await bajar('coord.enc'));TIPOS=d.tipos||{};FICHA=d.ficha||null;DIF=d.dif||{};
@@ -672,7 +677,7 @@ function resumenPuertas(gs){const c={};gs.forEach(g=>{const p=PUE.get(g);if(p)c[
 function textoTicket(t){const ps=t.g.map(g=>PUE.get(g)).filter(Boolean);const nvs=[...new Set(ps.map(p=>corto(p.nv)))].join(', ');
   let s=TK[t.tipo].ic+' '+TK[t.tipo].n.toUpperCase()+'\n'+nvs+' · '+ps.length+' puerta'+(ps.length===1?'':'s')+': '+resumenPuertas(t.g);
   ps.slice(0,8).forEach(p=>s+='\n• '+p.t+' — '+recintos(p));if(ps.length>8)s+='\n• … y '+(ps.length-8)+' más';
-  if(t.fecha)s+='\n📅 Trazado programado para el '+diaCorta(t.fecha);if(t.desarme)s+='\n🔨 Se desarmó tabique para liberar el vano';if(t.nota)s+='\n📝 '+t.nota;
+  if(t.fecha)s+='\n📅 Se necesita para el '+diaCorta(t.fecha);if(t.desarme)s+='\n🔨 Se desarmó tabique para liberar el vano';if(t.nota)s+='\n📝 '+t.nota;
   return s+'\n— '+t.por+' ('+ROL[t.rol].n+') · '+fechaHora(t.ts);}
 async function linkTicket(t){const u=await cifrar(KC,t);const s=b64(u).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');return location.origin+location.pathname+'#tk='+s;}
 async function compartirTicket(t){const url=await linkTicket(t);const txt=textoTicket(t)+'\n\nAbrir en PuertaFlow: '+url;
@@ -695,9 +700,10 @@ function conteo(filtro){const c={};ORDEN_EST.forEach(e=>c[e]=0);let pr=0;for(con
 function renderTablero(){if(!PUE.size)return;const nom=(estado.persona||'').trim().split(/\s+/)[0];const R=ROL[estado.rol];
   const mios=[...PUE.values()].filter(paraMi);
   $('#saludo').innerHTML=saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>'+R.n+' · '+(mios.length?'tienes <b>'+mios.length+'</b> puerta'+(mios.length===1?'':'s')+' esperando tu acción':'no tienes puertas pendientes')+'.</small>';
-  $('#rolTexto').innerHTML={obra:'Programas el trazado de las puertas cortafuego de la ficha oficial (PFA), y recibes (o observas) los refuerzos que instala el subcontrato.',
-    trazador:'Cuando el vano esté trazado y el espacio libre para trabajar (si hubo que desarmar tabique, indícalo), marca las puertas y envía el ticket <b>✅ Frente liberado</b> al subcontrato de refuerzos.',
-    refuerzos:'Las puertas en azul ya tienen el frente liberado: instala el refuerzo metálico y envía el ticket <b>🔩 Refuerzo instalado</b> para que la obra lo reciba.'}[estado.rol];
+  $('#rolTexto').innerHTML={obra:'Solicitas los frentes que hay que liberar, puedes liberar tú mismo los que ya están listos y recibes (u observas) los refuerzos que instala el subcontrato. Solo puertas cortafuego de la ficha oficial (PFA).',
+    jefe:'Coordina en todos los sentidos: <b>📅 Solicita</b> los frentes que quieres avanzar y, si una puerta ya está trazada y con el espacio libre, márcala tú mismo como <b>✅ Frente liberado</b> para que el subcontrato la instale.',
+    trazador:'Cuando el vano esté trazado y el espacio libre para trabajar (si hubo que desarmar tabique, indícalo), marca las puertas y envía el ticket <b>✅ Frente liberado</b> al subcontrato de refuerzos, aunque nadie te las haya solicitado.',
+    refuerzos:'Las puertas en azul ya tienen el frente liberado: instala el refuerzo metálico y envía el ticket <b>🔩 Refuerzo instalado</b> para que la obra lo reciba. Si necesitas avanzar en otras, envía <b>📅 Solicitar frente</b>.'}[estado.rol];
   const c=conteo(estado.fNivel?p=>p.nv===estado.fNivel:null);
   $('#cuentas').innerHTML=ORDEN_EST.map(e=>'<button class="cuenta'+(estado.fEst===e?' on':'')+'" data-fest="'+e+'" style="--c:'+EST[e].color+'"><b>'+fmt0(c[e])+'</b><span>'+EST[e].c+'</span></button>').join('')+
     '<button class="cuenta'+(estado.fEst==='prob'?' on':'')+'" data-fest="prob" style="--c:#0F172A"><b>'+fmt0(c.prob)+'</b><span>🚧 Problemas</span></button>';
@@ -766,24 +772,25 @@ function abrirFicha(p){const i=info(p.g),t=TIPOS[p.t]||{};const R=ROL[estado.rol
   abrirHoja('<div class="hoja-titulo">🚪 Puerta '+escapar(p.t)+' · '+corto(p.nv)+'</div><div class="hoja-sub">'+escapar(t.d||t.uso||'')+' '+badges(p)+'<br>Recintos: <b>'+escapar(recintos(p))+'</b></div>'+
     (t.vano?'<div class="ficha"><div class="meta-item"><span>Vano en obra</span><b>'+escapar(t.vano)+'</b></div><div class="meta-item"><span>Paso libre</span><b>'+escapar(t.paso)+'</b></div><div class="meta-item"><span>Resistencia</span><b>'+escapar(t.rf)+'</b></div></div><p class="nota" style="margin:-4px 0 8px">Medidas en mm según ficha oficial de puertas cortafuego (rev. '+escapar(FICHA?FICHA.rev:'0')+', '+escapar(FICHA?FICHA.fecha:'')+').</p>':'')+
     (FICHA?'<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin-bottom:8px"><button class="btn secundario" style="flex:1 1 45%" data-det="tipo:'+escapar(p.t)+'">📐 Detalle '+escapar(p.t)+'</button><button class="btn secundario" style="flex:1 1 45%" data-det="refuerzo">🔩 Detalle refuerzo</button><button class="btn secundario" style="flex:1 1 45%" data-det="marcos">🧱 Marcos en tabique</button><button class="btn secundario" style="flex:1 1 45%" data-det="ficha">📄 Ficha completa</button></div>':'')+
-    '<div class="info-sello" style="background:#fff;border-color:'+EST[i.est].color+';color:var(--texto)"><b style="color:'+EST[i.est].color+'">● '+EST[i.est].n+'</b>'+(i.prog&&i.prog.fecha&&i.est==='prog'?'<br>📅 Trazado programado para el '+diaCorta(i.prog.fecha):'')+(i.prob?'<br>🚧 <b>Problema:</b> '+escapar(i.prob.nota||'')+' ('+escapar(i.prob.por)+')':'')+'</div>'+
+    '<div class="info-sello" style="background:#fff;border-color:'+EST[i.est].color+';color:var(--texto)"><b style="color:'+EST[i.est].color+'">● '+EST[i.est].n+'</b>'+(i.prog&&i.prog.fecha&&i.est==='prog'?'<br>📅 Se necesita para el '+diaCorta(i.prog.fecha):'')+(i.prob?'<br>🚧 <b>Problema:</b> '+escapar(i.prob.nota||'')+' ('+escapar(i.prob.por)+')':'')+'</div>'+
     '<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin:10px 0">'+R.tk.map(k=>'<button class="btn '+(k==='prob'?'secundario':'principal')+'" style="flex:1 1 45%" data-tk1="'+k+'" data-g="'+p.g+'">'+TK[k].ic+' '+TK[k].n+'</button>').join('')+'</div>'+
     '<button class="btn secundario" style="width:100%" data-ir="'+p.g+'">📍 Ver en la planta</button>'+
     (hist?'<label class="etiqueta" style="margin-top:12px">Historial de tickets</label><ul class="log">'+hist+'</ul>':'<p class="nota" style="margin-top:10px">Sin tickets todavía.</p>')+
     '<p class="nota" style="margin-top:10px;font-size:11px;word-break:break-all">ID Revit '+escapar(p.id||'—')+' · GUID '+escapar(p.g)+'</p>');}
 function abrirFichaTicket(t){abrirHoja('<div class="hoja-titulo">'+TK[t.tipo].ic+' '+escapar(TK[t.tipo].n)+'</div><div class="hoja-sub">de <b>'+escapar(t.por)+'</b> ('+ROL[t.rol].n+') · '+fechaHora(t.ts)+'</div>'+
-  (t.fecha?'<p>📅 Trazado programado para el <b>'+diaCorta(t.fecha)+'</b></p>':'')+(t.desarme?'<p>🔨 Se desarmó tabique para liberar el vano</p>':'')+(t.nota?'<p>📝 '+escapar(t.nota)+'</p>':'')+
+  (t.fecha?'<p>📅 Se necesita para el <b>'+diaCorta(t.fecha)+'</b></p>':'')+(t.desarme?'<p>🔨 Se desarmó tabique para liberar el vano</p>':'')+(t.nota?'<p>📝 '+escapar(t.nota)+'</p>':'')+
   '<div class="lista-busca">'+t.g.map(g=>{const p=PUE.get(g);return p?filaPuerta(p):'';}).join('')+'</div>');}
 function validar(tipo,gs){const malos=[];gs.forEach(g=>{const e=est(g);
     if(tipo==='lib'&&(e==='inst'||e==='ok'))malos.push(g);
+    if(tipo==='prog'&&(e==='lib'||e==='inst'||e==='ok'||e==='obs'))malos.push(g);
     if(tipo==='inst'&&estado.rol!=='obra'&&!(e==='lib'||e==='obs'))malos.push(g);
     if((tipo==='ok'||tipo==='obs')&&e!=='inst')malos.push(g);});return malos;}
 function abrirTicket(tipo,gs){gs=[...gs].filter(g=>PUE.has(g));if(!gs.length){toast('Selecciona al menos una puerta');return;}
   const malos=validar(tipo,gs);const ok=gs.filter(g=>!malos.includes(g));
-  const msg={lib:'No se puede liberar: ya tiene refuerzo instalado o recibido.',inst:'Aún no tiene el frente liberado por los trazadores.',ok:'Solo se recibe un refuerzo instalado.',obs:'Solo se observa un refuerzo instalado.'}[tipo];
+  const msg={prog:'Ya tiene el frente liberado o el refuerzo en curso.',lib:'No se puede liberar: ya tiene refuerzo instalado o recibido.',inst:'Aún no tiene el frente liberado por los trazadores.',ok:'Solo se recibe un refuerzo instalado.',obs:'Solo se observa un refuerzo instalado.'}[tipo];
   abrirHoja('<div class="hoja-titulo">'+TK[tipo].ic+' '+escapar(TK[tipo].n)+'</div><div class="hoja-sub">'+ok.length+' puerta'+(ok.length===1?'':'s')+': '+escapar(resumenPuertas(ok))+'</div>'+
     (malos.length?'<div class="info-sello" style="margin-bottom:8px">⚠ '+malos.length+' puerta(s) quedan fuera. '+msg+'</div>':'')+
-    (tipo==='prog'?'<label class="etiqueta">Fecha programada para el trazado</label><input type="date" id="tkFecha" class="campo" value="'+hoyDia()+'">':'')+
+    (tipo==='prog'?'<label class="etiqueta">¿Para cuándo se necesita el frente liberado?</label><input type="date" id="tkFecha" class="campo" value="'+hoyDia()+'">':'')+
     (tipo==='lib'?'<label class="toggle-mini" style="margin:6px 0"><input type="checkbox" id="tkDesarme"> 🔨 Hubo que desarmar tabique para liberar el vano</label>':'')+
     '<label class="etiqueta">Nota '+(tipo==='obs'||tipo==='prob'?'(obligatoria)':'(opcional)')+'</label><textarea id="tkNota" class="campo" rows="3" placeholder="'+({prob:'Ej: falta retirar andamio, no hay energía, vano mal trazado…',obs:'Qué hay que corregir',lib:'Ej: trazo a 1 m NPT, ojo con cañería',inst:'Ej: anclajes químicos OK'}[tipo]||'')+'"></textarea>'+
     '<div class="lista-busca" style="max-height:28dvh">'+ok.map(g=>filaPuerta(PUE.get(g))).join('')+'</div>'+
@@ -834,7 +841,7 @@ document.addEventListener('click',async e=>{
   else if(a==='nombre')abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');
   else if(a==='nombreok'){const v=$('#inNombre').value.trim();if(v.length<2)return;estado.persona=v;await metaSet('persona',v);try{localStorage.setItem('obraflow_nombre',v);}catch(_){}cerrarHoja();pintarSaludo();renderTodo();toast('Hola, '+v,'ok');}
   else if(a==='salir'){await metaSet('kc',null);await metaSet('rol',null);location.reload();}});
-function pintarSaludo(){$('#subMarca').textContent='Coordinación · '+estado.persona;$('#chipRol').textContent={obra:'🏗️ Obra',trazador:'📐 Trazador',refuerzos:'🔩 Refuerzos'}[estado.rol];$('#btnFlujo').style.display=estado.rol==='obra'?'':'none';}
+function pintarSaludo(){$('#subMarca').textContent='Coordinación · '+estado.persona;$('#chipRol').textContent=CHIP[estado.rol]||estado.rol;$('#btnFlujo').style.display=estado.rol==='obra'?'':'none';}
 /* ---------------- acceso ---------------- */
 function mostrarAcceso(){$('#acceso').classList.add('visible');return new Promise(res=>{const go=async()=>{const pass=$('#accPass').value,nom=$('#accNombre').value.trim();
   if(nom.length<2){$('#accesoEstado').textContent='Escribe tu nombre';return;}if(!pass){$('#accesoEstado').textContent='Escribe tu clave';return;}
