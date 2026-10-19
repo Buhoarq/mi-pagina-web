@@ -553,7 +553,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
       </div>
     </div>
   </section>
-  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v5.9.1 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
+  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v5.9.2 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
 </div>
 
 <div id="acceso" class="visible">
@@ -890,8 +890,16 @@ async function cargarAvance(){
 async function entrar(){
   const pass=$('#accPass').value;if(!pass){$('#accEstado').textContent='Escribe la clave de obra';return;}
   $('#accEntrar').disabled=true;$('#accEstado').textContent='Verificando…';
-  try{INFO=await (await fetch('clave.json?t='+Date.now(),{cache:'no-store'})).json();CLAVE=await derivar(pass,INFO);
-    const chk=Uint8Array.from(atob(INFO.check),c=>c.charCodeAt(0));await descifrar(chk.buffer);}
+  try{INFO=await (await fetch('clave.json?t='+Date.now(),{cache:'no-store'})).json();const chk=Uint8Array.from(atob(INFO.check),c=>c.charCodeAt(0));
+    const probar=async p=>{try{CLAVE=await derivar(p,INFO);await descifrar(chk.buffer);return true;}catch(e){CLAVE=null;return false;}};
+    let ok=await probar(pass);
+    /* clave propia del coordinador (v5.9.2): panel_acceso.json guarda la clave de obra cifrada con ella; la clave nunca va escrita */
+    if(!ok){let acc=null;try{acc=await (await fetch('panel_acceso.json?t='+Date.now(),{cache:'no-store'})).json();}catch(e){}
+      for(const x of (acc&&acc.alt)||[]){try{const ka=await derivar(pass,x);const u=Uint8Array.from(atob(x.w),c=>c.charCodeAt(0));
+          const pl=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(0,12)},ka,u.slice(12));
+          const o=JSON.parse(await new Response(new Blob([pl]).stream().pipeThrough(new DecompressionStream('gzip'))).text());
+          if(o&&o.pass&&await probar(o.pass)){ok=true;break;}}catch(e){}}}
+    if(!ok)throw new Error('clave');}
   catch(e){$('#accEstado').textContent='Clave incorrecta';$('#accEntrar').disabled=false;return;}
   try{$('#accEstado').textContent='Abriendo modelo y avance…';
     cargarModelo(await descifrar(await (await fetch('modelo.enc')).arrayBuffer()));await cargarAvance();}
