@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiFlow v5.9.3 · Hospital de Coquimbo</title>
+<title>TabiFlow v5.10 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -459,7 +459,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M520 1080H1080V1130H520Z"/><path d="M560 760H700V1060H560Z"/><path d="M730 640H870V1060H730Z" opacity=".75"/><path d="M900 520H1040V1060H900Z" opacity=".5"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v5.9.3</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">v5.10</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -477,7 +477,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiFlow v5.9.3 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiFlow v5.10 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
@@ -617,7 +617,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v5.9.3</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">v5.10</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1050,7 +1050,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v5.9.3',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v5.10',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1944,6 +1944,21 @@ async function generarInforme(){
     tituloSec(c,'Avance acumulado por tipo de tabique');
     tablaPDF(c,[{t:'Tipo',w:22},{t:'Descripción',w:118},{t:'Composición',w:44},{t:'m2 modelo',w:24,r:true}].concat(FAM.map(e=>({t:e.corto,w:(c.W-208)/FAM.length,et:e.id,r:true}))),
       Object.keys(tipos).sort().map(k=>[k,M.tipos[k]||'',composicion(tipos[k].t),fmt0(tipos[k].A)].concat(FAM.map(e=>!tipos[k].fams.has(e.id)?'·':(tipos[k][e.id]?fmt0(tipos[k][e.id])+' · '+pct(tipos[k][e.id],tipos[k].A).toFixed(0)+'%':'0')))));
+    /* por piso y tipo (v5.10): m2 acumulados al corte y (+ m2 del periodo) por familia */
+    const prevDia=(()=>{const d=new Date(desde+'T12:00:00');d.setDate(d.getDate()-1);return d.toISOString().slice(0,10);})();
+    const fFam=(t,s,fm)=>{const st=t.seq.filter(x=>ET[x].fam===fm);return st.length?st.reduce((a,x)=>a+(s[x]?s[x].f:0),0)/st.length:0;};
+    tituloSec(c,'Avance por piso y tipo de tabique (m2 acumulados al '+diaLarga(hasta)+' · entre paréntesis lo del periodo)');
+    for(const n of nivs){const T={};n.tab.forEach(t=>{const o=T[t.t]=T[t.t]||{A:0,n:0,fams:new Set(),t,ac:{},pe:{}};o.A+=t.A;o.n++;
+        const s1=estadoAlCorte(t.g,hasta),s0=estadoAlCorte(t.g,prevDia);
+        famsDe(t).forEach(fm=>{o.fams.add(fm);const a=t.A*fFam(t,s1,fm),b=t.A*fFam(t,s0,fm);o.ac[fm]=(o.ac[fm]||0)+a;o.pe[fm]=(o.pe[fm]||0)+Math.max(0,a-b);});});
+      const ks=Object.keys(T).sort();if(!ks.length)continue;
+      const cel=(o,fm)=>!o.fams.has(fm)?'·':(o.ac[fm]>0?fmt0(o.ac[fm])+' · '+pct(o.ac[fm],o.A).toFixed(0)+'%'+(o.pe[fm]>=0.5?' (+'+fmt0(o.pe[fm])+')':''):'0');
+      const filasN=ks.map(k=>{const o=T[k];return [k,composicion(o.t),fmt0(o.n),fmt0(o.A)].concat(FAM.map(e=>cel(o,e.id)));});
+      const tot={A:0,n:0,fams:new Set(),ac:{},pe:{}};ks.forEach(k=>{const o=T[k];tot.A+=o.A;tot.n+=o.n;o.fams.forEach(f=>tot.fams.add(f));FAM.forEach(e=>{tot.ac[e.id]=(tot.ac[e.id]||0)+(o.ac[e.id]||0);tot.pe[e.id]=(tot.pe[e.id]||0)+(o.pe[e.id]||0);});});
+      const dA=fm=>ks.reduce((s,k)=>s+(T[k].fams.has(fm)?T[k].A:0),0);
+      const ft=['TOTAL '+n.id,'',fmt0(tot.n),fmt0(tot.A)].concat(FAM.map(e=>!tot.fams.has(e.id)?'·':(tot.ac[e.id]>0?fmt0(tot.ac[e.id])+' · '+pct(tot.ac[e.id],dA(e.id)).toFixed(1)+'%'+(tot.pe[e.id]>=0.5?' (+'+fmt0(tot.pe[e.id])+')':''):'0')));ft.total=true;filasN.push(ft);
+      if(c.y>c.lim-30)c.nueva();doc.setFont('helvetica','bold');doc.setFontSize(10.5);doc.setTextColor(...PT.osc);doc.text(etiquetaNivel(n)+' ('+n.id+')',c.M,c.y+4);c.y+=7;
+      tablaPDF(c,[{t:'Tipo',w:24},{t:'Composición',w:46},{t:'Tabiques',w:20,r:true},{t:'m2 modelo',w:24,r:true}].concat(FAM.map(e=>({t:e.corto+' m2 · % (+periodo)',w:(c.W-114)/FAM.length,et:e.id,r:true}))),filasN);}
     /* jornadas */
     /* producción del periodo por persona (sin duplicar) y jornadas */
     const cr=creditos().filter(({e})=>e.dia>=desde&&e.dia<=hasta&&nivs.some(n=>n.id===TAB[e.g].nv));
