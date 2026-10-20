@@ -5,7 +5,7 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
 
 ## Reglas (obligatorias)
 
-1. **Solo puedes modificar `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
+1. **Solo puedes modificar `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc`, `hormiflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
    `modelo.enc`, `clave.json`, ni nada en `tabiflow/herramientas/`. Esos archivos los mantiene Claude.
    Si algo de eso parece necesitar cambios, avísale a Renato en vez de cambiarlo.
 2. **Nunca escribas la clave de obra** en ningún archivo, commit, mensaje de commit ni log.
@@ -122,3 +122,16 @@ Desde el 19-10-2026 el mismo comando también guarda las fotos de los tickets (i
 ```bash
 git add puertaflow/coordavance.enc puertaflow/coordfotos.enc
 ```
+
+## HormiFlow (hormigón armado) · desde el 20-10-2026
+
+Los archivos que empiezan con `Avance_HormiFlow_` se consolidan aparte y solo tocan `hormiflow/avance.enc`:
+
+```bash
+python3 tabiflow/herramientas/consolidar_hormi.py unir --web hormiflow --clave-web tabiflow ../avances_recibidos/Avance_HormiFlow_*.json
+git add hormiflow/avance.enc
+git commit -m "Avance HormiFlow consolidado DD/MM/AAAA (nombres)"
+git push
+```
+
+Usa la misma `TABIFLOW_CLAVE`. No toques `hormiflow/hormi.enc` (lo mantiene Claude). Copia `consolidar_hormi.py` a `tabiflow/herramientas/` si aún no está.
