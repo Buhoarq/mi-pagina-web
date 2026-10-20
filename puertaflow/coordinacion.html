@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.8 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.9 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -562,7 +562,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.8 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.9 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -987,7 +987,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.8 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.9 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- estados de cada puerta (según el último ticket) ---------------- */
@@ -1084,14 +1084,7 @@ function textoTicket(t){const ps=t.g.map(g=>PUE.get(g)).filter(Boolean);const nv
   ps.slice(0,8).forEach(p=>s+='\n• '+p.t+' — '+recintos(p));if(ps.length>8)s+='\n• … y '+(ps.length-8)+' más';
   if(t.fecha)s+='\n📅 Se necesita para el '+diaCorta(t.fecha);if(t.desarme)s+='\n🔨 Se desarmó tabique para liberar el vano';if(t.cat)s+='\n🏷 '+t.cat;if(t.fotos&&t.fotos.length)s+='\n📷 '+t.fotos.length+' foto'+(t.fotos.length===1?'':'s')+' adjunta'+(t.fotos.length===1?'':'s');if(t.nota)s+='\n📝 '+t.nota;
   return s+'\n— '+t.por+' ('+ROL[t.rol].n+') · '+fechaHora(t.ts);}
-async function linkTicket(t){const u=await cifrar(KC,Object.assign({},t,t.fotos?{fotos:t.fotos.map(f=>({id:f.id}))}:{}));const s=b64(u).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');return location.origin+location.pathname+'#tk='+s;}
-const aBlob=d=>{const [h,b]=d.split(',');const u=Uint8Array.from(atob(b),c=>c.charCodeAt(0));return new Blob([u],{type:(h.match(/:(.*?);/)||[])[1]||'image/jpeg'});};
-async function compartirTicket(t){const url=await linkTicket(t);const txt=textoTicket(t)+'\n\nAbrir en PuertaFlow: '+url;
-  const fs=(t.fotos||[]).filter(f=>f.d).map((f,i)=>new File([aBlob(f.d)],'PuertaFlow_'+t.tipo+'_'+hoyDia()+'_'+(i+1)+'.jpg',{type:'image/jpeg'}));
-  try{if(fs.length&&navigator.canShare&&navigator.canShare({files:fs})){await navigator.share({title:'Ticket PuertaFlow',text:txt,files:fs});return;}
-    if(navigator.share){await navigator.share({title:'Ticket PuertaFlow',text:txt});if(fs.length)toast('Este teléfono no adjunta fotos al compartir: quedaron guardadas en el ticket y van en tu envío del día');return;}}catch(e){if(e&&e.name==='AbortError')return;}
-  if(fs.length)fs.forEach(f=>descargar(f,f.name));
-  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');}
+/* v0.9: los tickets ya no se comparten por enlace de WhatsApp entre el equipo; todo va al coordinador (recibirDesdeLink queda para enlaces antiguos) */
 async function recibirDesdeLink(){const m=location.hash.match(/#tk=([\w-]+)/);if(!m)return;history.replaceState(null,'',location.pathname);
   try{const s=m[1].replace(/-/g,'+').replace(/_/g,'/');const t=await descifrar(KC,deB64(s+'==='.slice((s.length+3)%4)).buffer);
     if(!estado.local.some(x=>x.id===t.id)&&!((estado.base&&estado.base.tickets)||[]).some(x=>x.id===t.id)){t.recibido=true;t.enviado=true;estado.local.push(t);await put('tickets',t);combinar();}
@@ -1099,7 +1092,7 @@ async function recibirDesdeLink(){const m=location.hash.match(/#tk=([\w-]+)/);if
     if(p){estado.sel=new Set(t.g);cambiarVista('planta');abrirNivel(p.nv);setTimeout(()=>abrirFichaTicket(t),300);}}
   catch(e){toast('No se pudo abrir el ticket (¿es de esta obra?)','error');}}
 async function anular(id){const t=estado.local.find(x=>x.id===id);if(!t||t.por!==estado.persona){toast('Solo puedes anular tus propios tickets','error');return;}
-  t.borrado=true;t.borradoTs=new Date().toISOString();t.enviado=false;await put('tickets',t);combinar();cerrarHoja();renderTodo();toast('Ticket anulado (avísale a quien se lo enviaste)');}
+  t.borrado=true;t.borradoTs=new Date().toISOString();t.enviado=false;await put('tickets',t);combinar();cerrarHoja();renderTodo();toast('Ticket anulado: la anulación va en tu próximo envío al coordinador');}
 /* ---------------- vistas ---------------- */
 function cambiarVista(v){estado.vista=v;$$('.vista').forEach(s=>s.classList.toggle('activa',s.id==='vista-'+v));$$('.pestana').forEach(b=>b.classList.toggle('activa',b.dataset.v===v));
   if(v==='planta'){if(!estado.nivel)abrirNivel((NIVELES.find(n=>n.id==='EP-N1')||NIVELES[0]).id);requestAnimationFrame(()=>{ajustarLienzo();render();});}
@@ -1124,7 +1117,7 @@ function renderTablero(){if(!PUE.size)return;const nom=(estado.persona||'').trim
   $('#tituloLista').textContent=estado.fEst?(estado.fEst==='prob'?'🚧 Puertas con problemas':estado.fEst==='rdi'?'📸 Puertas con interferencias para RDI':EST[estado.fEst].n):'⏳ Esperando tu acción';
   $('#lista').innerHTML=ls.length?ls.slice(0,300).map(filaPuerta).join('')+(ls.length>300?'<p class="nota">… y '+(ls.length-300)+' más (filtra por nivel)</p>':''):'<p class="nota" style="padding:10px 0">No hay puertas en este grupo.</p>';
   const dk=Object.keys(DIF);const avDif=estado.rol==='obra'&&dk.length?'<div class="info-sello" style="margin-bottom:8px">📋 La ficha oficial tiene más puertas que el modelo: '+dk.map(t=>'<b>'+t+'</b> '+DIF[t].ficha+' (modelo '+DIF[t].modelo+')').join(' · ')+'. Las que faltan no aparecen en la planta hasta actualizar el modelo.</div>':'';
-  const pen=pendientesEnvio();$('#avisoEnvio').innerHTML=avDif+(pen?'<div class="info-sello">📤 Tienes <b>'+pen+' ticket(s)</b> sin enviar a Oficina Técnica. Al terminar el día: menú ⋮ → "Enviar mis tickets del día".</div>':'');}
+  const pen=pendientesEnvio();$('#avisoEnvio').innerHTML=avDif+(pen?'<div class="info-sello">📤 Tienes <b>'+pen+' ticket(s)</b> sin enviar al coordinador. <button class="frac-btn" data-acc="enviar">Enviar ahora</button></div>':'');}
 function filaPuerta(p){const i=info(p.g),e=EST[i.est];const u=i.ult;return '<button class="fila-pu" data-ficha="'+p.g+'"><i class="sw" style="background:'+e.color+';border-color:'+e.color+'"></i><span class="tx"><b>'+escapar(p.t)+'</b> <small class="nv">'+corto(p.nv)+'</small> '+badges(p)+(i.prob?' <span class="bdg pr">🚧</span>':'')+(i.rdi&&i.rdi.length?' <span class="bdg ac">📸 '+i.rdi.length+'</span>':'')+
   '<small>'+escapar(recintos(p))+'</small></span><span class="ct">'+e.c+'<small>'+(u?diaCorta(u.dia)+' · '+diasDesde(u.ts)+' d':(i.prog&&i.prog.fecha?'📅 '+diaCorta(i.prog.fecha):''))+'</small></span></button>';}
 function renderTodo(){if(estado.vista==='tablero')renderTablero();if(estado.vista==='planta'){renderNiveles();renderBarraSel();render();}}
@@ -1184,7 +1177,7 @@ function abrirFicha(p){const i=info(p.g),t=TIPOS[p.t]||{};const R=ROL[estado.rol
     (FICHA?'<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin-bottom:8px"><button class="btn secundario" style="flex:1 1 45%" data-det="tipo:'+escapar(p.t)+'">📐 Detalle '+escapar(p.t)+'</button><button class="btn secundario" style="flex:1 1 45%" data-det="refuerzo">🔩 Detalle refuerzo</button><button class="btn secundario" style="flex:1 1 45%" data-det="marcos">🧱 Marcos en tabique</button><button class="btn secundario" style="flex:1 1 45%" data-det="ficha">📄 Ficha completa</button></div>':'')+
     '<div class="info-sello" style="background:#fff;border-color:'+EST[i.est].color+';color:var(--texto)"><b style="color:'+EST[i.est].color+'">● '+EST[i.est].n+'</b>'+(i.prog&&i.prog.fecha&&i.est==='prog'?'<br>📅 Se necesita para el '+diaCorta(i.prog.fecha):'')+(i.prob?'<br>🚧 <b>Problema:</b> '+escapar(i.prob.nota||'')+' ('+escapar(i.prob.por)+')':'')+(i.rdi&&i.rdi.length?'<br>📸 <b>'+i.rdi.length+' interferencia'+(i.rdi.length===1?'':'s')+' para RDI</b> (ver historial)':'')+'</div>'+
     '<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin:10px 0">'+R.tk.map(k=>'<button class="btn '+(k==='prob'?'secundario':'principal')+'" style="flex:1 1 45%" data-tk1="'+k+'" data-g="'+p.g+'">'+TK[k].ic+' '+TK[k].n+'</button>').join('')+'</div>'+
-    '<button class="btn secundario" style="width:100%" data-ir="'+p.g+'">📍 Ver en la planta</button>'+
+    '<button class="btn secundario" style="width:100%" data-ir="'+p.g+'">📍 Ver en la planta</button>'+(hist?'<button class="btn secundario" style="width:100%;margin-top:6px" data-histpdf="'+p.g+'">📄 Descargar historial de esta puerta (PDF con fotos)</button>':'')+
     (hist?'<label class="etiqueta" style="margin-top:12px">Historial de tickets</label><ul class="log">'+hist+'</ul>':'<p class="nota" style="margin-top:10px">Sin tickets todavía.</p>')+
     '<p class="nota" style="margin-top:10px;font-size:11px;word-break:break-all">ID Revit '+escapar(p.id||'—')+' · GUID '+escapar(p.g)+'</p>');pintarFotos();}
 function abrirFichaTicket(t){abrirHoja('<div class="hoja-titulo">'+TK[t.tipo].ic+' '+escapar(TK[t.tipo].n)+'</div><div class="hoja-sub">de <b>'+escapar(t.por)+'</b> ('+ROL[t.rol].n+') · '+fechaHora(t.ts)+'</div>'+
@@ -1206,12 +1199,14 @@ function abrirTicket(tipo,gs){gs=[...gs].filter(g=>PUE.has(g));if(!gs.length){to
     '<label class="etiqueta">'+(tipo==='rdi'?'Describe la interferencia (obligatoria)':'Nota '+(tipo==='obs'||tipo==='prob'?'(obligatoria)':'(opcional)'))+'</label><textarea id="tkNota" class="campo" rows="3" placeholder="'+({prob:'Ej: falta retirar andamio, no hay energía, vano mal trazado…',obs:'Qué hay que corregir',lib:'Ej: trazo a 1 m NPT, ojo con cañería',inst:'Ej: anclajes químicos OK',rdi:'Ej: bandeja eléctrica cruza el vano a 2,10 m; impide el dintel del refuerzo'}[tipo]||'')+'"></textarea>'+
     '<label class="etiqueta">📷 Fotos '+(tipo==='rdi'?'(recomendado)':'(opcional)')+' · se comprimen solas</label><div class="fotos-mini" id="tkFotos"></div><label class="btn secundario" style="display:block;text-align:center;margin:4px 0">📷 Tomar o agregar foto<input type="file" accept="image/*" capture="environment" id="tkFotoIn" multiple hidden></label>'+
     '<div class="lista-busca" style="max-height:28dvh">'+ok.map(g=>filaPuerta(PUE.get(g))).join('')+'</div>'+
-    (ok.length?'<button class="btn principal grande" style="width:100%;margin-top:10px" data-crear="'+tipo+'">Guardar y enviar por WhatsApp</button>':''));
+    (ok.length?'<button class="btn principal grande" style="width:100%;margin-top:10px" data-crear="'+tipo+'">Guardar ticket</button>':''));
   estado._tkGs=ok;estado._tkFotos=[];const fin=$('#tkFotoIn');if(fin)fin.onchange=async e=>{for(const f of [...e.target.files]){if(estado._tkFotos.length>=4){toast('Máximo 4 fotos por ticket');break;}try{estado._tkFotos.push(await comprimirFoto(f));}catch(x){toast('No se pudo leer la foto','error');}}e.target.value='';
     $('#tkFotos').innerHTML=estado._tkFotos.map((d,i)=>'<span class="fm"><img src="'+d+'"><button data-qfoto="'+i+'">✕</button></span>').join('');};}
 async function confirmarTicket(tipo){const nota=($('#tkNota').value||'').trim();if((tipo==='obs'||tipo==='prob'||tipo==='rdi')&&nota.length<3){toast(tipo==='rdi'?'Describe la interferencia':'Escribe la nota','error');return;}
   const ex={};if(nota)ex.nota=nota;if(tipo==='prog')ex.fecha=$('#tkFecha').value||hoyDia();if(tipo==='lib'&&$('#tkDesarme').checked)ex.desarme=true;if(tipo==='rdi')ex.cat=$('#tkCat').value;if(estado._tkFotos&&estado._tkFotos.length)ex.fotos=estado._tkFotos.map(d=>({id:uid(),d}));
-  const t=await crearTicket(tipo,estado._tkGs,ex);estado.sel.clear();estado.selModo=false;cerrarHoja();renderTodo();toast(TK[tipo].ic+' Ticket guardado','ok');await compartirTicket(t);}
+  const t=await crearTicket(tipo,estado._tkGs,ex);estado.sel.clear();estado.selModo=false;cerrarHoja();renderTodo();preguntarEnvio(t);}
+function preguntarEnvio(t){const pen=pendientesEnvio();abrirHoja('<div class="hoja-titulo">'+TK[t.tipo].ic+' Ticket guardado</div><div class="hoja-sub">Quedó guardado en este teléfono. Para que el coordinador lo publique y el resto del equipo lo vea, envíale tu paquete (archivo + informe PDF con las fotos).</div>'+
+  '<button class="btn principal grande" style="width:100%;margin-top:10px" data-acc="enviar">📤 Enviar ahora al coordinador · '+pen+' ticket'+(pen===1?'':'s')+'</button><button class="btn secundario" style="width:100%;margin-top:8px" data-acc="cerrar">Seguir trabajando y enviar después</button>');}
 /* ---------------- fotos comprimidas (≈1280 px, JPEG 70 %) ---------------- */
 async function comprimirFoto(file){const url=URL.createObjectURL(file);try{const img=await new Promise((ok,mal)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=mal;i.src=url;});
   const k=Math.min(1,1280/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
@@ -1219,7 +1214,7 @@ async function comprimirFoto(file){const url=URL.createObjectURL(file);try{const
 let FOTOS=null;
 async function fotosEquipo(){if(FOTOS)return FOTOS;try{FOTOS=(await descifrar(KC,await bajar('coordfotos.enc',true)))||{};}catch(e){FOTOS={};}return FOTOS;}
 async function fotoDe(id){for(const t of estado.local)for(const f of t.fotos||[])if(f.id===id&&f.d)return f.d;const F=await fotosEquipo();return F[id]||null;}
-function pintarFotos(){$$('img[data-foto]').forEach(async im=>{if(im.dataset.ok)return;im.dataset.ok=1;const d=await fotoDe(im.dataset.foto);if(d)im.src=d;else{im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto enviada por WhatsApp'}));}});}
+function pintarFotos(){$$('img[data-foto]').forEach(async im=>{if(im.dataset.ok)return;im.dataset.ok=1;const d=await fotoDe(im.dataset.foto);if(d)im.src=d;else{im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto todavía no publicada por el coordinador'}));}});}
 function verFoto(src){const v=$('#visor');$('#visorTitulo').textContent='Foto';$('#visorSub').textContent='Toca ＋ para acercar';const img=$('#visorImg');img.style.width='100%';img.dataset.z='1';img.src=src;v.classList.add('visible');}
 const htmlFotos=fs=>(fs&&fs.length)?'<div class="fotos-mini">'+fs.map(f=>'<img data-foto="'+f.id+'" alt="foto">').join('')+'</div>':'';
 /* ---------------- informe de interferencias para RDI (imprimible / PDF) ---------------- */
@@ -1242,7 +1237,7 @@ async function informeRDI(){const ts=ticketsTodos().filter(t=>!t.borrado&&t.tipo
         '<tr><td>Puerta</td><td>'+escapar(p.t)+' · '+escapar(ti.d||'')+' · '+escapar(ti.rf||'')+' · vano '+escapar(ti.vano||'—')+' mm</td></tr><tr><td>Recintos</td><td>'+escapar(recintos(p))+'</td></tr>'+
         '<tr><td>Estado del frente</td><td>'+escapar(EST[est(g)].n)+'</td></tr><tr><td>Informado por</td><td>'+escapar(t.por)+' ('+escapar(ROL[t.rol]?ROL[t.rol].n:t.rol)+') · '+fechaHora(t.ts)+'</td></tr>'+
         '<tr><td>ID Revit / GUID</td><td>'+escapar(p.id||'—')+' / '+escapar(p.g)+'</td></tr></table>'+
-        '<img class="plano" src="'+miniPlano(p)+'">'+(ims.length?'<div class="ims">'+ims.join('')+'</div>':(t.fotos&&t.fotos.length?'<p style="color:#64748B">📷 '+t.fotos.length+' foto(s) enviada(s) por WhatsApp</p>':''))+'</div>';}}
+        '<img class="plano" src="'+miniPlano(p)+'">'+(ims.length?'<div class="ims">'+ims.join('')+'</div>':(t.fotos&&t.fotos.length?'<p style="color:#64748B">📷 '+t.fotos.length+' foto(s) todavía no publicada(s)</p>':''))+'</div>';}}
   h+='</body></html>';progreso(null);const url=URL.createObjectURL(new Blob([h],{type:'text/html'}));const w=window.open(url,'_blank');if(!w)descargar(new Blob([h],{type:'text/html'}),'Interferencias_RDI_'+hoyDia()+'.html');}
 /* ---------------- detalle oficial (ficha vectorizada, va dentro de coord.enc) ---------------- */
 let visorURL=null;
@@ -1311,24 +1306,30 @@ async function pdfEstado(){progreso('Armando el informe de estado…');try{const
   const ts=ticketsTodos().filter(t=>!t.borrado&&t.dia>=sumarDiasISO(hoyDia(),-6)&&(!nv||t.g.some(g=>(PUE.get(g)||{}).nv===nv))).sort((a,b)=>a.ts.localeCompare(b.ts));
   const b=await pdfTickets(ts,'Estado de la coordinación',(nv?etqNivel(nv):'Todos los niveles')+' · puertas cortafuego de la ficha oficial. Planta por nivel con el color de cada puerta y, al final, los tickets de los últimos 7 días.',{resumen:true,planos:true,nivel:nv,filtro:nv?p=>p.nv===nv:null});
   progreso(null);await compartirVarios([new File([b],'Estado_Coordinacion_'+(nv||'HCQ')+'_'+hoyDia()+'.pdf',{type:'application/pdf'})],'Estado de la coordinación','Estado de la coordinación de refuerzos · '+diaCorta(hoyDia()));}catch(e){progreso(null);toast('No se pudo armar el PDF: '+e.message,'error');}}
+async function pdfHistorial(g){const p=PUE.get(g);if(!p)return;const i=info(g),t=TIPOS[p.t]||{};
+  const ts=ticketsTodos().filter(x=>!x.borrado&&x.g.includes(g)).sort((a,b)=>a.ts.localeCompare(b.ts));if(!ts.length){toast('Esta puerta no tiene tickets');return;}
+  progreso('Armando el historial de la puerta…');try{const sub='Puerta '+p.t+' · '+etqNivel(p.nv)+' · recintos: '+recintos(p).replace(/ ↔ /g,' / ')+(t.vano?' · vano '+t.vano+' · paso libre '+t.paso+' · '+t.rf:'')+'. Estado actual: '+EST[i.est].n+'. '+ts.length+' ticket(s) en orden cronológico, con notas, fotos y ubicación en planta. ID Revit '+(p.id||'-')+'.';
+    const b=await pdfTickets(ts,'Historial puerta '+p.t,sub);progreso(null);
+    await compartirVarios([new File([b],'Historial_'+String(p.t).replace(/[^\w-]+/g,'_')+'_'+corto(p.nv).replace(/[^\w-]+/g,'_')+'_'+(p.id||g.slice(0,8))+'_'+hoyDia()+'.pdf',{type:'application/pdf'})],'Historial puerta '+p.t,'Historial de la puerta '+p.t+' · '+corto(p.nv)+' · '+diaCorta(hoyDia()));}
+  catch(e){progreso(null);toast('No se pudo armar el PDF: '+e.message,'error');}}
 const sumarDiasISO=(d,n)=>{const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);};
-/* ---------------- envío diario a Oficina Técnica ---------------- */
+/* ---------------- envío al coordinador ---------------- */
 async function exportar(){const mios=estado.local.filter(t=>t.por===estado.persona&&!t.recibido);if(!mios.length){toast('Todavía no tienes tickets');return;}
   const d={app:'PuertaCoordHCQ',tipo:'tickets',ver:1,por:estado.persona,rol:estado.rol,disp:estado.disp,exportado:new Date().toISOString(),tickets:mios.map(t=>{const o=Object.assign({},t);delete o.enviado;return o;})};
   const ahora=new Date();const slug=(estado.persona||'persona').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Coord_PuertaFlow_'+slug+'_'+hoyDia()+'_'+String(ahora.getHours()).padStart(2,'0')+'h'+String(ahora.getMinutes()).padStart(2,'0')+'.json';
   const nuevos=mios.filter(t=>!t.enviado);const delDia=(nuevos.length?nuevos:mios.filter(t=>t.dia===hoyDia())).filter(t=>!t.borrado).sort((a,b)=>a.ts.localeCompare(b.ts));
   progreso('Armando el PDF de tus tickets…');let files=[new File([JSON.stringify(d)],nombre,{type:'application/json'})];
-  try{const b=await pdfTickets(delDia,'Mis tickets del día',estado.persona+' ('+(NOMR[estado.rol]||estado.rol)+') · '+diaLargaFecha(hoyDia())+' · '+delDia.length+' ticket(s). El archivo .json adjunto es el que se consolida; este PDF es para leerlo.');
+  try{const b=await pdfTickets(delDia,'Tickets para el coordinador',estado.persona+' ('+(NOMR[estado.rol]||estado.rol)+') · '+diaLargaFecha(hoyDia())+' · '+delDia.length+' ticket(s). El archivo .json adjunto es el que se consolida; este PDF es para leerlo.');
     files.push(new File([b],nombre.replace(/\.json$/,'.pdf'),{type:'application/pdf'}));}catch(e){toast('El PDF no se pudo armar; se envía solo el archivo','error');}
-  progreso(null);await compartirVarios(files,'Tickets PuertaFlow','Tickets de coordinación · '+estado.persona+' · '+diaCorta(hoyDia()));
+  progreso(null);await compartirVarios(files,'Tickets PuertaFlow para el coordinador','Para el coordinador · tickets de coordinación de '+estado.persona+' ('+(NOMR[estado.rol]||estado.rol)+') · '+diaCorta(hoyDia())+'. Adjunto el archivo .json (para publicar) y el informe PDF con las fotos.');
   for(const t of estado.local){if(!t.enviado){t.enviado=true;await put('tickets',t);}}renderTodo();}
 async function abrirArchivo(file){try{const d=JSON.parse(await file.text());if(d.app!=='PuertaCoordHCQ')throw new Error('no es un archivo de tickets de PuertaFlow');let n=0;
   for(const t of d.tickets||[]){if(estado.local.some(x=>x.id===t.id))continue;t.recibido=true;t.enviado=true;estado.local.push(t);await put('tickets',t);n++;}combinar();renderTodo();toast(n+' ticket(s) cargados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
 /* ---------------- menú y eventos ---------------- */
 function abrirMenu(){abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">PuertaFlow · Coordinación '+APP_VER+' · '+OBRA+' · '+ROL[estado.rol].n+' · por Renato Martínez Palominos</div>'+
-  '<button class="menu-item" data-acc="enviar">📤 Enviar mis tickets del día (archivo + PDF)</button><button class="menu-item" data-acc="pdfest">📊 Informe PDF del estado (plantas y tickets de la semana)</button><button class="menu-item" data-acc="rdi">🧾 Informe PDF de interferencias para RDI</button><button class="menu-item" data-acc="equipo">🔄 Actualizar coordinación</button>'+
+  '<button class="menu-item" data-acc="enviar">📤 Enviar al coordinador (archivo + informe PDF con fotos)</button><button class="menu-item" data-acc="pdfest">📊 Informe PDF del estado (plantas y tickets de la semana)</button><button class="menu-item" data-acc="rdi">🧾 Informe PDF de interferencias para RDI</button><button class="menu-item" data-acc="equipo">🔄 Actualizar coordinación</button>'+
   '<button class="menu-item" data-acc="abrir">📥 Abrir archivo de tickets</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
   (estado.rol==='obra'?'<a class="menu-item" href="index.html">🚪 Ir a PuertaFlow (avance de puertas)</a><a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a>':'')+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
@@ -1342,13 +1343,14 @@ document.addEventListener('click',async e=>{
   const an=e.target.closest('[data-anular]');if(an){await anular(an.dataset.anular);return;}
   const dt=e.target.closest('[data-det]');if(dt){abrirDetalle(dt.dataset.det);return;}
   const dl=e.target.closest('[data-acc="detalles"]');if(dl){abrirDetalles();return;}
+  const hp=e.target.closest('[data-histpdf]');if(hp){pdfHistorial(hp.dataset.histpdf);return;}
   const ir2=e.target.closest('[data-acc="rdi"]');if(ir2){pdfRDI();return;}
   const ip=e.target.closest('[data-acc="pdfest"]');if(ip){pdfEstado();return;}
   const ih=e.target.closest('[data-acc="rdihtml"]');if(ih){informeRDI();return;}
   const qf=e.target.closest('[data-qfoto]');if(qf){estado._tkFotos.splice(+qf.dataset.qfoto,1);qf.parentElement.remove();$$('#tkFotos [data-qfoto]').forEach((b,i)=>b.dataset.qfoto=i);return;}
   const fo=e.target.closest('img[data-foto],.fm img');if(fo&&fo.src){verFoto(fo.src);return;}
   const b=e.target.closest('[data-acc]');if(!b)return;const a=b.dataset.acc;
-  if(a==='enviar'){cerrarHoja();exportar();}else if(a==='equipo'){cerrarHoja();cargarEquipo(true);}else if(a==='abrir'){cerrarHoja();$('#inputArchivo').click();}
+  if(a==='enviar'){cerrarHoja();exportar();}else if(a==='cerrar'){cerrarHoja();}else if(a==='equipo'){cerrarHoja();cargarEquipo(true);}else if(a==='abrir'){cerrarHoja();$('#inputArchivo').click();}
   else if(a==='limpiar'){estado.sel.clear();renderBarraSel();render();}
   else if(a==='nombre')abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');
   else if(a==='nombreok'){const v=$('#inNombre').value.trim();if(v.length<2)return;estado.persona=v;await metaSet('persona',v);try{localStorage.setItem('obraflow_nombre',v);}catch(_){}cerrarHoja();pintarSaludo();renderTodo();toast('Hola, '+v,'ok');}
