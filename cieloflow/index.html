@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>CieloFlow v0.3 β · Hospital de Coquimbo</title>
+<title>CieloFlow v0.4 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -532,7 +532,7 @@ html.oscuro .rec{stroke:#0F172A}
 #planoWrap{flex:1;min-height:0;position:relative;overflow:hidden;background:#EEF2F7;touch-action:none}
 html.oscuro #planoWrap{background:#0F172A}
 #lienzo{position:absolute;left:0;top:0;display:block;touch-action:none;transform-origin:0 0}
-#leyenda{position:absolute;left:8px;bottom:8px;z-index:5;display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.94);border:1px solid var(--linea);border-radius:10px;padding:6px 8px;font-size:11px;font-weight:700;color:var(--cuerpo);max-width:70%}
+#leyenda{position:absolute;left:8px;bottom:8px;max-height:46%;overflow:auto;z-index:5;display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.94);border:1px solid var(--linea);border-radius:10px;padding:6px 8px;font-size:11px;font-weight:700;color:var(--cuerpo);max-width:70%}
 html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
 #leyenda .lg{display:flex;align-items:center;gap:6px;padding:3px 4px;border-radius:6px;text-align:left;font-size:11px;font-weight:700;color:inherit}
 #leyenda .lg.on{background:var(--panel2);outline:1px solid var(--primario-osc)}
@@ -552,6 +552,21 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
 #inicioBuscar{flex:1;min-width:0;margin:0}
 #inicioBuscarBtn{width:auto;flex:none;padding:0 16px}
+
+#infoCielo{position:absolute;left:8px;right:8px;bottom:8px;z-index:7;background:var(--panel);border:1px solid var(--linea);border-radius:16px;box-shadow:var(--sombra-md);padding:10px 12px;display:none}
+#infoCielo.visible{display:block}
+#infoCielo .ic-top{display:flex;gap:10px;align-items:center}
+#infoCielo .ic-top i{width:14px;align-self:stretch;border-radius:5px;flex:none;min-height:34px}
+#infoCielo .ic-top>div{flex:1;min-width:0}
+#infoCielo .ic-t{display:block;font-size:17px;color:var(--texto)}
+#infoCielo .ic-top span{font-size:12px;color:var(--tenue);display:block}
+#infoCielo .ic-x{flex:none;width:34px;height:34px;border-radius:10px;border:1px solid var(--linea);font-weight:800}
+#infoCielo .ic-g{display:grid;grid-template-columns:1.2fr 1fr .8fr;gap:6px;margin:8px 0}
+#infoCielo .ic-g>div{background:var(--panel2);border-radius:10px;padding:7px 8px}
+#infoCielo .ic-g span{display:block;font-size:9.5px;font-weight:800;color:var(--tenue);letter-spacing:.05em}
+#infoCielo .ic-g b{font-size:17px;color:var(--texto)}
+#infoCielo .ic-r{font-size:12px;color:var(--cuerpo)}
+#infoCielo .ic-b{width:100%;justify-content:center;margin-top:8px;padding:8px}
 .buscar-sup{padding:10px 12px 4px}
 </style>
 </head>
@@ -560,7 +575,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.3 β</span></span>
+      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.4 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -589,6 +604,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
     <div class="barra-chips" id="chipsModo"></div>
     <div id="planoWrap"><canvas id="lienzo"></canvas>
       <div id="leyenda"></div>
+      <div id="infoCielo"></div>
       <button class="btn-flot" id="btnEncuadrar" style="top:10px" aria-label="Ver todo">⤢</button>
     </div>
   </section>
@@ -601,7 +617,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumen</span></button>
 </nav>
-<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.3 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.4 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -625,7 +641,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.3 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.4 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -668,7 +684,7 @@ async function bajar(url,fresco){const r=await fetch(url+(fresco?('?t='+Date.now
 async function infoClave(){return (await fetch(RUTA_TABI+'clave.json?t='+Date.now(),{cache:'no-store'}).catch(()=>caches.match(RUTA_TABI+'clave.json'))||await caches.match(RUTA_TABI+'clave.json')).json();}
 async function verificar(key){const info=await infoClave();await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer);return key;}
 /* ---------------- estado ---------------- */
-const estado={persona:'',disp:'',vista:'inicio',nv:null,modo:'alt',fBin:null,fTipo:'',q:'',orden:'alt',lim:120,sel:null};
+const estado={persona:'',disp:'',vista:'inicio',nv:null,modo:'alt',fH:null,fTipo:'',q:'',orden:'alt',lim:120,sel:null};
 let CLAVE=null,MOD=null,REC=new Map(),NIV=[];
 const fm=(n,d)=>(n==null?'—':(Math.round(n*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('es-CL',{minimumFractionDigits:d,maximumFractionDigits:d}));
 const m2=n=>fm(n,2),h2=n=>n==null?'—':fm(n,2)+' m';
@@ -676,16 +692,19 @@ const norm=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(
 /* altura de cielo de un recinto: el cielo que cubre más superficie; si hay varios niveles se muestra el principal y se avisa */
 const hDom=r=>r.c.length?r.c[0].h:null;
 const hDist=r=>[...new Set(r.c.map(c=>Math.round(c.h*20)/20))].sort((a,b)=>a-b);
-const BINS=[{k:0,n:'Menos de 2,40 m',c:'#DC2626',f:h=>h<2.4},{k:1,n:'2,40 a 2,59 m',c:'#F59E0B',f:h=>h>=2.4&&h<2.6},{k:2,n:'2,60 a 2,89 m',c:'#16A34A',f:h=>h>=2.6&&h<2.9},{k:3,n:'2,90 a 3,19 m',c:'#0EA5E9',f:h=>h>=2.9&&h<3.2},{k:4,n:'3,20 m o más',c:'#7C3AED',f:h=>h>=3.2}];
 const SIN={n:'Sin cielo modelado',c:'#CBD5E1'};
-const binDe=r=>{const h=hDom(r);if(h==null)return -1;return BINS.find(b=>b.f(h)).k;};
-const colBin=r=>{const b=binDe(r);return b<0?SIN.c:BINS[b].c;};
+const PALH=['#16A34A','#2563EB','#F59E0B','#DC2626','#7C3AED','#0EA5E9','#DB2777','#0F766E','#CA8A04','#64748B','#EA580C','#84CC16'];
+let HCOL=new Map(),HLIST=[];const kh=h=>Math.round(h*100);
+function prepAlturas(){const m=new Map();MOD.rec.forEach(r=>{const rs=new Set();r.c.forEach(c=>{const k=kh(c.h);const e=m.get(k)||{h:c.h,a:0,z:0,r:new Set()};e.a+=c.a;e.z++;e.r.add(r.g);m.set(k,e);});});
+  HLIST=[...m.values()].sort((x,y)=>y.a-x.a);HCOL=new Map();HLIST.forEach((e,i)=>HCOL.set(kh(e.h),PALH[i%PALH.length]));HLIST.forEach(e=>e.n=e.r.size);}
+const colH=h=>HCOL.get(kh(h))||'#94A3B8';
+const colBin=r=>r.c.length?colH(hDom(r)):SIN.c;
 const PAL=['#2563EB','#0EA5E9','#16A34A','#F59E0B','#DC2626','#7C3AED','#DB2777','#0F766E','#64748B','#CA8A04','#9333EA','#EA580C'];
 let TIPOS=[];const colTipo=t=>{const i=TIPOS.findIndex(x=>x.t===t);return i<0?'#94A3B8':PAL[i%PAL.length];};
 const nomNivel=id=>{const n=NIV.find(x=>x.id===id);return n&&n.nombre&&n.nombre!==id?id+' · '+n.nombre:id;};
 const cota=(r,c)=>{const n=NIV.find(x=>x.id===r.nv);return c.z-(n?n.z:0);};
 function modo(r){/* tipo de cielo principal */return r.c.length?r.c[0].t:'';}
-function preparar(){MOD.rec=[];MOD.niveles.forEach(n=>n.rec.forEach(r=>{r.nv=n.id;MOD.rec.push(r);}));REC=new Map();MOD.rec.forEach(r=>REC.set(r.g,r));NIV=MOD.niveles.filter(n=>n.rec.length);
+function preparar(){MOD.rec=[];MOD.niveles.forEach(n=>n.rec.forEach(r=>{r.nv=n.id;MOD.rec.push(r);}));REC=new Map();MOD.rec.forEach(r=>REC.set(r.g,r));prepAlturas();NIV=MOD.niveles.filter(n=>n.rec.length);
   const t={};MOD.rec.forEach(r=>r.c.forEach(c=>{const k=c.t;if(!t[k])t[k]={t:k,d:c.d,a:0,n:new Set()};t[k].a+=c.a;t[k].n.add(r.g);}));
   TIPOS=Object.values(t).sort((a,b)=>b.a-a.a).map(x=>({t:x.t,d:x.d,a:x.a,n:x.n.size}));}
 const recs=nv=>MOD.rec.filter(r=>!nv||r.nv===nv);
@@ -725,10 +744,9 @@ function encuadrarPlano(bb){const n=prepNivel(estado.nv);if(!n)return;const w=wr
   V.s=Math.min((W-2*m)/bw,(H-2*m)/bh);V.tx=(W-bw*V.s)/2-bb[0]*V.s;V.ty=(H-bh*V.s)/2-bb[1]*V.s;pedirR();}
 function pedirR(){if(rafR)return;rafR=requestAnimationFrame(()=>{rafR=0;dibujar();});}
 function colorR(q){const r=q.r;if(!r)return null;if(estado.modo==='tipo')return r.c.length?colTipo(r.c[0].t):SIN.c;return colBin(r);}
-const binH=h=>BINS.find(b=>b.f(h)).k;
-function colorZ(z){return estado.modo==='tipo'?colTipo(z.c.t):BINS[binH(z.c.h)].c;}
-function activoZ(z){return estado.modo==='tipo'?(!estado.fTipo||z.c.t===estado.fTipo):(estado.fBin==null||binH(z.c.h)===estado.fBin);}
-function activoR(q){const r=q.r;if(!r)return false;if(estado.modo==='tipo')return !estado.fTipo||(r.c.length&&r.c[0].t===estado.fTipo);return estado.fBin==null||binDe(r)===estado.fBin;}
+function colorZ(z){return estado.modo==='tipo'?colTipo(z.c.t):colH(z.c.h);}
+function activoZ(z){return estado.modo==='tipo'?(!estado.fTipo||z.c.t===estado.fTipo):(estado.fH==null||kh(z.c.h)===estado.fH);}
+function activoR(q){const r=q.r;if(!r)return false;if(estado.modo==='tipo')return !estado.fTipo||(r.c.length&&r.c[0].t===estado.fTipo);return estado.fH==null||(r.c.length&&r.c.some(c=>kh(c.h)===estado.fH));}
 function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;const c=lienzo(),ctx=c.getContext('2d'),dpr=c.width/c.clientWidth;
   const osc=document.documentElement.classList.contains('oscuro');ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=osc?'#0F172A':'#EEF2F7';ctx.fillRect(0,0,c.width,c.height);
   ctx.setTransform(dpr*V.s,0,0,dpr*V.s,dpr*V.tx,dpr*V.ty);const px=1/V.s;
@@ -746,7 +764,7 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
   const fz=Math.min(13,Math.max(9,V.s*30));
   ctx.lineJoin='round';ctx.font='800 '+fz+'px Inter,system-ui,sans-serif';
   n.Z.forEach(z=>{if(!vis(z.bb)||!activoZ(z))return;const wpx=(z.bb[2]-z.bb[0])*V.s,hpx=(z.bb[3]-z.bb[1])*V.s;if(wpx<38||hpx<15)return;
-    const t1=estado.modo==='tipo'?z.c.t:fm(z.c.h,2);const x=sx((z.bb[0]+z.bb[2])/2),y=sy((z.bb[1]+z.bb[3])/2);
+    const t1=estado.modo==='tipo'?(wpx>78?z.c.t+' · '+fm(z.c.h,2):z.c.t):fm(z.c.h,2);const x=sx((z.bb[0]+z.bb[2])/2),y=sy((z.bb[1]+z.bb[3])/2);
     ctx.lineWidth=3;ctx.strokeStyle=osc?'#0F172A':'#fff';ctx.fillStyle=osc?'#F8FAFC':'#0F172A';ctx.strokeText(t1,x,y);ctx.fillText(t1,x,y);});
   if(V.s*100>=9)n.R.forEach(q=>{if(!vis(q.bb)||!q.ln||q.d.length!==1||q.r.c.length!==1)return;const wpx=(q.bb[2]-q.bb[0])*V.s,hpx=(q.bb[3]-q.bb[1])*V.s;if(wpx<90||hpx<34)return;
     let nm=q.ln;ctx.font='600 '+Math.max(8,fz-2)+'px Inter,system-ui,sans-serif';const mw=wpx-6;while(nm.length>3&&ctx.measureText(nm).width>mw)nm=nm.slice(0,-2);if(nm!==q.ln)nm=nm.trim()+'…';ctx.lineWidth=2.5;ctx.strokeStyle=osc?'#0F172A':'#fff';ctx.fillStyle=osc?'#94A3B8':'#475569';
@@ -760,8 +778,8 @@ function recEn(mx,my){const n=prepNivel(estado.nv);if(!n)return null;let m=null;
 function chipsPlano(){$('#chipsNivel').innerHTML=NIV.map(n=>'<button class="chipf'+(estado.nv===n.id?' on':'')+'" data-pnv="'+n.id+'">'+escapar(n.id)+'</button>').join('');
   $('#chipsModo').innerHTML=[['alt','Altura de cielo'],['tipo','Tipo de cielo']].map(([k,n])=>'<button class="chipf'+(estado.modo===k?' on':'')+'" data-modo="'+k+'">'+n+'</button>').join('');}
 function leyendaPlano(){const L=$('#leyenda');if(!L)return;const R=recs(estado.nv);let h='';
-  if(estado.modo==='alt'){const c=BINS.map(()=>0);let sin=0;R.forEach(r=>{const b=binDe(r);if(b<0)sin++;else c[b]++;});
-    h='<b>Altura del cielo</b>'+BINS.map(b=>'<button class="lg'+(estado.fBin===b.k?' on':'')+'" data-bin="'+b.k+'"><i style="background:'+b.c+'"></i>'+b.n+' <small>'+c[b.k]+'</small></button>').join('')+'<span class="lg"><i style="background:#fff;border:1px solid #CBD5E1"></i>'+SIN.n+' <small>'+sin+'</small></span>';}
+  if(estado.modo==='alt'){const m=new Map();let sin=0;R.forEach(r=>{if(!r.c.length)sin++;r.c.forEach(c=>{const k=kh(c.h);const e=m.get(k)||{h:c.h,a:0};e.a+=c.a;m.set(k,e);});});
+    h='<b>Altura exacta del cielo</b>'+[...m.entries()].sort((x,y)=>x[0]-y[0]).map(([k,e])=>'<button class="lg'+(estado.fH===k?' on':'')+'" data-h="'+k+'"><i style="background:'+colH(e.h)+'"></i><b>'+fm(e.h,2)+' m</b> <small>'+fm(e.a,0)+' m²</small></button>').join('')+'<span class="lg"><i style="background:#fff;border:1px solid #CBD5E1"></i>'+SIN.n+' <small>'+sin+' rec.</small></span>';}
   else{const c={};R.forEach(r=>{const t=modo(r);c[t]=(c[t]||0)+1;});h='<b>Tipo de cielo</b>'+Object.entries(c).filter(([t])=>t).sort((a,b)=>b[1]-a[1]).map(([t,n])=>'<button class="lg'+(estado.fTipo===t?' on':'')+'" data-tipof="'+escapar(t)+'"><i style="background:'+colTipo(t)+'"></i>'+escapar(t)+' <small>'+n+'</small></button>').join('')+'<span class="lg"><i style="background:#fff;border:1px solid #CBD5E1"></i>'+SIN.n+' <small>'+(c['']||0)+'</small></span>';}
   L.innerHTML=h;}
 const punteros=new Map();let gesto=null,ligado=false;
@@ -779,8 +797,17 @@ function enlazarPlano(){if(ligado)return;ligado=true;const w=wrapP();
   w.addEventListener('wheel',e=>{e.preventDefault();const r=w.getBoundingClientRect();zoomEn(e.deltaY>0?1/1.18:1.18,e.clientX-r.left,e.clientY-r.top);},{passive:false});}
 function zoomEn(f,px,py){const s2=Math.max(0.004,Math.min(4,V.s*f));const k=s2/V.s;V.tx=px-(px-V.tx)*k;V.ty=py-(py-V.ty)*k;V.s=s2;pedirR();}
 function zonaEn(mx,my){const n=prepNivel(estado.nv);if(!n)return null;let m=null;n.Z.forEach(z=>{if(mx<z.bb[0]||mx>z.bb[2]||my<z.bb[1]||my>z.bb[3])return;if(z.p.some(p=>dentroP(mx,my,p))&&(!m||z.area<m.area))m=z;});return m;}
-function seleccionarEn(mx,my){const z=zonaEn(mx,my);if(z){estado.selZ=z;estado.sel=z.r.g;pedirR();fichaRec(z.r.g,false,z.q.d,z.c);return;}estado.selZ=null;const q=recEn(mx,my);if(!q){estado.sel=null;pedirR();return;}estado.sel=q.d.length?q.d[0].g:null;pedirR();
-  if(q.d.length)fichaRec(q.d[0].g,false,q.d);else abrirHoja('<div class="hoja-titulo">'+escapar(q.n||'')+' · '+escapar(q.ln||'Sin nombre')+'</div><div class="info-sello">Este recinto del plano no tiene datos de cielo en el modelo de interiores.</div>');}
+function cerrarInfo(){const p=$('#infoCielo');if(p)p.classList.remove('visible');$('#leyenda').style.display='';estado.selZ=null;estado.sel=null;pedirR();}
+function infoCielo(z,q){const p=$('#infoCielo');if(!p)return;const r=z?z.r:(q&&q.r),c=z?z.c:null;
+  let h;if(c){h='<div class="ic-top"><i style="background:'+colorZ(z)+'"></i><div><b class="ic-t">'+escapar(c.t)+'</b><span>'+escapar(c.d)+'</span></div><button class="ic-x" data-acc="cerrarinfo" aria-label="Cerrar">✕</button></div>'+
+    '<div class="ic-g"><div><span>ALTURA DEL CIELO</span><b>'+h2(c.h)+'</b></div><div><span>SUPERFICIE</span><b>'+m2(c.a)+' m²</b></div><div><span>COTA</span><b>'+fm(cota(r,c),2)+' m</b></div></div>'+
+    '<div class="ic-r">📍 <b>'+escapar(r.n)+' · '+escapar(r.l||'Sin nombre')+'</b> · '+escapar(r.nv)+' · '+m2(r.A)+' m²'+(r.c.length>1?' · <span>'+r.c.length+' cielos en este recinto</span>':'')+'</div>';}
+  else if(r){h='<div class="ic-top"><i style="background:'+SIN.c+';border:1px solid #CBD5E1"></i><div><b class="ic-t">Sin cielo modelado</b><span>'+escapar(r.n)+' · '+escapar(r.l||'Sin nombre')+' · '+escapar(r.nv)+'</span></div><button class="ic-x" data-acc="cerrarinfo" aria-label="Cerrar">✕</button></div><div class="ic-r">Superficie '+m2(r.A)+' m² · altura piso–losa '+h2(r.z1-r.z0)+(r.cod==='SR'?' · ficha: SR (sin revestimiento)':'')+'</div>';}
+  else{h='<div class="ic-top"><div><b class="ic-t">'+escapar(q.n||'')+' · '+escapar(q.ln||'Sin nombre')+'</b><span>Recinto del plano sin datos en el modelo de interiores</span></div><button class="ic-x" data-acc="cerrarinfo" aria-label="Cerrar">✕</button></div>';}
+  if(r)h+='<button class="btn secundario ic-b" data-fr="'+r.g+'">Ver ficha completa del recinto</button>';
+  p.innerHTML=h;p.classList.add('visible');$('#leyenda').style.display='none';}
+function seleccionarEn(mx,my){const z=zonaEn(mx,my);if(z){estado.selZ=z;estado.sel=z.r.g;pedirR();infoCielo(z,z.q);return;}estado.selZ=null;const q=recEn(mx,my);
+  if(!q){cerrarInfo();return;}estado.sel=q.d.length?q.d[0].g:null;pedirR();infoCielo(null,q);}
 function seleccionar(g){estado.sel=g;estado.selZ=null;pedirR();}
 /* ----- ficha de recinto ----- */
 function fichaRec(g,desdeLista,otros,toc){const r=REC.get(g);if(!r)return;const ds=hDist(r);
@@ -795,7 +822,7 @@ function fichaRec(g,desdeLista,otros,toc){const r=REC.get(g);if(!r)return;const 
    (otros&&otros.length>1?'<div class="nota" style="margin-top:10px"><b>Otros recintos dentro de este polígono del plano</b></div><table class="prog-matriz tabla-et">'+otros.slice(1).map(o=>'<tr class="click" data-fr="'+o.g+'"><td style="text-align:left">'+escapar(o.n)+' · '+escapar(o.l||'—')+'</td><td><b>'+(o.c.length?h2(hDom(o)):'sin cielo')+'</b></td></tr>').join('')+'</table>':'')+
    (desdeLista?'<button class="btn secundario" data-ver="'+g+'" style="width:100%;margin-top:10px;justify-content:center">🗺️ Ver en la planta</button>':'')+
    '<p class="nota" style="margin-top:10px;font-size:11px;word-break:break-all">GUID '+escapar(g)+'</p>');}
-function verEnPlano(g){const r=REC.get(g);if(!r)return;cerrarHoja();estado.nv=r.nv;estado.fBin=null;estado.fTipo='';estado.sel=g;cambiarVista('plano');
+function verEnPlano(g){const r=REC.get(g);if(!r)return;cerrarHoja();estado.nv=r.nv;estado.fH=null;estado.fTipo='';estado.sel=g;cambiarVista('plano');
   setTimeout(()=>{const n=prepNivel(r.nv);const q=n&&n.R.find(x=>x.d.includes(r));if(!q)return;const w=wrapP();const W=w.clientWidth,H=w.clientHeight;
     const cw=Math.max((q.bb[2]-q.bb[0])*4,900),ch=cw*H/W;encuadrarPlano([q.c[0]-cw/2,q.c[1]-ch/2,q.c[0]+cw/2,q.c[1]+ch/2]);},150);}
 /* ----- buscar ----- */
@@ -815,8 +842,8 @@ function renderResumen(){if(!MOD)return;
   const filaT=t=>{const hs=[];MOD.rec.forEach(r=>r.c.forEach(c=>{if(c.t===t.t)hs.push(c.h);}));hs.sort((a,b)=>a-b);return '<tr><td><b style="color:'+colTipo(t.t)+'">'+escapar(t.t)+'</b><div class="nota">'+escapar(t.d)+'</div></td><td>'+fm(t.n,0)+'</td><td>'+fm(t.a,0)+'</td><td>'+fm(hs[0],2)+'</td><td><b>'+fm(moda(hs),2)+'</b></td><td>'+fm(hs[hs.length-1],2)+'</td></tr>';};
   const sin=MOD.rec.filter(r=>!r.c.length),sinSR=sin.filter(r=>r.cod==='SR').length,sinCod=sin.filter(r=>!r.cod).length,sinOtro=sin.length-sinSR-sinCod;
   const dif=MOD.rec.filter(r=>r.c.length&&r.cod&&r.cod!=='SR'&&r.c[0].t!==r.cod);
-  const hist=BINS.map(b=>({b,n:MOD.rec.filter(r=>binDe(r)===b.k).length}));const mx=Math.max(1,...hist.map(x=>x.n));
-  $('#resumenCont').innerHTML='<div class="tarjeta"><h3>📏 Recintos por altura de cielo</h3>'+hist.map(x=>'<div class="hbar" style="grid-template-columns:120px 1fr 44px"><span>'+x.b.n+'</span><div class="mini-prog ancha" style="--c:'+x.b.c+'"><i style="width:'+(100*x.n/mx)+'%"></i></div><b>'+fm(x.n,0)+'</b></div>').join('')+'<div class="hbar" style="grid-template-columns:120px 1fr 44px"><span>Sin cielo modelado</span><div class="mini-prog ancha" style="--c:'+SIN.c+'"><i style="width:'+(100*sin.length/mx)+'%"></i></div><b>'+fm(sin.length,0)+'</b></div></div>'+
+  const mx=Math.max(1,...HLIST.map(x=>x.a));
+  $('#resumenCont').innerHTML='<div class="tarjeta"><h3>📏 Alturas exactas de cielo</h3><p class="nota" style="margin-bottom:6px">Superficie de cielo a cada altura (sobre el piso del recinto) y cuántos recintos la tienen. Hay <b>'+fm(sin.length,0)+'</b> recintos sin cielo modelado.</p>'+HLIST.slice().sort((x,y)=>x.h-y.h).map(x=>'<div class="hbar" style="grid-template-columns:70px 1fr 110px"><span><b>'+fm(x.h,2)+' m</b></span><div class="mini-prog ancha" style="--c:'+colH(x.h)+'"><i style="width:'+(100*x.a/mx)+'%"></i></div><b>'+fm(x.a,0)+' m² · '+fm(x.n,0)+' rec.</b></div>').join('')+'</div>'+
    '<div class="tarjeta"><h3>🧱 Por tipo de cielo</h3><table class="prog-matriz tabla-et"><tr><th style="text-align:left">Tipo</th><th>Recintos</th><th>m²</th><th>Mín.</th><th>Típica</th><th>Máx.</th></tr>'+TIPOS.map(filaT).join('')+'</table></div>'+
    '<div class="tarjeta"><h3>ℹ Para revisar</h3><ul class="log"><li><b>'+fm(sinSR,0)+'</b> recintos con ficha <b>SR</b> (sin revestimiento de cielo)</li><li><b>'+fm(sinCod,0)+'</b> recintos sin cielo indicado ni modelado</li><li><b>'+fm(sinOtro,0)+'</b> recintos con cielo indicado en la ficha pero sin cielo modelado</li><li><b>'+fm(dif.length,0)+'</b> recintos donde el cielo modelado difiere del indicado en la ficha</li><li><b>'+fm(MOD.rec.filter(r=>hDist(r).length>1).length,0)+'</b> recintos con cielos a más de una altura (marcados con *)</li></ul></div>'+
    '<div class="tarjeta"><button class="btn principal grande" data-acc="csv">📑 Descargar planilla (CSV para Excel)</button></div>';}
@@ -829,15 +856,16 @@ function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="n
   '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a><button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
 document.addEventListener('click',async e=>{const t=e.target;let b;
   if((b=t.closest('[data-pnv]'))){estado.nv=b.dataset.pnv;estado.sel=null;renderPlano();return;}
-  if((b=t.closest('[data-modo]'))){estado.modo=b.dataset.modo;estado.fBin=null;estado.fTipo='';chipsPlano();pintarPlano();return;}
-  if((b=t.closest('[data-bin]'))){const k=+b.dataset.bin;estado.fBin=estado.fBin===k?null:k;pintarPlano();return;}
+  if((b=t.closest('[data-modo]'))){estado.modo=b.dataset.modo;estado.fH=null;estado.fTipo='';chipsPlano();pintarPlano();return;}
+  if((b=t.closest('[data-h]'))){const k=+b.dataset.h;estado.fH=estado.fH===k?null:k;pintarPlano();return;}
   if((b=t.closest('[data-tipof]'))){const k=b.dataset.tipof;estado.fTipo=estado.fTipo===k?'':k;pintarPlano();return;}
-  if((b=t.closest('[data-nv]'))){estado.nv=b.dataset.nv;estado.fBin=null;estado.fTipo='';cambiarVista('plano');return;}
+  if((b=t.closest('[data-nv]'))){estado.nv=b.dataset.nv;estado.fH=null;estado.fTipo='';cambiarVista('plano');return;}
   if((b=t.closest('[data-fr]'))){fichaRec(b.dataset.fr,true);return;}
   if((b=t.closest('[data-ver]'))){verEnPlano(b.dataset.ver);return;}
   if((b=t.closest('[data-mas]'))){estado.lim+=200;pintarLista();return;}
   b=t.closest('[data-acc]');if(!b)return;const a=b.dataset.acc;
   if(a==='csv'){cerrarHoja();exportarCSV();}
+  else if(a==='cerrarinfo'){cerrarInfo();}
   else if(a==='nombre')abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');
   else if(a==='nombreok'){const v=$('#inNombre').value.trim();if(v.length<2)return;estado.persona=v;await metaSet('persona',v);try{localStorage.setItem('obraflow_nombre',v);}catch(_){}cerrarHoja();$('#subMarca').textContent=OBRA+' · '+v;renderInicio();toast('Hola, '+v,'ok');}
   else if(a==='salir'){await metaSet('clave',null);location.reload();}});
