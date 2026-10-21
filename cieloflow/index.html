@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>CieloFlow v0.1 β · Hospital de Coquimbo</title>
+<title>CieloFlow v0.2 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -531,7 +531,7 @@ html.oscuro .rec{stroke:#0F172A}
 .lab{font-weight:800;fill:#0F172A;paint-order:stroke;stroke:#fff;stroke-width:.22em;stroke-linejoin:round}
 #planoWrap{flex:1;min-height:0;position:relative;overflow:hidden;background:#EEF2F7;touch-action:none}
 html.oscuro #planoWrap{background:#0F172A}
-#plano{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#lienzo{position:absolute;left:0;top:0;display:block;touch-action:none;transform-origin:0 0}
 #leyenda{position:absolute;left:8px;bottom:8px;z-index:5;display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.94);border:1px solid var(--linea);border-radius:10px;padding:6px 8px;font-size:11px;font-weight:700;color:var(--cuerpo);max-width:70%}
 html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
 #leyenda .lg{display:flex;align-items:center;gap:6px;padding:3px 4px;border-radius:6px;text-align:left;font-size:11px;font-weight:700;color:inherit}
@@ -560,7 +560,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.1 β</span></span>
+      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.2 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -587,7 +587,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <section id="vista-plano" class="vista">
     <div class="barra-chips" id="chipsNivel"></div>
     <div class="barra-chips" id="chipsModo"></div>
-    <div id="planoWrap">
+    <div id="planoWrap"><canvas id="lienzo"></canvas>
       <div id="leyenda"></div>
       <button class="btn-flot" id="btnEncuadrar" style="top:10px" aria-label="Ver todo">⤢</button>
     </div>
@@ -601,7 +601,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumen</span></button>
 </nav>
-<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.1 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.2 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -625,7 +625,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.1 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.2 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -685,7 +685,7 @@ let TIPOS=[];const colTipo=t=>{const i=TIPOS.findIndex(x=>x.t===t);return i<0?'#
 const nomNivel=id=>{const n=NIV.find(x=>x.id===id);return n&&n.nombre&&n.nombre!==id?id+' · '+n.nombre:id;};
 const cota=(r,c)=>{const n=NIV.find(x=>x.id===r.nv);return c.z-(n?n.z:0);};
 function modo(r){/* tipo de cielo principal */return r.c.length?r.c[0].t:'';}
-function preparar(){REC=new Map();MOD.rec.forEach(r=>REC.set(r.g,r));NIV=MOD.niveles.filter(n=>MOD.rec.some(r=>r.nv===n.id));
+function preparar(){MOD.rec=[];MOD.niveles.forEach(n=>n.rec.forEach(r=>{r.nv=n.id;MOD.rec.push(r);}));REC=new Map();MOD.rec.forEach(r=>REC.set(r.g,r));NIV=MOD.niveles.filter(n=>n.rec.length);
   const t={};MOD.rec.forEach(r=>r.c.forEach(c=>{const k=c.t;if(!t[k])t[k]={t:k,d:c.d,a:0,n:new Set()};t[k].a+=c.a;t[k].n.add(r.g);}));
   TIPOS=Object.values(t).sort((a,b)=>b.a-a.a).map(x=>({t:x.t,d:x.d,a:x.a,n:x.n.size}));}
 const recs=nv=>MOD.rec.filter(r=>!nv||r.nv===nv);
@@ -693,7 +693,7 @@ const moda=hs=>{const c={};hs.forEach(h=>{const k=Math.round(h*20)/20;c[k]=(c[k]
 function statsNv(nv){const R=recs(nv),hs=R.filter(r=>r.c.length).map(hDom);return {n:R.length,con:hs.length,min:hs.length?Math.min(...hs):null,max:hs.length?Math.max(...hs):null,moda:moda(hs)};}
 /* ---------------- carga ---------------- */
 async function cargarModelo(){progreso('Abriendo recintos y cielos…');let fresco=false;try{fresco=sessionStorage.getItem('cf_rev')==='1';}catch(e){}
-  MOD=await descifrar(CLAVE,await bajar('cielos.enc',fresco));preparar();progreso(null);}
+  MOD=await descifrar(CLAVE,await bajar('cielos.enc',fresco));preparar();progreso('Abriendo el plano…');PLAN=await descifrar(CLAVE,await bajar(RUTA_TABI+'modelo.enc',false));progreso(null);}
 /* ================= vistas ================= */
 function cambiarVista(v){estado.vista=v;$$('.vista').forEach(s=>s.classList.toggle('activa',s.id==='vista-'+v));$$('.pestana').forEach(b=>b.classList.toggle('activa',b.dataset.v===v));
   if(v==='inicio')renderInicio();if(v==='plano'){renderPlano();}if(v==='buscar')renderBuscar();if(v==='resumen')renderResumen();}
@@ -702,48 +702,78 @@ function renderInicio(){if(!MOD)return;const nom=(estado.persona||'').trim().spl
   $('#saludo').innerHTML=saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>Consulta a qué altura va el cielo de cada recinto.</small>';
   $('#statRec').textContent=fm(all.n,0);$('#statCon').textContent=fm(all.con,0);$('#statModa').textContent=all.moda==null?'—':fm(all.moda,2)+' m';$('#statRango').textContent=all.min==null?'—':fm(all.min,2)+' – '+fm(all.max,2);
   $('#inicioNiveles').innerHTML='<table class="prog-matriz"><tr><th>Nivel</th><th>Recintos</th><th>Con cielo</th><th>Mín.</th><th>Típica</th><th>Máx.</th></tr>'+NIV.map(n=>{const s=statsNv(n.id);return '<tr class="click" data-nv="'+n.id+'"><td>'+escapar(n.id)+'</td><td>'+fm(s.n,0)+'</td><td>'+fm(s.con,0)+'</td><td>'+fm(s.min,2)+'</td><td><b>'+fm(s.moda,2)+'</b></td><td>'+fm(s.max,2)+'</td></tr>';}).join('')+'</table><p class="nota" style="margin-top:6px">Alturas en metros, desde el piso del recinto hasta la cara inferior del cielo. Toca un nivel para verlo en planta.</p>';}
-/* ----- plano (SVG con zoom y desplazamiento) ----- */
-let VB=null,SVGE=null,rafL=0;
-const SVGNS='http://www.w3.org/2000/svg';
-function bboxNv(nv){let x0=1e12,y0=1e12,x1=-1e12,y1=-1e12;recs(nv).forEach(r=>r.p.forEach(a=>{for(let i=0;i<a.length;i+=2){x0=Math.min(x0,a[i]);x1=Math.max(x1,a[i]);y0=Math.min(y0,-a[i+1]);y1=Math.max(y1,-a[i+1]);}}));return {x0,y0,x1,y1};}
-function setVB(){if(!SVGE||!VB)return;SVGE.setAttribute('viewBox',VB.x+' '+VB.y+' '+VB.w+' '+VB.h);if(!rafL)rafL=requestAnimationFrame(()=>{rafL=0;etiquetas();});}
-function encuadrarPlano(){const wrap=$('#planoWrap');const b=bboxNv(estado.nv);if(b.x0>b.x1)return;const W=wrap.clientWidth||360,H=wrap.clientHeight||500;const pad=(b.x1-b.x0)*0.03+200;
-  let w=b.x1-b.x0+2*pad,h=b.y1-b.y0+2*pad;const k=Math.max(w/W,h/H);w=k*W;h=k*H;VB={x:(b.x0+b.x1)/2-w/2,y:(b.y0+b.y1)/2-h/2,w,h};setVB();}
-function colorRec(r){if(estado.modo==='tipo')return r.c.length?colTipo(r.c[0].t):SIN.c;return colBin(r);}
-function activo(r){if(estado.modo==='tipo')return !estado.fTipo||(r.c.length&&r.c[0].t===estado.fTipo);return estado.fBin==null||binDe(r)===estado.fBin;}
-function renderPlano(){if(!MOD)return;if(!estado.nv)estado.nv=(NIV.find(n=>n.id==='EP-N1')||NIV[0]).id;chipsPlano();
-  const wrap=$('#planoWrap');wrap.querySelectorAll('svg').forEach(x=>x.remove());SVGE=document.createElementNS(SVGNS,'svg');SVGE.id='plano';SVGE.setAttribute('preserveAspectRatio','xMidYMid meet');
-  const g=document.createElementNS(SVGNS,'g');g.id='gRec';const gl=document.createElementNS(SVGNS,'g');gl.id='gLab';gl.setAttribute('text-anchor','middle');gl.setAttribute('pointer-events','none');
-  recs(estado.nv).forEach(r=>{const p=document.createElementNS(SVGNS,'path');p.setAttribute('d',r.p.map(a=>{let d='M';for(let i=0;i<a.length;i+=2)d+=(i?'L':'')+a[i]+' '+(-a[i+1])+' ';return d+'Z';}).join(' '));p.dataset.g=r.g;p.setAttribute('class','rec');g.appendChild(p);r._el=p;
-    if(r.p[0]){const a=r.p[0];let x0=1e12,x1=-1e12,y0=1e12,y1=-1e12;for(let i=0;i<a.length;i+=2){x0=Math.min(x0,a[i]);x1=Math.max(x1,a[i]);y0=Math.min(y0,-a[i+1]);y1=Math.max(y1,-a[i+1]);}
-      const t=document.createElementNS(SVGNS,'text');t.setAttribute('x',(x0+x1)/2);t.setAttribute('y',(y0+y1)/2);t.dataset.w=x1-x0;t.dataset.h=y1-y0;t.setAttribute('class','lab');gl.appendChild(t);r._t=t;}});
-  SVGE.appendChild(g);SVGE.appendChild(gl);wrap.insertBefore(SVGE,wrap.firstChild);enlazarPlano();pintarPlano();requestAnimationFrame(()=>{encuadrarPlano();});}
-function pintarPlano(){recs(estado.nv).forEach(r=>{const el=r._el;if(!el)return;const a=activo(r);el.style.fill=colorRec(r);el.style.opacity=a?'0.92':'0.18';if(r._t){const h=hDom(r);r._t.textContent=estado.modo==='tipo'?(r.c.length?r.c[0].t:''):(h==null?'':fm(h,2)+(hDist(r).length>1?'*':''));r._t.style.display='';}
-    el.classList.toggle('sel',estado.sel===r.g);});subirSel();leyendaPlano();etiquetas();}
-function etiquetas(){if(!SVGE||!VB)return;const px=$('#planoWrap').clientWidth/VB.w;const fs=11/px;const gl=SVGE.querySelector('#gLab');if(!gl)return;gl.setAttribute('font-size',fs);
-  const vx0=VB.x,vx1=VB.x+VB.w,vy0=VB.y,vy1=VB.y+VB.h;
-  recs(estado.nv).forEach(r=>{const t=r._t;if(!t)return;const x=+t.getAttribute('x'),y=+t.getAttribute('y');const okz=(+t.dataset.w*px>46)&&(+t.dataset.h*px>18)&&x>vx0&&x<vx1&&y>vy0&&y<vy1&&activo(r);t.style.visibility=okz?'visible':'hidden';t.setAttribute('dy',fs*0.35);});}
+/* ----- plano vectorial (el mismo plano de TabiFlow: muros, puertas, estructura y ejes) con los recintos coloreados por altura de cielo ----- */
+let PLAN=null;const V={s:0.02,tx:0,ty:0};let rafR=0;
+const lienzo=()=>$('#lienzo'),wrapP=()=>$('#planoWrap');
+function bboxP(arr){let x0=1e12,y0=1e12,x1=-1e12,y1=-1e12;for(let i=0;i<arr.length;i+=2){const x=arr[i],y=arr[i+1];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}return[x0,y0,x1,y1];}
+function anillo(path,r){if(r.length<6)return;path.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)path.lineTo(r[i],r[i+1]);path.closePath();}
+function dentroP(x,y,p){let c=false;for(let i=0,j=p.length-2;i<p.length;j=i,i+=2){const xi=p[i],yi=p[i+1],xj=p[j],yj=p[j+1];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))c=!c;}return c;}
+/* prepara un nivel: Path2D del plano y asignación de los datos de cielo a cada recinto del plano */
+function prepNivel(id){const n=PLAN.niveles.find(x=>x.id===id);if(!n)return null;if(n._prep)return n;n._prep=true;
+  n.tabP=new Path2D();n.tab.forEach(t=>t.p.forEach(r=>anillo(n.tabP,r)));
+  n.pPue=new Path2D();n.pue.forEach(r=>anillo(n.pPue,r));n.pEst=new Path2D();n.col.concat(n.mur).forEach(r=>anillo(n.pEst,r));
+  n.R=[];/* recintos dibujables: del plano (con datos) y los que no tienen polígono en el plano */
+  n.rec.forEach((r,i)=>{n.R.push({i,n:r.n,ln:r.ln,c:r.c,bb:bboxP(r.p),path:(()=>{const p=new Path2D();anillo(p,r.p);return p;})(),p:[r.p],d:[]});});
+  recs(id).forEach(r=>{if(r.i!=null&&n.R[r.i])n.R[r.i].d.push(r);else if(r.p){const pp=new Path2D();r.p.forEach(x=>anillo(pp,x));const f=r.p[0];const bb=bboxP(f);n.R.push({i:-1,n:r.n,ln:r.l,c:[(bb[0]+bb[2])/2,(bb[1]+bb[3])/2],bb,path:pp,p:r.p,d:[r]});}});
+  n.R.forEach(q=>{q.d.sort((a,b)=>(b.c.length>0)-(a.c.length>0)||b.A-a.A);q.r=q.d[0]||null;q.area=(q.bb[2]-q.bb[0])*(q.bb[3]-q.bb[1]);});
+  return n;}
+function dimensionar(){const w=wrapP(),c=lienzo(),dpr=Math.min(window.devicePixelRatio||1,2.5);const W=w.clientWidth,H=w.clientHeight;if(!W||!H)return false;
+  if(c.width!==Math.round(W*dpr)||c.height!==Math.round(H*dpr)){c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);c.style.width=W+'px';c.style.height=H+'px';}return true;}
+function encuadrarPlano(bb){const n=prepNivel(estado.nv);if(!n)return;const w=wrapP();const W=w.clientWidth,H=w.clientHeight;if(!W||!H)return;bb=bb||n.bbox;const m=18,bw=bb[2]-bb[0],bh=bb[3]-bb[1];
+  V.s=Math.min((W-2*m)/bw,(H-2*m)/bh);V.tx=(W-bw*V.s)/2-bb[0]*V.s;V.ty=(H-bh*V.s)/2-bb[1]*V.s;pedirR();}
+function pedirR(){if(rafR)return;rafR=requestAnimationFrame(()=>{rafR=0;dibujar();});}
+function colorR(q){const r=q.r;if(!r)return null;if(estado.modo==='tipo')return r.c.length?colTipo(r.c[0].t):SIN.c;return colBin(r);}
+function activoR(q){const r=q.r;if(!r)return false;if(estado.modo==='tipo')return !estado.fTipo||(r.c.length&&r.c[0].t===estado.fTipo);return estado.fBin==null||binDe(r)===estado.fBin;}
+function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;const c=lienzo(),ctx=c.getContext('2d'),dpr=c.width/c.clientWidth;
+  const osc=document.documentElement.classList.contains('oscuro');ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=osc?'#0F172A':'#EEF2F7';ctx.fillRect(0,0,c.width,c.height);
+  ctx.setTransform(dpr*V.s,0,0,dpr*V.s,dpr*V.tx,dpr*V.ty);const px=1/V.s;
+  const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+c.clientWidth/V.s,vy1=vy0+c.clientHeight/V.s;const vis=bb=>!(bb[2]<vx0||bb[0]>vx1||bb[3]<vy0||bb[1]>vy1);
+  ctx.lineWidth=0.8*px;ctx.strokeStyle=osc?'#334155':'#D5DCE6';
+  n.R.forEach(q=>{if(!vis(q.bb))return;const k=colorR(q);ctx.globalAlpha=1;ctx.fillStyle=osc?'#1E293B':'#FFFFFF';ctx.fill(q.path);
+    if(k){ctx.globalAlpha=activoR(q)?0.88:0.16;ctx.fillStyle=k;ctx.fill(q.path);ctx.globalAlpha=1;}ctx.stroke(q.path);});
+  if(n.ejes.length){ctx.save();ctx.strokeStyle=osc?'rgba(248,113,113,.35)':'rgba(220,38,38,.28)';ctx.lineWidth=0.8*px;ctx.setLineDash([10*px,6*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);for(let i=2;i<e.p.length;i+=2)ctx.lineTo(e.p[i],e.p[i+1]);ctx.stroke();});ctx.restore();}
+  ctx.fillStyle=osc?'#334155':'#E2E8F0';ctx.fill(n.pPue);ctx.fillStyle=osc?'#64748B':'#475569';ctx.fill(n.pEst,'evenodd');
+  ctx.fillStyle=osc?'#94A3B8':'#64748B';ctx.strokeStyle=ctx.fillStyle;ctx.lineWidth=1.3*px;ctx.fill(n.tabP,'evenodd');ctx.stroke(n.tabP);
+  if(estado.sel){const q=n.R.find(x=>x.d.some(r=>r.g===estado.sel));if(q){ctx.strokeStyle='#E11D48';ctx.lineWidth=4*px;ctx.stroke(q.path);}}
+  ctx.setTransform(dpr,0,0,dpr,0,0);const sx=x=>x*V.s+V.tx,sy=y=>y*V.s+V.ty;ctx.textAlign='center';ctx.textBaseline='middle';
+  const fz=Math.min(13,Math.max(9,V.s*30));
+  n.R.forEach(q=>{if(!vis(q.bb)||!q.r||!activoR(q))return;const wpx=(q.bb[2]-q.bb[0])*V.s,hpx=(q.bb[3]-q.bb[1])*V.s;if(wpx<40||hpx<16)return;const r=q.r,x=sx(q.c[0]),y=sy(q.c[1]);
+    const t1=estado.modo==='tipo'?(r.c.length?r.c[0].t:''):(r.c.length?fm(hDom(r),2)+(hDist(r).length>1||q.d.length>1?'*':''):'');
+    const dosL=wpx>90&&hpx>34&&V.s*100>=9;ctx.lineJoin='round';ctx.lineWidth=3;ctx.strokeStyle=osc?'#0F172A':'#fff';ctx.fillStyle=osc?'#F8FAFC':'#0F172A';
+    ctx.font='800 '+fz+'px Inter,system-ui,sans-serif';const yy=dosL?y+fz*0.55:y;if(t1){ctx.strokeText(t1,x,yy);ctx.fillText(t1,x,yy);}
+    if(dosL&&q.ln){let nm=q.ln;ctx.font='600 '+Math.max(8,fz-2)+'px Inter,system-ui,sans-serif';const mw=wpx-6;while(nm.length>3&&ctx.measureText(nm).width>mw)nm=nm.slice(0,-2);if(nm!==q.ln)nm=nm.trim()+'…';ctx.fillStyle=osc?'#94A3B8':'#475569';ctx.fillText(nm,x,y-fz*0.65);}});
+  if(n.ejes.length&&V.s*100>=3.5){ctx.font='800 10px Inter,system-ui,sans-serif';const amb=V.s*100>=8;
+    n.ejes.forEach(e=>{[[0,1]].concat(amb?[[e.p.length-2,e.p.length-1]]:[]).forEach(([i,j])=>{const x=sx(e.p[i]),y=sy(e.p[j]);if(x<-20||y<-20||x>c.clientWidth+20||y>c.clientHeight+20)return;
+      ctx.fillStyle=osc?'#1E293B':'#fff';ctx.strokeStyle='#DC2626';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#B91C1C';ctx.fillText(e.t,x,y+.5);});});}}
+function renderPlano(){if(!MOD||!PLAN)return;if(!estado.nv)estado.nv=(NIV.find(n=>n.id==='EP-N1')||NIV[0]).id;chipsPlano();leyendaPlano();enlazarPlano();requestAnimationFrame(()=>{encuadrarPlano();});}
+function pintarPlano(){leyendaPlano();pedirR();}
+function recEn(mx,my){const n=prepNivel(estado.nv);if(!n)return null;let m=null;n.R.forEach(q=>{if(mx<q.bb[0]||mx>q.bb[2]||my<q.bb[1]||my>q.bb[3])return;if(q.p.some(p=>dentroP(mx,my,p))&&(!m||q.area<m.area))m=q;});return m;}
 function chipsPlano(){$('#chipsNivel').innerHTML=NIV.map(n=>'<button class="chipf'+(estado.nv===n.id?' on':'')+'" data-pnv="'+n.id+'">'+escapar(n.id)+'</button>').join('');
   $('#chipsModo').innerHTML=[['alt','Altura de cielo'],['tipo','Tipo de cielo']].map(([k,n])=>'<button class="chipf'+(estado.modo===k?' on':'')+'" data-modo="'+k+'">'+n+'</button>').join('');}
 function leyendaPlano(){const L=$('#leyenda');if(!L)return;const R=recs(estado.nv);let h='';
   if(estado.modo==='alt'){const c=BINS.map(()=>0);let sin=0;R.forEach(r=>{const b=binDe(r);if(b<0)sin++;else c[b]++;});
-    h='<b>Altura del cielo</b>'+BINS.map(b=>'<button class="lg'+(estado.fBin===b.k?' on':'')+'" data-bin="'+b.k+'"><i style="background:'+b.c+'"></i>'+b.n+' <small>'+c[b.k]+'</small></button>').join('')+'<span class="lg"><i style="background:'+SIN.c+'"></i>'+SIN.n+' <small>'+sin+'</small></span>';}
-  else{const c={};R.forEach(r=>{const t=modo(r);c[t]=(c[t]||0)+1;});h='<b>Tipo de cielo</b>'+Object.entries(c).filter(([t])=>t).sort((a,b)=>b[1]-a[1]).map(([t,n])=>'<button class="lg'+(estado.fTipo===t?' on':'')+'" data-tipof="'+escapar(t)+'"><i style="background:'+colTipo(t)+'"></i>'+escapar(t)+' <small>'+n+'</small></button>').join('')+'<span class="lg"><i style="background:'+SIN.c+'"></i>'+SIN.n+' <small>'+(c['']||0)+'</small></span>';}
+    h='<b>Altura del cielo</b>'+BINS.map(b=>'<button class="lg'+(estado.fBin===b.k?' on':'')+'" data-bin="'+b.k+'"><i style="background:'+b.c+'"></i>'+b.n+' <small>'+c[b.k]+'</small></button>').join('')+'<span class="lg"><i style="background:#fff;border:1px solid #CBD5E1"></i>'+SIN.n+' <small>'+sin+'</small></span>';}
+  else{const c={};R.forEach(r=>{const t=modo(r);c[t]=(c[t]||0)+1;});h='<b>Tipo de cielo</b>'+Object.entries(c).filter(([t])=>t).sort((a,b)=>b[1]-a[1]).map(([t,n])=>'<button class="lg'+(estado.fTipo===t?' on':'')+'" data-tipof="'+escapar(t)+'"><i style="background:'+colTipo(t)+'"></i>'+escapar(t)+' <small>'+n+'</small></button>').join('')+'<span class="lg"><i style="background:#fff;border:1px solid #CBD5E1"></i>'+SIN.n+' <small>'+(c['']||0)+'</small></span>';}
   L.innerHTML=h;}
-function enlazarPlano(){const svg=SVGE;const P=new Map();let d0=null,pinch=null;
-  const toSvg=(cx,cy)=>{const rc=svg.getBoundingClientRect();const s=Math.max(VB.w/rc.width,VB.h/rc.height);const ox=rc.left+rc.width/2,oy=rc.top+rc.height/2;return {x:VB.x+VB.w/2+(cx-ox)*s,y:VB.y+VB.h/2+(cy-oy)*s,s};};
-  svg.addEventListener('pointerdown',e=>{svg.setPointerCapture(e.pointerId);P.set(e.pointerId,{x:e.clientX,y:e.clientY});d0={x:e.clientX,y:e.clientY,t:Date.now(),mov:false,tg:e.target};pinch=null;});
-  svg.addEventListener('pointermove',e=>{if(!P.has(e.pointerId))return;const q=P.get(e.pointerId);const dx=e.clientX-q.x,dy=e.clientY-q.y;
-    if(P.size===1){if(Math.abs(e.clientX-d0.x)>6||Math.abs(e.clientY-d0.y)>6)d0.mov=true;if(d0.mov){const rc=svg.getBoundingClientRect();const s=Math.max(VB.w/rc.width,VB.h/rc.height);VB.x-=dx*s;VB.y-=dy*s;setVB();}q.x=e.clientX;q.y=e.clientY;}
-    else if(P.size===2){d0&&(d0.mov=true);q.x=e.clientX;q.y=e.clientY;const [a,b]=[...P.values()];const dist=Math.hypot(a.x-b.x,a.y-b.y);if(pinch){const f=pinch/dist;const c=toSvg((a.x+b.x)/2,(a.y+b.y)/2);zoomEn(c,f);}pinch=dist;}});
-  const fin=e=>{const was=P.has(e.pointerId);P.delete(e.pointerId);if(!was)return;if(P.size===0&&d0&&!d0.mov&&Date.now()-d0.t<600){const el=document.elementFromPoint(e.clientX,e.clientY);const pa=el&&el.closest&&el.closest('[data-g]');seleccionar(pa?pa.dataset.g:null);}if(P.size<2)pinch=null;if(P.size===0)d0=null;};
-  svg.addEventListener('pointerup',fin);svg.addEventListener('pointercancel',e=>{P.delete(e.pointerId);d0=null;pinch=null;});
-  svg.addEventListener('wheel',e=>{e.preventDefault();const c=toSvg(e.clientX,e.clientY);zoomEn(c,e.deltaY>0?1.15:1/1.15);},{passive:false});}
-function zoomEn(c,f){const nw=Math.min(Math.max(VB.w*f,800),2e6),k=nw/VB.w;VB.x=c.x-(c.x-VB.x)*k;VB.y=c.y-(c.y-VB.y)*k;VB.w=nw;VB.h*=k;setVB();}
-function subirSel(){const r=estado.sel&&REC.get(estado.sel);if(r&&r._el&&r._el.parentNode)r._el.parentNode.appendChild(r._el);}
-function seleccionar(g){estado.sel=g;recs(estado.nv).forEach(r=>{if(r._el)r._el.classList.toggle('sel',r.g===g);});subirSel();if(g)fichaRec(g);}
+const punteros=new Map();let gesto=null,ligado=false;
+function enlazarPlano(){if(ligado)return;ligado=true;const w=wrapP();
+  w.addEventListener('pointerdown',e=>{if(e.target.closest('.btn-flot,#leyenda'))return;w.setPointerCapture(e.pointerId);const r=w.getBoundingClientRect();punteros.set(e.pointerId,{x:e.clientX-r.left,y:e.clientY-r.top});
+    if(punteros.size===2){const [a,b]=[...punteros.values()];gesto={tipo:'pinch',d:Math.hypot(a.x-b.x,a.y-b.y),cx:(a.x+b.x)/2,cy:(a.y+b.y)/2,s:V.s,tx:V.tx,ty:V.ty};return;}
+    if(punteros.size>2)return;const p=punteros.get(e.pointerId);gesto={tipo:'pan',x0:p.x,y0:p.y,tx:V.tx,ty:V.ty,mov:false,t0:Date.now()};});
+  w.addEventListener('pointermove',e=>{const p=punteros.get(e.pointerId);if(!p||!gesto)return;const r=w.getBoundingClientRect();p.x=e.clientX-r.left;p.y=e.clientY-r.top;
+    if(gesto.tipo==='pinch'&&punteros.size>=2){const [a,b]=[...punteros.values()];const d=Math.hypot(a.x-b.x,a.y-b.y),cx=(a.x+b.x)/2,cy=(a.y+b.y)/2;const s2=Math.max(0.004,Math.min(4,gesto.s*d/Math.max(1,gesto.d)));const k=s2/gesto.s;V.s=s2;V.tx=cx-(gesto.cx-gesto.tx)*k;V.ty=cy-(gesto.cy-gesto.ty)*k;pedirR();return;}
+    const dx=p.x-gesto.x0,dy=p.y-gesto.y0;if(!gesto.mov&&Math.hypot(dx,dy)<7)return;gesto.mov=true;if(gesto.tipo==='pan'){V.tx=gesto.tx+dx;V.ty=gesto.ty+dy;pedirR();}});
+  const fin=e=>{const p=punteros.get(e.pointerId);punteros.delete(e.pointerId);if(!p||!gesto)return;
+    if(gesto.tipo==='pan'&&!gesto.mov&&Date.now()-gesto.t0<600&&e.type==='pointerup'){seleccionarEn((p.x-V.tx)/V.s,(p.y-V.ty)/V.s);}
+    if(punteros.size===1&&gesto.tipo==='pinch'){const q=[...punteros.values()][0];gesto={tipo:'pan',x0:q.x,y0:q.y,tx:V.tx,ty:V.ty,mov:true,t0:0};}else if(punteros.size===0)gesto=null;};
+  w.addEventListener('pointerup',fin);w.addEventListener('pointercancel',fin);
+  w.addEventListener('wheel',e=>{e.preventDefault();const r=w.getBoundingClientRect();zoomEn(e.deltaY>0?1/1.18:1.18,e.clientX-r.left,e.clientY-r.top);},{passive:false});}
+function zoomEn(f,px,py){const s2=Math.max(0.004,Math.min(4,V.s*f));const k=s2/V.s;V.tx=px-(px-V.tx)*k;V.ty=py-(py-V.ty)*k;V.s=s2;pedirR();}
+function seleccionarEn(mx,my){const q=recEn(mx,my);if(!q){estado.sel=null;pedirR();return;}estado.sel=q.d.length?q.d[0].g:null;pedirR();
+  if(q.d.length)fichaRec(q.d[0].g,false,q.d);else abrirHoja('<div class="hoja-titulo">'+escapar(q.n||'')+' · '+escapar(q.ln||'Sin nombre')+'</div><div class="info-sello">Este recinto del plano no tiene datos de cielo en el modelo de interiores.</div>');}
+function seleccionar(g){estado.sel=g;pedirR();}
 /* ----- ficha de recinto ----- */
-function fichaRec(g,desdeLista){const r=REC.get(g);if(!r)return;const ds=hDist(r);
+function fichaRec(g,desdeLista,otros){const r=REC.get(g);if(!r)return;const ds=hDist(r);
   const cs=r.c.map(c=>'<tr><td><b style="color:'+colTipo(c.t)+'">'+escapar(c.t)+'</b><div class="nota">'+escapar(c.d)+'</div></td><td><b>'+h2(c.h)+'</b></td><td>'+fm(cota(r,c),2)+'</td><td>'+m2(c.a)+' m²</td></tr>').join('');
   const dif=r.c.length&&r.cod&&r.cod!=='SR'&&r.c[0].t!==r.cod;
   abrirHoja('<div class="hoja-titulo">'+escapar(r.n)+' · '+escapar(r.l||'Sin nombre')+'</div><div class="hoja-sub">'+escapar(nomNivel(r.nv))+' · '+m2(r.A)+' m²</div>'+
@@ -752,11 +782,12 @@ function fichaRec(g,desdeLista){const r=REC.get(g);if(!r)return;const ds=hDist(r
     '<table class="prog-matriz tabla-et"><tr><th style="text-align:left">Cielo</th><th>Altura sobre piso</th><th>Cota sobre nivel</th><th>Superficie</th></tr>'+cs+'</table>'+
     (dif?'<p class="nota" style="margin-top:8px">ℹ La ficha del recinto en el modelo indica <b>'+escapar(r.cod)+'</b>, pero el cielo modelado es <b>'+escapar(r.c[0].t)+'</b>.</p>':'')
    :'<div class="info-sello">Este recinto no tiene cielo modelado'+(r.cod==='SR'?' (la ficha indica <b>SR</b>: sin revestimiento de cielo)':r.cod?' aunque la ficha indica <b>'+escapar(r.cod)+'</b>':'')+'. Altura piso–losa: <b>'+h2(r.z1-r.z0)+'</b>.</div>')+
+   (otros&&otros.length>1?'<div class="nota" style="margin-top:10px"><b>Otros recintos dentro de este polígono del plano</b></div><table class="prog-matriz tabla-et">'+otros.slice(1).map(o=>'<tr class="click" data-fr="'+o.g+'"><td style="text-align:left">'+escapar(o.n)+' · '+escapar(o.l||'—')+'</td><td><b>'+(o.c.length?h2(hDom(o)):'sin cielo')+'</b></td></tr>').join('')+'</table>':'')+
    (desdeLista?'<button class="btn secundario" data-ver="'+g+'" style="width:100%;margin-top:10px;justify-content:center">🗺️ Ver en la planta</button>':'')+
    '<p class="nota" style="margin-top:10px;font-size:11px;word-break:break-all">GUID '+escapar(g)+'</p>');}
 function verEnPlano(g){const r=REC.get(g);if(!r)return;cerrarHoja();estado.nv=r.nv;estado.fBin=null;estado.fTipo='';estado.sel=g;cambiarVista('plano');
-  setTimeout(()=>{const b=r.p[0];let x0=1e12,x1=-1e12,y0=1e12,y1=-1e12;for(let i=0;i<b.length;i+=2){x0=Math.min(x0,b[i]);x1=Math.max(x1,b[i]);y0=Math.min(y0,-b[i+1]);y1=Math.max(y1,-b[i+1]);}
-    const W=$('#planoWrap').clientWidth,H=$('#planoWrap').clientHeight;let w=Math.max((x1-x0)*5,1200),h=w*H/W;VB={x:(x0+x1)/2-w/2,y:(y0+y1)/2-h/2,w,h};setVB();pintarPlano();},120);}
+  setTimeout(()=>{const n=prepNivel(r.nv);const q=n&&n.R.find(x=>x.d.includes(r));if(!q)return;const w=wrapP();const W=w.clientWidth,H=w.clientHeight;
+    const cw=Math.max((q.bb[2]-q.bb[0])*4,900),ch=cw*H/W;encuadrarPlano([q.c[0]-cw/2,q.c[1]-ch/2,q.c[0]+cw/2,q.c[1]+ch/2]);},150);}
 /* ----- buscar ----- */
 function listaFiltrada(){const q=norm(estado.q);let L=MOD.rec.filter(r=>(!estado.nv2||r.nv===estado.nv2)&&(!estado.fTipo2||(r.c.length&&r.c.some(c=>c.t===estado.fTipo2)))&&(!q||norm(r.n+' '+r.l).includes(q)));
   if(estado.orden==='alt')L.sort((a,b)=>(hDom(a)==null)-(hDom(b)==null)||(hDom(a)||0)-(hDom(b)||0)||a.n.localeCompare(b.n,'es',{numeric:true}));
@@ -824,9 +855,9 @@ async function iniciar(){
   $('#subMarca').textContent=OBRA+' · '+estado.persona;renderInicio();}
 window.addEventListener('DOMContentLoaded',()=>{
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrBuscar').onclick=()=>cambiarVista('buscar');$('#btnIrResumen').onclick=()=>cambiarVista('resumen');
-  $('#btnMenu').onclick=abrirMenu;$('#velo').onclick=cerrarHoja;$('#btnEncuadrar').onclick=encuadrarPlano;
+  $('#btnMenu').onclick=abrirMenu;$('#velo').onclick=cerrarHoja;$('#btnEncuadrar').onclick=()=>encuadrarPlano();
   $('#inicioBuscar').addEventListener('keydown',e=>{if(e.key==='Enter'){estado.q=e.target.value;cambiarVista('buscar');}});$('#inicioBuscarBtn').onclick=()=>{estado.q=$('#inicioBuscar').value;cambiarVista('buscar');};
-  new ResizeObserver(()=>{if(estado.vista==='plano'&&SVGE&&VB){const W=$('#planoWrap').clientWidth,H=$('#planoWrap').clientHeight;if(W&&H){VB.h=VB.w*H/W;setVB();}}}).observe($('#planoWrap'));
+  new ResizeObserver(()=>{if(estado.vista==='plano')pedirR();}).observe($('#planoWrap'));
   iniciar();});
 
 </script>
