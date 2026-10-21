@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>HormiFlow v0.2 β · Hospital de Coquimbo</title>
+<title>HormiFlow v0.3 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -531,7 +531,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Flow</span><span class="ver">v0.2 β</span></span>
+      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Flow</span><span class="ver">v0.3 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Sala Cuna</span>
     </div>
   </div>
@@ -545,7 +545,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#475569"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
-          <div><span class="eyebrow">HormiFlow v0.2 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
+          <div><span class="eyebrow">HormiFlow v0.3 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
         </div>
       </div>
       <div class="tarjeta" id="tarjetaEquipo"></div>
@@ -594,7 +594,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">HormiFlow</span> <span class="vpie">v0.2 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">HormiFlow</span> <span class="vpie">v0.3 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2311,7 +2311,7 @@ THREE.OrbitControls=OrbitControls;
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.2 β',OBRA='Hospital de Coquimbo · Sala Cuna';
+const APP_VER='v0.3 β',MODELO_REV=2,OBRA='Hospital de Coquimbo · Sala Cuna';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 const DIA_INI=4; /* semana de jueves a miércoles, igual que Last Planner */
@@ -2393,22 +2393,37 @@ async function marcarSel(et){const els=[...estado.sel].map(g=>EL.get(g)).filter(
   for(const el of els){if(await aplicar(el,et,todosOk?0:1,lote))n++;}
   if(lote.length)estado.deshacer.push(lote);combinar();pintar();panelSel();renderInicio();
   toast((todosOk?'Desmarcado: ':'Hecho: ')+ETAPAS[et].n+' · '+n+' elemento'+(n===1?'':'s'),'ok');}
+async function aplicarPct(el,et,fv,lote){fv=Math.max(0,Math.min(1,fv));if(Math.abs(f(el.g,et)-fv)<0.001)return false;
+  if(fv>=1||fv<=0)return aplicar(el,et,fv>=1?1:0,lote);
+  await registrar(el,et,fv,lote);combinar();return true;}
+function hojaPct(){const els=[...estado.sel].map(g=>EL.get(g)).filter(Boolean);if(!els.length)return;
+  const filas=ORDEN.map(et=>{const ap=els.filter(e=>etapasDe(e).includes(et));if(!ap.length)return '';const m=ap.reduce((q,e)=>q+f(e.g,et),0)/ap.length;const p=Math.round(100*m/5)*5,mix=ap.some(e=>Math.abs(f(e.g,et)-m)>0.01),col=ETAPAS[et].color;
+    return '<div class="etapa-fila" style="flex-wrap:wrap"><div class="info"><b style="color:'+col+'">'+ETAPAS[et].n+'</b>'+ap.length+' elemento'+(ap.length===1?'':'s')+(mix?' · avances distintos (promedio '+fmt0(100*m)+'%)':'')+'</div><div class="slider-etapa" style="width:100%;padding:0 0 4px;--c:'+col+'"><input type="range" min="0" max="100" step="5" value="'+p+'" data-pp="'+et+'" data-tocado="0"><span class="sl-val" id="ppv_'+et+'">'+(mix?'—':p+'%')+'</span></div></div>';}).join('');
+  abrirHoja('<div class="hoja-titulo">📊 Avance parcial</div><div class="hoja-sub">'+els.length+' elemento'+(els.length===1?'':'s')+' · '+fmt1(els.reduce((q,e)=>q+e.v,0))+' m³ · mueve la barra de cada etapa y toca Aplicar</div>'+filas+'<button class="btn principal grande" id="ppOk" style="width:100%;margin-top:10px">Aplicar</button>');
+  $$('[data-pp]').forEach(r=>r.oninput=()=>{r.dataset.tocado='1';$('#ppv_'+r.dataset.pp).textContent=r.value+'%';});
+  $('#ppOk').onclick=async()=>{const lote=[];let n=0;for(const r of $$('[data-pp]')){if(r.dataset.tocado!=='1')continue;const et=r.dataset.pp,fv=+r.value/100;for(const el of els){if(!etapasDe(el).includes(et))continue;if(await aplicarPct(el,et,fv,lote))n++;}}
+    if(lote.length)estado.deshacer.push(lote);combinar();cerrarHoja();pintar();panelSel();renderInicio();renderSemana();toast(n?'Avance aplicado · '+n+' cambio'+(n===1?'':'s'):'Sin cambios','ok');};}
 async function deshacer(){const lote=estado.deshacer.pop();if(!lote){toast('Nada que deshacer');return;}
   for(const id of lote){const e=estado.local.find(x=>x.id===id);if(!e)continue;e.borrado=true;e.borradoTs=new Date().toISOString();e.enviado=false;await put('eventos',e);}
   combinar();pintar();panelSel();renderInicio();renderSemana();toast('Deshecho');}
 /* ---------------- compromisos (Last Planner) ---------------- */
-function estadoComp(c){const gs=c.gs.filter(g=>EL.has(g));const tot=gs.length;let hechos=0,ult='';
-  gs.forEach(g=>{const s=ESTADO.get(g);const o=s&&s[c.et];if(o&&o.f>=1){hechos++;if(o.ev.dia>ult)ult=o.ev.dia;}});
+function estadoComp(c){const gs=c.gs.filter(g=>EL.has(g));const tot=gs.length;let hechos=0,ult='',parc=false;
+  gs.forEach(g=>{const x=ESTADO.get(g);const o=x&&x[c.et];if(o&&o.f>=1){hechos++;if(o.ev.dia>ult)ult=o.ev.dia;}else if(o&&o.f>0)parc=true;});
+  let V=0,Vh=0;gs.forEach(g=>{const el=EL.get(g);V+=el.v;Vh+=el.v*Math.min(1,f(g,c.et));});     /* Vh = m³ equivalentes (cuenta los avances parciales) */
   const fin=sumarDias(c.sem,6),hoy=hoyDia();let k;
-  if(tot&&hechos===tot)k=ult>fin?'tarde':'ok';else if(hoy>fin)k='venc';else k=hechos?'prog':'pend';
-  let V=0,Vh=0;gs.forEach(g=>{const el=EL.get(g);V+=el.v;if(f(g,c.et)>=1)Vh+=el.v;});
-  return {k,tot,hechos,V,Vh,fin};}
+  if(tot&&hechos===tot)k=ult>fin?'tarde':'ok';else if(hoy>fin)k='venc';else k=(hechos||parc)?'prog':'pend';
+  return {k,tot,hechos,parc,V,Vh,fin};}
 const compsDe=sem=>COMPS.filter(c=>c.sem===sem).sort((a,b)=>a.ts.localeCompare(b.ts));
 function ppcSem(sem){const L=compsDe(sem);if(!L.length)return null;let ok=0,V=0,Vok=0,Vh=0,nel=0;L.forEach(c=>{const s=estadoComp(c);V+=s.V;Vh+=s.Vh;nel+=s.tot;if(s.k==='ok'){ok++;Vok+=s.V;}});return {ok,n:L.length,p:100*ok/L.length,V,Vok,Vh,nel,pv:V?100*Vok/V:0,ph:V?100*Vh/V:0};}
 async function crearComp(gs,et,sem,nota,extra){const c=Object.assign({id:uid(),k:'comp',gs,et,sem,nota:nota||'',nv:[...new Set(gs.map(g=>EL.get(g).nv))].join(','),dia:hoyDia(),ts:new Date().toISOString(),por:estado.persona,disp:estado.disp},extra||{});
   estado.local.push(c);await put('eventos',c);combinar();return c;}
 /* ---------------- carga ---------------- */
-async function cargarModelo(){progreso('Abriendo la estructura…');MOD=await descifrar(CLAVE,await bajar('hormi.enc'));EL=new Map();TOT.V=0;
+async function cargarModelo(){progreso('Abriendo la estructura…');let fresco=false;try{fresco=sessionStorage.getItem('hf_rev')==='1';}catch(e){}
+  MOD=await descifrar(CLAVE,await bajar('hormi.enc',fresco));
+  if((MOD.rev||1)<MODELO_REV&&!fresco){try{sessionStorage.setItem('hf_rev','1');}catch(e){}progreso('Actualizando el modelo…');   /* el teléfono tenía guardada una versión antigua del modelo */
+    try{const ks=await caches.keys();await Promise.all(ks.filter(k=>k.startsWith('hormiflow-')).map(k=>caches.delete(k)));const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}catch(e){}
+    location.reload();await new Promise(()=>{});}
+  EL=new Map();TOT.V=0;
   PADRE=new Map();MOD.el.forEach(el=>{EL.set(el.g,el);TOT.V+=el.v;if(el.pg){if(!PADRE.has(el.pg))PADRE.set(el.pg,[]);PADRE.get(el.pg).push(el.g);}});progreso(null);}
 async function cargarEquipo(manual){try{const b=await descifrar(CLAVE,await bajar('avance.enc',true));estado.base=b;await metaSet('base',b);combinar();renderTodo();if(manual)toast('Avance del equipo actualizado','ok');}
   catch(e){if(manual)toast(navigator.onLine?'Todavía no hay avance publicado del equipo':'Sin conexión: se muestra lo último guardado');}}
@@ -2455,15 +2470,18 @@ function tocar(cx,cy){if(!R)return;const rc=$('#v3d').getBoundingClientRect();
   pintar();panelSel();}
 /* ----- color y transparencia ("fantasma") ----- */
 /* índice de los compromisos de la semana elegida: elemento → [{compromiso, estado}] */
+const mezcla=(a,b,t)=>new THREE.Color(a).lerp(new THREE.Color(b),t);
 function indiceSem(){const ix=new Map();COMPS.forEach(c=>{if(c.sem!==estado.sem)return;const s=estadoComp(c);c.gs.forEach(g=>{if(!ix.has(g))ix.set(g,[]);ix.get(g).push({c,s});});});return ix;}
 function kComp(el,ix){const L=ix.get(el.g);if(!L)return null;let k=null;const prio={venc:4,pend:3,prog:3,tarde:2,ok:1};
-  for(const {c,s} of L){let kk;if(f(el.g,c.et)>=1){const o=ESTADO.get(el.g)[c.et];kk=o.ev.dia>s.fin?'tarde':'ok';}else kk=hoyDia()>s.fin?'venc':(s.hechos?'prog':'pend');if(!k||prio[kk]>prio[k])k=kk;}return k;}
+  for(const {c,s} of L){let kk;if(f(el.g,c.et)>=1){const o=ESTADO.get(el.g)[c.et];kk=o.ev.dia>s.fin?'tarde':'ok';}else kk=hoyDia()>s.fin?'venc':((s.hechos||s.parc)?'prog':'pend');if(!k||prio[kk]>prio[k])k=kk;}return k;}
 function visual(el,ix){const op=estado.op,k=kComp(el,ix),pend=k&&k!=='ok'&&k!=='tarde';
   if(estado.modo==='sem'){if(k)return [COMP[k].color,(k==='ok'||k==='tarde')?op.hecho/100:op.comp/100];return [GRIS_CLARO,op.pend/100];}
   if(estado.res&&pend)return [COMP[k].color,op.comp/100];
-  if(estado.modo==='alc'){const a=alcanzada(el);return a?[ETAPAS[a].color,op.hecho/100]:[GRIS,op.pend/100];}
+  if(estado.modo==='alc'){const a=alcanzada(el),pi=etapasDe(el).find(et=>{const x=f(el.g,et);return x>0&&x<1;});
+    if(pi){const t=f(el.g,pi);return [mezcla(a?ETAPAS[a].color:GRIS,ETAPAS[pi].color,0.3+0.7*t),(op.pend+(op.hecho-op.pend)*(0.4+0.6*t))/100];}
+    return a?[ETAPAS[a].color,op.hecho/100]:[GRIS,op.pend/100];}
   const et=estado.etV;if(!etapasDe(el).includes(et))return [GRIS_CLARO,Math.min(op.pend,40)/100];
-  return f(el.g,et)>=1?[ETAPAS[et].color,op.hecho/100]:[GRIS,op.pend/100];}
+  const x=f(el.g,et);if(x>=1)return [ETAPAS[et].color,op.hecho/100];if(x>0)return [mezcla(GRIS,ETAPAS[et].color,x),(op.pend+(op.hecho-op.pend)*x)/100];return [GRIS,op.pend/100];}
 function pintar(){if(!SC)return;const ix=indiceSem();
   for(const el of MOD.el){const m=el.mesh;if(!m)continue;const sel=estado.sel.has(el.g);const v=visual(el,ix);const op=sel?Math.max(v[1],0.95):v[1];const mt=m.material;
     mt.color.set(v[0]);mt.emissive.set(sel?0x2563EB:0x000000);mt.emissiveIntensity=sel?0.55:0;
@@ -2477,7 +2495,7 @@ function aplicarCorte(p){if(!R)return;const y0=0,y1=CY[1];const c=y0+(y1-y0)*p/1
   if(p>=99.5){R.clippingPlanes=[];}else{PLANO.constant=c+0.01;R.clippingPlanes=[PLANO];}pedirRender();}
 function leyenda(){const L=$('#leyenda');if(!L)return;let h='';
   const res=(estado.res&&estado.modo!=='sem')?'<br><i style="background:'+COMP.pend.color+'"></i>📌 Comprometido sem. '+diaCorta(estado.sem):'';
-  if(estado.modo==='alc'){h='<b>Etapa alcanzada</b><br><i style="background:'+GRIS+';opacity:'+(estado.op.pend/100)+'"></i>Sin partir (fantasma)<br>'+ORDEN.map(et=>'<i style="background:'+ETAPAS[et].color+'"></i>'+ETAPAS[et].n).join('<br>')+res;}
+  if(estado.modo==='alc'){h='<b>Etapa alcanzada</b><br><i style="background:'+GRIS+';opacity:'+(estado.op.pend/100)+'"></i>Sin partir (fantasma)<br><i style="background:linear-gradient(90deg,'+GRIS+','+ETAPAS.hor.color+')"></i>Parcial = color intermedio<br>'+ORDEN.map(et=>'<i style="background:'+ETAPAS[et].color+'"></i>'+ETAPAS[et].n).join('<br>')+res;}
   else if(estado.modo==='et'){const et=estado.etV;h='<b>'+ETAPAS[et].n+'</b><br><i style="background:'+ETAPAS[et].color+'"></i>Hecho<br><i style="background:'+GRIS+';opacity:'+(estado.op.pend/100)+'"></i>Falta (fantasma)<br><i style="background:'+GRIS_CLARO+'"></i>No aplica'+res;}
   else{h='<b>Compromisos · sem. '+diaCorta(estado.sem)+'</b><br>'+['pend','prog','ok','tarde','venc'].map(k=>'<i style="background:'+COMP[k].color+'"></i>'+COMP[k].n).join('<br>')+'<br><i style="background:'+GRIS_CLARO+'"></i>Sin compromiso (fantasma)';}
   L.innerHTML=h;}
@@ -2506,21 +2524,22 @@ function panelSel(){const P=$('#panelSel');if(!P)return;const els=[...estado.sel
   if(!els.length){P.classList.remove('visible');return;}
   const V=els.reduce((s,e)=>s+e.v,0);
   const bots=ORDEN.map(et=>{const ap=els.filter(e=>etapasDe(e).includes(et));if(!ap.length)return '<button class="et-btn" disabled style="--c:'+ETAPAS[et].color+'">'+ETAPAS[et].c+'<small>n/a</small></button>';
-    const h=ap.filter(e=>f(e.g,et)>=1).length;const cls=h===ap.length?'hecho':(h?'parcial':'');
-    return '<button class="et-btn '+cls+'" data-mk="'+et+'" style="--c:'+ETAPAS[et].color+';--p:'+(100*h/ap.length)+'%">'+ETAPAS[et].c+'<small>'+h+'/'+ap.length+'</small></button>';}).join('');
+    const h=ap.filter(e=>f(e.g,et)>=1).length;const av=ap.reduce((q,e)=>q+f(e.g,et),0)/ap.length;const cls=h===ap.length?'hecho':(av>0?'parcial':'');
+    return '<button class="et-btn '+cls+'" data-mk="'+et+'" style="--c:'+ETAPAS[et].color+';--p:'+(100*av)+'%">'+ETAPAS[et].c+'<small>'+((av>0&&h<ap.length)?fmt0(100*av)+'%':h+'/'+ap.length)+'</small></button>';}).join('');
   P.innerHTML='<div class="res"><b>'+els.length+' elemento'+(els.length===1?'':'s')+'</b><span>'+fmt1(V)+' m³</span><span class="esp"></span><label class="toggle-mini"><input type="checkbox" id="chkPrevias" '+(estado.previas?'checked':'')+'> Completar previas</label></div>'+
     '<div class="et-botones">'+bots+'</div>'+
-    '<div class="fila-acc"><button data-sa="mas">🎯 Seleccionar</button><button data-sa="ficha">'+(els.length===1?'ℹ Ficha':'📋 Lista')+'</button><button class="prim" data-sa="comp">📌 Comprometer</button><button data-sa="undo">↶</button><button data-sa="limpiar">✕</button></div>';
+    '<div class="fila-acc"><button data-sa="mas">🎯 Seleccionar</button><button data-sa="ficha">'+(els.length===1?'ℹ Ficha':'📋 Lista')+'</button><button data-sa="pct">📊 %</button><button class="prim" data-sa="comp">📌 Comprometer</button><button data-sa="undo">↶</button><button data-sa="limpiar">✕</button></div>';
   P.classList.add('visible');}
 /* ----- fichas y hojas ----- */
 const nomNivel=id=>{const n=(MOD&&MOD.niveles||[]).find(x=>x.id===id);return n&&n.nombre&&n.nombre!==id?id+' · '+n.nombre:id;};
 function histDe(g){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
   return [...m.values()].filter(e=>e.g===g&&!e.borrado&&e.k!=='comp').sort((a,b)=>b.ts.localeCompare(a.ts));}
 function fichaEl(g){const el=EL.get(g);if(!el)return;const ets=etapasDe(el);
-  const filas=ets.map(et=>{const o=ESTADO.get(g)&&ESTADO.get(g)[et];const hecho=f(g,et)>=1;
-    return '<div class="etapa-fila"><div class="info"><b style="color:'+ETAPAS[et].color+'">'+ETAPAS[et].n+'</b>'+(hecho&&o?'✔ '+escapar(o.ev.por)+' · '+diaCorta(o.ev.dia):'Pendiente')+'</div><div class="acc"><button class="frac-btn'+(hecho?' on':'')+'" style="--c:'+ETAPAS[et].color+'" data-fe="'+et+'" data-g="'+g+'">'+(hecho?'Hecho ✓':'Marcar hecho')+'</button></div></div>';}).join('');
+  const filas=ets.map(et=>{const o=ESTADO.get(g)&&ESTADO.get(g)[et];const v=f(g,et),p=Math.round(100*v),col=ETAPAS[et].color;
+    return '<div class="etapa-fila" style="flex-wrap:wrap"><div class="info"><b style="color:'+col+'">'+ETAPAS[et].n+'</b>'+(v>0&&o?(v>=1?'✔ ':'')+escapar(o.ev.por)+' · '+diaCorta(o.ev.dia):'Pendiente')+'</div><div class="acc"><button class="frac-btn'+(v>=1?' on':'')+'" style="--c:'+col+'" data-fe="'+et+'" data-g="'+g+'">'+(v>=1?'Hecho ✓':'Hecho 100%')+'</button></div>'+
+    '<div class="slider-etapa" style="width:100%;padding:0 0 4px;--c:'+col+'"><input type="range" min="0" max="100" step="5" value="'+p+'" data-fp="'+et+'" data-g="'+g+'"><span class="sl-val" id="fpv_'+et+'">'+p+'%</span></div></div>';}).join('');
   const comps=COMPS.filter(c=>c.gs.includes(g)).sort((a,b)=>b.sem.localeCompare(a.sem)).map(c=>{const s=estadoComp(c);return '<li>📌 '+ETAPAS[c.et].n+' · sem. '+diaCorta(c.sem)+' · <b style="color:'+COMP[s.k].color+'">'+COMP[s.k].n+'</b></li>';}).join('');
-  const hist=histDe(g).slice(0,12).map(e=>'<li><b>'+ETAPAS[e.et].n+'</b> '+(e.f>=1?'hecho':'desmarcado')+' · '+diaCorta(e.dia)+' · '+escapar(e.por)+'</li>').join('');
+  const hist=histDe(g).slice(0,12).map(e=>'<li><b>'+ETAPAS[e.et].n+'</b> '+(e.f>=1?'hecho':e.f>0?Math.round(100*e.f)+'%':'desmarcado')+' · '+diaCorta(e.dia)+' · '+escapar(e.por)+'</li>').join('');
   abrirHoja('<div class="hoja-titulo">'+escapar(el.fam)+' '+escapar(el.t)+(el.pt?' · '+escapar(el.pt):'')+'</div><div class="hoja-sub">'+escapar(nomNivel(el.nv))+' · '+fmt1(el.v)+' m³ · pond. '+fmt0(100*pond(el))+'%</div>'+filas+
     (el.pg?'<p class="nota" style="margin-top:8px">🧩 Parte '+escapar(el.pt)+' de un muro dividido en '+(PADRE.get(el.pg)||[]).length+' partes. <button class="frac-btn" data-selmuro="'+escapar(el.pg)+'">Seleccionar todo el muro</button></p>':'')+
     (comps?'<label class="etiqueta" style="margin-top:10px">Compromisos</label><ul class="log">'+comps+'</ul>':'')+(hist?'<label class="etiqueta" style="margin-top:10px">Historial</label><ul class="log">'+hist+'</ul>':'')+
@@ -2582,8 +2601,8 @@ function renderSemana(){if(!MOD)return;const C=$('#semanaCont');if(!C)return;con
   const items=L.map(c=>({c,s:estadoComp(c)})).filter(x=>F==='todos'||(F==='ok'&&(x.s.k==='ok'||x.s.k==='tarde'))||(F==='pend'&&(x.s.k==='pend'||x.s.k==='prog'))||(F==='venc'&&x.s.k==='venc')).sort((a,b)=>orden[a.s.k]-orden[b.s.k]||a.c.ts.localeCompare(b.c.ts));
   const cards=items.map(({c,s})=>{const col=COMP[s.k].color;const falta=(s.k==='venc'||s.k==='tarde')&&!c.causa;
     return '<div class="comp-card" data-comp="'+c.id+'" style="--c:'+col+'"><div class="top"><b>'+ETAPAS[c.et].n+' · '+c.gs.length+' elem. · '+fmt1(s.V)+' m³</b><span class="est-badge">'+COMP[s.k].n+'</span></div>'+
-    '<div class="sub">'+escapar(c.nv)+(c.resp?' · 👷 '+escapar(c.resp):' · '+escapar(c.por))+(c.de?' · ↪ arrastrado':'')+(c.nota?' · '+escapar(c.nota):'')+(c.causa?' · ⚠ '+escapar(c.causa):'')+'</div>'+barra(s.hechos,s.tot,col)+
-    '<div class="sub" style="margin:4px 0 0">'+s.hechos+' de '+s.tot+' hechos · '+fmt0(pct(s.hechos,s.tot))+'%'+(falta?' · <b style="color:var(--peligro-osc)">falta indicar la causa</b>':'')+'</div></div>';}).join('');
+    '<div class="sub">'+escapar(c.nv)+(c.resp?' · 👷 '+escapar(c.resp):' · '+escapar(c.por))+(c.de?' · ↪ arrastrado':'')+(c.nota?' · '+escapar(c.nota):'')+(c.causa?' · ⚠ '+escapar(c.causa):'')+'</div>'+barra(s.Vh,s.V,col)+
+    '<div class="sub" style="margin:4px 0 0">'+s.hechos+' de '+s.tot+' terminados · '+fmt0(pct(s.Vh,s.V))+'% de avance'+(falta?' · <b style="color:var(--peligro-osc)">falta indicar la causa</b>':'')+'</div></div>';}).join('');
   const prev=sumarDias(sem,-7),arr=sem>=ahora?compsDe(prev).filter(c=>{const s=estadoComp(c);return s.k!=='ok'&&s.k!=='tarde'&&s.tot>s.hechos&&!L.some(x=>x.de===c.id);}):[];
   const cnt=k=>L.filter(c=>{const s=estadoComp(c).k;return k==='todos'||(k==='ok'&&(s==='ok'||s==='tarde'))||(k==='pend'&&(s==='pend'||s==='prog'))||(k==='venc'&&s==='venc');}).length;
   C.innerHTML='<div class="sem-nav"><button data-sm="-1">‹</button><div class="tit">'+(sem===ahora?'Esta semana':sem>ahora?'Semana futura':'Semana pasada')+'<small>'+diaLarga(sem)+' a '+diaLarga(sumarDias(sem,6))+'</small></div><button data-sm="1">›</button></div>'+
@@ -2613,7 +2632,8 @@ function renderTodo(){renderInicio();if(estado.vista==='semana')renderSemana();i
 /* ================= coordinador: KPI del equipo ================= */
 function evVigentes(){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));return [...m.values()].filter(e=>!e.borrado);}
 const semanasAtras=n=>{const h=inicioSem(hoyDia());const a=[];for(let i=n-1;i>=0;i--)a.push(sumarDias(h,-7*i));return a;};
-function m3PorSemana(){const mp={};for(const [g,s] of ESTADO){const o=s.hor;if(o&&o.f>=1&&EL.has(g)){const w=inicioSem(o.ev.dia);mp[w]=(mp[w]||0)+EL.get(g).v;}}return mp;}
+function m3PorSemana(){const mp={},por=new Map();evVigentes().forEach(e=>{if(e.k==='comp'||e.et!=='hor'||!EL.has(e.g))return;if(!por.has(e.g))por.set(e.g,[]);por.get(e.g).push(e);});
+  por.forEach((L,g)=>{L.sort((a,b)=>a.ts.localeCompare(b.ts));let prev=0;const v=EL.get(g).v;L.forEach(e=>{const w=inicioSem(e.dia);mp[w]=(mp[w]||0)+v*(e.f-prev);prev=e.f;});});return mp;}
 function columnas(vals,labels,col,fv){const mx=Math.max(1,...vals);return '<div class="cols">'+vals.map((v,i)=>'<div class="c" style="--c:'+col+'"><em>'+(v?fv(v):'')+'</em><div class="b"><i style="height:'+(100*v/mx)+'%"></i></div><small>'+labels[i]+'</small></div>').join('')+'</div>';}
 function tendencia(){const sems=semanasAtras(8),mp=m3PorSemana(),hor=sems.map(w=>mp[w]||0);
   const prev=hor.slice(3,7),ritmo=prev.some(x=>x>0)?prev.reduce((a,b)=>a+b,0)/prev.length:0;
@@ -2670,7 +2690,7 @@ function pdfTabla(doc,y,cols,filas,tit,sub){const H=6.2;
   if(!filas.length){doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(100,116,139);doc.text('Sin registros.',PM+2,y+4.5);y+=H;}
   doc.setTextColor(30,41,59);return y+2;}
 const nivelesDe=c=>c.nv.split(',').join(' / ');
-function filaComp(c){const s=estadoComp(c);return {c:[ETAPAS[c.et].n,nivelesDe(c),String(s.tot),fmt1(s.V),s.hechos+'/'+s.tot,fmt0(pct(s.hechos,s.tot))+'%',COMP[s.k].n,c.resp||c.por||'',(c.causa||'')+(c.nota?(c.causa?' · ':'')+c.nota:'')],col:rgb(COMP[s.k].color),cj:6};}
+function filaComp(c){const s=estadoComp(c);return {c:[ETAPAS[c.et].n,nivelesDe(c),String(s.tot),fmt1(s.V),s.hechos+'/'+s.tot,fmt0(pct(s.Vh,s.V))+'%',COMP[s.k].n,c.resp||c.por||'',(c.causa||'')+(c.nota?(c.causa?' · ':'')+c.nota:'')],col:rgb(COMP[s.k].color),cj:6};}
 const ordenC=(a,b)=>a.nv.localeCompare(b.nv)||ORDEN.indexOf(a.et)-ORDEN.indexOf(b.et)||a.ts.localeCompare(b.ts);
 async function informeLP(){progreso('Armando el informe…');await new Promise(r=>setTimeout(r,60));
   try{const S=estado.sem,A=sumarDias(S,-7),Z=sumarDias(S,7);const doc=pdfBase();const sub=OBRA+' · semana '+diaCorta(S)+' – '+diaCorta(sumarDias(S,6));const TIT='Informe Last Planner · Hormigón armado';
@@ -2702,7 +2722,7 @@ async function informeLP(){progreso('Armando el informe…');await new Promise(r
     doc.addPage();pdfCab(doc,TIT,sub);y=23;y=pdfTit(doc,y,'2 · Compromisos de esta semana · '+diaLarga(S)+' al '+diaLarga(sumarDias(S,6)));
     y=pdfNota(doc,y,'Nuevo comprometido: '+nuevoS.length+' compromisos / '+fmt1(vN)+' m3 · Arrastrado de la semana anterior: '+arrS.length+' / '+fmt1(vR)+' m3 · Total: '+fmt1(vN+vR)+' m3'+(pS?' · avance a la fecha '+fmt0(pS.ph)+'%':''));
     const cols2=[{t:'Etapa',w:28},{t:'Nivel',w:30},{t:'Elem.',w:14,al:'r'},{t:'m3',w:18,al:'r'},{t:'Hechos',w:20,al:'r'},{t:'%',w:14,al:'r'},{t:'Estado',w:30},{t:'Origen',w:24},{t:'Responsable',w:40},{t:'Nota',w:PW-2*PM-218}];
-    y=pdfTabla(doc,y+1,cols2,compsDe(S).sort(ordenC).map(c=>{const q=estadoComp(c);return {c:[ETAPAS[c.et].n,nivelesDe(c),String(q.tot),fmt1(q.V),q.hechos+'/'+q.tot,fmt0(pct(q.hechos,q.tot))+'%',COMP[q.k].n,c.de?'Arrastrado':'Nuevo',c.resp||c.por||'',c.nota||''],col:rgb(COMP[q.k].color),cj:6};}),TIT,sub);
+    y=pdfTabla(doc,y+1,cols2,compsDe(S).sort(ordenC).map(c=>{const q=estadoComp(c);return {c:[ETAPAS[c.et].n,nivelesDe(c),String(q.tot),fmt1(q.V),q.hechos+'/'+q.tot,fmt0(pct(q.Vh,q.V))+'%',COMP[q.k].n,c.de?'Arrastrado':'Nuevo',c.resp||c.por||'',c.nota||''],col:rgb(COMP[q.k].color),cj:6};}),TIT,sub);
     const cz=compsDe(Z);if(cz.length){if(y>PH-40){doc.addPage();pdfCab(doc,TIT,sub);y=23;}y=pdfTit(doc,y+3,'Programado para la semana siguiente · '+diaLarga(Z)+' al '+diaLarga(sumarDias(Z,6)));
       y=pdfTabla(doc,y,[{t:'Etapa',w:30},{t:'Nivel',w:34},{t:'Elem.',w:16,al:'r'},{t:'m3',w:20,al:'r'},{t:'Responsable',w:50},{t:'Nota',w:PW-2*PM-150}],cz.sort(ordenC).map(c=>({c:[ETAPAS[c.et].n,nivelesDe(c),String(c.gs.length),fmt1(estadoComp(c).V),c.resp||c.por||'',c.nota||'']})),TIT,sub);}
     /* 4 · tendencia y causas */
@@ -2761,7 +2781,7 @@ document.addEventListener('click',async e=>{const t=e.target;
   if((b=t.closest('[data-semm]'))){estado.sem=sumarDias(estado.sem,7*+b.dataset.semm);chips();pintar();return;}
   if((b=t.closest('[data-mk]'))){marcarSel(b.dataset.mk);return;}
   if((b=t.closest('[data-sa]'))){const a=b.dataset.sa;
-    if(a==='limpiar'){estado.sel.clear();pintar();panelSel();}else if(a==='undo')deshacer();else if(a==='comp')hojaComprometer();else if(a==='mas')toolsSel();
+    if(a==='limpiar'){estado.sel.clear();pintar();panelSel();}else if(a==='undo')deshacer();else if(a==='comp')hojaComprometer();else if(a==='pct')hojaPct();else if(a==='mas')toolsSel();
     else if(a==='ficha'){if(estado.sel.size===1)fichaEl([...estado.sel][0]);else listaSel();}return;}
   if((b=t.closest('[data-st]'))){selTool(b.dataset.st);return;}
   if((b=t.closest('[data-stf]'))){selTool('f:'+b.dataset.stf);return;}
@@ -2818,8 +2838,9 @@ window.addEventListener('DOMContentLoaded',()=>{
   $('#chipJornada').onclick=()=>{estado.sem=inicioSem(hoyDia());cambiarVista('semana');};
   $('#inputRespaldo').onchange=e=>{const fl=e.target.files[0];if(fl)restaurar(fl);e.target.value='';};
   document.addEventListener('click',e=>{if(e.target.id==='btnNuevoComp'){cambiarVista('visor');}});
-  document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.op;if(!k)return;estado.op[k]=+e.target.value;$('#opv_'+k).textContent=e.target.value+'%';guardarOp();pintar();});
+  document.addEventListener('input',e=>{const fp=e.target.dataset&&e.target.dataset.fp;if(fp){$('#fpv_'+fp).textContent=e.target.value+'%';return;}const k=e.target.dataset&&e.target.dataset.op;if(!k)return;estado.op[k]=+e.target.value;$('#opv_'+k).textContent=e.target.value+'%';guardarOp();pintar();});
   $('#btnVer').onclick=hojaVer;
+  document.addEventListener('change',async e=>{const t=e.target;if(!(t.dataset&&t.dataset.fp))return;const el=EL.get(t.dataset.g);if(!el)return;const lote=[];await aplicarPct(el,t.dataset.fp,+t.value/100,lote);if(lote.length)estado.deshacer.push(lote);combinar();pintar();panelSel();renderInicio();renderSemana();fichaEl(el.g);});
   iniciar();});
 
 </script>
