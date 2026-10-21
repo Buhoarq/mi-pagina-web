@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.10 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.11 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -562,7 +562,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.10 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.11 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -987,7 +987,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.10 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.11 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- estados de cada puerta (según el último ticket) ---------------- */
@@ -1336,11 +1336,22 @@ async function abrirArchivo(file){try{const d=JSON.parse(await file.text());if(d
   for(const t of d.tickets||[]){if(estado.local.some(x=>x.id===t.id))continue;t.recibido=true;t.enviado=true;estado.local.push(t);await put('tickets',t);n++;}combinar();renderTodo();toast(n+' ticket(s) cargados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
 /* ---------------- menú y eventos ---------------- */
+const propios=()=>estado.local.filter(t=>t.por===estado.persona&&!t.recibido);
+async function vaciarLocal(){const ids=propios().map(t=>t.id);
+  if(DB){await tx('tickets','readwrite',st=>{ids.forEach(id=>st.delete(id));});}else ids.forEach(id=>{delete mem.tickets[id];});
+  estado.local=estado.local.filter(t=>!ids.includes(t.id));combinar();renderTodo();}
+function hojaBorrar(){const n=propios().filter(t=>!t.borrado).length,p=pendientesEnvio();
+  if(!propios().length){abrirHoja('<div class="hoja-titulo">🗑 Borrar mis tickets</div><p class="nota" style="margin-top:8px">No tienes tickets propios guardados en este teléfono.</p>');return;}
+  abrirHoja('<div class="hoja-titulo">🗑 Borrar mis tickets</div><div class="hoja-sub">Se borran tus '+n+' tickets (con sus fotos) guardados en este teléfono; útil para limpiar pruebas. Los tickets que recibiste de otras personas y lo ya consolidado por el coordinador no se tocan.</div>'+
+   (p?'<div class="info-sello" style="border-color:#FCA5A5;background:#FEF2F2;color:#991B1B">⚠ Tienes <b>'+p+' ticket'+(p===1?'':'s')+' sin enviar</b>. Si los borras ahora se pierden. Es mejor <b>enviarlos al coordinador antes</b>.</div><button class="btn principal grande" data-acc="enviar" style="width:100%;margin-top:10px">📤 Enviar primero al coordinador</button>':'<p class="nota" style="margin:10px 0">✔ Todo lo tuyo ya fue enviado al coordinador.</p>')+
+   '<label class="toggle-mini" style="display:flex;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;font-weight:700"><input type="checkbox" id="chkBorrar" style="width:18px;height:18px"> Entiendo que no se puede deshacer</label><button class="btn secundario" id="btnBorrarOk" disabled style="width:100%;margin-top:10px;color:var(--peligro-osc);justify-content:center">🗑 Borrar de este teléfono</button>');
+  $('#chkBorrar').onchange=e=>{$('#btnBorrarOk').disabled=!e.target.checked;};
+  $('#btnBorrarOk').onclick=async()=>{await vaciarLocal();cerrarHoja();toast('Avance de este teléfono borrado','ok');};}
 function abrirMenu(){abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">PuertaFlow · Coordinación '+APP_VER+' · '+OBRA+' · '+ROL[estado.rol].n+' · por Renato Martínez Palominos</div>'+
   '<button class="menu-item" data-acc="enviar">📤 Enviar al coordinador (archivo + informe PDF con fotos)</button><button class="menu-item" data-acc="pdfest">📊 Informe PDF del estado (plantas y tickets de la semana)</button><button class="menu-item" data-acc="rdi">🧾 Informe PDF de interferencias para RDI</button><button class="menu-item" data-acc="equipo">🔄 Actualizar coordinación</button>'+
   '<button class="menu-item" data-acc="abrir">📥 Abrir archivo de tickets</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
   (estado.rol==='obra'?'<a class="menu-item" href="index.html">🚪 Ir a PuertaFlow (avance de puertas)</a><a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a>':'')+
-  '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
+  '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button><button class="menu-item" data-acc="borrar" style="color:var(--peligro-osc)">🗑 Borrar mis tickets de este teléfono</button>');}
 document.addEventListener('click',async e=>{
   const fe=e.target.closest('[data-fest]');if(fe){estado.fEst=estado.fEst===fe.dataset.fest?'':fe.dataset.fest;renderTablero();return;}
   const fi=e.target.closest('[data-ficha]');if(fi){abrirFicha(PUE.get(fi.dataset.ficha));return;}
@@ -1362,6 +1373,7 @@ document.addEventListener('click',async e=>{
   else if(a==='limpiar'){estado.sel.clear();renderBarraSel();render();}
   else if(a==='nombre')abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');
   else if(a==='nombreok'){const v=$('#inNombre').value.trim();if(v.length<2)return;estado.persona=v;await metaSet('persona',v);try{localStorage.setItem('obraflow_nombre',v);}catch(_){}cerrarHoja();pintarSaludo();renderTodo();toast('Hola, '+v,'ok');}
+  else if(a==='borrar')hojaBorrar();
   else if(a==='salir'){await metaSet('kc',null);await metaSet('rol',null);location.reload();}});
 function pintarSaludo(){$('#subMarca').textContent='Coordinación · '+estado.persona;$('#chipRol').textContent=CHIP[estado.rol]||estado.rol;$('#btnFlujo').style.display=estado.rol==='obra'?'':'none';}
 /* ---------------- acceso ---------------- */
