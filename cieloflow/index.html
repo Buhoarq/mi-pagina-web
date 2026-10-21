@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>CieloFlow v0.4 β · Hospital de Coquimbo</title>
+<title>CieloFlow v0.5 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -575,7 +575,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.4 β</span></span>
+      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.5 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -617,7 +617,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumen</span></button>
 </nav>
-<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.4 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.5 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -641,7 +641,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.4 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.5 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -735,7 +735,7 @@ function prepNivel(id){const n=PLAN.niveles.find(x=>x.id===id);if(!n)return null
   n.rec.forEach((r,i)=>{n.R.push({i,n:r.n,ln:r.ln,c:r.c,bb:bboxP(r.p),path:(()=>{const p=new Path2D();anillo(p,r.p);return p;})(),p:[r.p],d:[]});});
   recs(id).forEach(r=>{if(r.i!=null&&n.R[r.i])n.R[r.i].d.push(r);else if(r.p){const pp=new Path2D();r.p.forEach(x=>anillo(pp,x));const f=r.p[0];const bb=bboxP(f);n.R.push({i:-1,n:r.n,ln:r.l,c:[(bb[0]+bb[2])/2,(bb[1]+bb[3])/2],bb,path:pp,p:r.p,d:[r]});}});
   n.Z=[];n.R.forEach(q=>q.d.forEach(r=>r.c.forEach(c=>{if(!c.p||!c.p.length)return;const pp=new Path2D();c.p.forEach(x=>anillo(pp,x));let bb=[1e12,1e12,-1e12,-1e12];c.p.forEach(x=>{const b=bboxP(x);bb=[Math.min(bb[0],b[0]),Math.min(bb[1],b[1]),Math.max(bb[2],b[2]),Math.max(bb[3],b[3])];});
-    n.Z.push({r,c,q,path:pp,bb,p:c.p,area:c.a});})));
+    n.Z.push({r,c,q,path:pp,bb,p:c.p,area:c.a,lp:c.lp});})));
   n.R.forEach(q=>{q.d.sort((a,b)=>(b.c.length>0)-(a.c.length>0)||b.A-a.A);q.r=q.d[0]||null;q.area=(q.bb[2]-q.bb[0])*(q.bb[3]-q.bb[1]);});
   return n;}
 function dimensionar(){const w=wrapP(),c=lienzo(),dpr=Math.min(window.devicePixelRatio||1,2.5);const W=w.clientWidth,H=w.clientHeight;if(!W||!H)return false;
@@ -753,7 +753,7 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
   const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+c.clientWidth/V.s,vy1=vy0+c.clientHeight/V.s;const vis=bb=>!(bb[2]<vx0||bb[0]>vx1||bb[3]<vy0||bb[1]>vy1);
   ctx.lineWidth=0.8*px;ctx.strokeStyle=osc?'#334155':'#D5DCE6';
   n.R.forEach(q=>{if(!vis(q.bb))return;ctx.fillStyle=osc?'#1E293B':'#FFFFFF';ctx.fill(q.path);ctx.stroke(q.path);});
-  n.Z.forEach(z=>{if(!vis(z.bb))return;ctx.globalAlpha=activoZ(z)?0.9:0.15;ctx.fillStyle=colorZ(z);ctx.fill(z.path);});ctx.globalAlpha=1;
+  n.Z.forEach(z=>{if(!vis(z.bb))return;ctx.globalAlpha=activoZ(z)?0.9:0.15;ctx.fillStyle=colorZ(z);ctx.fill(z.path,'evenodd');});ctx.globalAlpha=1;
   ctx.lineWidth=0.7*px;ctx.strokeStyle=osc?'rgba(15,23,42,.55)':'rgba(255,255,255,.9)';n.Z.forEach(z=>{if(vis(z.bb)&&activoZ(z))ctx.stroke(z.path);});
   ctx.lineWidth=0.8*px;ctx.strokeStyle=osc?'#334155':'#D5DCE6';n.R.forEach(q=>{if(vis(q.bb))ctx.stroke(q.path);});
   if(n.ejes.length){ctx.save();ctx.strokeStyle=osc?'rgba(248,113,113,.35)':'rgba(220,38,38,.28)';ctx.lineWidth=0.8*px;ctx.setLineDash([10*px,6*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);for(let i=2;i<e.p.length;i+=2)ctx.lineTo(e.p[i],e.p[i+1]);ctx.stroke();});ctx.restore();}
@@ -764,7 +764,7 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
   const fz=Math.min(13,Math.max(9,V.s*30));
   ctx.lineJoin='round';ctx.font='800 '+fz+'px Inter,system-ui,sans-serif';
   n.Z.forEach(z=>{if(!vis(z.bb)||!activoZ(z))return;const wpx=(z.bb[2]-z.bb[0])*V.s,hpx=(z.bb[3]-z.bb[1])*V.s;if(wpx<38||hpx<15)return;
-    const t1=estado.modo==='tipo'?(wpx>78?z.c.t+' · '+fm(z.c.h,2):z.c.t):fm(z.c.h,2);const x=sx((z.bb[0]+z.bb[2])/2),y=sy((z.bb[1]+z.bb[3])/2);
+    const t1=estado.modo==='tipo'?(wpx>78?z.c.t+' · '+fm(z.c.h,2):z.c.t):fm(z.c.h,2);const x=sx(z.lp?z.lp[0]:(z.bb[0]+z.bb[2])/2),y=sy(z.lp?z.lp[1]:(z.bb[1]+z.bb[3])/2);
     ctx.lineWidth=3;ctx.strokeStyle=osc?'#0F172A':'#fff';ctx.fillStyle=osc?'#F8FAFC':'#0F172A';ctx.strokeText(t1,x,y);ctx.fillText(t1,x,y);});
   if(V.s*100>=9)n.R.forEach(q=>{if(!vis(q.bb)||!q.ln||q.d.length!==1||q.r.c.length!==1)return;const wpx=(q.bb[2]-q.bb[0])*V.s,hpx=(q.bb[3]-q.bb[1])*V.s;if(wpx<90||hpx<34)return;
     let nm=q.ln;ctx.font='600 '+Math.max(8,fz-2)+'px Inter,system-ui,sans-serif';const mw=wpx-6;while(nm.length>3&&ctx.measureText(nm).width>mw)nm=nm.slice(0,-2);if(nm!==q.ln)nm=nm.trim()+'…';ctx.lineWidth=2.5;ctx.strokeStyle=osc?'#0F172A':'#fff';ctx.fillStyle=osc?'#94A3B8':'#475569';
@@ -772,7 +772,7 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
   if(n.ejes.length&&V.s*100>=3.5){ctx.font='800 10px Inter,system-ui,sans-serif';const amb=V.s*100>=8;
     n.ejes.forEach(e=>{[[0,1]].concat(amb?[[e.p.length-2,e.p.length-1]]:[]).forEach(([i,j])=>{const x=sx(e.p[i]),y=sy(e.p[j]);if(x<-20||y<-20||x>c.clientWidth+20||y>c.clientHeight+20)return;
       ctx.fillStyle=osc?'#1E293B':'#fff';ctx.strokeStyle='#DC2626';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#B91C1C';ctx.fillText(e.t,x,y+.5);});});}}
-function renderPlano(){if(!MOD||!PLAN)return;if(!estado.nv)estado.nv=(NIV.find(n=>n.id==='EP-N1')||NIV[0]).id;chipsPlano();leyendaPlano();enlazarPlano();requestAnimationFrame(()=>{encuadrarPlano();});}
+function renderPlano(){if(!MOD||!PLAN)return;if(!estado.nv)estado.nv=(NIV.find(n=>n.id==='EP-N1')||NIV[0]).id;chipsPlano();leyendaPlano();enlazarPlano();requestAnimationFrame(()=>{const f=estado.foco;estado.foco=null;encuadrarPlano(f||undefined);});}
 function pintarPlano(){leyendaPlano();pedirR();}
 function recEn(mx,my){const n=prepNivel(estado.nv);if(!n)return null;let m=null;n.R.forEach(q=>{if(mx<q.bb[0]||mx>q.bb[2]||my<q.bb[1]||my>q.bb[3])return;if(q.p.some(p=>dentroP(mx,my,p))&&(!m||q.area<m.area))m=q;});return m;}
 function chipsPlano(){$('#chipsNivel').innerHTML=NIV.map(n=>'<button class="chipf'+(estado.nv===n.id?' on':'')+'" data-pnv="'+n.id+'">'+escapar(n.id)+'</button>').join('');
@@ -796,7 +796,7 @@ function enlazarPlano(){if(ligado)return;ligado=true;const w=wrapP();
   w.addEventListener('pointerup',fin);w.addEventListener('pointercancel',fin);
   w.addEventListener('wheel',e=>{e.preventDefault();const r=w.getBoundingClientRect();zoomEn(e.deltaY>0?1/1.18:1.18,e.clientX-r.left,e.clientY-r.top);},{passive:false});}
 function zoomEn(f,px,py){const s2=Math.max(0.004,Math.min(4,V.s*f));const k=s2/V.s;V.tx=px-(px-V.tx)*k;V.ty=py-(py-V.ty)*k;V.s=s2;pedirR();}
-function zonaEn(mx,my){const n=prepNivel(estado.nv);if(!n)return null;let m=null;n.Z.forEach(z=>{if(mx<z.bb[0]||mx>z.bb[2]||my<z.bb[1]||my>z.bb[3])return;if(z.p.some(p=>dentroP(mx,my,p))&&(!m||z.area<m.area))m=z;});return m;}
+function zonaEn(mx,my){const n=prepNivel(estado.nv);if(!n)return null;let m=null;n.Z.forEach(z=>{if(mx<z.bb[0]||mx>z.bb[2]||my<z.bb[1]||my>z.bb[3])return;if((z.p.reduce((k,p)=>k+(dentroP(mx,my,p)?1:0),0)%2===1)&&(!m||z.area<m.area))m=z;});return m;}
 function cerrarInfo(){const p=$('#infoCielo');if(p)p.classList.remove('visible');$('#leyenda').style.display='';estado.selZ=null;estado.sel=null;pedirR();}
 function infoCielo(z,q){const p=$('#infoCielo');if(!p)return;const r=z?z.r:(q&&q.r),c=z?z.c:null;
   let h;if(c){h='<div class="ic-top"><i style="background:'+colorZ(z)+'"></i><div><b class="ic-t">'+escapar(c.t)+'</b><span>'+escapar(c.d)+'</span></div><button class="ic-x" data-acc="cerrarinfo" aria-label="Cerrar">✕</button></div>'+
@@ -822,9 +822,10 @@ function fichaRec(g,desdeLista,otros,toc){const r=REC.get(g);if(!r)return;const 
    (otros&&otros.length>1?'<div class="nota" style="margin-top:10px"><b>Otros recintos dentro de este polígono del plano</b></div><table class="prog-matriz tabla-et">'+otros.slice(1).map(o=>'<tr class="click" data-fr="'+o.g+'"><td style="text-align:left">'+escapar(o.n)+' · '+escapar(o.l||'—')+'</td><td><b>'+(o.c.length?h2(hDom(o)):'sin cielo')+'</b></td></tr>').join('')+'</table>':'')+
    (desdeLista?'<button class="btn secundario" data-ver="'+g+'" style="width:100%;margin-top:10px;justify-content:center">🗺️ Ver en la planta</button>':'')+
    '<p class="nota" style="margin-top:10px;font-size:11px;word-break:break-all">GUID '+escapar(g)+'</p>');}
-function verEnPlano(g){const r=REC.get(g);if(!r)return;cerrarHoja();estado.nv=r.nv;estado.fH=null;estado.fTipo='';estado.sel=g;cambiarVista('plano');
-  setTimeout(()=>{const n=prepNivel(r.nv);const q=n&&n.R.find(x=>x.d.includes(r));if(!q)return;const w=wrapP();const W=w.clientWidth,H=w.clientHeight;
-    const cw=Math.max((q.bb[2]-q.bb[0])*4,900),ch=cw*H/W;encuadrarPlano([q.c[0]-cw/2,q.c[1]-ch/2,q.c[0]+cw/2,q.c[1]+ch/2]);},150);}
+function verEnPlano(g){const r=REC.get(g);if(!r)return;cerrarHoja();estado.nv=r.nv;estado.fH=null;estado.fTipo='';estado.sel=g;estado.selZ=null;
+  const n=prepNivel(r.nv);const q=n&&n.R.find(x=>x.d.includes(r));estado.foco=null;
+  if(q){const w=wrapP();const W=w.clientWidth||390,H=w.clientHeight||500;const cw=Math.max((q.bb[2]-q.bb[0])*2.5,1500),ch=cw*H/W;estado.foco=[q.c[0]-cw/2,q.c[1]-ch/2,q.c[0]+cw/2,q.c[1]+ch/2];}
+  cambiarVista('plano');}
 /* ----- buscar ----- */
 function listaFiltrada(){const q=norm(estado.q);let L=MOD.rec.filter(r=>(!estado.nv2||r.nv===estado.nv2)&&(!estado.fTipo2||(r.c.length&&r.c.some(c=>c.t===estado.fTipo2)))&&(!q||norm(r.n+' '+r.l).includes(q)));
   if(estado.orden==='alt')L.sort((a,b)=>(hDom(a)==null)-(hDom(b)==null)||(hDom(a)||0)-(hDom(b)||0)||a.n.localeCompare(b.n,'es',{numeric:true}));
