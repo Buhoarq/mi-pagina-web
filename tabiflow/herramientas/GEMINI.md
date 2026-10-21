@@ -134,4 +134,4 @@ git commit -m "Avance HormiFlow consolidado DD/MM/AAAA (nombres)"
 git push
 ```
 
-Usa la misma `TABIFLOW_CLAVE`. No toques `hormiflow/hormi.enc` (lo mantiene Claude). Copia `consolidar_hormi.py` a `tabiflow/herramientas/` si aún no está.
+Desde la v0.2 cada envío llega con dos archivos: el `.json` (el único que se consolida) y un `Resumen_HormiFlow_….pdf` (solo para leer; no se procesa). Usa la misma `TABIFLOW_CLAVE`. No toques `hormiflow/hormi.enc` (lo mantiene Claude). Copia `consolidar_hormi.py` a `tabiflow/herramientas/` si aún no está.

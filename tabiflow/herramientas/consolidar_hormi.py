@@ -11,6 +11,8 @@ def unir(a):
     key = clave_de(a.clave_web, a.clave)
     modelo = descifrar(key, open(os.path.join(a.web, 'hormi.enc'), 'rb').read())
     els = {e['g']: e for e in modelo['el']}
+    padres = {e['pg'] for e in modelo['el'] if e.get('pg')}          # muros divididos: aún se aceptan registros hechos sobre el muro entero
+    conocido = lambda g: g in els or g in padres
     ruta = os.path.join(a.web, 'avance.enc')
     base = descifrar(key, open(ruta, 'rb').read()) if os.path.exists(ruta) else {'eventos': []}
     ev = {e['id']: e for e in base.get('eventos', [])}
@@ -23,7 +25,7 @@ def unir(a):
         nuevos = anul = ign = 0
         for e in d.get('eventos', []):
             gs = e.get('gs') or ([e['g']] if e.get('g') else [])
-            if not gs or any(g not in els for g in gs): ign += 1; continue
+            if not gs or any(not conocido(g) for g in gs): ign += 1; continue
             x = ev.get(e['id'])
             if x is None: ev[e['id']] = e; nuevos += 1
             elif e.get('borrado') and not x.get('borrado'): x['borrado'] = True; x['borradoTs'] = e.get('borradoTs'); anul += 1
@@ -40,7 +42,8 @@ def unir(a):
         if o is None or e['ts'] > o[1]: est[e['g']][e['et']] = (e['f'], e['ts'])   # el último registro manda (se puede desmarcar)
     vol = collections.defaultdict(lambda: [0.0, 0.0])
     for g, el in els.items():
-        vol[el['nv']][1] += el['v']; vol[el['nv']][0] += el['v'] * est.get(g, {}).get('hor', (0, ''))[0]
+        f_ = est.get(g, {}).get('hor') or est.get(el.get('pg'), {}).get('hor') or (0, '')
+        vol[el['nv']][1] += el['v']; vol[el['nv']][0] += el['v'] * f_[0]
     L += ['', 'Registros vigentes: %d · personas: %s' % (sum(1 for e in ev.values() if not e.get('borrado')), ', '.join(sorted(personas)) or '—'), '',
           '| Nivel | m³ modelo | m³ hormigonados | % |', '|---|---:|---:|---:|']
     for nv, (q, V) in vol.items(): L.append('| %s | %.1f | %.1f | %.1f %% |' % (nv, V, q, 100 * q / V if V else 0))
