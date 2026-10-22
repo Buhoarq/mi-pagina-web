@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>VentanaIntFlow v0.2 β · Hospital de Coquimbo</title>
+<title>VentanaIntFlow v0.3 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -585,7 +585,7 @@ body.con-barrasel #vista-buscar{padding-bottom:130px}body.con-barrasel #leyenda{
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v0.2 β</span></span>
+      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v0.3 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -629,7 +629,7 @@ body.con-barrasel #vista-buscar{padding-bottom:130px}body.con-barrasel #leyenda{
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v0.2 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v0.3 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -1053,7 +1053,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de terminaciones de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.2 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.3 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -1099,7 +1099,7 @@ async function verificar(key){const info=await infoClave();await descifrar(key,U
 const DIA_INI=4;
 const TOL=0.5;   /* cm: diferencias de hasta 5 mm se consideran "sin diferencia" */
 const ORDEN_EST={pend:0,dif:1,ok:2};
-const COL={pend:'#94A3B8',lis:'#7C3AED',ok:'#16A34A',dif:'#F59E0B',env:'#0284C7'};
+const COL={pend:'#4ADE80',lis:'#7C3AED',ok:'#DC2626',dif:'#DC2626',env:'#0284C7'};
 const NOM_EST={pend:'Sin marcar',lis:'Lista para levantar',ok:'Levantada · sin diferencias',dif:'Levantada · con diferencias'};
 const CORTO_EST={pend:'Sin marcar',lis:'Lista',ok:'Levantada',dif:'Con diferencias'};
 const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nv:null,fTipo:'',fEst:'',q:'',nv2:'',tipo2:'',est2:'',lim:100,sel:null,modoSel:false,multi:new Set()};
@@ -1177,10 +1177,10 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
     const a=activoV(v);ctx.globalAlpha=a?1:0.18;const grosor=Math.max(v.th+4,8*px);
     ctx.strokeStyle=osc?'#0F172A':'#FFFFFF';ctx.lineWidth=grosor+3*px;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();
     ctx.strokeStyle=colV(v);ctx.lineWidth=grosor;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();
-    const e=LEV.get(v.g)||LIS.get(v.g);if(e&&estado.local.some(x=>x.id===e.id&&!x.enviado)){ctx.strokeStyle=COL.env;ctx.lineWidth=2*px;ctx.setLineDash([4*px,3*px]);ctx.strokeRect(Math.min(s[0],s[2])-grosor/2,Math.min(s[1],s[3])-grosor/2,Math.abs(s[2]-s[0])+grosor,Math.abs(s[3]-s[1])+grosor);ctx.setLineDash([]);}});
+    if(estV(v)==='lis'){const mx=(s[0]+s[2])/2,my=(s[1]+s[3])/2,r=Math.min(Math.max(Math.hypot(s[2]-s[0],s[3]-s[1])/2+6*px,13*px),34*px);ctx.strokeStyle=COL.lis;ctx.lineWidth=2.6*px;ctx.beginPath();ctx.arc(mx,my,r,0,Math.PI*2);ctx.stroke();}});
   ctx.globalAlpha=1;
-  if(estado.multi.size){ctx.lineCap='butt';ctx.strokeStyle='#F59E0B';ctx.globalAlpha=.9;recs(estado.nv).forEach(v=>{if(!estado.multi.has(v.g))return;const s=v.seg,g=Math.max(v.th+4,8*px);ctx.lineWidth=g+9*px;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.strokeStyle=colV(v);ctx.lineWidth=g;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.strokeStyle='#F59E0B';});ctx.globalAlpha=1;}
-  if(estado.sel&&VENT.get(estado.sel)&&VENT.get(estado.sel).nv===estado.nv){const s=VENT.get(estado.sel).seg,g=Math.max(VENT.get(estado.sel).th+4,8*px);ctx.strokeStyle='#E11D48';ctx.lineWidth=g+10*px;ctx.globalAlpha=.55;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.globalAlpha=1;}
+  if(estado.multi.size){ctx.lineCap='butt';ctx.globalAlpha=.9;ctx.strokeStyle='#0F172A';recs(estado.nv).forEach(v=>{if(!estado.multi.has(v.g))return;const s=v.seg,g=Math.max(v.th+4,8*px);ctx.lineWidth=g+9*px;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.strokeStyle=colV(v);ctx.lineWidth=g;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.strokeStyle='#0F172A';});ctx.globalAlpha=1;}
+  if(estado.sel&&VENT.get(estado.sel)&&VENT.get(estado.sel).nv===estado.nv){const s=VENT.get(estado.sel).seg,g=Math.max(VENT.get(estado.sel).th+4,8*px);ctx.strokeStyle='#0F172A';ctx.lineWidth=g+10*px;ctx.globalAlpha=.45;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.globalAlpha=1;}
   ctx.setTransform(dpr,0,0,dpr,0,0);const sx=x=>x*V.s+V.tx,sy=y=>y*V.s+V.ty;ctx.textAlign='center';ctx.textBaseline='middle';
   if(V.s*100>=11){ctx.font='800 '+Math.min(12,Math.max(9,V.s*26))+'px Inter,system-ui,sans-serif';ctx.lineJoin='round';
     L.forEach(v=>{if(!activoV(v))return;const x=sx((v.seg[0]+v.seg[2])/2),y=sy((v.seg[1]+v.seg[3])/2);if(x<-30||y<-20||x>c.clientWidth+30||y>c.clientHeight+20)return;
@@ -1191,10 +1191,10 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
 function renderPlano(){if(!MOD||!PLAN)return;if(!estado.nv)estado.nv=(NIV.find(n=>n.id==='EP-N2')||NIV[0]).id;chipsPlano();leyendaPlano();enlazarPlano();requestAnimationFrame(()=>{const f=estado.foco;estado.foco=null;encuadrarPlano(f||undefined);});}
 function chipsPlano(){$('#chipsNivel').innerHTML=NIV.map(n=>'<button class="chipf'+(estado.nv===n.id?' on':'')+'" data-pnv="'+n.id+'">'+escapar(n.id)+'</button>').join('');
   const ts=[...new Set(recs(estado.nv).map(v=>v.k))].sort();
-  $('#chipsFiltro').innerHTML='<button class="chipf'+(estado.modoSel?' on':'')+'" data-acc="modosel" style="border-color:#F59E0B">☑ Seleccionar varias</button><span style="flex:none;width:6px"></span>'+[['','Todas'],['pend','Sin marcar'],['lis','Listas'],['lev','Levantadas'],['dif','Con diferencias']].map(([k,n])=>'<button class="chipf'+(estado.fEst===k?' on':'')+'" data-fest="'+k+'">'+n+'</button>').join('')+'<span style="flex:none;width:8px"></span>'+
+  $('#chipsFiltro').innerHTML='<button class="chipf'+(estado.modoSel?' on':'')+'" data-acc="modosel" style="border-color:#F59E0B">☑ Seleccionar varias</button><span style="flex:none;width:6px"></span>'+[['','Todas'],['pend','Sin marcar'],['lis','Listas'],['lev','Medidas tomadas']].map(([k,n])=>'<button class="chipf'+(estado.fEst===k?' on':'')+'" data-fest="'+k+'">'+n+'</button>').join('')+'<span style="flex:none;width:8px"></span>'+
    ts.map(t=>'<button class="chipf'+(estado.fTipo===t?' on':'')+'" data-ftipo="'+escapar(t)+'">'+escapar(t)+'</button>').join('');}
 function leyendaPlano(){const L=$('#leyenda');if(!L)return;const s=statsDe(recs(estado.nv));
-  L.innerHTML='<b>'+escapar(estado.nv||'')+' · '+s.tot+' ventanas</b><span class="lg"><i style="background:'+COL.pend+'"></i>Sin marcar <small>'+s.pend+'</small></span><span class="lg"><i style="background:'+COL.lis+'"></i>Lista para levantar <small>'+s.lis+'</small></span><span class="lg"><i style="background:'+COL.ok+'"></i>Sin diferencias <small>'+s.ok+'</small></span><span class="lg"><i style="background:'+COL.dif+'"></i>Con diferencias <small>'+s.dif+'</small></span>';}
+  L.innerHTML='<b>'+escapar(estado.nv||'')+' · '+s.tot+' ventanas</b><span class="lg"><i style="background:'+COL.pend+'"></i>Ventana interior <small>'+s.pend+'</small></span><span class="lg"><i style="background:'+COL.lis+'"></i>Lista para medir (círculo) <small>'+s.lis+'</small></span><span class="lg"><i style="background:'+COL.ok+'"></i>Medidas tomadas <small>'+s.lev+'</small></span>';}
 const punteros=new Map();let gesto=null,ligado=false;
 function enlazarPlano(){if(ligado)return;ligado=true;const w=wrapP();
   w.addEventListener('pointerdown',e=>{if(e.target.closest('.btn-flot,#leyenda,#infoV'))return;w.setPointerCapture(e.pointerId);const r=w.getBoundingClientRect();punteros.set(e.pointerId,{x:e.clientX-r.left,y:e.clientY-r.top});
