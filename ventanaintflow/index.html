@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>VentanaIntFlow v0.1 β · Hospital de Coquimbo</title>
+<title>VentanaIntFlow v0.2 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -542,6 +542,12 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
 .click{cursor:pointer}
 .fila-sel{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
 .fila-sel select{font-size:12px;padding:8px 6px}
+#barraSel{display:none;position:fixed;left:0;right:0;bottom:calc(58px + env(safe-area-inset-bottom));z-index:30;background:var(--panel);border-top:2px solid #F59E0B;box-shadow:0 -6px 18px rgba(0,0,0,.15);padding:8px 10px}
+#barraSel.visible{display:block}
+#barraSel .bs-t b{font-size:14px;color:var(--texto);margin-right:8px}#barraSel .bs-t span{font-size:11.5px;color:var(--tenue)}
+#barraSel .bs-b{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}#barraSel .bs-b .btn{padding:6px 8px;font-size:12.5px;min-height:36px;width:auto;flex:1 1 30%;justify-content:center}#barraSel .bs-b .btn.principal{flex:1 1 100%}#barraSel .bs-b .btn:disabled{opacity:.4}
+body.con-barrasel #vista-buscar{padding-bottom:130px}body.con-barrasel #leyenda{bottom:110px}
+.fila-rec.sel{background:rgba(245,158,11,.14)}.fila-rec .chk{font-size:18px;flex:none}
 .fila-rec{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:9px 6px;border-bottom:1px solid var(--linea)}
 .fila-rec i{width:6px;align-self:stretch;border-radius:3px;flex:none}
 .fila-rec .tx{flex:1;min-width:0}
@@ -579,7 +585,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v0.1 β</span></span>
+      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v0.2 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -593,9 +599,9 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
       <div class="tarjeta"><h3>🔎 Buscar una ventana</h3><div style="display:flex;gap:6px"><input id="inicioBuscar" class="campo" type="search" placeholder="Código o recinto (ej. VFM-01B, pasillo)" autocomplete="off"><button class="btn principal" id="inicioBuscarBtn" style="flex:none">Buscar</button></div></div>
       <div class="stats">
         <div class="stat"><b id="statTot">—</b><span>ventanas y mamparas</span></div>
+        <div class="stat"><b id="statLis" style="color:#7C3AED">—</b><span>listas para levantar</span></div>
         <div class="stat"><b id="statLev">—</b><span>levantadas</span></div>
         <div class="stat"><b id="statDif">—</b><span>con diferencias</span></div>
-        <div class="stat"><b id="statPend">—</b><span>por levantar</span></div>
       </div>
       <div class="tarjeta"><h3>🏢 Avance por nivel</h3><div id="inicioNiveles"></div></div>
       <div class="tarjeta">
@@ -616,13 +622,14 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <section id="vista-buscar" class="vista"><div class="contenedor"><div id="buscarFiltros"></div><div id="buscarLista"></div></div></section>
   <section id="vista-coord" class="vista"><div class="contenedor" id="coordCont"></div></section>
 </main>
+<div id="barraSel"></div>
 <nav id="pestanas">
   <button class="pestana activa" data-v="inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Inicio</span></button>
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span>Plano</span></button>
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v0.1 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v0.2 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -1046,7 +1053,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de terminaciones de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.1 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.2 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -1092,10 +1099,11 @@ async function verificar(key){const info=await infoClave();await descifrar(key,U
 const DIA_INI=4;
 const TOL=0.5;   /* cm: diferencias de hasta 5 mm se consideran "sin diferencia" */
 const ORDEN_EST={pend:0,dif:1,ok:2};
-const COL={pend:'#94A3B8',ok:'#16A34A',dif:'#F59E0B',env:'#0284C7'};
-const NOM_EST={pend:'Por levantar',ok:'Levantada · sin diferencias',dif:'Levantada · con diferencias'};
-const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nv:null,fTipo:'',fEst:'',q:'',nv2:'',tipo2:'',est2:'',lim:100,sel:null};
-let CLAVE=null,MOD=null,VL=[],VENT=new Map(),NIV=[],TIPOS=[],LEV=new Map(),PLAN=null;
+const COL={pend:'#94A3B8',lis:'#7C3AED',ok:'#16A34A',dif:'#F59E0B',env:'#0284C7'};
+const NOM_EST={pend:'Sin marcar',lis:'Lista para levantar',ok:'Levantada · sin diferencias',dif:'Levantada · con diferencias'};
+const CORTO_EST={pend:'Sin marcar',lis:'Lista',ok:'Levantada',dif:'Con diferencias'};
+const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nv:null,fTipo:'',fEst:'',q:'',nv2:'',tipo2:'',est2:'',lim:100,sel:null,modoSel:false,multi:new Set()};
+let CLAVE=null,MOD=null,VL=[],VENT=new Map(),NIV=[],TIPOS=[],LEV=new Map(),LIS=new Map(),PLAN=null;
 const FOTOS=new Map();let _fotosCargadas=false;
 const fm=(n,d)=>(n==null||isNaN(n)?'—':(Math.round(n*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('es-CL',{minimumFractionDigits:d,maximumFractionDigits:d}));
 const cm=n=>fm(n,1),sg=n=>(n>0?'+':n<0?'−':'')+fm(Math.abs(n),1);
@@ -1105,15 +1113,16 @@ function preparar(){VL=[];MOD.niveles.forEach(n=>n.v.forEach(v=>{v.nv=n.id;VL.pu
   const t={};VL.forEach(v=>{if(!t[v.k])t[v.k]={k:v.k,d:v.d,tp:v.tp,n:0};t[v.k].n++;});TIPOS=Object.values(t).sort((a,b)=>b.n-a.n);}
 const recs=nv=>VL.filter(v=>!nv||v.nv===nv);
 function combinar(){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
-  LEV=new Map();for(const e of m.values()){if(e.borrado||e.k!=='lev')continue;const o=LEV.get(e.g);if(!o||e.ts>o.ts||(e.ts===o.ts&&e.id>o.id))LEV.set(e.g,e);}}
+  LEV=new Map();LIS=new Map();for(const e of m.values()){if(e.borrado)continue;const M=e.k==='lev'?LEV:e.k==='lis'?LIS:null;if(!M)continue;const o=M.get(e.g);if(!o||e.ts>o.ts||(e.ts===o.ts&&e.id>o.id))M.set(e.g,e);}}
 function difs(v,e){const d={w:e.w==null?null:e.w-v.w,h:e.h==null?null:e.h-v.h,s:e.s==null?null:e.s-v.s};return d;}
 const hayDif=d=>[d.w,d.h,d.s].some(x=>x!=null&&Math.abs(x)>TOL+1e-9);
-function estV(v){const e=LEV.get(v.g);if(!e)return 'pend';return hayDif(difs(v,e))?'dif':'ok';}
+function estV(v){const e=LEV.get(v.g);if(!e){const l=LIS.get(v.g);return l&&l.on?'lis':'pend';}return hayDif(difs(v,e))?'dif':'ok';}
+const esLev=v=>{const st=estV(v);return st==='ok'||st==='dif';};
 const pendEnvio=()=>estado.local.filter(e=>!e.enviado&&!e.borrado).length;
 const colV=v=>COL[estV(v)];
 function textoDif(v,e){const d=difs(v,e),p=[];if(d.w!=null&&Math.abs(d.w)>TOL+1e-9)p.push('Ancho '+sg(d.w));if(d.h!=null&&Math.abs(d.h)>TOL+1e-9)p.push('Alto '+sg(d.h));if(d.s!=null&&Math.abs(d.s)>TOL+1e-9)p.push('Antepecho '+sg(d.s));return p.join(' · ')||'Sin diferencias';}
 const recTxt=v=>(v.rec&&v.rec.length?v.rec.join(' / '):'Sin recinto');
-function statsDe(L){const s={tot:L.length,pend:0,ok:0,dif:0};L.forEach(v=>s[estV(v)]++);s.lev=s.ok+s.dif;return s;}
+function statsDe(L){const s={tot:L.length,pend:0,lis:0,ok:0,dif:0};L.forEach(v=>s[estV(v)]++);s.lev=s.ok+s.dif;return s;}
 /* ---------------- fotos ---------------- */
 function comprimirFoto(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onerror=()=>rej(fr.error);fr.onload=()=>{const im=new Image();im.onerror=()=>rej(new Error('imagen no válida'));
   im.onload=()=>{const M=1024,k=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
@@ -1123,7 +1132,7 @@ const fotoDe=e=>e?(e.foto||FOTOS.get(e.id)||null):null;
 /* ---------------- carga ---------------- */
 async function cargarModelo(){progreso('Abriendo ventanas…');let fresco=false;try{fresco=sessionStorage.getItem('vf_rev')==='1';}catch(e){}
   MOD=await descifrar(CLAVE,await bajar('ventanas.enc',fresco));preparar();progreso('Abriendo el plano…');PLAN=await descifrar(CLAVE,await bajar(RUTA_TABI+'modelo.enc',false));
-  estado.local=(await todos('eventos')).filter(e=>e.k==='lev');
+  estado.local=(await todos('eventos')).filter(e=>e.k==='lev'||e.k==='lis');
   const b=await metaGet('base');if(b)estado.base=b;combinar();progreso(null);cargarEquipo(false);}
 async function cargarEquipo(manual){try{const b=await descifrar(CLAVE,await bajar('avance.enc',true));estado.base=b;await metaSet('base',b);combinar();renderTodo();if(manual)toast('Levantamiento del equipo actualizado','ok');}
   catch(e){if(manual)toast(navigator.onLine?'Todavía no hay levantamiento publicado del equipo':'Sin conexión: se muestra lo último guardado');}}
@@ -1133,10 +1142,10 @@ function cambiarVista(v){estado.vista=v;$$('.vista').forEach(s=>s.classList.togg
 function renderTodo(){if(!MOD)return;renderInicio();if(estado.vista==='buscar')pintarLista();if(estado.vista==='coord')renderCoord();if(estado.vista==='plano'){leyendaPlano();pedirR();}}
 function saludoHora(){const h=new Date().getHours();return h<12?'Buenos días':h<20?'Buenas tardes':'Buenas noches';}
 function barra(a,b,col){return '<div class="mini-prog ancha" style="--c:'+col+'"><i style="width:'+pct(a,b).toFixed(1)+'%"></i></div>';}
-function tablaNiveles(click){return '<table class="prog-matriz"><tr><th>Nivel</th><th>Ventanas</th><th>Levantadas</th><th>Con dif.</th><th>%</th></tr>'+NIV.map(n=>{const s=statsDe(recs(n.id));return '<tr'+(click?' class="click" data-nv="'+n.id+'"':'')+'><td>'+escapar(n.id)+'</td><td>'+s.tot+'</td><td>'+s.lev+'</td><td>'+(s.dif?'<b style="color:#B45309">'+s.dif+'</b>':'0')+'</td><td><b>'+fm(pct(s.lev,s.tot),0)+'%</b></td></tr>';}).join('')+'</table>';}
+function tablaNiveles(click){return '<table class="prog-matriz"><tr><th>Nivel</th><th>Ventanas</th><th>Listas</th><th>Levantadas</th><th>Con dif.</th><th>%</th></tr>'+NIV.map(n=>{const s=statsDe(recs(n.id));return '<tr'+(click?' class="click" data-nv="'+n.id+'"':'')+'><td>'+escapar(n.id)+'</td><td>'+s.tot+'</td><td>'+(s.lis?'<b style="color:#7C3AED">'+s.lis+'</b>':'0')+'</td><td>'+s.lev+'</td><td>'+(s.dif?'<b style="color:#B45309">'+s.dif+'</b>':'0')+'</td><td><b>'+fm(pct(s.lev,s.tot),0)+'%</b></td></tr>';}).join('')+'</table>';}
 function renderInicio(){if(!MOD)return;const nom=(estado.persona||'').trim().split(/\s+/)[0];const s=statsDe(VL),pe=pendEnvio();
-  $('#saludo').innerHTML=saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>Levanta las medidas reales de cada ventana interior para enviarlas a fabricar.</small>';
-  $('#statTot').textContent=fm(s.tot,0);$('#statLev').textContent=fm(s.lev,0)+' · '+fm(pct(s.lev,s.tot),0)+'%';$('#statDif').textContent=fm(s.dif,0);$('#statPend').textContent=fm(s.pend,0);
+  $('#saludo').innerHTML=saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>Marca las ventanas listas y levanta las medidas reales del vano para enviarlas a fabricar.</small>';
+  $('#statTot').textContent=fm(s.tot,0);$('#statLis').textContent=fm(s.lis,0);$('#statLev').textContent=fm(s.lev,0)+' · '+fm(pct(s.lev,s.tot),0)+'%';$('#statDif').textContent=fm(s.dif,0);
   $('#avisoEnvio').innerHTML=pe?'<div class="info-sello" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1;min-width:180px">📤 Tienes <b>'+pe+' registro'+(pe===1?'':'s')+'</b> sin enviar al coordinador.</span><button class="btn principal" data-acc="enviar">Enviar</button></div>':'';
   $('#inicioNiveles').innerHTML=tablaNiveles(true)+'<p class="nota" style="margin-top:6px">Toca un nivel para verlo en el plano.</p>';}
 /* ----- plano vectorial (el mismo de TabiFlow) con las ventanas dibujadas sobre los muros ----- */
@@ -1152,7 +1161,8 @@ function dimensionar(){const w=wrapP(),c=lienzo(),dpr=Math.min(window.devicePixe
 function encuadrarPlano(bb){const n=prepNivel(estado.nv);if(!n)return;const w=wrapP();const W=w.clientWidth,H=w.clientHeight;if(!W||!H)return;bb=bb||n.bbox;const m=18,bw=bb[2]-bb[0],bh=bb[3]-bb[1];
   V.s=Math.min((W-2*m)/bw,(H-2*m)/bh);V.tx=(W-bw*V.s)/2-bb[0]*V.s;V.ty=(H-bh*V.s)/2-bb[1]*V.s;pedirR();}
 function pedirR(){if(rafR)return;rafR=requestAnimationFrame(()=>{rafR=0;dibujar();});}
-const activoV=v=>(!estado.fTipo||v.k===estado.fTipo)&&(!estado.fEst||estV(v)===estado.fEst||(estado.fEst==='lev'&&estV(v)!=='pend'));
+const pasaEst=(v,f)=>!f||estV(v)===f||(f==='lev'&&esLev(v));
+const activoV=v=>(!estado.fTipo||v.k===estado.fTipo)&&pasaEst(v,estado.fEst);
 function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;const c=lienzo(),ctx=c.getContext('2d'),dpr=c.width/c.clientWidth;
   const osc=document.documentElement.classList.contains('oscuro');ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=osc?'#0F172A':'#EEF2F7';ctx.fillRect(0,0,c.width,c.height);
   ctx.setTransform(dpr*V.s,0,0,dpr*V.s,dpr*V.tx,dpr*V.ty);const px=1/V.s;
@@ -1167,8 +1177,9 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
     const a=activoV(v);ctx.globalAlpha=a?1:0.18;const grosor=Math.max(v.th+4,8*px);
     ctx.strokeStyle=osc?'#0F172A':'#FFFFFF';ctx.lineWidth=grosor+3*px;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();
     ctx.strokeStyle=colV(v);ctx.lineWidth=grosor;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();
-    const e=LEV.get(v.g);if(e&&estado.local.some(x=>x.id===e.id&&!x.enviado)){ctx.strokeStyle=COL.env;ctx.lineWidth=2*px;ctx.setLineDash([4*px,3*px]);ctx.strokeRect(Math.min(s[0],s[2])-grosor/2,Math.min(s[1],s[3])-grosor/2,Math.abs(s[2]-s[0])+grosor,Math.abs(s[3]-s[1])+grosor);ctx.setLineDash([]);}});
+    const e=LEV.get(v.g)||LIS.get(v.g);if(e&&estado.local.some(x=>x.id===e.id&&!x.enviado)){ctx.strokeStyle=COL.env;ctx.lineWidth=2*px;ctx.setLineDash([4*px,3*px]);ctx.strokeRect(Math.min(s[0],s[2])-grosor/2,Math.min(s[1],s[3])-grosor/2,Math.abs(s[2]-s[0])+grosor,Math.abs(s[3]-s[1])+grosor);ctx.setLineDash([]);}});
   ctx.globalAlpha=1;
+  if(estado.multi.size){ctx.lineCap='butt';ctx.strokeStyle='#F59E0B';ctx.globalAlpha=.9;recs(estado.nv).forEach(v=>{if(!estado.multi.has(v.g))return;const s=v.seg,g=Math.max(v.th+4,8*px);ctx.lineWidth=g+9*px;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.strokeStyle=colV(v);ctx.lineWidth=g;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.strokeStyle='#F59E0B';});ctx.globalAlpha=1;}
   if(estado.sel&&VENT.get(estado.sel)&&VENT.get(estado.sel).nv===estado.nv){const s=VENT.get(estado.sel).seg,g=Math.max(VENT.get(estado.sel).th+4,8*px);ctx.strokeStyle='#E11D48';ctx.lineWidth=g+10*px;ctx.globalAlpha=.55;ctx.beginPath();ctx.moveTo(s[0],s[1]);ctx.lineTo(s[2],s[3]);ctx.stroke();ctx.globalAlpha=1;}
   ctx.setTransform(dpr,0,0,dpr,0,0);const sx=x=>x*V.s+V.tx,sy=y=>y*V.s+V.ty;ctx.textAlign='center';ctx.textBaseline='middle';
   if(V.s*100>=11){ctx.font='800 '+Math.min(12,Math.max(9,V.s*26))+'px Inter,system-ui,sans-serif';ctx.lineJoin='round';
@@ -1180,10 +1191,10 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
 function renderPlano(){if(!MOD||!PLAN)return;if(!estado.nv)estado.nv=(NIV.find(n=>n.id==='EP-N2')||NIV[0]).id;chipsPlano();leyendaPlano();enlazarPlano();requestAnimationFrame(()=>{const f=estado.foco;estado.foco=null;encuadrarPlano(f||undefined);});}
 function chipsPlano(){$('#chipsNivel').innerHTML=NIV.map(n=>'<button class="chipf'+(estado.nv===n.id?' on':'')+'" data-pnv="'+n.id+'">'+escapar(n.id)+'</button>').join('');
   const ts=[...new Set(recs(estado.nv).map(v=>v.k))].sort();
-  $('#chipsFiltro').innerHTML=[['','Todas'],['pend','Por levantar'],['lev','Levantadas'],['dif','Con diferencias']].map(([k,n])=>'<button class="chipf'+(estado.fEst===k?' on':'')+'" data-fest="'+k+'">'+n+'</button>').join('')+'<span style="flex:none;width:8px"></span>'+
+  $('#chipsFiltro').innerHTML='<button class="chipf'+(estado.modoSel?' on':'')+'" data-acc="modosel" style="border-color:#F59E0B">☑ Seleccionar varias</button><span style="flex:none;width:6px"></span>'+[['','Todas'],['pend','Sin marcar'],['lis','Listas'],['lev','Levantadas'],['dif','Con diferencias']].map(([k,n])=>'<button class="chipf'+(estado.fEst===k?' on':'')+'" data-fest="'+k+'">'+n+'</button>').join('')+'<span style="flex:none;width:8px"></span>'+
    ts.map(t=>'<button class="chipf'+(estado.fTipo===t?' on':'')+'" data-ftipo="'+escapar(t)+'">'+escapar(t)+'</button>').join('');}
 function leyendaPlano(){const L=$('#leyenda');if(!L)return;const s=statsDe(recs(estado.nv));
-  L.innerHTML='<b>'+escapar(estado.nv||'')+' · '+s.tot+' ventanas</b><span class="lg"><i style="background:'+COL.pend+'"></i>Por levantar <small>'+s.pend+'</small></span><span class="lg"><i style="background:'+COL.ok+'"></i>Sin diferencias <small>'+s.ok+'</small></span><span class="lg"><i style="background:'+COL.dif+'"></i>Con diferencias <small>'+s.dif+'</small></span>';}
+  L.innerHTML='<b>'+escapar(estado.nv||'')+' · '+s.tot+' ventanas</b><span class="lg"><i style="background:'+COL.pend+'"></i>Sin marcar <small>'+s.pend+'</small></span><span class="lg"><i style="background:'+COL.lis+'"></i>Lista para levantar <small>'+s.lis+'</small></span><span class="lg"><i style="background:'+COL.ok+'"></i>Sin diferencias <small>'+s.ok+'</small></span><span class="lg"><i style="background:'+COL.dif+'"></i>Con diferencias <small>'+s.dif+'</small></span>';}
 const punteros=new Map();let gesto=null,ligado=false;
 function enlazarPlano(){if(ligado)return;ligado=true;const w=wrapP();
   w.addEventListener('pointerdown',e=>{if(e.target.closest('.btn-flot,#leyenda,#infoV'))return;w.setPointerCapture(e.pointerId);const r=w.getBoundingClientRect();punteros.set(e.pointerId,{x:e.clientX-r.left,y:e.clientY-r.top});
@@ -1200,14 +1211,14 @@ function enlazarPlano(){if(ligado)return;ligado=true;const w=wrapP();
 function zoomEn(f,px,py){const s2=Math.max(0.004,Math.min(4,V.s*f));const k=s2/V.s;V.tx=px-(px-V.tx)*k;V.ty=py-(py-V.ty)*k;V.s=s2;pedirR();}
 function dSeg(x,y,s){const dx=s[2]-s[0],dy=s[3]-s[1],l2=dx*dx+dy*dy;let t=l2?((x-s[0])*dx+(y-s[1])*dy)/l2:0;t=Math.max(0,Math.min(1,t));return Math.hypot(s[0]+t*dx-x,s[1]+t*dy-y);}
 function ventanaEn(mx,my){const tol=22/V.s;let m=null,dm=1e12;recs(estado.nv).forEach(v=>{if(!activoV(v))return;const d=dSeg(mx,my,v.seg)-v.th/2;if(d<=tol&&d<dm){dm=d;m=v;}});return m;}
-function seleccionarEn(mx,my){const v=ventanaEn(mx,my);if(!v){cerrarInfo();return;}estado.sel=v.g;pedirR();infoV(v);}
+function seleccionarEn(mx,my){const v=ventanaEn(mx,my);if(estado.modoSel){if(v){if(estado.multi.has(v.g))estado.multi.delete(v.g);else estado.multi.add(v.g);pedirR();barraSel();}return;}if(!v){cerrarInfo();return;}estado.sel=v.g;pedirR();infoV(v);}
 function cerrarInfo(){const p=$('#infoV');if(p)p.classList.remove('visible');$('#leyenda').style.display='';estado.sel=null;pedirR();}
 function infoV(v){const p=$('#infoV');if(!p)return;const e=LEV.get(v.g),st=estV(v);
   p.innerHTML='<div class="ic-top"><i style="background:'+COL[st]+'"></i><div><b class="ic-t">'+escapar(v.k)+' · '+escapar(v.tp)+'</b><span>'+escapar(v.d)+'</span></div><button class="ic-x" data-acc="cerrarinfo" aria-label="Cerrar">✕</button></div>'+
    '<div class="ic-g"><div><span>ANCHO MODELO</span><b>'+cm(v.w)+'</b></div><div><span>ALTO MODELO</span><b>'+cm(v.h)+'</b></div><div><span>ANTEPECHO</span><b>'+cm(v.s)+'</b></div></div>'+
    '<div class="ic-r">📍 '+escapar(recTxt(v))+' · '+escapar(v.nv)+'</div>'+
-   (e?'<div class="ic-r" style="margin-top:4px;color:'+(st==='dif'?'#B45309':'#15803D')+'"><b>'+(st==='dif'?'⚠ Con diferencias: '+escapar(textoDif(v,e)):'✔ Levantada, sin diferencias')+'</b> · '+escapar(e.por||'')+' '+diaCorta(e.dia)+'</div>':'<div class="ic-r" style="margin-top:4px">Aún no se ha levantado.</div>')+
-   '<button class="btn principal ic-b" data-vent="'+v.g+'">'+(e?'Ver / corregir levantamiento':'📐 Levantar medidas reales')+'</button>';
+   (e?'<div class="ic-r" style="margin-top:4px;color:'+(st==='dif'?'#B45309':'#15803D')+'"><b>'+(st==='dif'?'⚠ Con diferencias: '+escapar(textoDif(v,e)):'✔ Levantada, sin diferencias')+'</b> · '+escapar(e.por||'')+' '+diaCorta(e.dia)+'</div>':st==='lis'?'<div class="ic-r" style="margin-top:4px;color:#6D28D9"><b>● Lista para levantar</b> · marcada por '+escapar(LIS.get(v.g).por||'—')+' '+diaCorta(LIS.get(v.g).dia)+'</div>':'<div class="ic-r" style="margin-top:4px">Sin marcar: aún no se avisa que esté lista para levantar.</div>')+
+   '<button class="btn principal ic-b" data-vent="'+v.g+'">'+(e?'Ver / corregir levantamiento':'📐 Levantar medidas reales')+'</button>'+(e?'':(st==='lis'?'<button class="btn secundario ic-b" data-acc="quitarlista" data-g="'+v.g+'">Quitar marca de lista</button>':'<button class="btn secundario ic-b" data-acc="marcarlista" data-g="'+v.g+'">✔ Marcar lista para levantar</button>'));
   p.classList.add('visible');$('#leyenda').style.display='none';}
 /* ----- ficha y levantamiento de una ventana ----- */
 let FOTO_TMP=null;
@@ -1215,9 +1226,10 @@ function histDe(g){const m=new Map();((estado.base&&estado.base.eventos)||[]).fo
 function hojaVentana(g,corregir){const v=VENT.get(g);if(!v)return;window._fg=g;const e=LEV.get(g),st=estV(v);FOTO_TMP=null;const bloq=!!e&&!corregir;
   const val=k=>e&&e[k]!=null?String(e[k]).replace('.',','):'';
   const hist=histDe(g);
-  abrirHoja('<div class="hoja-titulo">'+escapar(v.k)+' · '+escapar(v.tp)+' <span class="chip" style="background:'+COL[st]+';color:#fff;border-color:'+COL[st]+'">'+({pend:'Por levantar',ok:'Levantada',dif:'Con diferencias'})[st]+'</span></div>'+
+  abrirHoja('<div class="hoja-titulo">'+escapar(v.k)+' · '+escapar(v.tp)+' <span class="chip" style="background:'+COL[st]+';color:#fff;border-color:'+COL[st]+'">'+CORTO_EST[st]+'</span></div>'+
    '<div class="hoja-sub">'+escapar(v.d)+'<br>'+escapar(v.nv)+' · '+escapar(recTxt(v))+' · ID modelo '+escapar(v.n||'—')+'</div>'+
    '<label class="etiqueta">Medidas del modelo (cm)</label><div class="ficha"><div class="dato"><span>ANCHO</span><b>'+cm(v.w)+'</b></div><div class="dato"><span>ALTO</span><b>'+cm(v.h)+'</b></div><div class="dato"><span>ANTEPECHO</span><b>'+cm(v.s)+'</b></div></div>'+
+   (st==='lis'?'<div class="info-sello" style="border-color:#C4B5FD;background:rgba(124,58,237,.08)">● <b>Lista para levantar</b> · marcada por <b>'+escapar(LIS.get(g).por||'—')+'</b> el '+diaCorta(LIS.get(g).dia)+'. Ya se puede ir a medir el vano.</div>':'')+
    (bloq?'<div class="info-sello" style="border-color:#86EFAC;background:rgba(22,163,74,.08)">✔ Ya fue levantada por <b>'+escapar(e.por||'—')+'</b> el '+diaCorta(e.dia)+'. No es necesario volver a medirla.</div>':'')+
    '<label class="etiqueta" style="margin-top:6px">Medidas reales del vano (cm)</label>'+
    '<div class="ficha" id="medidas">'+[['w','ANCHO',v.w],['h','ALTO',v.h],['s','ANTEPECHO',v.s]].map(([k,n,m])=>'<div class="dato med"><span>'+n+'</span><input id="in_'+k+'" type="text" inputmode="decimal" autocomplete="off" placeholder="'+cm(m)+'" value="'+val(k)+'"'+(bloq?' disabled':'')+'></div>').join('')+'</div>'+
@@ -1248,25 +1260,71 @@ async function guardarLev(g){const v=VENT.get(g);const m=leerMedidas();if([m.w,m
 function tomarFoto(){const i=document.createElement('input');i.type='file';i.accept='image/*';i.setAttribute('capture','environment');i.onchange=async()=>{const f=i.files&&i.files[0];if(!f)return;try{FOTO_TMP=await comprimirFoto(f);const b=$('#fotoBox');if(b)b.innerHTML=htmlFoto(LEV.get(window._fg),true);}catch(e){toast('No se pudo leer la foto','error');}};i.click();}
 function verEnPlano(g){const v=VENT.get(g);if(!v)return;cerrarHoja();estado.nv=v.nv;estado.fTipo='';estado.fEst='';estado.sel=g;
   const w=wrapP();const W=w.clientWidth||390,H=w.clientHeight||500;const cw=2200,ch=cw*H/W,cx=(v.seg[0]+v.seg[2])/2,cy=(v.seg[1]+v.seg[3])/2;estado.foco=[cx-cw/2,cy-ch/2,cx+cw/2,cy+ch/2];cambiarVista('plano');setTimeout(()=>infoV(v),250);}
+/* ----- marcar listas para levantar (selección múltiple) ----- */
+const alcanceSel=()=>estado.vista==='buscar'?listaFiltrada():recs(estado.nv).filter(activoV);
+function modoSeleccion(on){estado.modoSel=on;if(!on)estado.multi.clear();else{cerrarInfo();}
+  chipsPlano();if(estado.vista==='buscar')renderBuscar();pedirR();refrescarSel();}
+function refrescarSel(){const b=$('#barraSel');if(!b)return;if(!estado.modoSel){b.classList.remove('visible');document.body.classList.remove('con-barrasel');return;}
+  const G=[...estado.multi].map(g=>VENT.get(g)).filter(Boolean),por=new Map();G.forEach(v=>por.set(v.k,(por.get(v.k)||0)+1));
+  const nL=G.filter(v=>estV(v)==='lis').length,nP=G.length-nL;
+  b.innerHTML='<div class="bs-t"><b>'+G.length+' seleccionada'+(G.length===1?'':'s')+'</b><span>'+(G.length?[...por.entries()].sort().map(([k,n])=>escapar(k)+' ×'+n).join(' · '):'Toca ventanas en el plano o en la lista')+'</span></div>'+
+   '<div class="bs-b"><button class="btn principal" data-acc="selmarcar"'+(nP?'':' disabled')+'>✔ Marcar listas'+(nP?' ('+nP+')':'')+'</button>'+
+   '<button class="btn secundario" data-acc="selquitar"'+(nL?'':' disabled')+'>Quitar marca'+(nL?' ('+nL+')':'')+'</button>'+
+   '<button class="btn secundario" data-acc="seltipos">Por tipo…</button>'+
+   '<button class="btn secundario" data-acc="selvaciar"'+(G.length?'':' disabled')+'>Limpiar</button>'+
+   '<button class="btn secundario" data-acc="modosel">Salir</button></div>';
+  b.classList.add('visible');document.body.classList.add('con-barrasel');try{b.style.bottom=Math.max(0,innerHeight-$('#pestanas').getBoundingClientRect().top)+'px';}catch(_){}}
+function barraSel(){refrescarSel();}
+function alternarSel(g){const v=VENT.get(g);if(!v)return;if(esLev(v)){toast('Esa ventana ya está levantada','error');return;}
+  if(estado.multi.has(g))estado.multi.delete(g);else estado.multi.add(g);refrescarSel();pedirR();if(estado.vista==='buscar')pintarLista();}
+function hojaTipos(){const L=alcanceSel().filter(v=>!esLev(v)),m=new Map();
+  L.forEach(v=>{const a=m.get(v.k)||{v,tot:0,sel:0,lis:0};a.tot++;if(estado.multi.has(v.g))a.sel++;if(estV(v)==='lis')a.lis++;m.set(v.k,a);});
+  const ámbito=estado.vista==='buscar'?'los filtros de Buscar':(estado.nv||'el nivel')+(estado.fTipo||estado.fEst?' (con los filtros activos)':'');
+  abrirHoja('<div class="hoja-titulo">Seleccionar por tipo</div><div class="hoja-sub">Ventanas aún sin levantar dentro de '+escapar(ámbito)+'. Toca un tipo para agregar o quitar todas sus ventanas de la selección.</div>'+
+   (m.size?[...m.values()].sort((a,b)=>a.v.k.localeCompare(b.v.k)).map(a=>{const todas=a.sel===a.tot;return '<button class="fila-rec" data-stipo="'+escapar(a.v.k)+'" data-ac="'+(todas?'quitar':'poner')+'"><i style="background:'+(todas?'#F59E0B':COL.pend)+'"></i><span class="tx"><b>'+escapar(a.v.k)+' · '+a.tot+' ventana'+(a.tot===1?'':'s')+'</b><small>'+escapar(pdfTxt(a.v.d))+(a.lis?' · '+a.lis+' ya lista'+(a.lis===1?'':'s'):'')+'</small></span><span class="al" style="font-size:12px">'+(todas?'☑ todas':a.sel?a.sel+' sel.':'☐')+'</span></button>';}).join('')+
+   '<button class="btn secundario" style="width:100%;margin-top:10px;justify-content:center" data-stipo="*" data-ac="poner">Seleccionar todas ('+L.length+')</button>':'<p class="nota">No quedan ventanas por levantar en este alcance.</p>')+
+   '<button class="btn principal" style="width:100%;margin-top:8px;justify-content:center" onclick="cerrarHoja()">Listo</button>');}
+function selPorTipo(k,ac){const L=alcanceSel().filter(v=>!esLev(v)&&(k==='*'||v.k===k));L.forEach(v=>{if(ac==='quitar')estado.multi.delete(v.g);else estado.multi.add(v.g);});
+  refrescarSel();pedirR();if(estado.vista==='buscar')pintarLista();hojaTipos();}
+async function marcarListas(gs,on){let n=0;const ts0=Date.now();
+  for(const g of gs){const v=VENT.get(g);if(!v||esLev(v))continue;const ya=estV(v)==='lis';if(on===ya)continue;
+    const e={id:uid(),g,nv:v.nv,k:'lis',on,dia:hoyDia(),ts:new Date(ts0+n).toISOString(),por:estado.persona,disp:estado.disp};
+    estado.local.push(e);await put('eventos',e);n++;}
+  combinar();estado.multi.clear();
+  if(n){toast(on?n+' ventana'+(n===1?'':'s')+' marcada'+(n===1?'':'s')+' como lista'+(n===1?'':'s')+' para levantar':'Se quitó la marca a '+n,'ok');}else toast('Nada que cambiar','');
+  renderTodo();refrescarSel();pedirR();if(estado.vista==='plano'&&estado.sel){const v=VENT.get(estado.sel);if(v&&!estado.modoSel)infoV(v);}if(estado.vista==='buscar')pintarLista();}
+async function descargarListaTrabajo(){progreso('Armando la lista de trabajo…');await new Promise(r=>setTimeout(r,60));
+  try{const b=await listaTrabajoPDF();progreso(null);await compartirArchivo(b,'Lista_ventanas_para_levantar_'+hoyDia()+'.pdf','Ventanas listas para levantar','Lista de trabajo VentanaIntFlow');}catch(e){progreso(null);toast('No se pudo armar la lista: '+e.message,'error');}}
+async function listaTrabajoPDF(){if(!window.jspdf)throw new Error('jsPDF no disponible');const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
+  const TIT='Ventanas listas para levantar',SUB=OBRA+' · '+diaCorta(hoyDia())+'/'+new Date().getFullYear()+' · '+(estado.persona||'');
+  const L=VL.filter(v=>estV(v)==='lis').sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k)||recTxt(a).localeCompare(recTxt(b),'es',{numeric:true}));
+  pdfCab(doc,TIT,SUB);let y=22;y=pdfNota(doc,y,L.length+' ventana'+(L.length===1?'':'s')+' marcada'+(L.length===1?'':'s')+' como lista'+(L.length===1?'':'s')+' para levantar el vano. Medidas del modelo en cm; anotar la medida real en terreno o en la app.');
+  const pt=new Map();L.forEach(v=>{const k=v.nv+'|'+v.k;const a=pt.get(k)||{v,n:0};a.n++;pt.set(k,a);});
+  y=pdfTit(doc,y,'Resumen por nivel y tipo');
+  y=pdfTabla(doc,y,[{t:'Nivel',w:30},{t:'Tipo',w:26},{t:'Descripción',w:130},{t:'Cantidad',w:26,al:'r'},{t:'Modelo A x H',w:36,al:'r'}],[...pt.values()].map(a=>({c:[a.v.nv,a.v.k,pdfTxt(a.v.d),a.n,cm(a.v.w)+' x '+cm(a.v.h)]})),TIT,SUB);
+  doc.addPage();pdfCab(doc,TIT,SUB);y=22;y=pdfTit(doc,y,'Detalle para recorrer');
+  y=pdfTabla(doc,y,[{t:'Nivel',w:16},{t:'Tipo',w:22},{t:'ID',w:18},{t:'Recinto',w:74},{t:'Modelo A x H (ant.)',w:38},{t:'Marcó',w:42},{t:'Real A x H (ant.)',w:42}],
+    L.map(v=>{const e=LIS.get(v.g);return {c:[v.nv,v.k,v.n,pdfTxt(recTxt(v)),cm(v.w)+' x '+cm(v.h)+' ('+cm(v.s)+')',(e.por||'—').split(' ')[0]+' '+diaCorta(e.dia),'______ x ______']};}),TIT,SUB);
+  pdfPie(doc);return doc.output('blob');}
 /* ----- buscar ----- */
-function listaFiltrada(){const q=norm(estado.q);let L=VL.filter(v=>(!estado.nv2||v.nv===estado.nv2)&&(!estado.tipo2||v.k===estado.tipo2)&&(!estado.est2||(estado.est2==='lev'?estV(v)!=='pend':estV(v)===estado.est2))&&(!q||norm(v.k+' '+v.d+' '+recTxt(v)+' '+v.n+' '+v.tp).includes(q)));
+function listaFiltrada(){const q=norm(estado.q);let L=VL.filter(v=>(!estado.nv2||v.nv===estado.nv2)&&(!estado.tipo2||v.k===estado.tipo2)&&pasaEst(v,estado.est2)&&(!q||norm(v.k+' '+v.d+' '+recTxt(v)+' '+v.n+' '+v.tp).includes(q)));
   L.sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k)||recTxt(a).localeCompare(recTxt(b),'es',{numeric:true}));return L;}
 function renderBuscar(){if(!MOD)return;const sel=(id,ops,v)=>'<select id="'+id+'" class="campo" style="flex:1;min-width:0">'+ops.map(([k,n])=>'<option value="'+escapar(k)+'"'+(String(v||'')===String(k)?' selected':'')+'>'+escapar(n)+'</option>').join('')+'</select>';
   $('#buscarFiltros').innerHTML='<input id="inBuscar" class="campo" type="search" placeholder="Buscar: código, recinto o número (ej. VFM-01B, pasillo)" value="'+escapar(estado.q)+'" autocomplete="off">'+
-   '<div class="fila-sel">'+sel('selNv',[['','Todos los niveles'],...NIV.map(n=>[n.id,n.id])],estado.nv2)+sel('selTipo',[['','Todos los tipos'],...TIPOS.map(t=>[t.k,t.k+' ('+t.n+')'])],estado.tipo2)+sel('selEst',[['','Todas'],['pend','Por levantar'],['lev','Levantadas'],['dif','Con diferencias'],['ok','Sin diferencias']],estado.est2)+'</div>';
+   '<div class="fila-sel">'+sel('selNv',[['','Todos los niveles'],...NIV.map(n=>[n.id,n.id])],estado.nv2)+sel('selTipo',[['','Todos los tipos'],...TIPOS.map(t=>[t.k,t.k+' ('+t.n+')'])],estado.tipo2)+sel('selEst',[['','Todas'],['pend','Sin marcar'],['lis','Listas para levantar'],['lev','Levantadas'],['dif','Con diferencias'],['ok','Levantadas sin diferencias']],estado.est2)+'</div><div style="display:flex;gap:6px;align-items:center;margin-bottom:6px"><button class="chipf'+(estado.modoSel?' on':'')+'" data-acc="modosel" style="border-color:#F59E0B">☑ Seleccionar varias</button></div>';
   $('#inBuscar').oninput=e=>{estado.q=e.target.value;estado.lim=100;pintarLista();};$('#selNv').onchange=e=>{estado.nv2=e.target.value;estado.lim=100;pintarLista();};$('#selTipo').onchange=e=>{estado.tipo2=e.target.value;estado.lim=100;pintarLista();};$('#selEst').onchange=e=>{estado.est2=e.target.value;estado.lim=100;pintarLista();};pintarLista();}
 function pintarLista(){const L=listaFiltrada();const sh=L.slice(0,estado.lim);
   $('#buscarLista').innerHTML='<p class="nota" style="margin:2px 0 6px">'+fm(L.length,0)+' ventana'+(L.length===1?'':'s')+'</p>'+sh.map(v=>{const e=LEV.get(v.g),st=estV(v);
-   return '<button class="fila-rec" data-vent="'+v.g+'"><i style="background:'+COL[st]+'"></i><span class="tx"><b>'+escapar(v.k)+' · '+escapar(recTxt(v))+'</b><small>'+escapar(v.nv)+' · modelo '+cm(v.w)+' × '+cm(v.h)+(e?' · real '+cm(e.w)+' × '+cm(e.h):'')+'</small></span><span class="al" style="font-size:11px;color:'+COL[st]+'">'+({pend:'Pendiente',ok:'✔ OK',dif:'⚠ Dif.'})[st]+'</span></button>';}).join('')+
+   return '<button class="fila-rec'+(estado.modoSel&&estado.multi.has(v.g)?' sel':'')+'" data-vent="'+v.g+'"><i style="background:'+COL[st]+'"></i>'+(estado.modoSel?'<span class="chk">'+(estado.multi.has(v.g)?'☑':'☐')+'</span>':'')+'<span class="tx"><b>'+escapar(v.k)+' · '+escapar(recTxt(v))+'</b><small>'+escapar(v.nv)+' · modelo '+cm(v.w)+' × '+cm(v.h)+(e?' · real '+cm(e.w)+' × '+cm(e.h):'')+'</small></span><span class="al" style="font-size:11px;color:'+COL[st]+'">'+({pend:'Sin marcar',lis:'● Lista',ok:'✔ OK',dif:'⚠ Dif.'})[st]+'</span></button>';}).join('')+
    (L.length>sh.length?'<button class="btn secundario" data-mas="1" style="width:100%;margin-top:8px;justify-content:center">Ver más ('+fm(L.length-sh.length,0)+')</button>':'');}
 /* ----- coordinador ----- */
 function renderCoord(){if(!MOD)return;const s=statsDe(VL);const por={};[...((estado.base&&estado.base.eventos)||[]),...estado.local].forEach(e=>{if(e.k!=='lev'||e.borrado)return;const k=e.por||'—';por[k]=(por[k]||0)+1;});
-  const filaT=t=>{const L=VL.filter(v=>v.k===t.k),q=statsDe(L);return '<tr><td style="text-align:left"><b>'+escapar(t.k)+'</b><div class="nota">'+escapar(t.tp)+' · '+escapar(t.d.slice(0,46))+'</div></td><td>'+q.tot+'</td><td>'+q.lev+'</td><td>'+(q.dif?'<b style="color:#B45309">'+q.dif+'</b>':'0')+'</td><td><b>'+fm(pct(q.lev,q.tot),0)+'%</b></td></tr>';};
+  const filaT=t=>{const L=VL.filter(v=>v.k===t.k),q=statsDe(L);return '<tr><td style="text-align:left"><b>'+escapar(t.k)+'</b><div class="nota">'+escapar(t.tp)+' · '+escapar(t.d.slice(0,46))+'</div></td><td>'+q.tot+'</td><td>'+(q.lis?'<b style="color:#7C3AED">'+q.lis+'</b>':'0')+'</td><td>'+q.lev+'</td><td>'+(q.dif?'<b style="color:#B45309">'+q.dif+'</b>':'0')+'</td><td><b>'+fm(pct(q.lev,q.tot),0)+'%</b></td></tr>';};
   const dif=VL.filter(v=>estV(v)==='dif').sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k));
-  $('#coordCont').innerHTML='<div class="stats"><div class="stat"><b>'+fm(pct(s.lev,s.tot),0)+'%</b><span>levantado ('+s.lev+' de '+s.tot+')</span></div><div class="stat"><b>'+s.pend+'</b><span>por levantar</span></div><div class="stat"><b>'+s.ok+'</b><span>sin diferencias</span></div><div class="stat"><b style="color:#B45309">'+s.dif+'</b><span>con diferencias</span></div></div>'+
-   '<div class="tarjeta"><button class="btn principal grande" data-acc="informe">📄 Informe del levantamiento (PDF)</button><div class="fila-btn"><button class="btn secundario" data-acc="csv">📑 Planilla para fábrica (CSV)</button><button class="btn secundario" data-acc="importar">📥 Importar archivos del equipo</button></div><button class="btn secundario" data-acc="actualizar" style="width:100%;margin-top:8px;justify-content:center">🔄 Actualizar con lo publicado</button></div>'+
+  $('#coordCont').innerHTML='<div class="stats"><div class="stat"><b>'+fm(pct(s.lev,s.tot),0)+'%</b><span>levantado ('+s.lev+' de '+s.tot+')</span></div><div class="stat"><b style="color:#6D28D9">'+s.lis+'</b><span>listas para levantar</span></div><div class="stat"><b>'+s.pend+'</b><span>sin marcar</span></div><div class="stat"><b style="color:#B45309">'+s.dif+'</b><span>con diferencias</span></div></div>'+
+   '<div class="tarjeta"><button class="btn principal grande" data-acc="informe">📄 Informe del levantamiento (PDF)</button><button class="btn secundario" data-acc="listatrabajo" style="width:100%;margin-top:8px;justify-content:center">📋 Lista de trabajo: ventanas listas para levantar</button><div class="fila-btn"><button class="btn secundario" data-acc="csv">📑 Planilla para fábrica (CSV)</button><button class="btn secundario" data-acc="importar">📥 Importar archivos del equipo</button></div><button class="btn secundario" data-acc="actualizar" style="width:100%;margin-top:8px;justify-content:center">🔄 Actualizar con lo publicado</button></div>'+
    '<div class="tarjeta"><h3>🏢 Avance por nivel</h3>'+tablaNiveles(true)+'</div>'+
-   '<div class="tarjeta"><h3>🪟 Avance por tipo</h3><table class="prog-matriz tabla-et"><tr><th style="text-align:left">Tipo</th><th>Total</th><th>Lev.</th><th>Dif.</th><th>%</th></tr>'+TIPOS.map(filaT).join('')+'</table></div>'+
+   '<div class="tarjeta"><h3>🪟 Avance por tipo</h3><table class="prog-matriz tabla-et"><tr><th style="text-align:left">Tipo</th><th>Total</th><th>Listas</th><th>Lev.</th><th>Dif.</th><th>%</th></tr>'+TIPOS.map(filaT).join('')+'</table></div>'+
    '<div class="tarjeta"><h3>👷 Quién ha levantado</h3>'+(Object.keys(por).length?'<ul class="log">'+Object.entries(por).sort((a,b)=>b[1]-a[1]).map(([k,n])=>'<li><b>'+escapar(k)+'</b>: '+n+' registro'+(n===1?'':'s')+'</li>').join('')+'</ul>':'<p class="nota">Aún no hay levantamientos.</p>')+'</div>'+
    '<div class="tarjeta"><h3>⚠ Ventanas con diferencias ('+dif.length+')</h3>'+(dif.length?dif.slice(0,60).map(v=>{const e=LEV.get(v.g);return '<button class="fila-rec" data-vent="'+v.g+'"><i style="background:'+COL.dif+'"></i><span class="tx"><b>'+escapar(v.k)+' · '+escapar(recTxt(v))+'</b><small>'+escapar(v.nv)+' · '+escapar(textoDif(v,e))+'</small></span></button>';}).join('')+(dif.length>60?'<p class="nota">… y '+(dif.length-60)+' más (están en el informe).</p>':''):'<p class="nota">Ninguna por ahora.</p>')+'</div>';}
 /* ----- envío al coordinador, importación y borrado ----- */
@@ -1275,14 +1333,14 @@ const slug=s=>(s||'persona').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^
 async function exportar(){const mios=estado.local.filter(e=>e.por===estado.persona);if(!mios.length){toast('Todavía no tienes registros');return;}
   const d={app:'VentanaIntFlowHCQ',modulo:'ventana',tipo:'levantamiento',ver:1,por:estado.persona,disp:estado.disp,exportado:new Date().toISOString(),eventos:mios.map(e=>{const o=Object.assign({},e);delete o.enviado;return o;})};
   const a=new Date();const base='_'+slug(estado.persona)+'_'+hoyDia()+'_'+String(a.getHours()).padStart(2,'0')+'h'+String(a.getMinutes()).padStart(2,'0');
-  const nuevos=estado.local.filter(e=>!e.enviado&&!e.borrado);const hoy=new Set(nuevos.map(e=>e.g)).size;
-  const texto='Para el coordinador · Levantamiento de ventanas interiores · '+estado.persona+' · '+diaCorta(hoyDia())+': '+hoy+' ventana'+(hoy===1?'':'s')+'.';
+  const nuevos=estado.local.filter(e=>!e.enviado&&!e.borrado);const nl=new Set(nuevos.filter(e=>e.k==='lev').map(e=>e.g)).size,nm=new Set(nuevos.filter(e=>e.k==='lis'&&e.on).map(e=>e.g)).size;
+  const texto='Para el coordinador · Ventanas interiores · '+estado.persona+' · '+diaCorta(hoyDia())+': '+(nm?nm+' marcada'+(nm===1?'':'s')+' lista'+(nm===1?'':'s')+' para levantar':'')+(nm&&nl?' · ':'')+(nl?nl+' levantada'+(nl===1?'':'s'):'')+'.';
   const archivos=[{blob:new Blob([JSON.stringify(d)],{type:'application/json'}),nombre:'Levantamiento_VentanaIntFlow'+base+'.json'}];
-  try{archivos.push({blob:await informePDF({solo:nuevos.map(e=>e.g),titulo:'Levantamiento enviado',fotos:false}),nombre:'Resumen_VentanaIntFlow'+base+'.pdf'});}catch(e){}
+  try{const gl=nuevos.filter(e=>e.k==='lev').map(e=>e.g);if(gl.length)archivos.push({blob:await informePDF({solo:gl,titulo:'Levantamiento enviado',fotos:false}),nombre:'Resumen_VentanaIntFlow'+base+'.pdf'});}catch(e){}
   const ok=await compartirArchivos(archivos,'Levantamiento de ventanas',texto);
   if(ok){for(const e of estado.local){if(!e.enviado){e.enviado=true;await put('eventos',e);}}toast('📤 Levantamiento listo para el coordinador','ok');}renderTodo();}
 async function importar(files){let n=0,arch=0;for(const f of files){try{const d=JSON.parse(await f.text());if(d.app!=='VentanaIntFlowHCQ')throw new Error('no es un archivo de VentanaIntFlow');arch++;
-  for(const e of d.eventos||[]){if(e.k!=='lev'||!VENT.has(e.g))continue;const x=estado.local.find(z=>z.id===e.id);if(x){if(e.borrado&&!x.borrado){x.borrado=true;await put('eventos',x);}continue;}e.enviado=true;e.recibido=true;estado.local.push(e);await put('eventos',e);n++;}}
+  for(const e of d.eventos||[]){if((e.k!=='lev'&&e.k!=='lis')||!VENT.has(e.g))continue;const x=estado.local.find(z=>z.id===e.id);if(x){if(e.borrado&&!x.borrado){x.borrado=true;await put('eventos',x);}continue;}e.enviado=true;e.recibido=true;estado.local.push(e);await put('eventos',e);n++;}}
   catch(err){toast(f.name+': '+err.message,'error');}}
   combinar();renderTodo();toast(n+' registros importados de '+arch+' archivo'+(arch===1?'':'s'),'ok');}
 async function vaciarLocal(){const ids=estado.local.map(e=>e.id);if(DB){await tx('eventos','readwrite',st=>{ids.forEach(id=>st.delete(id));});}else Object.keys(mem.eventos).forEach(k=>delete mem.eventos[k]);
@@ -1318,13 +1376,13 @@ async function informePDF(o){o=o||{};if(!window.jspdf)throw new Error('jsPDF no 
   const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
   const TIT=o.titulo||'Informe de levantamiento de ventanas interiores',SUB=OBRA+' · '+diaCorta(hoyDia())+'/'+new Date().getFullYear()+' · '+(estado.persona||'');
   let base=o.solo?o.solo.map(g=>VENT.get(g)).filter(Boolean):VL;if(o.nv)base=base.filter(v=>v.nv===o.nv);
-  const lev=base.filter(v=>estV(v)!=='pend').sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k)||recTxt(a).localeCompare(recTxt(b),'es',{numeric:true}));
+  const lev=base.filter(esLev).sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k)||recTxt(a).localeCompare(recTxt(b),'es',{numeric:true}));
   const s=statsDe(base);pdfCab(doc,TIT,SUB);let y=22;
   const kw=(PW-2*PM-3*6)/4;pdfKpi(doc,PM,y,kw,String(s.tot),'ventanas del alcance',o.nv?o.nv:'todo el edificio','#0891B2');pdfKpi(doc,PM+(kw+6),y,kw,fm(pct(s.lev,s.tot),0)+'%','levantado',s.lev+' de '+s.tot,'#16A34A');
   pdfKpi(doc,PM+2*(kw+6),y,kw,String(s.ok),'sin diferencias','dentro de ±'+fm(TOL,1)+' cm','#16A34A');pdfKpi(doc,PM+3*(kw+6),y,kw,String(s.dif),'con diferencias','vs. medida del modelo','#F59E0B');y+=28;
   y=pdfTit(doc,y,'Avance por nivel');
   y=pdfTabla(doc,y,[{t:'Nivel',w:30},{t:'Ventanas',w:30,al:'r'},{t:'Levantadas',w:30,al:'r'},{t:'Sin diferencias',w:36,al:'r'},{t:'Con diferencias',w:36,al:'r'},{t:'Por levantar',w:34,al:'r'},{t:'% levantado',w:30,al:'r'}],
-    NIV.map(n=>{const q=statsDe(base.filter(v=>v.nv===n.id));return {c:[n.id,q.tot,q.lev,q.ok,q.dif,q.pend,fm(pct(q.lev,q.tot),0)+'%']};}).filter(f=>+f.c[1]>0),TIT,SUB);
+    NIV.map(n=>{const q=statsDe(base.filter(v=>v.nv===n.id));return {c:[n.id,q.tot,q.lev,q.ok,q.dif,q.pend+q.lis,fm(pct(q.lev,q.tot),0)+'%']};}).filter(f=>+f.c[1]>0),TIT,SUB);
   y+=2;y=pdfTit(doc,y,'Resumen para fabricación: tipos y medidas levantadas');
   const agr=new Map();lev.forEach(v=>{const e=LEV.get(v.g);const k=v.k+'|'+cm(e.w)+'|'+cm(e.h)+'|'+(e.s==null?'':cm(e.s));const a=agr.get(k)||{v,e,n:0};a.n++;agr.set(k,a);});
   y=pdfTabla(doc,y,[{t:'Tipo',w:24},{t:'Descripción',w:100},{t:'Ancho real (cm)',w:32,al:'r'},{t:'Alto real (cm)',w:30,al:'r'},{t:'Antepecho real',w:32,al:'r'},{t:'Cantidad',w:26,al:'r'},{t:'Medida modelo',w:33,al:'r'}],
@@ -1333,7 +1391,7 @@ async function informePDF(o){o=o||{};if(!window.jspdf)throw new Error('jsPDF no 
   y=pdfNota(doc,y,'Medidas en cm. Diferencia = levantado − modelo. Se considera "sin diferencia" hasta ±'+fm(TOL,1)+' cm.');
   const cols=[{t:'Nivel',w:15},{t:'Tipo',w:20},{t:'ID',w:17},{t:'Recinto',w:62},{t:'Modelo A x H (ant.)',w:34},{t:'Levantado A x H (ant.)',w:36},{t:'Diferencia',w:42},{t:'Estado',w:26},{t:'Levantó',w:25}];
   y=pdfTabla(doc,y,cols,lev.map(v=>{const e=LEV.get(v.g),st=estV(v);return {c:[v.nv,v.k,v.n,pdfTxt(recTxt(v)),cm(v.w)+' x '+cm(v.h)+' ('+cm(v.s)+')',cm(e.w)+' x '+cm(e.h)+(e.s!=null?' ('+cm(e.s)+')':''),pdfTxt(textoDif(v,e)),st==='dif'?'CON DIFERENCIAS':'Sin diferencias',(e.por||'—').split(' ')[0]+' '+diaCorta(e.dia)],col:st==='dif'?[180,83,9]:[21,128,61],cj:7};}),TIT,SUB);
-  const pend=base.filter(v=>estV(v)==='pend');
+  const pend=base.filter(v=>!esLev(v));
   if(pend.length&&!o.solo){if(y>PH-45){doc.addPage();pdfCab(doc,TIT,SUB);y=22;}y+=2;y=pdfTit(doc,y,'Pendientes por levantar ('+pend.length+')');
     const pt=new Map();pend.forEach(v=>{const k=v.nv+'|'+v.k;pt.set(k,(pt.get(k)||0)+1);});
     y=pdfTabla(doc,y,[{t:'Nivel',w:30},{t:'Tipo',w:40},{t:'Pendientes',w:30,al:'r'}],[...pt.entries()].sort().map(([k,n])=>({c:[...k.split('|'),n]})),TIT,SUB);}
@@ -1370,11 +1428,20 @@ document.addEventListener('click',async e=>{const t=e.target;let b;
   if((b=t.closest('[data-fest]'))){estado.fEst=b.dataset.fest;chipsPlano();pedirR();return;}
   if((b=t.closest('[data-ftipo]'))){estado.fTipo=estado.fTipo===b.dataset.ftipo?'':b.dataset.ftipo;chipsPlano();pedirR();return;}
   if((b=t.closest('[data-nv]'))){estado.nv=b.dataset.nv;estado.fTipo='';estado.fEst='';cambiarVista('plano');return;}
-  if((b=t.closest('[data-vent]'))){window._fg=b.dataset.vent;hojaVentana(b.dataset.vent);return;}
+  if((b=t.closest('[data-vent]'))){if(estado.modoSel){alternarSel(b.dataset.vent);return;}window._fg=b.dataset.vent;hojaVentana(b.dataset.vent);return;}
+  if((b=t.closest('[data-stipo]'))){selPorTipo(b.dataset.stipo,b.dataset.ac);return;}
   if((b=t.closest('[data-ver]'))){verEnPlano(b.dataset.ver);return;}
   if((b=t.closest('[data-mas]'))){estado.lim+=200;pintarLista();return;}
   b=t.closest('[data-acc]');if(!b)return;const a=b.dataset.acc;
   if(a==='cerrarinfo')cerrarInfo();
+  else if(a==='modosel')modoSeleccion(!estado.modoSel);
+  else if(a==='selmarcar')marcarListas([...estado.multi],true);
+  else if(a==='selquitar')marcarListas([...estado.multi],false);
+  else if(a==='selvaciar'){estado.multi.clear();pedirR();refrescarSel();}
+  else if(a==='seltipos')hojaTipos();
+  else if(a==='marcarlista'){marcarListas([b.dataset.g],true);}
+  else if(a==='quitarlista'){marcarListas([b.dataset.g],false);}
+  else if(a==='listatrabajo'){descargarListaTrabajo();}
   else if(a==='corregir'){window._fg=b.dataset.g;hojaVentana(b.dataset.g,true);}
   else if(a==='foto')tomarFoto();
   else if(a==='quitarfoto'){FOTO_TMP=null;$('#fotoBox').innerHTML=htmlFoto(null,true);}
