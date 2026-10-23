@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>VentanaIntFlow v1.0 · Hospital de Coquimbo</title>
+<title>VentanaIntFlow v1.1 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -585,7 +585,7 @@ body.con-barrasel #vista-buscar{padding-bottom:130px}body.con-barrasel #leyenda{
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v1.0</span></span>
+      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v1.1</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -629,11 +629,12 @@ body.con-barrasel #vista-buscar{padding-bottom:130px}body.con-barrasel #leyenda{
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v1.0</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v1.1</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
-    <h2><span style="color:#0891B2">Hormi</span><span style="color:var(--ambar)">Flow</span></h2>
+    <div style="display:flex;justify-content:flex-end;gap:6px;margin:-8px 0 2px"><button class="chipf" onclick="cambiarIdioma('es')" style="padding:4px 10px">Español</button><button class="chipf" onclick="cambiarIdioma('zh')" style="padding:4px 10px">中文</button></div>
+    <h2><span style="color:#0891B2">VentanaInt</span><span style="color:var(--ambar)">Flow</span></h2>
     <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo autorizado</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
@@ -1053,7 +1054,87 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de terminaciones de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.0',OBRA='Hospital de Coquimbo';
+/* ---------------- idioma: español / 中文 (traducción por diccionario sobre el DOM y los PDF) ---------------- */
+let IDIOMA='es';try{IDIOMA=localStorage.getItem('ventana_idioma')||((navigator.language||'').toLowerCase().startsWith('zh')?'zh':'es');}catch(_){}
+/* EX: texto completo del nodo · FR: fragmentos (se reemplazan dentro de textos armados con números y nombres) */
+const ZH_EX={
+'Inicio':'首页','Plano':'平面图','Buscar':'搜索','Coordinador':'协调员','Menú':'菜单','Entrar':'进入','Enviar':'发送','Guardar':'保存','Cambiar':'更改','Salir':'退出','Listo':'完成','Quitar':'取消','Todas':'全部','Todos':'全部','Total':'合计','Fecha':'日期','Estado':'状态','Tipo':'类型','Nivel':'楼层','Código':'编码','Recinto':'房间','Cantidad':'数量','Alcance':'范围','Alto':'高','Ancho':'宽','Antepecho':'窗台高度','Descripción':'说明','Diferencia':'差异','Observaciones':'备注','Historial':'记录','Pendientes':'待办','Ventanas':'窗','Levantó':'测量人','Marcó':'标记人','Lun':'周一','Mar':'周二','Mié':'周三','Jue':'周四','Vie':'周五','Sáb':'周六','Dom':'周日',
+'Sin marcar':'未标记','Lista':'就绪','Listas':'就绪','Lista para levantar':'待测量','Listas para levantar':'待测量','Lista para medir (círculo)':'待测量(圆圈)','Levantada':'已测量','Levantadas':'已测量','Medidas tomadas':'已测量','Con diferencias':'有差异','Sin diferencias':'无差异','Con dif.':'有差异','Por levantar':'待测量','Ventana interior':'室内窗','Levantadas sin diferencias':'已测量·无差异','Levantada · con diferencias':'已测量 · 有差异','Levantada · sin diferencias':'已测量 · 无差异','● Lista':'● 就绪','● Lista para levantar':'● 待测量','⚠ Dif.':'⚠ 有差异','✔ OK':'✔ 正常','CON DIFERENCIAS':'有差异',
+'Clave de acceso':'访问密码','Clave entregada por Oficina Técnica':'技术办公室提供的密码','Clave incorrecta':'密码错误','Nombre y apellido':'姓名','Tu nombre':'您的姓名','Escribe tu nombre':'请输入您的姓名','Escribe la clave de obra':'请输入密码','Verificando clave…':'正在验证密码…','Sin conexión: la primera vez necesitas internet':'无网络:首次使用需要联网','Sin conexión: se muestra lo último guardado':'无网络:显示最近保存的内容','Hospital de Coquimbo':'科金博医院','Hospital de Coquimbo · acceso restringido al equipo autorizado':'科金博医院 · 仅限授权团队访问',
+'Levantamiento de ventanas':'窗户测量','Abriendo el plano…':'正在打开平面图…','Abriendo ventanas…':'正在打开窗户…','Avance por nivel':'各楼层进度','🏢 Avance por nivel':'🏢 各楼层进度','🪟 Avance por tipo':'🪟 各类型进度','👷 Quién ha levantado':'👷 测量人员','🔎 Buscar una ventana':'🔎 查找窗户','🔎 Buscar ventana':'🔎 查找窗户','🗺️ Abrir el plano y levantar':'🗺️ 打开平面图并测量','🏗️ Ir a FlujoPlan':'🏗️ 前往 FlujoPlan','🧱 Ir a TabiFlow (tabiques)':'🧱 前往 TabiFlow(隔墙)',
+'Toca un nivel para verlo en el plano.':'点击楼层可在平面图中查看。','Aún no hay levantamientos.':'目前还没有测量记录。','Ver todo':'查看全部','Ninguna por ahora.':'暂无。','Sin registros.':'暂无记录。','Todas las ventanas':'所有窗户','Todos los niveles':'所有楼层','Todos los tipos':'所有类型','Todo el edificio':'整栋楼','todo el edificio':'整栋楼','Sin recinto':'无房间',
+'Marca las ventanas listas y levanta las medidas reales del vano para enviarlas a fabricar.':'标记已准备好的窗户,测量洞口实际尺寸,发送去加工制作。','ventanas y mamparas':'窗和隔断玻璃墙','levantadas':'已测量','listas para levantar':'待测量','sin diferencias':'无差异','con diferencias':'有差异',
+'Código o recinto (ej. VFM-01B, pasillo)':'编码或房间(例如 VFM-01B、走廊)','Buscar: código, recinto o número (ej. VFM-01B, pasillo)':'搜索:编码、房间或编号(例如 VFM-01B、走廊)','Ej.: vano con desplome, falta terminar el marco…':'例如:洞口倾斜、窗框尚未完成…',
+'☑ Seleccionar varias':'☑ 多选','Marcar listas':'标记为待测量','✔ Marcar listas':'✔ 标记为待测量','Quitar marca':'取消标记','Por tipo…':'按类型…','Limpiar':'清除','Salir ':'退出','Seleccionar por tipo':'按类型选择','☑ todas':'☑ 全部','Toca ventanas en el plano o en la lista':'请在平面图或列表中点击窗户','Esa ventana ya está levantada':'该窗户已测量','Nada que cambiar':'无需更改','No quedan ventanas por levantar en este alcance.':'此范围内没有尚未测量的窗户。','✔ Marcar lista para levantar':'✔ 标记为待测量','Quitar marca de lista':'取消待测量标记','Sin marcar: aún no se avisa que esté lista para levantar.':'未标记:尚未通知该窗户可以测量。','Ver / corregir levantamiento':'查看 / 修改测量','📐 Levantar medidas reales':'📐 测量实际尺寸','🗺️ Ver en el plano':'🗺️ 在平面图中查看','✏️ Corregir las medidas':'✏️ 修改尺寸','Anular':'作废',
+'Medidas del modelo (cm)':'模型尺寸(厘米)','Medidas reales del vano (cm)':'洞口实际尺寸(厘米)','ANCHO MODELO':'模型宽度','ALTO MODELO':'模型高度','Escribe el ancho y el alto reales del vano. El antepecho es opcional.':'请输入洞口的实际宽度和高度。窗台高度可不填。','Escribe solo números (ej. 110,5).':'请只输入数字(例如 110,5)。','Revisa las medidas':'请检查尺寸','= Las medidas coinciden con el modelo':'= 尺寸与模型一致','💾 Guardar levantamiento':'💾 保存测量','📷 Foto':'📷 照片','📝 Observaciones':'📝 备注','Tomar':'拍照','Sin foto.':'无照片。','Guardada · con diferencias':'已保存 · 有差异','Guardada · sin diferencias':'已保存 · 无差异','Registro anulado':'记录已作废','No se pudo leer la foto':'无法读取照片','imagen no válida':'图片无效','Foto registrada (se descarga del servidor al abrir el informe).':'照片已登记(打开报告时从服务器下载)。',
+'📤 Enviar mi levantamiento al coordinador':'📤 向协调员发送我的测量','📄 Informe del levantamiento (PDF)':'📄 测量报告(PDF)','📄 Informe del levantamiento':'📄 测量报告','📊 Planilla Excel para fábrica (.xlsx)':'📊 加工用 Excel 表格(.xlsx)','📑 Planilla CSV':'📑 CSV 表格','📑 Planilla para fábrica (CSV)':'📑 加工用表格(CSV)','🔄 Actualizar con lo publicado por el equipo':'🔄 更新团队已发布的内容','🔄 Actualizar con lo publicado':'🔄 更新已发布内容','📥 Importar archivos de levantamiento (coordinador)':'📥 导入测量文件(协调员)','📥 Importar archivos del equipo':'📥 导入团队文件','👤 Cambiar mi nombre':'👤 更改我的姓名','🔒 Olvidar la clave en este teléfono':'🔒 在本手机上忘记密码','🗑 Borrar mis avances':'🗑 删除我的记录','🗑 Borrar de este teléfono':'🗑 从本手机删除','📋 Lista de trabajo: ventanas listas para levantar':'📋 工作清单:待测量的窗户','📊 Coordinador':'📊 协调员','📤 Enviar primero al coordinador':'📤 请先发送给协调员','📤 Levantamiento listo para el coordinador':'📤 测量已准备好,可发送给协调员','✔ Todo lo tuyo ya fue enviado al coordinador.':'✔ 您的全部记录都已发送给协调员。',
+'Alcance ':'范围','Incluir observaciones y fotos':'包含备注和照片','Generar PDF':'生成 PDF','Todavía no hay levantamiento publicado del equipo':'团队尚未发布测量内容','Todavía no tienes registros':'您还没有记录','No tienes registros guardados en este teléfono.':'本手机中没有保存的记录。','Entiendo que no se puede deshacer':'我明白此操作无法撤销','Registros de este teléfono borrados':'本手机中的记录已删除','Levantamiento del equipo actualizado':'团队测量内容已更新','Armando el informe…':'正在生成报告…','Armando la lista de trabajo…':'正在生成工作清单…','No se pudo armar el informe:':'无法生成报告:','No se pudo armar la lista:':'无法生成清单:','No se pudo abrir el modelo:':'无法打开模型:','jsPDF no disponible':'PDF 组件不可用','archivo vacío':'文件为空','no es un archivo de VentanaIntFlow':'不是 VentanaIntFlow 的文件','Listo ':'完成',
+'Informe de levantamiento de ventanas interiores':'室内窗测量报告','Informe de levantamiento de ventanas':'窗户测量报告','Levantamiento enviado':'已发送的测量','Ventanas listas para levantar':'待测量的窗户','Detalle del levantamiento: medida del modelo, medida levantada y diferencias':'测量明细:模型尺寸、实测尺寸及差异','Resumen para fabricación: tipos y medidas levantadas':'加工汇总:类型及实测尺寸','Resumen por nivel y tipo':'按楼层和类型汇总','Detalle para recorrer':'巡查明细','Resumen fabricación':'加工汇总','Listas para levantar ':'待测量',
+'Ancho real (cm)':'实测宽度(厘米)','Alto real (cm)':'实测高度(厘米)','Antepecho real':'实测窗台高度','Medida modelo':'模型尺寸','Modelo A x H':'模型 宽 x 高','Modelo A x H (ant.)':'模型 宽 x 高(窗台)','Levantado A x H (ant.)':'实测 宽 x 高(窗台)','Real A x H (ant.)':'实测 宽 x 高(窗台)','ID modelo':'模型编号','Ancho modelo cm':'模型宽度 厘米','Alto modelo cm':'模型高度 厘米','Antepecho modelo cm':'模型窗台高度 厘米','Ancho real cm':'实测宽度 厘米','Alto real cm':'实测高度 厘米','Antepecho real cm':'实测窗台高度 厘米','Dif. ancho':'宽度差异','Dif. alto':'高度差异','Dif. antepecho':'窗台高度差异','Ninguna por ahora':'暂无',
+'% levantado':'% 已测量','Ventanas ':'窗','Planilla de ventanas':'窗户表格','Levantamiento de ventanas (Excel)':'窗户测量(Excel)','Excel VentanaIntFlow':'VentanaIntFlow Excel','Informe VentanaIntFlow':'VentanaIntFlow 报告','Planilla VentanaIntFlow':'VentanaIntFlow 表格','Lista de trabajo VentanaIntFlow':'VentanaIntFlow 工作清单',
+'Todos los derechos reservados':'版权所有','sin marcar':'未标记','ANCHO':'宽度','ALTO':'高度','ANTEPECHO':'窗台高度','levantado':'已测量','Lev.':'已测','Dif.':'差异','¿Idioma del informe?':'报告语言'
+};
+const ZH_FR=[
+[' ventanas marcadas como listas'+' para levantar el vano. Medidas del modelo en cm; anotar la medida real en terreno o en la app.',' 扇窗已标记为待测量。模型尺寸单位为厘米;请在现场或应用中记录实测尺寸。'],[' ventana marcada como lista'+' para levantar el vano. Medidas del modelo en cm; anotar la medida real en terreno o en la app.',' 扇窗已标记为待测量。模型尺寸单位为厘米;请在现场或应用中记录实测尺寸。'],['Ancho','宽'],['Alto','高'],['Antepecho','窗台'],
+['Pág.','页码'],
+['Hospital de Coquimbo','科金博医院'],['Interiores','室内'],['Ventana Fijo de Aluminio Aplomada ambos Lados','铝制固定窗(两侧垂直)'],['Fijo de Aluminio Aplomada ambos Lados','铝制固定窗(两侧垂直)'],['Ventana Interior Corredera','室内推拉窗'],['Interior Corredera','室内推拉'],['Entrega y Recepcion','交接与接待'],['Entrega y Recepcio','交接与接待'],['Recintos No Clinico','非临床房间'],['Recintos Clinicos','临床房间'],['Salas de Comando','控制室'],['Sala de Comando Resonador','核磁共振控制室'],['Sala de Comando','控制室'],['UPC y Diálisis','重症监护与透析'],['Psiquiatria sala espejo','精神科观察镜'],['Salud Mental','精神健康'],['Casetas de Guardias','警卫亭'],['Ventana Interior','室内窗'],['Mampara Interior','室内隔断玻璃墙'],['Ventana Exterior','室外窗'],['Venta interior Acustica','室内隔音窗'],['Acustica','隔音'],['diálisis','透析'],['Laboratorio','实验室'],
+['levantado (','已测量 ('],
+['⚠ Ventanas con diferencias (','⚠ 有差异的窗户 ('],
+['Ver más (','查看更多 ('],
+['Seleccionar todas (','全选 ('],
+['Pendientes por levantar (','待测量 ('],
+['Observaciones y fotos (','备注和照片 ('],
+['⚠ Tienes ','⚠ 您有 '],['📤 Tienes ','📤 您有 '],[' registros guardados en este teléfono sin enviar al coordinador.',' 条记录保存在本手机中,尚未发送给协调员。'],[' registro guardado en este teléfono sin enviar al coordinador.',' 条记录保存在本手机中,尚未发送给协调员。'],
+['Para el coordinador · Ventanas interiores ·','发给协调员 · 室内窗 ·'],[' marcadas listas para levantar',' 扇已标记为待测量'],[' marcada lista para levantar',' 扇已标记为待测量'],[' levantadas',' 扇已测量'],[' levantada',' 扇已测量'],
+['Se borran los','将删除'],['Si los borras ahora se pierden. Es mejor','现在删除将会丢失。建议先'],['enviarlos al coordinador antes','发送给协调员再删除'],['registros guardados en este teléfono (útil para limpiar pruebas). Lo ya publicado por el equipo no se toca.','条保存在本手机中的记录(可用于清除测试数据)。团队已发布的内容不受影响。'],['sin enviar al coordinador.','尚未发送给协调员。'],
+['Se quitó la marca a','已取消标记:'],['ventanas marcadas como listas para levantar','扇窗已标记为待测量'],[' ventana marcada como lista para levantar',' 扇窗已标记为待测量'],[' ventanas marcadas como listas para levantar',' 扇窗已标记为待测量'],
+[' seleccionadas',' 已选'],[' seleccionada',' 已选'],['Ventanas aún sin levantar dentro de','范围内尚未测量的窗户:'],['. Toca un tipo para agregar o quitar todas sus ventanas de la selección.','。点击类型可将该类型所有窗户加入或移出选择。'],['los filtros de Buscar','搜索筛选条件'],['(con los filtros activos)','(按当前筛选)'],['el nivel','该楼层'],
+[' ya lista',' 已待测量'],['· marcada por','· 标记人:'],['. Ya se puede ir a medir el vano.','。现在可以去测量洞口。'],['✔ Levantada, sin diferencias','✔ 已测量,无差异'],['⚠ Con diferencias:','⚠ 有差异:'],['✔ Ya fue levantada por','✔ 已测量,测量人:'],['. No es necesario volver a medirla.','。无需再次测量。'],
+['· modelo','· 模型'],['· real','· 实测'],['· ant.','· 窗台'],[' ventanas',' 扇窗'],[' ventana',' 扇窗'],['más (están en el informe).','更多(见报告)。'],['respecto al modelo:','与模型相比:'],['con el modelo (tolerancia ±','与模型(容差 ±'],['dentro de ±','在 ± 范围内'],['ventanas del alcance','范围内的窗户'],['vs. medida del modelo','与模型尺寸对比'],
+['Medidas en cm. Diferencia = levantado − modelo. Se considera "sin diferencia" hasta ±','尺寸单位为厘米。差异 = 实测 − 模型。在 ± 以内视为“无差异”:'],['para levantar el vano. Medidas del modelo en cm; anotar la medida real en terreno o en la app.','待测量洞口。模型尺寸单位为厘米;请在现场或应用中记录实测尺寸。'],[' marcada como lista',' 已标记为待测量'],[' marcadas como listas',' 已标记为待测量'],
+['Muestra cada ventana con su medida del modelo, la medida levantada y si hay diferencias, más un resumen para fabricación.','显示每扇窗的模型尺寸、实测尺寸及是否有差异,并附加工汇总。'],['registros importados de','条记录已导入,来自'],['Hola, ','您好,'],
+['VentanaIntFlow · FlujoPlan · © 2026','VentanaIntFlow · FlujoPlan · © 2026'],['Renato Martínez Palominos','Renato Martínez Palominos'],['· Todos los derechos reservados ·','· 版权所有 ·'],['Idioma del informe · ',''],['Todos los derechos reservados','版权所有'],['· por Renato Martínez Palominos','· 开发者 Renato Martínez Palominos'],['modelo ','模型 '],
+['Buenos días','早上好'],['Buenas tardes','下午好'],['Buenas noches','晚上好']
+];
+/* tipos de ventana y palabras de los nombres de recintos (datos del modelo) */
+const ZH_DATO=[
+['Ventana Interior Corredera, Entrega y Recepcion','室内推拉窗,交接与接待'],['Ventana Interior, Recintos No Clinico','室内窗,非临床房间'],['Ventana Psiquiatria sala espejo','精神科观察镜窗'],['Ventana Fijo de Aluminio Aplomada ambos Lados, Recintos Clinicos, Laboratorio, Sedile, CA','铝制固定窗,两侧垂直,临床房间、实验室、SEDILE、CA'],['Ventana Interior, Salas de Comando','室内窗,控制室'],['Ventana Interior,UPC y Diálisis','室内窗,重症监护与透析'],['Mampara Interior UPC, diálisis','室内隔断玻璃墙,重症监护、透析'],['Venta interior Acustica','室内隔音窗'],['Mampara Interior Salud Mental','室内隔断玻璃墙,精神健康'],['Ventana Interior, Salud Mental','室内窗,精神健康'],['Ventana Interior, Sala de Comando Resonador','室内窗,核磁共振控制室'],['Ventana Exterior, Casetas de Guardias','室外窗,警卫亭'],
+['Ventana','窗'],['Mampara','隔断玻璃墙']
+];
+const ZH_PAL={'BAÑO':'卫生间','BAÑOS':'卫生间','SALA':'房间','FUNCIONARIOS':'员工','CAMAS':'床位','CAMA':'床位','PASILLO':'走廊','PISO':'楼层','BODEGA':'仓库','UNIVERSAL':'无障碍','ÁREA':'区域','ESCLUSA':'缓冲间','VESTIDOR':'更衣室','SHAFT':'管井','TRABAJO':'工作','OFICINA':'办公室','AISLAMIENTO':'隔离','RECEPCIÓN':'接待','ENFERMERÍA':'护理','BOX':'诊室','PÚBLICO':'公共','PÚBLICOS':'公共','PÚBLICA':'公共','ASEO':'清洁','INSUMOS':'耗材','PACIENTES':'患者','PACIENTE':'患者','LOCKERS':'储物柜','SUCIA':'污','LIMPIA':'洁','MÓDULO':'模块','MÓDULOS':'模块','RESIDUOS':'废弃物','ESTACIONAMIENTO':'停车场','ROPA':'衣物','ARCHIVO':'档案','SÓLIDOS':'固体','CLÍNICA':'临床','CLÍNICOS':'临床','PROCEDIMIENTOS':'治疗','TRANSITORIOS':'临时','ELECTRICA':'电气','ESTAR':'休息','LAVADO':'清洗','ESPERA':'候诊','ESCALERA':'楼梯','CUBÍCULO':'隔间','CUBÍCULOS':'隔间','JEFE':'主管','SILLAS':'椅子','SECRETARÍA':'秘书处','RUEDA':'轮','KITCHENETTE':'茶水间','ESTACIÓN':'站','DUCHA':'淋浴','MÉDICO':'医生','CIRUGÍA':'外科','MAYOR':'大','CAMILLAS':'担架','EQUIPOS':'设备','RESIDENCIA':'值班宿舍','ADULTO':'成人','TÉCNICA':'技术','REUNIONES':'会议','LAVACHATAS':'污物清洗','QUIRÚRGICO':'手术','HOMBRE':'男','MUJER':'女','MESÓN':'台','ENFERMERA':'护士','BATERÍA':'电池','ATENCIÓN':'接诊','RECUPERACIÓN':'恢复','AMBULATORIA':'门诊','UNIDAD':'单元','COORDINADOR':'协调员','COORDINADORA':'协调员','CARROS':'推车','SECTOR':'区','ENCARGADO':'负责人','FAMILIARES':'家属','MATERIAL':'材料','PREPARACIÓN':'准备','RADIOLOGÍA':'放射科','PABELLÓN':'手术室','MEDICAMENTOS':'药品','RECIÉN':'新','NACIDO':'生儿','INSTALACIONES':'设施','MUESTRAS':'样本','ADMINISTRATIVA':'行政','ASCENSORES':'电梯','CUNAS':'婴儿床','TOMÓGRAFO':'CT 扫描仪','TÉCNICO':'技术','ESTÉRIL':'无菌','DESPACHO':'配送','MULTIPROPÓSITO':'多功能','MULTIUSO':'多用途','PROFESIONAL':'专业','CONTROL':'控制','DOCUMENTACIÓN':'文件','MATRONA':'助产士','ENTREVISTA':'面谈','CENTRAL':'中央','EXTERIOR':'室外','ZONA':'区域','ALMACENAMIENTO':'存储','LABORATORIO':'实验室','GENERALES':'综合','CUIDADOS':'护理','TRATAMIENTO':'治疗','INFANTIL':'儿童','FISIOTERAPIA':'理疗','SECADO':'烘干','PREPARACION':'准备','DE':'','Edificio':'建筑','Hospital':'医院'};
+let _zhEX=null,_zhFR=null,_zhRX=null;
+function _prepZH(){_zhEX=new Map(Object.entries(ZH_EX));const esc=k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  _zhFR=new Map(ZH_FR.concat(ZH_DATO));const L='A-Za-zÁÉÍÓÚáéíóúñÑÜü';
+  const ks=[..._zhFR.keys()].sort((a,b)=>b.length-a.length).map(k=>(/^[A-Za-zÁÉÍÓÚáéíóúñÑ]/.test(k)?'(?<![' +L+'])':'')+esc(k)+(/[A-Za-zÁÉÍÓÚáéíóúñÑ]$/.test(k)?'(?![' +L+'])':''));
+  _zhRX=new RegExp(ks.join('|'),'g');
+  const pw=Object.keys(ZH_PAL).sort((a,b)=>b.length-a.length).map(esc);_zhPW=new RegExp('(?<![' +L+'])(?:'+pw.join('|')+')S?(?![' +L+'])','gi');_zhPU=new Map(Object.entries(ZH_PAL).map(([k,v])=>[k.toUpperCase(),v]));}
+let _zhPU=null;
+let _zhPW=null;
+function trad(t,l){l=l||IDIOMA;if(l!=='zh'||t==null||t==='')return t;t=String(t);if(!_zhRX)_prepZH();
+  const m=t.match(/^(\s*)([\s\S]*?)(\s*)$/);const nuc=m[2];if(_zhEX.has(nuc))return m[1]+_zhEX.get(nuc)+m[3];
+  if(!/[A-Za-zÁ-úñÑ]/.test(t))return t;
+  t=t.replace(/(\d) de (\d)/g,'$1 / $2');let r=t.replace(_zhRX,x=>_zhFR.get(x)).replace(_zhPW,x=>{const u=x.toUpperCase();let v=_zhPU.get(u);if(v===undefined)v=_zhPU.get(u.slice(0,-1));return v===undefined?x:v;});return r.replace(/ {2,}/g,' ');}
+/* DOM */
+function trNodo(n){if(IDIOMA!=='zh')return;if(n.nodeType===3){const v=n.nodeValue;if(v&&/[A-Za-zÁ-úñÑ]/.test(v)){const w=trad(v);if(w!==v)n.nodeValue=w;}return;}
+  if(n.nodeType!==1||/^(SCRIPT|STYLE)$/.test(n.tagName))return;
+  for(const a of ['placeholder','title','aria-label','alt']){const v=n.getAttribute&&n.getAttribute(a);if(v){const w=trad(v);if(w!==v)n.setAttribute(a,w);}}
+  if(n.tagName!=='TEXTAREA')n.childNodes.forEach(trNodo);}
+function iniciarIdioma(){document.documentElement.lang=IDIOMA==='zh'?'zh-CN':'es';if(IDIOMA!=='zh')return;
+  setTimeout(()=>{try{fetch('fuente_zh.ttf').catch(()=>{});}catch(_){}},4000);/* deja la fuente del PDF guardada para usarla sin conexión */
+  const run=()=>trNodo(document.body);run();
+  new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData')trNodo(m.target);else if(m.type==='attributes')trNodo(m.target);else m.addedNodes.forEach(trNodo);}}).observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label','alt']});}
+function cambiarIdioma(l){try{localStorage.setItem('ventana_idioma',l);}catch(_){}location.reload();}
+/* fuente china para el PDF (subconjunto de Noto Sans CJK SC, licencia OFL) */
+let _fuenteZH=null;
+async function fuenteZH(){if(_fuenteZH)return _fuenteZH;const r=await fetch('fuente_zh.ttf');if(!r.ok)throw new Error('fuente china no disponible');const u=new Uint8Array(await r.arrayBuffer());let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));_fuenteZH=btoa(s);return _fuenteZH;}
+async function prepararPDFZH(doc){const b=await fuenteZH();doc.addFileToVFS('zh.ttf',b);doc.addFont('zh.ttf','ZH','normal','Identity-H');doc.addFont('zh.ttf','ZH','bold','Identity-H');
+  const sf=doc.setFont.bind(doc);doc.setFont=(n,e)=>sf('ZH',e==='bold'?'bold':'normal');doc.setFont('ZH','normal');
+  const tx=doc.text.bind(doc);doc.text=(t,...a)=>tx(Array.isArray(t)?t.map(x=>trad(x,'zh')):trad(t,'zh'),...a);
+  const sp=doc.splitTextToSize.bind(doc);doc.splitTextToSize=(t,w,o)=>sp(Array.isArray(t)?t.map(x=>trad(x,'zh')):trad(t,'zh'),w,o);
+  const gw=doc.getTextWidth.bind(doc);doc.getTextWidth=t=>gw(trad(t,'zh'));
+  return doc;}
+
+const APP_VER='v1.1',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -1294,8 +1375,8 @@ async function marcarListas(gs,on){let n=0;const ts0=Date.now();
   if(n){toast(on?n+' ventana'+(n===1?'':'s')+' marcada'+(n===1?'':'s')+' como lista'+(n===1?'':'s')+' para levantar':'Se quitó la marca a '+n,'ok');}else toast('Nada que cambiar','');
   renderTodo();refrescarSel();pedirR();if(estado.vista==='plano'&&estado.sel){const v=VENT.get(estado.sel);if(v&&!estado.modoSel)infoV(v);}if(estado.vista==='buscar')pintarLista();}
 async function descargarListaTrabajo(){progreso('Armando la lista de trabajo…');await new Promise(r=>setTimeout(r,60));
-  try{const b=await listaTrabajoPDF();progreso(null);await compartirArchivo(b,'Lista_ventanas_para_levantar_'+hoyDia()+'.pdf','Ventanas listas para levantar','Lista de trabajo VentanaIntFlow');}catch(e){progreso(null);toast('No se pudo armar la lista: '+e.message,'error');}}
-async function listaTrabajoPDF(){if(!window.jspdf)throw new Error('jsPDF no disponible');const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
+  try{const b=await listaTrabajoPDF({idioma:IDIOMA});progreso(null);await compartirArchivo(b,'Lista_ventanas_para_levantar_'+hoyDia()+'.pdf','Ventanas listas para levantar','Lista de trabajo VentanaIntFlow');}catch(e){progreso(null);toast('No se pudo armar la lista: '+e.message,'error');}}
+async function listaTrabajoPDF(o){o=o||{};const idi=o.idioma||IDIOMA;if(!window.jspdf)throw new Error('jsPDF no disponible');const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});if(idi==='zh')await prepararPDFZH(doc);
   const TIT='Ventanas listas para levantar',SUB=OBRA+' · '+diaCorta(hoyDia())+'/'+new Date().getFullYear()+' · '+(estado.persona||'');
   const L=VL.filter(v=>estV(v)==='lis').sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k)||recTxt(a).localeCompare(recTxt(b),'es',{numeric:true}));
   pdfCab(doc,TIT,SUB);let y=22;y=pdfNota(doc,y,L.length+' ventana'+(L.length===1?'':'s')+' marcada'+(L.length===1?'':'s')+' como lista'+(L.length===1?'':'s')+' para levantar el vano. Medidas del modelo en cm; anotar la medida real en terreno o en la app.');
@@ -1336,7 +1417,7 @@ async function exportar(){const mios=estado.local.filter(e=>e.por===estado.perso
   const nuevos=estado.local.filter(e=>!e.enviado&&!e.borrado);const nl=new Set(nuevos.filter(e=>e.k==='lev').map(e=>e.g)).size,nm=new Set(nuevos.filter(e=>e.k==='lis'&&e.on).map(e=>e.g)).size;
   const texto='Para el coordinador · Ventanas interiores · '+estado.persona+' · '+diaCorta(hoyDia())+': '+(nm?nm+' marcada'+(nm===1?'':'s')+' lista'+(nm===1?'':'s')+' para levantar':'')+(nm&&nl?' · ':'')+(nl?nl+' levantada'+(nl===1?'':'s'):'')+'.';
   const archivos=[{blob:new Blob([JSON.stringify(d)],{type:'application/json'}),nombre:'Levantamiento_VentanaIntFlow'+base+'.json'}];
-  try{const gl=nuevos.filter(e=>e.k==='lev').map(e=>e.g);if(gl.length)archivos.push({blob:await informePDF({solo:gl,titulo:'Levantamiento enviado',fotos:false}),nombre:'Resumen_VentanaIntFlow'+base+'.pdf'});}catch(e){}
+  try{const gl=nuevos.filter(e=>e.k==='lev').map(e=>e.g);if(gl.length)archivos.push({blob:await informePDF({solo:gl,titulo:'Levantamiento enviado',fotos:false,idioma:'es'}),nombre:'Resumen_VentanaIntFlow'+base+'.pdf'});}catch(e){}
   const ok=await compartirArchivos(archivos,'Levantamiento de ventanas',texto);
   if(ok){for(const e of estado.local){if(!e.enviado){e.enviado=true;await put('eventos',e);}}toast('📤 Levantamiento listo para el coordinador','ok');}renderTodo();}
 async function importar(files){let n=0,arch=0;for(const f of files){try{const d=JSON.parse(await f.text());if(d.app!=='VentanaIntFlowHCQ')throw new Error('no es un archivo de VentanaIntFlow');arch++;
@@ -1373,7 +1454,7 @@ function pdfTabla(doc,y,cols,filas,tit,sub){const H=6.2;
   doc.setTextColor(30,41,59);return y+2;}
 const pdfTxt=s=>String(s==null?'':s).replace(/[×]/g,'x').replace(/[−]/g,'-');
 async function informePDF(o){o=o||{};if(!window.jspdf)throw new Error('jsPDF no disponible');if(o.fotos)await cargarFotos();
-  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
+  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});if(o.idioma==='zh')await prepararPDFZH(doc);
   const TIT=o.titulo||'Informe de levantamiento de ventanas interiores',SUB=OBRA+' · '+diaCorta(hoyDia())+'/'+new Date().getFullYear()+' · '+(estado.persona||'');
   let base=o.solo?o.solo.map(g=>VENT.get(g)).filter(Boolean):VL;if(o.nv)base=base.filter(v=>v.nv===o.nv);
   const lev=base.filter(esLev).sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k)||recTxt(a).localeCompare(recTxt(b),'es',{numeric:true}));
@@ -1408,8 +1489,8 @@ async function informePDF(o){o=o||{};if(!window.jspdf)throw new Error('jsPDF no 
 async function descargarInforme(o){progreso('Armando el informe…');await new Promise(r=>setTimeout(r,60));try{const b=await informePDF(o);progreso(null);await compartirArchivo(b,'Informe_VentanaIntFlow_'+hoyDia()+'.pdf','Informe de levantamiento de ventanas','Informe VentanaIntFlow');}catch(e){progreso(null);toast('No se pudo armar el informe: '+e.message,'error');}}
 function hojaInforme(){abrirHoja('<div class="hoja-titulo">📄 Informe del levantamiento</div><div class="hoja-sub">Muestra cada ventana con su medida del modelo, la medida levantada y si hay diferencias, más un resumen para fabricación.</div>'+
   '<label class="etiqueta">Alcance</label><select id="infNv" class="campo"><option value="">Todo el edificio</option>'+NIV.map(n=>'<option value="'+n.id+'">'+escapar(n.id)+'</option>').join('')+'</select>'+
-  '<label class="toggle-mini"><input type="checkbox" id="infFotos" checked> Incluir observaciones y fotos</label><button class="btn principal grande" id="btnInf" style="width:100%;margin-top:12px;justify-content:center">Generar PDF</button>');
-  $('#btnInf').onclick=()=>{const o={nv:$('#infNv').value||null,fotos:$('#infFotos').checked};cerrarHoja();descargarInforme(o);};}
+  '<label class="etiqueta">Idioma del informe · 报告语言</label><select id="infIdioma" class="campo"><option value="es"'+(IDIOMA==='es'?' selected':'')+'>Español</option><option value="zh"'+(IDIOMA==='zh'?' selected':'')+'>中文</option></select><label class="toggle-mini"><input type="checkbox" id="infFotos" checked> Incluir observaciones y fotos</label><button class="btn principal grande" id="btnInf" style="width:100%;margin-top:12px;justify-content:center">Generar PDF</button>');
+  $('#btnInf').onclick=()=>{const o={nv:$('#infNv').value||null,fotos:$('#infFotos').checked,idioma:$('#infIdioma').value};cerrarHoja();descargarInforme(o);};}
 /* ----- Excel (.xlsx) sin librerías: zip sin compresión + XML mínimo ----- */
 const CRCT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
 const crc32=u=>{let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=CRCT[(c^u[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;};
@@ -1422,11 +1503,11 @@ function xlsxBlob(hojas){const esc=t=>String(t).replace(/&/g,'&amp;').replace(/<
   const col=i=>{let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26);}return s;};
   const arch=[['[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+hojas.map((h,i)=>'<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('')+'</Types>'],
    ['_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
-   ['xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+hojas.map((h,i)=>'<sheet name="'+esc(h.nombre)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>').join('')+'</sheets></workbook>'],
+   ['xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+hojas.map((h,i)=>'<sheet name="'+esc(trad(h.nombre)).slice(0,31)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>').join('')+'</sheets></workbook>'],
    ['xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+hojas.map((h,i)=>'<Relationship Id="rId'+(i+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>').join('')+'<Relationship Id="rId'+(hojas.length+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'],
    ['xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="10"/><name val="Calibri"/></font><font><b/><sz val="10"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF0891B2"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>']];
   hojas.forEach((h,i)=>{arch.push(['xl/worksheets/sheet'+(i+1)+'.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>'+h.anchos.map((a,k)=>'<col min="'+(k+1)+'" max="'+(k+1)+'" width="'+a+'" customWidth="1"/>').join('')+'</cols><sheetData>'+
-    h.filas.map((f,r)=>'<row r="'+(r+1)+'">'+f.map((v,c)=>{const ref=col(c)+(r+1);if(v===null||v===undefined||v==='')return '';if(typeof v==='number'&&isFinite(v))return '<c r="'+ref+'"><v>'+v+'</v></c>';return '<c r="'+ref+'" t="inlineStr"'+(r===0?' s="1"':'')+'><is><t xml:space="preserve">'+esc(v)+'</t></is></c>';}).join('')+'</row>').join('')+'</sheetData></worksheet>']);});
+    h.filas.map((f,r)=>'<row r="'+(r+1)+'">'+f.map((v,c)=>{const ref=col(c)+(r+1);if(v===null||v===undefined||v==='')return '';if(typeof v==='number'&&isFinite(v))return '<c r="'+ref+'"><v>'+v+'</v></c>';return '<c r="'+ref+'" t="inlineStr"'+(r===0?' s="1"':'')+'><is><t xml:space="preserve">'+esc(IDIOMA==='zh'&&!(String(v).length===22&&!/ /.test(v))?trad(v):v)+'</t></is></c>';}).join('')+'</row>').join('')+'</sheetData></worksheet>']);});
   return zipSin(arch);}
 async function exportarExcel(){await cargarFotos();const n=x=>x==null?null:Math.round(x*10)/10;
   const ord=VL.slice().sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k)||recTxt(a).localeCompare(recTxt(b),'es',{numeric:true}));
@@ -1447,6 +1528,7 @@ function abrirMenu(){const pe=pendEnvio();abrirHoja('<h2 style="font-size:19px">
   '<button class="menu-item" data-acc="enviar">📤 Enviar mi levantamiento al coordinador'+(pe?' <span class="chip" style="margin-left:auto">'+pe+'</span>':'')+'</button>'+
   '<button class="menu-item" data-acc="informe">📄 Informe del levantamiento (PDF)</button><button class="menu-item" data-acc="excel">📊 Planilla Excel para fábrica (.xlsx)</button><button class="menu-item" data-acc="csv">📑 Planilla CSV</button>'+
   '<button class="menu-item" data-acc="actualizar">🔄 Actualizar con lo publicado por el equipo</button><button class="menu-item" data-acc="importar">📥 Importar archivos de levantamiento (coordinador)</button>'+
+  '<button class="menu-item" data-acc="idioma">🌐 Idioma · 语言 <span class="chip" style="margin-left:auto">'+(IDIOMA==='zh'?'中文':'Español')+'</span></button>'+
   '<button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
   '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a>'+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button><button class="menu-item" data-acc="borrar" style="color:var(--peligro-osc)">🗑 Borrar mis avances</button>');}
@@ -1475,6 +1557,7 @@ document.addEventListener('click',async e=>{const t=e.target;let b;
   else if(a==='anular'){const x=estado.local.find(z=>z.id===b.dataset.id);if(x){x.borrado=true;x.borradoTs=new Date().toISOString();x.enviado=false;await put('eventos',x);combinar();renderTodo();hojaVentana(x.g);toast('Registro anulado','ok');}}
   else if(a==='enviar'){cerrarHoja();exportar();}
   else if(a==='informe'){hojaInforme();}
+  else if(a==='idioma')cambiarIdioma(IDIOMA==='zh'?'es':'zh');
   else if(a==='csv'){cerrarHoja();exportarCSV();}
   else if(a==='excel'){cerrarHoja();exportarExcel();}
   else if(a==='actualizar'){cerrarHoja();cargarEquipo(true);}
@@ -1500,6 +1583,7 @@ async function claveDeTabiFlow(){try{const db=await abrirDB('TabiFlowHCQ');if(!d
   const get=k=>new Promise(r=>{const q=db.transaction('meta','readonly').objectStore('meta').get(k);q.onsuccess=()=>r(q.result?q.result.v:null);q.onerror=()=>r(null);});
   const key=await get('clave'),per=await get('persona');db.close();if(key){await verificar(key);return {key,per};}}catch(e){}return null;}
 async function iniciar(){
+  iniciarIdioma();
   try{DB=await abrirDB('VentanaIntFlowHCQ',1,['eventos','meta']);}catch(e){DB=null;}
   try{if(navigator.serviceWorker&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});}catch(e){}
   try{if(localStorage.getItem('tf_tema')==='oscuro')document.documentElement.classList.add('oscuro');}catch(e){}
