@@ -5,7 +5,7 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
 
 ## Reglas (obligatorias)
 
-1. **Solo puedes modificar `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc`, `hormiflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
+1. **Solo puedes modificar `imperflow/avance.enc`, `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc`, `hormiflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
    `modelo.enc`, `clave.json`, ni nada en `tabiflow/herramientas/`. Esos archivos los mantiene Claude.
    Si algo de eso parece necesitar cambios, avísale a Renato en vez de cambiarlo.
 2. **Nunca escribas la clave de obra** en ningún archivo, commit, mensaje de commit ni log.
@@ -145,7 +145,7 @@ Después de cada `git push` en `mi-pagina-web`, copia **los mismos archivos de a
 # una vez: git clone https://github.com/Buhoarq/flujoplan.git ../flujoplan   (al lado de mi-pagina-web)
 cd ../flujoplan && git pull --rebase
 for f in tabiflow/avance.enc tabiflow/adjuntos.enc paviflow/avance.enc hormiflow/avance.enc lastplanner/plan.enc \
-         puertaflow/avance.enc puertaflow/coordavance.enc puertaflow/coordfotos.enc ventanaintflow/avance.enc ventanaintflow/fotos.enc; do
+         puertaflow/avance.enc puertaflow/coordavance.enc puertaflow/coordfotos.enc ventanaintflow/avance.enc ventanaintflow/fotos.enc imperflow/avance.enc; do
   [ -f ../mi-pagina-web/$f ] && cp ../mi-pagina-web/$f publicar/hcq/$f
 done
 git add publicar/hcq/*/avance.enc publicar/hcq/tabiflow/adjuntos.enc publicar/hcq/lastplanner/plan.enc publicar/hcq/puertaflow/coord*.enc publicar/hcq/ventanaintflow/fotos.enc
@@ -157,3 +157,17 @@ cd ../mi-pagina-web
 
 Mismas reglas: solo esos archivos `.enc`, nunca la clave ni archivos descifrados, sin `--force`. Si `git status` muestra cualquier otro archivo, no lo subas y avísale a Renato.
 (El panel de TabiFlow y VentanaIntFlow ya publican solos en los dos sitios; si Renato publicó desde ahí, el `cp` no cambia nada.)
+
+## ImperFlow (impermeabilización) · desde el 25-10-2026
+
+Los archivos que empiezan con `Avance_ImperFlow_` se consolidan aparte y solo tocan `imperflow/avance.enc`:
+
+```bash
+python3 tabiflow/herramientas/consolidar_imper.py unir --web imperflow --clave-web tabiflow ../avances_recibidos/Avance_ImperFlow_*.json
+git add imperflow/avance.enc
+git commit -m "Avance ImperFlow consolidado DD/MM/AAAA (nombres)"
+git push
+```
+
+Misma `TABIFLOW_CLAVE`. No toques `imperflow/imper.enc` (lo mantiene Claude). Después copia `imperflow/avance.enc` también a `flujoplan/publicar/hcq/imperflow/` (ver «Publicar también en flujoplan.cl»).
+Desde el 25-10-2026 PaviFlow ya no tiene etapa de impermeabilización: si llega un `Avance_PaviFlow_` antiguo con registros de impermeabilización, `consolidar_pavi.py` los ignora (es normal).

@@ -7,19 +7,22 @@ La clave de obra se toma de la variable de entorno TABIFLOW_CLAVE (nunca la escr
 import argparse, json, os, sys, datetime, collections
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from consolidar import clave_de, cifrar, descifrar
-PESOS = {'vin': {'base': 40, 'inst': 40, 'term': 20}, 'por': {'base': 30, 'inst': 50, 'term': 20}, 'hor': {'inst': 70, 'term': 30},
-         'mad': {'base': 30, 'inst': 50, 'term': 20}, 'otr': {'inst': 70, 'term': 30}, 'imp': {'imp': 100}}
-PESOS_IMP = {'vin': {'imp': 15, 'base': 25, 'inst': 40, 'term': 20}, 'por': {'imp': 15, 'base': 15, 'inst': 50, 'term': 20},
-             'hor': {'imp': 15, 'inst': 55, 'term': 30}, 'mad': {'imp': 15, 'base': 15, 'inst': 50, 'term': 20}, 'otr': {'imp': 15, 'inst': 55, 'term': 30}}
+# mismas etapas y pesos que PaviFlow v1.9 (sobrelosa + etapas del sistema; los pesos se reparten entre las etapas de cada pavimento)
+SIS = {'vin': ['base', 'inst', 'term'], 'por': ['inst', 'term'], 'bal': ['base', 'inst', 'term'], 'hor': ['inst', 'term'], 'mad': ['base', 'inst', 'term'],
+       'otr': ['inst', 'term'], 'asf': ['base', 'inst'], 'ext': ['base', 'inst', 'term']}
+PESO = {'sob': 25, 'base': 20, 'inst': 35, 'term': 10}
+def pesos(p, s):
+    ets = (['sob'] if p.get('sl') else []) + SIS.get(s, SIS['otr']); t = sum(PESO[e] for e in ets)
+    return {e: 100 * PESO[e] / t for e in ets}
 def unir(a):
     key = clave_de(a.clave_web, a.clave)
     modelo = descifrar(key, open(os.path.join(a.web, 'pisos.enc'), 'rb').read())
-    pis = {}
+    pis = {}; hijos = {}            # hijos: pavimento original → sus paños (lo marcado sobre el original vale para todos)
     for n in modelo['niveles']:
         for p in n['pis']:
             s = (modelo['tipos'].get(p['t']) or {}).get('s', 'otr')
-            if p['t'] == 'IMP': s = 'imp'
-            p['nv'] = n['id']; p['w'] = (PESOS_IMP.get(s) if p.get('i') and s != 'imp' else PESOS[s]); pis[p['g']] = p
+            p['nv'] = n['id']; p['w'] = pesos(p, s); pis[p['g']] = p
+            if p.get('pg'): hijos.setdefault(p['pg'], []).append(p['g'])
     ruta = os.path.join(a.web, 'avance.enc')
     base = descifrar(key, open(ruta, 'rb').read()) if os.path.exists(ruta) else {'eventos': []}
     ev = {e['id']: e for e in base.get('eventos', [])}
@@ -31,7 +34,7 @@ def unir(a):
         if d.get('app') != 'PaviFlowHCQ': L.append('⚠ %s: no es un archivo de PaviFlow' % os.path.basename(f)); continue
         nuevos = anul = ign = 0
         for e in d.get('eventos', []):
-            if e.get('g') not in pis: ign += 1; continue
+            if e.get('g') not in pis and e.get('g') not in hijos: ign += 1; continue
             x = ev.get(e['id'])
             if x is None: ev[e['id']] = e; nuevos += 1
             elif e.get('borrado') and not x.get('borrado'): x['borrado'] = True; x['borradoTs'] = e.get('borradoTs'); anul += 1
@@ -41,8 +44,9 @@ def unir(a):
     est = collections.defaultdict(dict)
     for e in ev.values():
         if e.get('borrado'): continue
-        o = est[e['g']].get(e['et'])
-        if o is None or e['f'] > o: est[e['g']][e['et']] = e['f']
+        for g in ([e['g']] if e['g'] in pis else hijos.get(e['g'], [])):
+            o = est[g].get(e['et'])
+            if o is None or e['f'] > o: est[g][e['et']] = e['f']
     tot = collections.defaultdict(lambda: [0.0, 0.0])
     for g, p in pis.items():
         eq = sum(est.get(g, {}).get(et, 0) * w for et, w in p['w'].items()) / 100
