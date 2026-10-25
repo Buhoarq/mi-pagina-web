@@ -27,6 +27,8 @@ def seq_de(t):
     """Etapas del tabique según su tipo: placas por cara (np) y plomo (pb). np=0 → separador fenólico."""
     if not t.get('np'):
         return ['fen']
+    if t.get('uc'):  # trasdosado: una sola cara (directo: solo placas)
+        return ([] if t.get('dir') else ['est', 'ais']) + ['c1p%d' % i for i in range(1, t['np'] + 1)]
     s = ['est'] + ['c1p%d' % i for i in range(1, t['np'] + 1)] + (['pb'] if t.get('pb') else []) + ['ais'] + ['c2p%d' % i for i in range(1, t['np'] + 1)]
     return s
 

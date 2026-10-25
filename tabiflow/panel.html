@@ -553,7 +553,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
       </div>
     </div>
   </section>
-  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v5.10 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
+  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v6.0 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
 </div>
 
 <div id="acceso" class="visible">
@@ -603,16 +603,16 @@ const ET=Object.fromEntries(ETAPAS.map(e=>[e.id,e]));
 const PESOS_DEF={est:.4,c1:.2,pb:.1,ais:.1,c2:.2,fen:1};
 /* peso de cada familia en UN tabique: si no lleva plomo, el peso del plomo pasa a la estructura (metalcon 40+10 = 50 %) */
 const pesosTab=(t,p)=>{const w={};const fs=famsDe(t);fs.forEach(f=>w[f]=p[f]||0);if(!t.pb&&fs.includes('est'))w.est+=(p.pb||0);const s=fs.reduce((a,f)=>a+w[f],0)||1;fs.forEach(f=>w[f]/=s);return w;};
-function seqDe(t){if(!t.np)return['fen'];const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
+function seqDe(t){if(!t.np)return['fen'];if(t.uc){const s=t.dir?[]:['est','ais'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);return s;}const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
 const famsDe=t=>[...new Set(t.seq.map(x=>ST[x].fam))];
 /* Requisito de cada etapa: la anterior en la secuencia, salvo la AISLACIÓN, que solo requiere la 1ª placa de la cara 1
    (puede instalarse sin la 2ª/3ª placa de la cara 1 ni el plomo). */
-function preDe(t,et){const i=t.seq.indexOf(et);if(i<=0)return null;if(et==='ais'&&t.seq.includes('c1p1'))return 'c1p1';return t.seq[i-1];}
+function preDe(t,et){const i=t.seq.indexOf(et);if(i<=0)return null;if(et==='ais'&&!t.uc&&t.seq.includes('c1p1'))return 'c1p1';return t.seq[i-1];}
 function cadenaDe(t,et){const r=[];let x=et;while(x){r.unshift(x);x=preDe(t,x);}return r;}
 function hayIncoherencia(t,fr){return t.seq.some(et=>{const p=preDe(t,et);return p&&fr(et)>fr(p)+1e-9;});}
 
 const nEnFam=(t,f)=>t.seq.filter(x=>ST[x].fam===f).length||1;
-function composicion(t){if(!t.np)return'Separador fenólico';return t.np+' placa'+(t.np>1?'s':'')+' por cara'+(t.pb?' · con plomo':'');}
+function composicion(t){if(!t.np)return'Separador fenólico';if(t.uc)return'Trasdosado'+(t.dir?' directo':'')+' · '+t.np+' placa'+(t.np>1?'s':'')+' (una cara)';return t.np+' placa'+(t.np>1?'s':'')+' por cara'+(t.pb?' · con plomo':'');}
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
 const pad2=n=>String(n).padStart(2,'0');
 const fechaADia=d=>d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());

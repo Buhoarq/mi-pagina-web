@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>VentanaIntFlow v1.3 · Hospital de Coquimbo</title>
+<title>VentanaIntFlow v1.4 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -585,7 +585,7 @@ body.con-barrasel #vista-buscar{padding-bottom:130px}body.con-barrasel #leyenda{
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v1.3</span></span>
+      <span class="brand-name"><span class="np">VentanaInt</span><span class="np2">Flow</span><span class="ver">v1.4</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -629,7 +629,7 @@ body.con-barrasel #vista-buscar{padding-bottom:130px}body.con-barrasel #leyenda{
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v1.3</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">VentanaIntFlow</span> <span class="vpie">v1.4</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -1139,7 +1139,7 @@ async function prepararPDFZH(doc){const b=await fuenteZH();doc.addFileToVFS('zh.
   const gw=doc.getTextWidth.bind(doc);doc.getTextWidth=t=>gw(trad(t,'zh'));
   return doc;}
 
-const APP_VER='v1.3',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.4',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -1174,7 +1174,7 @@ async function metaSet(k,v){await put('meta',{id:k,v});}
 /* ---------------- cifrado (igual que TabiFlow, misma clave de obra) ---------------- */
 async function derivarClave(pass,saltB64,iter){const salt=Uint8Array.from(atob(saltB64),c=>c.charCodeAt(0));
   const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']);
-  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);}
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt','encrypt']);}
 async function descifrar(key,buf){const u=new Uint8Array(buf);if(u.length<29)throw new Error('archivo vacío');
   const plano=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(0,12)},key,u.slice(12));
   const ds=new Blob([plano]).stream().pipeThrough(new DecompressionStream('gzip'));return JSON.parse(await new Response(ds).text());}
@@ -1289,7 +1289,7 @@ const lienzo=()=>$('#lienzo'),wrapP=()=>$('#planoWrap');
 function bboxP(arr){let x0=1e12,y0=1e12,x1=-1e12,y1=-1e12;for(let i=0;i<arr.length;i+=2){const x=arr[i],y=arr[i+1];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}return[x0,y0,x1,y1];}
 function anillo(path,r){if(r.length<6)return;path.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)path.lineTo(r[i],r[i+1]);path.closePath();}
 function prepNivel(id){const n=PLAN.niveles.find(x=>x.id===id);if(!n)return null;if(n._prep)return n;n._prep=true;
-  n.tabP=new Path2D();n.tab.forEach(t=>t.p.forEach(r=>anillo(n.tabP,r)));n.pPue=new Path2D();n.pue.forEach(r=>anillo(n.pPue,r));n.pEst=new Path2D();n.col.concat(n.mur).forEach(r=>anillo(n.pEst,r));
+  n.tabP=new Path2D();n.tab.forEach(t=>t.p.forEach(r=>anillo(n.tabP,r)));n.pPue=new Path2D();n.pue.forEach(r=>anillo(n.pPue,r));n.pVen=new Path2D();(n.ven||[]).forEach(v=>{if(v.x)anillo(n.pVen,v.p);});(n.mc||[]).forEach(r=>anillo(n.pVen,r));n.pEst=new Path2D();n.col.concat(n.mur).forEach(r=>anillo(n.pEst,r));
   n.R=n.rec.map(r=>{const p=new Path2D();anillo(p,r.p);return {bb:bboxP(r.p),path:p};});return n;}
 function dimensionar(){const w=wrapP(),c=lienzo(),dpr=Math.min(window.devicePixelRatio||1,2.5);const W=w.clientWidth,H=w.clientHeight;if(!W||!H)return false;
   if(c.width!==Math.round(W*dpr)||c.height!==Math.round(H*dpr)){c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);c.style.width=W+'px';c.style.height=H+'px';}return true;}
@@ -1304,7 +1304,7 @@ function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;con
   const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+c.clientWidth/V.s,vy1=vy0+c.clientHeight/V.s;const vis=bb=>!(bb[2]<vx0||bb[0]>vx1||bb[3]<vy0||bb[1]>vy1);
   ctx.lineWidth=0.8*px;ctx.fillStyle=osc?'#1E293B':'#FFFFFF';ctx.strokeStyle=osc?'#334155':'#D5DCE6';n.R.forEach(q=>{if(vis(q.bb)){ctx.fill(q.path);ctx.stroke(q.path);}});
   if(n.ejes.length){ctx.save();ctx.strokeStyle=osc?'rgba(248,113,113,.35)':'rgba(220,38,38,.28)';ctx.lineWidth=0.8*px;ctx.setLineDash([10*px,6*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);for(let i=2;i<e.p.length;i+=2)ctx.lineTo(e.p[i],e.p[i+1]);ctx.stroke();});ctx.restore();}
-  ctx.fillStyle=osc?'#334155':'#E2E8F0';ctx.fill(n.pPue);ctx.fillStyle=osc?'#64748B':'#475569';ctx.fill(n.pEst,'evenodd');
+  ctx.fillStyle=osc?'#334155':'#E2E8F0';ctx.fill(n.pPue);ctx.fillStyle=osc?'#0E7490':'#BAE6FD';ctx.fill(n.pVen);ctx.fillStyle=osc?'#64748B':'#475569';ctx.fill(n.pEst,'evenodd');
   ctx.fillStyle=osc?'#94A3B8':'#64748B';ctx.strokeStyle=ctx.fillStyle;ctx.lineWidth=1.3*px;ctx.fill(n.tabP,'evenodd');ctx.stroke(n.tabP);
   /* ventanas: trazo grueso a lo largo del muro (mínimo 7 px para poder verlas y tocarlas) */
   ctx.lineCap='butt';const L=recs(estado.nv);
@@ -1480,7 +1480,7 @@ function renderCoord(){if(!MOD)return;const s=statsDe(VL);const por={};[...((est
   const filaT=t=>{const L=VL.filter(v=>v.k===t.k),q=statsDe(L);return '<tr><td style="text-align:left"><b>'+escapar(t.k)+'</b><div class="nota">'+escapar(t.tp)+' · '+escapar(t.d.slice(0,46))+'</div></td><td>'+q.tot+'</td><td>'+(q.lis?'<b style="color:#7C3AED">'+q.lis+'</b>':'0')+'</td><td>'+q.lev+'</td><td>'+(q.dif?'<b style="color:#B45309">'+q.dif+'</b>':'0')+'</td><td><b>'+fm(pct(q.lev,q.tot),0)+'%</b></td></tr>';};
   const dif=VL.filter(v=>estV(v)==='dif').sort((a,b)=>a.nv.localeCompare(b.nv)||a.k.localeCompare(b.k));
   $('#coordCont').innerHTML='<div class="stats"><div class="stat"><b>'+fm(pct(s.lev,s.tot),0)+'%</b><span>levantado ('+s.lev+' de '+s.tot+')</span></div><div class="stat"><b style="color:#6D28D9">'+s.lis+'</b><span>listas para levantar</span></div><div class="stat"><b>'+s.pend+'</b><span>sin marcar</span></div><div class="stat"><b style="color:#B45309">'+s.dif+'</b><span>con diferencias</span></div></div>'+
-   '<div class="tarjeta"><button class="btn principal grande" data-acc="informe">📄 Informe del levantamiento (PDF)</button><button class="btn principal grande" data-acc="excel" style="margin-top:8px">📊 Planilla Excel para fábrica (.xlsx)</button><button class="btn secundario" data-acc="listatrabajo" style="width:100%;margin-top:8px;justify-content:center">📋 Lista de trabajo: ventanas listas para levantar</button><div class="fila-btn"><button class="btn secundario" data-acc="csv">📑 Planilla para fábrica (CSV)</button><button class="btn secundario" data-acc="importar">📥 Importar archivos del equipo</button></div><button class="btn secundario" data-acc="actualizar" style="width:100%;margin-top:8px;justify-content:center">🔄 Actualizar con lo publicado</button></div>'+
+   '<div class="tarjeta"><button class="btn principal grande" data-acc="publicar" style="margin-bottom:8px">🚀 Publicar el avance del equipo</button><button class="btn principal grande" data-acc="informe">📄 Informe del levantamiento (PDF)</button><button class="btn principal grande" data-acc="excel" style="margin-top:8px">📊 Planilla Excel para fábrica (.xlsx)</button><button class="btn secundario" data-acc="listatrabajo" style="width:100%;margin-top:8px;justify-content:center">📋 Lista de trabajo: ventanas listas para levantar</button><div class="fila-btn"><button class="btn secundario" data-acc="csv">📑 Planilla para fábrica (CSV)</button><button class="btn secundario" data-acc="importar">📥 Importar archivos del equipo</button></div><button class="btn secundario" data-acc="actualizar" style="width:100%;margin-top:8px;justify-content:center">🔄 Actualizar con lo publicado</button></div>'+
    '<div class="tarjeta"><h3>🏢 Avance por nivel</h3>'+tablaNiveles(true)+'</div>'+
    '<div class="tarjeta"><h3>🪟 Avance por tipo</h3><table class="prog-matriz tabla-et"><tr><th style="text-align:left">Tipo</th><th>Total</th><th>Listas</th><th>Lev.</th><th>Dif.</th><th>%</th></tr>'+TIPOS.map(filaT).join('')+'</table></div>'+
    '<div class="tarjeta"><h3>👷 Quién ha levantado</h3>'+(Object.keys(por).length?'<ul class="log">'+Object.entries(por).sort((a,b)=>b[1]-a[1]).map(([k,n])=>'<li><b>'+escapar(k)+'</b>: '+n+' registro'+(n===1?'':'s')+'</li>').join('')+'</ul>':'<p class="nota">Aún no hay levantamientos.</p>')+'</div>'+
@@ -1501,6 +1501,50 @@ async function importar(files){let n=0,arch=0;for(const f of files){try{const d=
   for(const e of d.eventos||[]){if((e.k!=='lev'&&e.k!=='lis'&&e.k!=='rec'&&e.k!=='ins')||!VENT.has(e.g))continue;const x=estado.local.find(z=>z.id===e.id);if(x){if(e.borrado&&!x.borrado){x.borrado=true;await put('eventos',x);}continue;}e.enviado=true;e.recibido=true;estado.local.push(e);await put('eventos',e);n++;}}
   catch(err){toast(f.name+': '+err.message,'error');}}
   combinar();renderTodo();toast(n+' registros importados de '+arch+' archivo'+(arch===1?'':'s'),'ok');}
+/* ---------------- publicar sin IA (v1.4) ----------------
+   La coordinadora importa los archivos que recibe y presiona «Publicar»: la app une todo con lo ya publicado
+   (igual que consolidar_ventana.py), lo cifra con la clave de obra y lo sube al repositorio con un token de GitHub
+   guardado solo en su navegador. El servidor (Firebase / GitHub Pages) se actualiza solo en 1–3 minutos. */
+const DESTINOS=[{owner:'Buhoarq',repo:'flujoplan',ruta:'publicar/hcq/ventanaintflow/',rama:'main',nombre:'flujoplan.cl'},
+                {owner:'Buhoarq',repo:'mi-pagina-web',ruta:'ventanaintflow/',rama:'main',nombre:'página GitHub'}];
+const tokenGH=()=>{try{return localStorage.getItem('vf_token')||'';}catch(_){return'';}};
+async function cifrarObj(key,obj){const gz=await new Response(new Blob([JSON.stringify(obj)]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer();
+  const iv=crypto.getRandomValues(new Uint8Array(12));const c=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,gz));const u=new Uint8Array(12+c.length);u.set(iv);u.set(c,12);return u;}
+const aB64=u=>{let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(s);};
+function ghH(raw){return {Authorization:'Bearer '+tokenGH(),Accept:raw?'application/vnd.github.raw':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};}
+const ghURL=(d,arch)=>'https://api.github.com/repos/'+d.owner+'/'+d.repo+'/contents/'+d.ruta+arch;
+async function ghLeer(d,arch){const m=await fetch(ghURL(d,arch)+'?ref='+d.rama+'&t='+Date.now(),{headers:ghH(),cache:'no-store'});
+  if(m.status===404)return {sha:null,buf:null};if(!m.ok)throw new Error(d.nombre+': GitHub '+m.status+(m.status===401||m.status===403?' (revisa el token)':''));
+  const meta=await m.json();const r=await fetch(ghURL(d,arch)+'?ref='+d.rama+'&t='+Date.now(),{headers:ghH(true),cache:'no-store'});if(!r.ok)throw new Error(d.nombre+': no se pudo leer '+arch);
+  return {sha:meta.sha,buf:await r.arrayBuffer()};}
+async function ghEscribir(d,arch,u8,sha,msg){const r=await fetch(ghURL(d,arch),{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},ghH()),
+  body:JSON.stringify({message:msg,content:aB64(u8),branch:d.rama,...(sha?{sha}:{})})});if(!r.ok)throw new Error(d.nombre+': GitHub '+r.status+' al subir '+arch);}
+/* misma regla que consolidar_ventana.py: por id; un registro anulado anula el publicado; la foto va aparte en fotos.enc */
+function unirAvance(base,fotos,lista){const ev=new Map(((base&&base.eventos)||[]).map(e=>[e.id,e]));let nuevos=0,anul=0;const personas=new Set((base&&base.personas)||[]);
+  lista.forEach(e0=>{if(!['lev','lis','rec','ins'].includes(e0.k)||!VENT.has(e0.g))return;const x=ev.get(e0.id);
+    if(!x){const e=Object.assign({},e0);delete e.enviado;delete e.recibido;delete e._base;if(e.foto){fotos[e.id]=e.foto;delete e.foto;e.fo=1;}ev.set(e.id,e);nuevos++;if(e.por)personas.add(e.por);}
+    else if(e0.borrado&&!x.borrado){x.borrado=true;x.borradoTs=e0.borradoTs;anul++;}});
+  return {av:{modulo:'ventana',actualizado:new Date().toISOString(),eventos:[...ev.values()],personas:[...personas].sort(),fuentes:((base&&base.fuentes)||[]).concat([{archivo:'publicado desde la app',por:estado.persona,exportado:new Date().toISOString()}])},nuevos,anul};}
+let CLAVE_PUB=null;const claveCifra=()=>CLAVE&&CLAVE.usages&&CLAVE.usages.includes('encrypt')?CLAVE:CLAVE_PUB;
+async function obtenerClavePub(){if(claveCifra())return claveCifra();const v=(($('#inClavePub')||{}).value||'').trim();if(!v)return null;
+  let k=null;try{const info=await infoClave();k=await derivarClave(v,info.salt,info.iter);await verificar(k);}catch(e){k=await claveDePropia(v);}
+  if(k)CLAVE_PUB=k;return k;}
+function hojaPublicar(){const tk=tokenGH();const pend=estado.local.filter(e=>!e.publicado).length;
+  abrirHoja('<div class="hoja-titulo">🚀 Publicar el avance del equipo</div><div class="hoja-sub">Une los levantamientos importados y los tuyos con lo ya publicado y los sube cifrados a la página. Todos los teléfonos los verán al presionar «Actualizar». No hace falta Claude ni Gemini.</div>'+
+   '<div class="tarjeta"><b>'+pend+'</b> registro'+(pend===1?'':'s')+' en este teléfono aún sin publicar.</div>'+
+   (tk?'<p class="nota">✓ Token de GitHub guardado en este navegador.</p>'+(claveCifra()?'':'<label class="nota">Escribe tu clave de acceso para cifrar lo que se publica (no se guarda):</label><input id="inClavePub" class="campo" type="password" autocomplete="off">')+'<button class="btn principal grande" data-acc="publicarya">🚀 Publicar ahora</button><button class="btn secundario" data-acc="tokenborrar" style="width:100%;margin-top:8px;justify-content:center">Quitar el token</button>'
+      :'<p class="nota">Para publicar, Renato te entrega un <b>token de GitHub</b> (se pega una sola vez y queda solo en este navegador).</p><input id="inTokenGH" class="campo" type="password" autocomplete="off" placeholder="github_pat_…"><button class="btn principal" data-acc="tokenok">Guardar token</button>'));}
+async function publicarAvance(){if(!tokenGH()){hojaPublicar();return;}const KP=await obtenerClavePub();if(!KP){toast('Escribe tu clave de acceso para publicar','error');return;}cerrarHoja();progreso('Leyendo lo publicado…');const res=[];
+  try{for(const d of DESTINOS){let a,fo;try{a=await ghLeer(d,'avance.enc');fo=await ghLeer(d,'fotos.enc');}catch(e){if(/404|403/.test(e.message)){res.push('⚠ '+d.nombre+': sin acceso');continue;}throw e;}
+      const base=a.buf?await descifrar(CLAVE,a.buf):{eventos:[]};const fotos=fo.buf?((await descifrar(CLAVE,fo.buf)).fotos||{}):{};
+      const lista=estado.local.map(e=>{const f=e.foto||(typeof FOTOS!=='undefined'&&FOTOS.get(e.id));return f?Object.assign({},e,{foto:f}):e;});
+      const u=unirAvance(base,fotos,lista);progreso('Subiendo a '+d.nombre+'…');
+      const msg='VentanaIntFlow: avance publicado desde la app por '+(estado.persona||'coordinación')+' ('+u.nuevos+' nuevos, '+u.anul+' anulados)';
+      await ghEscribir(d,'fotos.enc',await cifrarObj(KP,{modulo:'ventana',actualizado:u.av.actualizado,fotos}),fo.sha,msg);
+      await ghEscribir(d,'avance.enc',await cifrarObj(KP,u.av),a.sha,msg);res.push('✓ '+d.nombre+': '+u.nuevos+' nuevos'+(u.anul?', '+u.anul+' anulados':''));estado.base=u.av;}
+    for(const e of estado.local){if(!e.publicado){e.publicado=true;await put('eventos',e);}}await metaSet('base',estado.base);combinar();renderTodo();progreso(null);
+    abrirHoja('<div class="hoja-titulo">🚀 Publicado</div><ul class="log">'+res.map(x=>'<li>'+escapar(x)+'</li>').join('')+'</ul><p class="nota">La página se actualiza en 1 a 3 minutos. En los teléfonos: menú → «Actualizar con lo publicado por el equipo».</p>');}
+  catch(e){progreso(null);toast('No se pudo publicar: '+e.message,'error');}}
 async function vaciarLocal(){const ids=estado.local.map(e=>e.id);if(DB){await tx('eventos','readwrite',st=>{ids.forEach(id=>st.delete(id));});}else Object.keys(mem.eventos).forEach(k=>delete mem.eventos[k]);
   estado.local=[];combinar();renderTodo();}
 function hojaBorrar(){const n=estado.local.filter(e=>!e.borrado).length,p=pendEnvio();
@@ -1678,7 +1722,7 @@ function abrirMenu(){const pe=pendEnvio();abrirHoja('<h2 style="font-size:19px">
   '<button class="menu-item" data-acc="escanear">📷 Escanear etiqueta (QR) / buscar por código</button>'+
   '<button class="menu-item" data-acc="etiquetas">🏷️ Etiquetas con QR para pegar en las ventanas (PDF)</button><button class="menu-item" data-acc="planospdf">🗺️ Planos de ubicación por nivel (PDF)</button><button class="menu-item" data-acc="fabrica">🏭 Planilla de fabricación, una fila por pieza (.xlsx)</button>'+
   '<button class="menu-item" data-acc="informe">📄 Informe del levantamiento (PDF)</button><button class="menu-item" data-acc="excel">📊 Planilla Excel para fábrica (.xlsx)</button><button class="menu-item" data-acc="csv">📑 Planilla CSV</button>'+
-  '<button class="menu-item" data-acc="actualizar">🔄 Actualizar con lo publicado por el equipo</button><button class="menu-item" data-acc="importar">📥 Importar archivos de levantamiento (coordinador)</button>'+
+  '<button class="menu-item" data-acc="actualizar">🔄 Actualizar con lo publicado por el equipo</button><button class="menu-item" data-acc="importar">📥 Importar archivos de levantamiento (coordinador)</button><button class="menu-item" data-acc="publicar">🚀 Publicar el avance del equipo (coordinador)</button>'+
   '<button class="menu-item" data-acc="idioma">🌐 Idioma · 语言 <span class="chip" style="margin-left:auto">'+(IDIOMA==='zh'?'中文':'Español')+'</span></button>'+
   '<button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
   '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a>'+
@@ -1728,6 +1772,10 @@ document.addEventListener('click',async e=>{const t=e.target;let b;
   else if(a==='excel'){cerrarHoja();exportarExcel();}
   else if(a==='actualizar'){cerrarHoja();cargarEquipo(true);}
   else if(a==='importar'){cerrarHoja();const i=$('#inputImportar');i.value='';i.click();}
+  else if(a==='publicar')hojaPublicar();
+  else if(a==='publicarya')publicarAvance();
+  else if(a==='tokenok'){const v=($('#inTokenGH')||{value:''}).value.trim();if(v.length<20){toast('Pega el token completo','error');return;}try{localStorage.setItem('vf_token',v);}catch(_){}toast('Token guardado en este navegador','ok');hojaPublicar();}
+  else if(a==='tokenborrar'){try{localStorage.removeItem('vf_token');}catch(_){}toast('Token quitado');hojaPublicar();}
   else if(a==='borrar')hojaBorrar();
   else if(a==='nombre')abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');
   else if(a==='nombreok'){const v=$('#inNombre').value.trim();if(v.length<2)return;estado.persona=v;await metaSet('persona',v);try{localStorage.setItem('obraflow_nombre',v);}catch(_){}cerrarHoja();$('#subMarca').textContent=OBRA+' · '+v;renderInicio();toast('Hola, '+v,'ok');}

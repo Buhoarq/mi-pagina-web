@@ -655,7 +655,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.4 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.5 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1088,7 +1088,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v6.4 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v6.5 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1114,16 +1114,16 @@ const FAMILIAS=[
 ];
 const KEYS=ETAPAS.map(e=>e.id).concat(['c1','c2']);
 /* Secuencia de etapas de un tabique según su tipo (placas por cara y plomo) */
-function seqDe(t){if(!t.np)return['fen'];const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
+function seqDe(t){if(!t.np)return['fen'];if(t.uc){const s=t.dir?[]:['est','ais'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);return s;}const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
 const famsDe=t=>[...new Set(t.seq.map(x=>ET[x].fam))];
 /* Requisito de cada etapa: la anterior en la secuencia, salvo la AISLACIÓN, que solo requiere la 1ª placa de la cara 1
    (puede instalarse sin la 2ª/3ª placa de la cara 1 ni el plomo). */
-function preDe(t,et){const i=t.seq.indexOf(et);if(i<=0)return null;if(et==='ais'&&t.seq.includes('c1p1'))return 'c1p1';return t.seq[i-1];}
+function preDe(t,et){const i=t.seq.indexOf(et);if(i<=0)return null;if(et==='ais'&&!t.uc&&t.seq.includes('c1p1'))return 'c1p1';return t.seq[i-1];}
 function cadenaDe(t,et){const r=[];let x=et;while(x){r.unshift(x);x=preDe(t,x);}return r;}
 function hayIncoherencia(t,fr){return t.seq.some(et=>{const p=preDe(t,et);return p&&fr(et)>fr(p)+1e-9;});}
 
 const nEnFam=(t,fam)=>t.seq.filter(x=>ET[x].fam===fam).length||1;
-function composicion(t){if(!t.np)return'Separador fenólico';return t.np+' placa'+(t.np>1?'s':'')+' por cara'+(t.pb?' · con plomo':'');}
+function composicion(t){if(!t.np)return'Separador fenólico';if(t.uc)return'Trasdosado'+(t.dir?' directo':'')+' · '+t.np+' placa'+(t.np>1?'s':'')+' (una cara)';return t.np+' placa'+(t.np>1?'s':'')+' por cara'+(t.pb?' · con plomo':'');}
 /* Una etapa pedida que el tabique no tiene se lleva a la equivalente: "C1 · P3" en un tabique de 2 placas = su 2ª placa (cara completa) */
 function mapearEtapa(t,et){if(t.seq.includes(et))return et;const m=/^c([12])p\d$/.exec(et);
   if(m){const c=t.seq.filter(x=>x.startsWith('c'+m[1]+'p'));return c.length?c[c.length-1]:null;}return null;}
