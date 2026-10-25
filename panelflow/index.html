@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Panel FlujoPlan v1.0 · Hospital de Coquimbo</title>
+<title>Panel FlujoPlan v1.1 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -431,7 +431,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v1.0</span></span>
+      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v1.1</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -449,7 +449,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
     </div>
   </section>
 </main>
-<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v1.0</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v1.1</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -473,7 +473,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.0',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.1',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fmt0=n=>Math.round(n).toLocaleString('es-CL'),fmt1=n=>(Math.round(n*10)/10).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
 const pct=(a,b)=>b>0?100*a/b:0;
@@ -541,8 +541,8 @@ async function cargarPavi(){
   let A=0,eq=0,sob=[0,0],ex=[0,0],inn=[0,0];const nv=[];
   P.niveles.forEach(n=>{let a=0,q=0;n.pis.forEach(p=>{let s=(P.tipos[p.t]||{}).s||'otr';if(p.t==='IMP')s='imp';if(!PV_SIS[s])s='otr';
     const ets=(p.sl?['sob']:[]).concat(p.i&&s!=='imp'?['imp']:[]).concat(PV_SIS[s]);const tot=ets.reduce((x,e)=>x+PV_PESO[e],0);
-    const v=ets.reduce((x,e)=>x+(F.get(p.g+'|'+e)||0)*PV_PESO[e],0)/tot;a+=p.A;q+=p.A*v;
-    if(p.sl){sob[0]+=p.A*(F.get(p.g+'|sob')||0);sob[1]+=p.A;}if(p.x){ex[0]+=p.A*v;ex[1]+=p.A;}else{inn[0]+=p.A*v;inn[1]+=p.A;}});
+    const fe=e=>Math.max(F.get(p.g+'|'+e)||0,p.pg?(F.get(p.pg+'|'+e)||0):0);const v=ets.reduce((x,e)=>x+fe(e)*PV_PESO[e],0)/tot;a+=p.A;q+=p.A*v;
+    if(p.sl){sob[0]+=p.A*fe('sob');sob[1]+=p.A;}if(p.x){ex[0]+=p.A*v;ex[1]+=p.A;}else{inn[0]+=p.A*v;inn[1]+=p.A;}});
     A+=a;eq+=q;nv.push([corto(n.id),fmt0(a)+' m²',pct(q,a),'']);});
   return {kpi:pct(eq,A),kpiTxt:'avance ponderado de '+fmt0(A)+' m² de pavimentos',
     extras:[['Sobrelosa',fmt1(pct(...sob))+'% de '+fmt0(sob[1])+' m²'],['Interiores',fmt1(pct(...inn))+'%'],['Exteriores',fmt1(pct(...ex))+'% de '+fmt0(ex[1])+' m²']],
