@@ -655,7 +655,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.7 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.8 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1088,7 +1088,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v6.7 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v6.8 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1397,6 +1397,24 @@ function colorTabique(t){
     const i0=t.seq.findIndex(x=>ET[x].fam===fam),pr=i0>=0?preDe(t,t.seq[i0]):null,prev=pr?fracEt(t.g,pr):1;return{c:FA[fam].color,a:prev>=1?1:.35};}
   return{c:COLOR_SIN,a:1};
 }
+/* escaleras (pedido de Renato, 25-10-2026: en obra todos se ubican por las escaleras): peldaños y descansos del modelo de arquitectura;
+   la que sube desde el nivel va llena con flecha, la que llega desde abajo ("baja") va punteada. Común a todos los módulos. */
+function dibujarEscaleras(ctx,n,px){const E=n.esc;if(!E||!E.length)return;const osc=document.documentElement.classList.contains('oscuro');
+  if(!n._esc)n._esc=E.map(e=>{const pp=new Path2D(),pd=new Path2D();let x0=1e12,y0=1e12,x1=-1e12,y1=-1e12;
+    e.s.forEach(s=>{const r=s.p;if(!r||r.length<6)return;const q=s.d?pd:pp;q.moveTo(r[0],r[1]);for(let i=0;i<r.length;i+=2){q.lineTo(r[i],r[i+1]);if(r[i]<x0)x0=r[i];if(r[i]>x1)x1=r[i];if(r[i+1]<y0)y0=r[i+1];if(r[i+1]>y1)y1=r[i+1];}q.closePath();});
+    return {pp,pd,b:!!e.b,a:e.a||[],bb:[x0,y0,x1,y1]};});
+  const tinta=osc?'#FBBF24':'#B45309',relleno=osc?'rgba(251,191,36,.18)':'rgba(253,230,138,.75)';
+  ctx.save();ctx.lineJoin='round';ctx.lineCap='round';
+  for(const e of n._esc.filter(x=>x.b)){ctx.setLineDash([4*px,3*px]);ctx.globalAlpha=.6;ctx.strokeStyle=tinta;ctx.lineWidth=.8*px;ctx.stroke(e.pp);ctx.stroke(e.pd);}
+  ctx.setLineDash([]);ctx.globalAlpha=1;
+  for(const e of n._esc.filter(x=>!x.b)){ctx.fillStyle=relleno;ctx.fill(e.pd);ctx.fill(e.pp);ctx.strokeStyle=tinta;ctx.lineWidth=.9*px;ctx.stroke(e.pd);ctx.stroke(e.pp);
+    ctx.lineWidth=1.8*px;ctx.fillStyle=tinta;
+    e.a.forEach(a=>{const [ax,ay,bx,by]=a,L=Math.hypot(bx-ax,by-ay);if(L<1)return;const ux=(bx-ax)/L,uy=(by-ay)/L,h=Math.min(L*.35,Math.max(9*px,35));
+      ctx.beginPath();ctx.arc(ax,ay,Math.max(2.4*px,8),0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx-ux*h*.6,by-uy*h*.6);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx-ux*h-uy*h*.45,by-uy*h+ux*h*.45);ctx.lineTo(bx-ux*h+uy*h*.45,by-uy*h-ux*h*.45);ctx.closePath();ctx.fill();});
+    const w=(e.bb[2]-e.bb[0])/px;if(w>46){const fs=Math.min(10.5*px,(e.bb[2]-e.bb[0])/7);ctx.font='800 '+fs+'px Inter,system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.lineWidth=3*px;ctx.strokeStyle=osc?'#0F172A':'#FFFFFF';const cx=(e.bb[0]+e.bb[2])/2,cy=e.bb[1]-fs*.9;ctx.strokeText('ESCALERA',cx,cy);ctx.fillStyle=tinta;ctx.fillText('ESCALERA',cx,cy);}}
+  ctx.restore();}
 function render(){
   const n=estado.nivel;if(!n||!dimensionarLienzo())return;
   const c=lienzo(),ctx=c.getContext('2d'),dpr=c.width/c.clientWidth;
@@ -1410,6 +1428,7 @@ function render(){
   /* recintos */
   ctx.lineWidth=0.8*px;ctx.fillStyle=osc?'#1E293B':'#FFFFFF';ctx.strokeStyle=osc?'#334155':'#D5DCE6';
   n.rec.forEach(r=>{if(visible(r.bb)){ctx.fill(r.path);ctx.stroke(r.path);}});
+  dibujarEscaleras(ctx,n,px);
   /* ejes */
   if(n.ejes.length){ctx.save();ctx.strokeStyle=osc?'rgba(248,113,113,.35)':'rgba(220,38,38,.28)';ctx.lineWidth=0.8*px;ctx.setLineDash([10*px,6*px]);
     n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);for(let i=2;i<e.p.length;i+=2)ctx.lineTo(e.p[i],e.p[i+1]);ctx.stroke();});ctx.restore();}
