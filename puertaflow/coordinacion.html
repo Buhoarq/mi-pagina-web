@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.15 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.16 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -562,7 +562,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.15 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.16 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -987,7 +987,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.15 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.16 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- estados de cada puerta (según el último ticket) ---------------- */
@@ -1137,9 +1137,21 @@ function renderBarraSel(){const n=estado.sel.size,b=$('#barraSel');const antes=b
   if(!n){b.classList.add('oculto');return;}b.classList.remove('oculto');
   b.innerHTML='<span class="chip">☑ '+n+' puerta'+(n===1?'':'s')+'</span>'+ROL[estado.rol].tk.map(k=>'<button class="herr-btn activo" data-tk="'+k+'">'+TK[k].ic+' '+TK[k].c+'</button>').join('')+'<button class="herr-btn" data-acc="limpiar">✕</button>';}
 function poly(r,fill){if(r.length<4)return;ctx.beginPath();ctx.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)ctx.lineTo(r[i],r[i+1]);ctx.closePath();fill?ctx.fill():ctx.stroke();}
+/* v·terreno: pavimentos exteriores (pavimentación + paisajismo) y losas estructurales como base de la planta */
+const TERR_COL={asf:['#C4C9D1','#3B4452'],bal:['#F3E7CF','#4A4234'],gra:['#D5E8BD','#2F4128'],cau:['#F6CFE0','#4B2E3B'],pie:['#E2D3B8','#463B2C'],dek:['#EBD3AE','#4A3A26'],hor:['#E5E7EB','#374151'],otr:['#E9DFF7','#3B3550'],
+  veg:['#B5DC9B','#2E4A25'],mpa:['#A8A29E','#57534E'],mob:['#B6BFCC','#475569'],arb:['rgba(74,148,60,.45)','rgba(110,180,95,.40)']};
+const TERR_SOBRE=['mpa','mob','arb']; /* sobre la losa; el resto (pavimentos y cubresuelos) va debajo */
+function _anilloT(p,r){if(!r||r.length<6)return;p.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)p.lineTo(r[i],r[i+1]);p.closePath();}
+function baseTerreno(ctx,n,px){const osc=document.documentElement.classList.contains('oscuro');
+  if(!n._terr){n._terr=true;n._pLos=new Path2D();(n.los||[]).forEach(pl=>pl.forEach(r=>_anilloT(n._pLos,r)));n._pex={};(n.pex||[]).forEach(e=>{const p=n._pex[e.k]||(n._pex[e.k]=new Path2D());if(e.k==='arb'){p.moveTo(e.c[0]+e.r,e.c[1]);p.arc(e.c[0],e.c[1],e.r,0,Math.PI*2);}else e.p.forEach(r=>_anilloT(p,r));});}
+  const capa=k=>{if(!n._pex[k])return;ctx.fillStyle=(TERR_COL[k]||TERR_COL.otr)[osc?1:0];ctx.fill(n._pex[k],k==='arb'?'nonzero':'evenodd');};
+  for(const k in n._pex)if(!TERR_SOBRE.includes(k)&&k!=='veg')capa(k);capa('veg');
+  ctx.fillStyle=osc?'#273449':'#DCE3EC';ctx.strokeStyle=osc?'#475569':'#94A3B8';ctx.lineWidth=1*px;ctx.fill(n._pLos,'evenodd');ctx.stroke(n._pLos);
+  TERR_SOBRE.forEach(capa);}
 function render(){if(!ctx||!estado.nivel)return;const n=estado.nivel;const W=cv.width,H=cv.height;ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,W,H);
   ctx.setTransform(V.s*dpr,0,0,V.s*dpr,V.tx*dpr,V.ty*dpr);const px=1/V.s;const osc=document.documentElement.classList.contains('oscuro');
   const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+W/dpr/V.s,vy1=vy0+H/dpr/V.s;const vis=bb=>!(bb[2]<vx0||bb[0]>vx1||bb[3]<vy0||bb[1]>vy1);
+  baseTerreno(ctx,n,px);
   ctx.fillStyle=osc?'#1E293B':'#FFFFFF';ctx.strokeStyle=osc?'#334155':'#D5DCE6';ctx.lineWidth=.8*px;n.rec.forEach(r=>{ctx.fill(r.path);ctx.stroke(r.path);});
   ctx.fillStyle='#475569';n.mur.forEach(r=>poly(r,true));ctx.fillStyle='#334155';n.col.forEach(r=>poly(r,true));
   ctx.fillStyle=osc?'#64748B':'#94A3B8';n.tab.forEach(t=>t.p.forEach(r=>poly(r,true)));
