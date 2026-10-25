@@ -1,6 +1,6 @@
 /* TabiFlow HCQ — service worker: la app y el modelo cifrado quedan disponibles sin conexión.
    avance.enc (consolidado del equipo) se pide siempre a la red primero y, sin señal, se usa la copia guardada. */
-const CACHE='tabiflow-hcq-v6.1';
+const CACHE='tabiflow-hcq-v6.2';
 const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','./clave.json','./modelo.enc'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('tabiflow-hcq')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
