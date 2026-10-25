@@ -1,7 +1,7 @@
 /* HormiFlow HCQ — service worker: la app y el modelo cifrado quedan disponibles sin conexión.
    avance.enc (consolidado del equipo) se pide siempre a la red primero y, sin señal, se usa la copia guardada. */
-const CACHE='hormiflow-hcq-v0.6';
-const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','./hormi.enc','./hormi_ep.enc','./hormi_ind.enc','./hormi_cosam.enc','../tabiflow/clave.json'];
+const CACHE='hormiflow-hcq-v0.7';
+const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','./hormi.enc','./hormi_ind.enc','./hormi_cosam.enc','../tabiflow/clave.json'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('hormiflow-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{
