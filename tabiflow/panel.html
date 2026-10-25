@@ -546,14 +546,14 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
       </div>
       <div class="tarjeta">
         <h3>🔑 Token de GitHub (solo coordinación)</h3>
-        <p class="nota" style="margin-bottom:10px">Necesario para publicar desde este PC. Crea un <b>token fine-grained</b> en GitHub → Settings → Developer settings → Personal access tokens, con acceso <b>solo</b> al repositorio <b>mi-pagina-web</b> y permiso <b>Contents: Read and write</b>. Se guarda únicamente en este navegador.</p>
+        <p class="nota" style="margin-bottom:10px">Necesario para publicar desde este PC. Crea un <b>token fine-grained</b> en GitHub → Settings → Developer settings → Personal access tokens, con acceso <b>solo</b> a los repositorios <b>flujoplan</b> y <b>mi-pagina-web</b> y permiso <b>Contents: Read and write</b>. Al publicar, el avance se sube a los dos sitios (flujoplan.cl y la página de GitHub). Se guarda únicamente en este navegador.</p>
         <input id="inToken" class="campo" type="password" placeholder="github_pat_…" autocomplete="off">
         <div class="fila-btn"><button class="btn principal" id="btnToken">Guardar token</button><button class="btn secundario" id="btnTokenBorrar">Quitar</button></div>
         <p class="nota" id="estadoToken" style="margin-top:8px"></p>
       </div>
     </div>
   </section>
-  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v6.7 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
+  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v6.8 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
 </div>
 
 <div id="acceso" class="visible">
@@ -578,7 +578,9 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
    © 2026 Renato Martínez Palominos – Todos los derechos reservados.
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    ===================================================================== */
-const REPO={owner:'Buhoarq',repo:'mi-pagina-web',ruta:'tabiflow/avance.enc',rama:'main'};
+/* el avance se publica en los DOS sitios (25-10-2026: flujoplan.cl y la página de GitHub de mi-pagina-web, en paralelo mientras se migra) */
+const REPOS=[{owner:'Buhoarq',repo:'flujoplan',ruta:'publicar/hcq/tabiflow/avance.enc',rama:'main',nombre:'flujoplan.cl'},
+  {owner:'Buhoarq',repo:'mi-pagina-web',ruta:'tabiflow/avance.enc',rama:'main',nombre:'GitHub (mi-pagina-web)'}];
 const STG=[
   {id:'est', fam:'est',nombre:'Estructura metalcon',corto:'Estructura',color:'#DC2626',forma:'cuadrado'},
   {id:'c1p1',fam:'c1', nombre:'Cara 1 · 1ª placa',corto:'C1·P1',color:'#4ADE80',forma:'cuadrado'},
@@ -645,17 +647,17 @@ function aB64(u8){let s='';for(let i=0;i<u8.length;i+=8192)s+=String.fromCharCod
 
 /* ---------------- GitHub (solo coordinación) ---------------- */
 const token=()=>ls.get('tf_token');
-const apiURL=()=>'https://api.github.com/repos/'+REPO.owner+'/'+REPO.repo+'/contents/'+REPO.ruta;
-async function ghLeer(){const h={Authorization:'Bearer '+token(),'X-GitHub-Api-Version':'2022-11-28'};
-  const meta=await fetch(apiURL()+'?ref='+REPO.rama+'&t='+Date.now(),{headers:Object.assign({Accept:'application/vnd.github+json'},h),cache:'no-store'});
+const apiURL=R=>'https://api.github.com/repos/'+R.owner+'/'+R.repo+'/contents/'+R.ruta;
+async function ghLeer(R){const h={Authorization:'Bearer '+token(),'X-GitHub-Api-Version':'2022-11-28'};
+  const meta=await fetch(apiURL(R)+'?ref='+R.rama+'&t='+Date.now(),{headers:Object.assign({Accept:'application/vnd.github+json'},h),cache:'no-store'});
   if(!meta.ok)throw new Error('GitHub '+meta.status+(meta.status===401||meta.status===403?' (revisa el token)':''));
   const j=await meta.json();
-  const raw=await fetch(apiURL()+'?ref='+REPO.rama+'&t='+Date.now(),{headers:Object.assign({Accept:'application/vnd.github.raw'},h),cache:'no-store'});
+  const raw=await fetch(apiURL(R)+'?ref='+R.rama+'&t='+Date.now(),{headers:Object.assign({Accept:'application/vnd.github.raw'},h),cache:'no-store'});
   if(!raw.ok)throw new Error('GitHub raw '+raw.status);
   return{sha:j.sha,buf:await raw.arrayBuffer()};}
-async function ghEscribir(u8,sha,mensaje){
-  const r=await fetch(apiURL(),{method:'PUT',headers:{Authorization:'Bearer '+token(),Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'},
-    body:JSON.stringify({message:mensaje,content:aB64(u8),sha,branch:REPO.rama})});
+async function ghEscribir(R,u8,sha,mensaje){
+  const r=await fetch(apiURL(R),{method:'PUT',headers:{Authorization:'Bearer '+token(),Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'},
+    body:JSON.stringify({message:mensaje,content:aB64(u8),sha,branch:R.rama})});
   if(!r.ok){let m='';try{m=(await r.json()).message;}catch(e){}throw new Error('GitHub '+r.status+' '+m);}return r.json();}
 
 /* ---------------- datos ---------------- */
@@ -861,14 +863,18 @@ async function publicar(){
   if(!hayCambios()){toast('No hay cambios pendientes');return;}
   if(!token()){toast('Falta el token de GitHub (Configuración). Mientras tanto usa "Descargar avance.enc" y envíaselo a Renato.','error');return;}
   const st=$('#estadoPub');$('#btnPublicar').disabled=true;
-  try{st.textContent='Leyendo lo último publicado…';const r=await ghLeer();
-    /* se parte de lo último publicado (por si alguien publicó entretanto) y se re-aplican los cambios de esta sesión */
-    const base=normalizarAV(await descifrar(r.buf));aplicarTrabajo(base);base.actualizado=new Date().toISOString();
+  try{st.textContent='Leyendo lo último publicado en los dos sitios…';
+    /* se lee cada sitio; se parte del consolidado más reciente (por si alguien publicó entretanto) y se re-aplican los cambios de esta sesión */
+    const L=[];for(const R of REPOS){try{const r=await ghLeer(R);L.push({R,sha:r.sha,av:normalizarAV(await descifrar(r.buf))});}catch(e){L.push({R,err:e.message});}}
+    const ok=L.filter(x=>!x.err);if(!ok.length)throw new Error(L.map(x=>x.R.nombre+': '+x.err).join(' · '));
+    ok.sort((a,b)=>String(b.av.actualizado||'').localeCompare(String(a.av.actualizado||'')));
+    const base=ok[0].av;aplicarTrabajo(base);base.actualizado=new Date().toISOString();
     st.textContent='Cifrando y subiendo…';const u8=await cifrar(base);
-    const nArch=TRABAJO.archivos.length,nDot=Object.keys(TRABAJO.dot).length;
-    await ghEscribir(u8,r.sha,'TabiFlow: avance consolidado '+hoyDia()+' ('+nArch+' archivos, '+nDot+' días dotación)');
+    const nArch=TRABAJO.archivos.length,nDot=Object.keys(TRABAJO.dot).length,res=[];
+    for(const x of L){if(x.err){res.push('⚠ '+x.R.nombre+': '+x.err);continue;}
+      try{await ghEscribir(x.R,u8,x.sha,'TabiFlow: avance consolidado '+hoyDia()+' ('+nArch+' archivos, '+nDot+' días dotación)');res.push('✅ '+x.R.nombre);}catch(e){res.push('⚠ '+x.R.nombre+': '+e.message);}}
     AV=base;TRABAJO.archivos=[];TRABAJO.dot={};TRABAJO.config=null;marcarEstado();renderTodo();
-    st.innerHTML='✅ Publicado '+fmtFecha(AV.actualizado)+'. Los celulares lo verán en 1–2 minutos al abrir la app con internet.';toast('Avance publicado ✓','ok');}
+    st.innerHTML='Publicado '+fmtFecha(AV.actualizado)+' · '+res.map(escapar).join(' · ')+'. Los celulares lo verán en 1–2 minutos al abrir la app con internet.';toast(res.some(r=>r[0]==='⚠')?'Publicado con avisos: revisa el detalle':'Avance publicado en los dos sitios ✓',res.some(r=>r[0]==='⚠')?'error':'ok');}
   catch(e){console.error(e);st.textContent='⚠ No se pudo publicar: '+e.message;toast('No se pudo publicar: '+e.message,'error');}
   $('#btnPublicar').disabled=false;}
 async function descargarEnc(){const a=normalizarAV(JSON.parse(JSON.stringify(AV)));a.actualizado=new Date().toISOString();descargar(new Blob([await cifrar(a)],{type:'application/octet-stream'}),'avance.enc');
@@ -885,7 +891,7 @@ function guardarPesos(){const v={};let s=0;$$('[data-peso]').forEach(i=>{v[i.dat
 /* ---------------- arranque ---------------- */
 function renderTodo(){renderKPI();if($('#sec-pisos').classList.contains('activa'))renderPisos();renderDotacion();renderConfig();marcarEstado();}
 async function cargarAvance(){
-  if(token()){try{const r=await ghLeer();AV=normalizarAV(await descifrar(r.buf));aplicarTrabajo(AV);return;}catch(e){toast('GitHub: '+e.message+' · se lee la copia publicada','error');}}
+  if(token()){try{const r=await ghLeer(REPOS[location.hostname.endsWith('github.io')?1:0]);AV=normalizarAV(await descifrar(r.buf));aplicarTrabajo(AV);return;}catch(e){toast('GitHub: '+e.message+' · se lee la copia publicada','error');}}
   const r=await fetch('avance.enc?t='+Date.now(),{cache:'no-store'});AV=normalizarAV(await descifrar(await r.arrayBuffer()));aplicarTrabajo(AV);}
 async function entrar(){
   const pass=$('#accPass').value;if(!pass){$('#accEstado').textContent='Escribe la clave de obra';return;}
