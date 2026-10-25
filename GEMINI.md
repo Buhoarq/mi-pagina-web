@@ -135,3 +135,25 @@ git push
 ```
 
 Desde la v0.2 cada envío llega con dos archivos: el `.json` (el único que se consolida) y un `Resumen_HormiFlow_….pdf` (solo para leer; no se procesa). Usa la misma `TABIFLOW_CLAVE`. No toques `hormiflow/hormi.enc` (lo mantiene Claude). Copia `consolidar_hormi.py` a `tabiflow/herramientas/` si aún no está.
+
+## Publicar también en flujoplan.cl (desde el 25-10-2026) — OBLIGATORIO en cada consolidación
+
+Mientras se migra, el avance se publica en **los dos sitios**: la página de GitHub (`mi-pagina-web`, donde ya trabajas) y **flujoplan.cl** (repositorio `Buhoarq/flujoplan`, privado; Firebase se actualiza solo al hacer push).
+Después de cada `git push` en `mi-pagina-web`, copia **los mismos archivos de avance** a la carpeta `publicar/hcq/` del repositorio `flujoplan` (misma ruta) y súbelos:
+
+```bash
+# una vez: git clone https://github.com/Buhoarq/flujoplan.git ../flujoplan   (al lado de mi-pagina-web)
+cd ../flujoplan && git pull --rebase
+for f in tabiflow/avance.enc tabiflow/adjuntos.enc paviflow/avance.enc hormiflow/avance.enc lastplanner/plan.enc \
+         puertaflow/avance.enc puertaflow/coordavance.enc puertaflow/coordfotos.enc ventanaintflow/avance.enc ventanaintflow/fotos.enc; do
+  [ -f ../mi-pagina-web/$f ] && cp ../mi-pagina-web/$f publicar/hcq/$f
+done
+git add publicar/hcq/*/avance.enc publicar/hcq/tabiflow/adjuntos.enc publicar/hcq/lastplanner/plan.enc publicar/hcq/puertaflow/coord*.enc publicar/hcq/ventanaintflow/fotos.enc
+git status          # solo deben aparecer archivos .enc de avance
+git commit -m "Avance consolidado DD/MM/AAAA (nombres) · copia de mi-pagina-web"
+git push
+cd ../mi-pagina-web
+```
+
+Mismas reglas: solo esos archivos `.enc`, nunca la clave ni archivos descifrados, sin `--force`. Si `git status` muestra cualquier otro archivo, no lo subas y avísale a Renato.
+(El panel de TabiFlow y VentanaIntFlow ya publican solos en los dos sitios; si Renato publicó desde ahí, el `cp` no cambia nada.)
