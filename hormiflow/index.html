@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>HormiFlow v0.5 β · Hospital de Coquimbo</title>
+<title>HormiFlow v0.6 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -531,7 +531,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Flow</span><span class="ver">v0.5 β</span></span>
+      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Flow</span><span class="ver">v0.6 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -545,7 +545,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#475569"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
-          <div><span class="eyebrow">HormiFlow v0.5 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
+          <div><span class="eyebrow">HormiFlow v0.6 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
         </div>
       </div>
       <div class="tarjeta"><h3 style="margin-bottom:8px">🏢 Edificio</h3><div class="barra-chips" id="chipsEdifIni" style="flex-wrap:wrap"></div></div>
@@ -596,7 +596,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">HormiFlow</span> <span class="vpie">v0.5 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">HormiFlow</span> <span class="vpie">v0.6 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2313,7 +2313,7 @@ THREE.OrbitControls=OrbitControls;
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.5 β',MODELO_REV=3;let OBRA='Hospital de Coquimbo';
+const APP_VER='v0.6 β',MODELO_REV=3;let OBRA='Hospital de Coquimbo';
 /* v0.5: un archivo cifrado por edificio; el elegido se recuerda en el teléfono (cambiar = recargar) */
 const EDIFICIOS=[{id:'ep',n:'Edificio Principal',f:'hormi_ep.enc'},{id:'ind',n:'Edificio Industrial (grupo electrógeno)',f:'hormi_ind.enc'},
   {id:'sc',n:'Sala Cuna',f:'hormi.enc'},{id:'cosam',n:'COSAM',f:'hormi_cosam.enc'}];
@@ -2323,13 +2323,13 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 const DIA_INI=4; /* semana de jueves a miércoles, igual que Last Planner */
 /* ---------------- etapas ---------------- */
-const ETAPAS={mol:{n:'Moldaje',c:'Moldaje',color:'#7C3AED'},enf:{n:'Enfierradura',c:'Enfierr.',color:'#F59E0B'},hor:{n:'Hormigonado',c:'Hormigón',color:'#16A34A'},des:{n:'Descimbre',c:'Descimbre',color:'#0F766E'}};
-const ORDEN=['mol','enf','hor','des'];
+const ETAPAS={mon:{n:'Montaje estructura metálica',c:'Montaje',color:'#EA580C'},mol:{n:'Moldaje',c:'Moldaje',color:'#7C3AED'},enf:{n:'Enfierradura',c:'Enfierr.',color:'#F59E0B'},hor:{n:'Hormigonado',c:'Hormigón',color:'#16A34A'},des:{n:'Descimbre',c:'Descimbre',color:'#0F766E'}};
+const ORDEN_HA=['mol','enf','hor','des'];let ORDEN=ORDEN_HA.slice(); /* + 'mon' si el edificio trae acero */
 const SIN_DES=new Set(['Cimentación','Radier']);                 /* cimientos y radier: sin descimbre */
 const PESOS_C={mol:25,enf:30,hor:45},PESOS_D={mol:25,enf:25,hor:40,des:10};
-const etapasDe=el=>SIN_DES.has(el.fam)?['mol','enf','hor']:ORDEN;
-const pesosDe=el=>SIN_DES.has(el.fam)?PESOS_C:PESOS_D;
-const FAMS=['Cimentación','Muro','Pilar','Viga','Losa','Radier'];
+const etapasDe=el=>el.fam==='Acero'?['mon']:SIN_DES.has(el.fam)?['mol','enf','hor']:ORDEN_HA;
+const pesosDe=el=>el.fam==='Acero'?{mon:100}:SIN_DES.has(el.fam)?PESOS_C:PESOS_D;
+const FAMS=['Cimentación','Muro','Pilar','Viga','Losa','Radier','Acero'];
 const CAUSAS=['Falta de mano de obra','Falta de hormigón / materiales','Falta de equipos o grúa','Clima','Interferencia con otra especialidad','Diseño / RDI pendiente','Mala planificación','Otra'];
 const COMP={ok:{n:'Cumplido',color:'#16A34A'},tarde:{n:'Cumplido tarde',color:'#D97706'},prog:{n:'En curso',color:'#0EA5E9'},pend:{n:'Por hacer',color:'#2563EB'},venc:{n:'No cumplido',color:'#DC2626'}};
 const GRIS='#CBD5E1',GRIS_CLARO='#E2E8F0';
@@ -2386,7 +2386,7 @@ function combinar(){const m=new Map();((estado.base&&estado.base.eventos)||[]).f
       const o=s[e.et];if(!o||e.ts>o.ev.ts||(e.ts===o.ev.ts&&e.id>o.ev.id))s[e.et]={f:e.f,ev:e};}}}
 const pond=el=>{const w=pesosDe(el);let s=0;etapasDe(el).forEach(et=>s+=f(el.g,et)*w[et]);return s/100;};
 function alcanzada(el){let u=null;etapasDe(el).forEach(et=>{if(f(el.g,et)>=1)u=et;});return u;}
-function resumen(filtro){const r={V:0,n:0,eq:0,et:{mol:[0,0],enf:[0,0],hor:[0,0],des:[0,0]}};
+function resumen(filtro){const r={V:0,n:0,eq:0,et:{mon:[0,0],mol:[0,0],enf:[0,0],hor:[0,0],des:[0,0]}};
   for(const el of EL.values()){if(filtro&&!filtro(el))continue;r.V+=el.v;r.n++;r.eq+=el.v*pond(el);etapasDe(el).forEach(et=>{r.et[et][1]+=el.v;r.et[et][0]+=el.v*f(el.g,et);});}return r;}
 const pendientes=()=>estado.local.filter(e=>!e.enviado).length;
 /* ---------------- registro de avance ---------------- */
@@ -2431,6 +2431,7 @@ async function cargarModelo(){progreso('Abriendo la estructura…');let fresco=f
   if((MOD.rev||1)<MODELO_REV&&!fresco){try{sessionStorage.setItem('hf_rev','1');}catch(e){}progreso('Actualizando el modelo…');   /* el teléfono tenía guardada una versión antigua del modelo */
     try{const ks=await caches.keys();await Promise.all(ks.filter(k=>k.startsWith('hormiflow-')).map(k=>caches.delete(k)));const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}catch(e){}
     location.reload();await new Promise(()=>{});}
+  ORDEN=MOD.el.some(e=>e.fam==='Acero')?ORDEN_HA.concat(['mon']):ORDEN_HA.slice();
   EL=new Map();TOT.V=0;
   PADRE=new Map();MOD.el.forEach(el=>{EL.set(el.g,el);TOT.V+=el.v;if(el.pg){if(!PADRE.has(el.pg))PADRE.set(el.pg,[]);PADRE.get(el.pg).push(el.g);}});progreso(null);}
 async function cargarEquipo(manual){try{const b=await descifrar(CLAVE,await bajar('avance.enc',true));estado.base=b;await metaSet('base',b);combinar();renderTodo();if(manual)toast('Avance del equipo actualizado','ok');}
