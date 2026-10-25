@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Panel FlujoPlan v1.2 · Hospital de Coquimbo</title>
+<title>Panel FlujoPlan v1.3 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -431,7 +431,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v1.2</span></span>
+      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v1.3</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -449,7 +449,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
     </div>
   </section>
 </main>
-<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v1.2</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v1.3</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -473,7 +473,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.2',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.3',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fmt0=n=>Math.round(n).toLocaleString('es-CL'),fmt1=n=>(Math.round(n*10)/10).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
 const pct=(a,b)=>b>0?100*a/b:0;
@@ -508,7 +508,7 @@ async function claveGuardada(){try{if(indexedDB.databases){const ls=await indexe
   const key=await get('clave'),per=await get('persona');db.close();if(key){await verificar(key);return {key,per};}}catch(e){}return null;}
 let CLAVE=null,PERSONA='';
 /* ---------------- utilidades de cálculo ---------------- */
-const corto=id=>{const m=String(id).match(/EP-([SN])(\d)/);return m?m[1]+m[2]:id;};
+const corto=id=>{const T={'CO-CUB':'Techo COSAM','SC-CUB':'Techo Sala Cuna','EP-CUB':'Techo N9'};if(T[id])return T[id];const m=String(id).match(/EP-([SN])(\d)/);return m?m[1]+m[2]:id;};
 function ultimoPor(eventos,clave){const m=new Map();for(const e of eventos||[]){if(e.borrado)continue;const k=clave(e);if(k==null)continue;const o=m.get(k);if(!o||(e.ts||'')>(o.ts||''))m.set(k,e);}return m;}
 function maxPor(eventos,clave){const m=new Map();for(const e of eventos||[]){if(e.borrado)continue;const k=clave(e);if(k==null)continue;m.set(k,Math.max(m.get(k)||0,e.f||0));}return m;}
 function personasDe(av){const s=new Set(av&&av.personas||[]);((av&&av.eventos)||[]).forEach(e=>{if(e.por)s.add(e.por);});return [...s];}
