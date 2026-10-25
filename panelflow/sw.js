@@ -1,6 +1,6 @@
 /* Panel FlujoPlan HCQ — service worker: la página queda disponible sin conexión; los datos (.enc / .json) se piden siempre
    primero a la red y, sin señal, se muestra la última copia guardada. */
-const CACHE='panelflow-hcq-v1.3';
+const CACHE='panelflow-hcq-v1.4';
 const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('panelflow-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});

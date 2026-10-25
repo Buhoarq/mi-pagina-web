@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Panel FlujoPlan v1.3 · Hospital de Coquimbo</title>
+<title>Panel FlujoPlan v1.4 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -431,7 +431,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v1.3</span></span>
+      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v1.4</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -449,7 +449,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
     </div>
   </section>
 </main>
-<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v1.3</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v1.4</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -473,7 +473,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.3',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.4',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fmt0=n=>Math.round(n).toLocaleString('es-CL'),fmt1=n=>(Math.round(n*10)/10).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
 const pct=(a,b)=>b>0?100*a/b:0;
@@ -559,6 +559,13 @@ async function cargarImper(){
   return {kpi:pct(eq,A),kpiTxt:'avance ponderado de '+fmt0(A)+' m² impermeabilizados',extras:Object.keys(IM_SIS).filter(k=>sis[k]).map(k=>[IM_SIS[k].n,fmt1(pct(...sis[k]))+'% de '+fmt0(sis[k][1])+' m²']),
     niveles:nv,act:(av&&av.actualizado)||ultimoDia(av),personas:personasDe(av),registros:((av&&av.eventos)||[]).filter(e=>!e.borrado).length};}
 
+/* ================= FachadaFlow (fachadas, estudio: aún sin toma de avance) ================= */
+async function cargarFachada(){const D=await abrir('../fachadaflow/fachadas.enc');const fam={};let A=0,n=0;
+  D.fachadas.forEach(f=>f.el.forEach(e=>{A+=e.A;n++;const k=/^VENTANA|^V[A-Z]{1,3}-/.test(e.t)?'Ventanas':/^FHPL|^FVHPL/.test(e.t)?'Fachada ventilada HPL':/^ATF/.test(e.t)?'Aislación':/^TIC|^RIC/.test(e.t)?'Tabique fibrocemento':/^FEE/.test(e.t)?'EIFS':'Otros';fam[k]=(fam[k]||0)+e.A;}));
+  const ed={};D.fachadas.forEach(f=>{ed[f.ed]=(ed[f.ed]||0)+f.el.reduce((a,e)=>a+e.A,0);});
+  return {kpi:null,kpiTxt:'estudio de fachadas: '+D.fachadas.length+' alzados (aún sin toma de avance)',extras:Object.entries(fam).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,fmt0(v)+' m²']),
+    niveles:Object.entries(ed).map(([k,v])=>[k,fmt0(v)+' m²',null,'']),nivelesTit:'Por edificio',act:null,personas:[],registros:0};}
+
 /* ================= CieloFlow (cielos) ================= */
 async function cargarCielo(){
   const C=await abrir('../cieloflow/cielos.enc');let n=0,con=0,A=0;const nv=[];
@@ -633,6 +640,7 @@ const MODULOS=[
   {id:'vent',n:'VentanaIntFlow',d:'Ventanas interiores',c:'#0E7490',url:'../ventanaintflow/',cargar:cargarVentana},
   {id:'puerta',n:'PuertaFlow',d:'Puertas',c:'#0F766E',url:'../puertaflow/',cargar:cargarPuerta},
   {id:'coord',n:'Refuerzos PFA',d:'Coordinación de refuerzos de puertas',c:'#DC2626',url:'../puertaflow/coordinacion.html',cargar:cargarCoord},
+  {id:'fach',n:'FachadaFlow',d:'Fachadas',c:'#7C2D12',url:'../fachadaflow/',cargar:cargarFachada},
   {id:'cielo',n:'CieloFlow',d:'Cielos',c:'#0284C7',url:'../cieloflow/',cargar:cargarCielo},
   {id:'lp',n:'Last Planner',d:'Plan semanal',c:'#7C3AED',url:'../lastplanner/',cargar:cargarLP}];
 const RES={};
