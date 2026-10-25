@@ -655,7 +655,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.6 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.7 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1088,7 +1088,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v6.6 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v6.7 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1223,8 +1223,8 @@ async function descifrar(key,buf){const u=new Uint8Array(buf);if(u.length<29)thr
   return JSON.parse(await new Response(ds).text());}
 async function bajar(url,fresco){if(/^(modelo|avance|adjuntos)\.enc$/.test(url))url=DATOS+url;const r=await fetch(url+(fresco?('?t='+Date.now()):''),{cache:fresco?'no-store':'default'});if(!r.ok)throw new Error('HTTP '+r.status+' '+url);return r.arrayBuffer();}
 const nivelPorId=id=>NIVELES.find(n=>n.id===id);
-function etiquetaNivel(n){const m=n.id.match(/EP-([SN])(\d)/);if(!m)return n.id;return m[1]==='S'?'Subterráneo '+m[2]:'Nivel '+m[2];}
-function cortoNivel(n){const m=n.id.match(/EP-([SN])(\d)/);return m?(m[1]==='S'?'S'+m[2]:'N'+m[2]):n.id;}
+function etiquetaNivel(n){const m=n.id.match(/EP-([SN])(\d)/);if(!m){const x=n.id.match(/^(CO|SC)-N(\d)/);return x?(x[1]==='CO'?'COSAM':'Sala Cuna')+' · Nivel '+x[2]:n.id;}return m[1]==='S'?'Subterráneo '+m[2]:'Nivel '+m[2];}
+function cortoNivel(n){const m=n.id.match(/EP-([SN])(\d)/);if(!m){const x=n.id.match(/^(CO|SC)-N(\d)/);return x?(x[1]==='CO'?'COSAM ':'S.Cuna ')+x[2]:n.id;}return m[1]==='S'?'S'+m[2]:'N'+m[2];}
 function bboxPlano(arr){let x0=1e12,y0=1e12,x1=-1e12,y1=-1e12;for(let i=0;i<arr.length;i+=2){const x=arr[i],y=arr[i+1];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}return[x0,y0,x1,y1];}
 function bboxAnillos(rs){let b=[1e12,1e12,-1e12,-1e12];rs.forEach(r=>{const q=bboxPlano(r);b=[Math.min(b[0],q[0]),Math.min(b[1],q[1]),Math.max(b[2],q[2]),Math.max(b[3],q[3])];});return b;}
 function agregarAnillo(path,r){if(r.length<6)return;path.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)path.lineTo(r[i],r[i+1]);path.closePath();}
