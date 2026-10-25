@@ -1,6 +1,6 @@
 /* PuertaFlow HCQ — service worker: la app y el modelo cifrado quedan disponibles sin conexión.
    avance.enc (consolidado del equipo) se pide siempre a la red primero y, sin señal, se usa la copia guardada. */
-const CACHE='puertaflow-hcq-v0.13';
+const CACHE='puertaflow-hcq-v0.14';
 const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','./puertas.enc','./coordinacion.html','./coord.webmanifest','./coord.enc','./coord_acceso.json','../tabiflow/clave.json','../tabiflow/modelo.enc'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('puertaflow-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});

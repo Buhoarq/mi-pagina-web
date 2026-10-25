@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>CieloFlow v0.7 β · Hospital de Coquimbo</title>
+<title>CieloFlow v0.8 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -575,7 +575,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.7 β</span></span>
+      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.8 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -617,7 +617,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumen</span></button>
 </nav>
-<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.7 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.8 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -641,7 +641,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.7 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.8 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -747,11 +747,20 @@ function colorR(q){const r=q.r;if(!r)return null;if(estado.modo==='tipo')return 
 function colorZ(z){return estado.modo==='tipo'?colTipo(z.c.t):colH(z.c.h);}
 function activoZ(z){return estado.modo==='tipo'?(!estado.fTipo||z.c.t===estado.fTipo):(estado.fH==null||kh(z.c.h)===estado.fH);}
 function activoR(q){const r=q.r;if(!r)return false;if(estado.modo==='tipo')return !estado.fTipo||(r.c.length&&r.c[0].t===estado.fTipo);return estado.fH==null||(r.c.length&&r.c.some(c=>kh(c.h)===estado.fH));}
+
+/* v·terreno: pavimentos exteriores (pavimentación + paisajismo) y losas estructurales como base de la planta */
+const TERR_COL={asf:['#C4C9D1','#3B4452'],bal:['#F3E7CF','#4A4234'],gra:['#D5E8BD','#2F4128'],cau:['#F6CFE0','#4B2E3B'],pie:['#E2D3B8','#463B2C'],dek:['#EBD3AE','#4A3A26'],hor:['#E5E7EB','#374151'],otr:['#E9DFF7','#3B3550']};
+function _anilloT(p,r){if(!r||r.length<6)return;p.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)p.lineTo(r[i],r[i+1]);p.closePath();}
+function baseTerreno(ctx,n,px){const osc=document.documentElement.classList.contains('oscuro');
+  if(!n._terr){n._terr=true;n._pLos=new Path2D();(n.los||[]).forEach(pl=>pl.forEach(r=>_anilloT(n._pLos,r)));n._pex={};(n.pex||[]).forEach(e=>{const p=n._pex[e.k]||(n._pex[e.k]=new Path2D());e.p.forEach(r=>_anilloT(p,r));});}
+  for(const k in n._pex){ctx.fillStyle=(TERR_COL[k]||TERR_COL.otr)[osc?1:0];ctx.fill(n._pex[k],'evenodd');}
+  ctx.fillStyle=osc?'#273449':'#DCE3EC';ctx.strokeStyle=osc?'#475569':'#94A3B8';ctx.lineWidth=1*px;ctx.fill(n._pLos,'evenodd');ctx.stroke(n._pLos);}
 function dibujar(){const n=prepNivel(estado.nv);if(!n||!dimensionar())return;const c=lienzo(),ctx=c.getContext('2d'),dpr=c.width/c.clientWidth;
   const osc=document.documentElement.classList.contains('oscuro');ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=osc?'#0F172A':'#EEF2F7';ctx.fillRect(0,0,c.width,c.height);
   ctx.setTransform(dpr*V.s,0,0,dpr*V.s,dpr*V.tx,dpr*V.ty);const px=1/V.s;
   const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+c.clientWidth/V.s,vy1=vy0+c.clientHeight/V.s;const vis=bb=>!(bb[2]<vx0||bb[0]>vx1||bb[3]<vy0||bb[1]>vy1);
   ctx.lineWidth=0.8*px;ctx.strokeStyle=osc?'#334155':'#D5DCE6';
+  baseTerreno(ctx,n,px);ctx.lineWidth=0.8*px;ctx.strokeStyle=osc?'#334155':'#D5DCE6';
   n.R.forEach(q=>{if(!vis(q.bb))return;ctx.fillStyle=osc?'#1E293B':'#FFFFFF';ctx.fill(q.path);ctx.stroke(q.path);});
   n.Z.forEach(z=>{if(!vis(z.bb))return;ctx.globalAlpha=activoZ(z)?0.9:0.15;ctx.fillStyle=colorZ(z);ctx.fill(z.path,'evenodd');});ctx.globalAlpha=1;
   ctx.lineWidth=0.7*px;ctx.strokeStyle=osc?'rgba(15,23,42,.55)':'rgba(255,255,255,.9)';n.Z.forEach(z=>{if(vis(z.bb)&&activoZ(z))ctx.stroke(z.path);});
