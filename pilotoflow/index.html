@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PilotoFlow v1.2 · Piloto UCI · Hospital de Coquimbo</title>
+<title>PilotoFlow v1.3 · Piloto UCI · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -586,7 +586,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Flow</span><span class="ver">v1.2</span></span>
+      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Flow</span><span class="ver">v1.3</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -631,7 +631,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <button class="pestana" data-v="compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg><span>Compras</span></button>
   <button class="pestana" data-v="bitacora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Bitácora</span></button>
 </nav>
-<footer id="pie"><span class="marca">PilotoFlow</span> <span class="vpie">v1.2</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PilotoFlow</span> <span class="vpie">v1.3</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2348,7 +2348,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.2',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.3',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -2726,14 +2726,38 @@ function tocar3(cx,cy){const rc=$('#v3d').getBoundingClientRect();const v=new TH
 function recintoDe(el){/* recinto del piloto que contiene el centro del elemento (o el más cercano) */const R=PROG.m3d.rec||[];if(!R.length)return null;const x=el.cx,y=el.cy;
   const dentro=r=>{let ok=false;const c=r.c;for(let i=0,j=c.length-2;i<c.length;j=i,i+=2){const xi=c[i],yi=c[i+1],xj=c[j],yj=c[j+1];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))ok=!ok;}return ok;};
   return R.find(dentro)||R.slice().sort((a,b)=>Math.hypot(a.cx-x,a.cy-y)-Math.hypot(b.cx-x,b.cy-y))[0];}
+/* cubicación del elemento, calculada de su malla del modelo (cm → m); los muros largos del modelo están cortados a la caja del piloto */
+function alturaCielo(el){/* altura del cielo del recinto del elemento (m): el cielo de mayor malla de ese recinto */const rec=recintoDe(el);if(!rec)return null;let mejor=null,mp=0;
+  for(const c of PROG.m3d.el){if(c.k!=='cie'||(c.p||[]).length<=mp)continue;const r=recintoDe(c);if(r&&r.n===rec.n){let z=1e9;for(let k=2;k<c.p.length;k+=3)z=Math.min(z,c.p[k]);if(z>150){mejor=z/100;mp=c.p.length;}}}return mejor;}
+function cubicar(el){const P=el.p||[],I=el.i||[];if(!P.length||!I.length)return null;let V=0,Fup=0,Fdn=0,zmax=-1e9,zmin=1e9,x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  for(let k=0;k<P.length;k+=3){x0=Math.min(x0,P[k]);x1=Math.max(x1,P[k]);y0=Math.min(y0,P[k+1]);y1=Math.max(y1,P[k+1]);zmin=Math.min(zmin,P[k+2]);zmax=Math.max(zmax,P[k+2]);}
+  for(let t=0;t<I.length;t+=3){const a=I[t]*3,b=I[t+1]*3,c=I[t+2]*3;const ax=P[a],ay=P[a+1],az=P[a+2],bx=P[b],by=P[b+1],bz=P[b+2],cx=P[c],cy=P[c+1],cz=P[c+2];
+    V+=(ax*(by*cz-bz*cy)-ay*(bx*cz-bz*cx)+az*(bx*cy-by*cx))/6;
+    const ux=bx-ax,uy=by-ay,uz=bz-az,vx=cx-ax,vy=cy-ay,vz=cz-az;const nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;const L=Math.hypot(nx,ny,nz);if(!L)continue;const ar=L/2,cn=nz/L;
+    if(cn>0.9&&(el.k!=='tab'&&el.k!=='tra'&&el.k!=='rp'&&el.k!=='fac'||az>zmax-1.5))Fup+=ar;else if(cn<-0.9&&(el.k==='cie'||az<zmin+1.5))Fdn+=ar;}
+  V=Math.abs(V);const dx=(x1-x0)/100,dy=(y1-y0)/100,dz=(zmax-zmin)/100,m2=a=>a/10000,m3=v=>v/1e6;const R=[];const nm=el.t||'';
+  if(el.k==='tab'||el.k==='tra'||el.k==='rp'||el.k==='fac'){const mt=nm.match(/(\d+(?:[.,]\d+)?)\s*cm/);let esp=mt?parseFloat(mt[1].replace(',','.'))/100:Math.min(dx,dy);if(!(esp>0.005))esp=Math.min(dx,dy);
+    const huella=m2(Fup),largo=huella/esp,bruta=largo*dz,neta=m3(V)/esp;
+    if(largo>=esp*1.5){
+    const hc=alturaCielo(el),rl=recintoDe(el),rn=rl&&rl.pl==='uci'?' UCI':rl&&rl.pl==='bano'?' baño':'';
+    R.push(['Largo',fm(largo,2)+' m'],['Alto',fm(dz,2)+' m'],['Espesor',fm(esp*100,1)+' cm'],['Superficie 1 cara',fm(bruta,2)+' m²'],['Superficie 2 caras',fm(bruta*2,2)+' m²']);
+    if(bruta-neta>0.03*bruta&&neta>0)R.push(['Superficie neta 1 cara',fm(neta,2)+' m²'],['Vanos descontados',fm(bruta-neta,2)+' m²']);
+    if(hc&&hc<dz-0.05){const bc=largo*hc,vn=Math.max(0,bruta-neta);R.push(['Alto hasta cielo'+rn,fm(hc,2)+' m'],['Sup. hasta cielo 1 cara',fm(bc,2)+' m²'],['Sup. hasta cielo neta',fm(Math.max(0,bc-vn),2)+' m²']);}
+    R.push(['Volumen',fm(m3(V),3)+' m³']);return{f:R,r:fm(bruta,2)+' m² (1 cara)'};}}
+  if(el.k==='cie'||el.k==='pis'||el.k==='imp'){const sup=m2(el.k==='cie'?Fdn:Fup);R.push(['Superficie',fm(sup,2)+' m²'],['Largo × ancho',fm(Math.max(dx,dy),2)+' × '+fm(Math.min(dx,dy),2)+' m']);if(el.k==='cie')R.push(['Altura de cielo',fm(zmin/100,2)+' m']);else R.push(['Espesor',fm(dz*100,1)+' cm'],['Volumen',fm(m3(V),3)+' m³']);return{f:R,r:fm(sup,2)+' m²'};}
+  if(el.k==='pue'||el.k==='ven'){const an=Math.max(dx,dy);R.push(['Ancho',fm(an*100,0)+' cm'],['Alto',fm(dz*100,0)+' cm'],['Superficie vano',fm(an*dz,2)+' m²'],['Antepecho',fm(zmin,0)+' cm']);return{f:R,r:fm(an*100,0)+' × '+fm(dz*100,0)+' cm'};}
+  const lg=Math.max(dx,dy),an=Math.min(dx,dy);R.push(['Largo',fm(lg*100,0)+' cm'],['Ancho',fm(an*100,0)+' cm'],['Alto',fm(dz*100,0)+' cm'],['Cota inferior',fm(zmin,0)+' cm']);if(el.k==='est'&&Fup>0)R.push(['Superficie en planta',fm(m2(Fup),2)+' m²']);return{f:R,r:fm(lg*100,0)+' × '+fm(an*100,0)+' × '+fm(dz*100,0)+' cm'};}
+function bloqueCubic(el){const c=cubicar(el);if(!c)return '';return '<label class="etiqueta">📏 Cubicación (modelo BIM)</label><div class="ficha3">'+c.f.map(([k,v])=>'<div class="dato"><span>'+escapar(k.toUpperCase())+'</span><b>'+escapar(v)+'</b></div>').join('')+'</div><p class="nota">Calculado del modelo dentro del recinto del piloto (los muros que siguen fuera de él figuran cortados). Referencial: verifica en terreno antes de pedir material.</p>';}
+function hojaCubic(g){const el=PROG.m3d.el.find(e=>e.g===g);if(!el)return;const rec=recintoDe(el);abrirHoja('<div class="hoja-titulo">'+escapar(el.t)+'</div><div class="hoja-sub">'+escapar(CAT[el.k].n)+(rec?' · '+escapar(rec.n):'')+'</div>'+bloqueCubic(el));}
 function panel3(el){const p=$('#panel3');const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);const av=avanceElem(el),pr=progElem(el);const rec=recintoDe(el);
   const cods=(el.cod||[]).filter(c=>PROG.eett&&PROG.eett[c]);const bits=BIT.filter(b=>b.g===el.g).length;
   p.innerHTML='<div class="ic-top"><i style="background:'+colorElem(el)+'"></i><div><b class="ic-t">'+escapar(el.t)+'</b><span>'+escapar(CAT[el.k].n)+(rec?' · '+escapar(rec.n):'')+'</span></div><button class="ic-x" data-acc="cerrar3" aria-label="Cerrar">✕</button></div>'+
    (el.d?'<div class="ic-r">'+escapar(el.d)+'</div>':'')+
    (av!=null?'<div class="av-doble chico"><div><span>Avance</span><b>'+fm(av*100,0)+'%</b></div><div><span>Programado hoy</span><b>'+fm(pr*100,0)+'%</b></div><div><span>Tareas</span><b>'+ts.length+'</b></div></div>':'')+
+   (()=>{const c=cubicar(el);return c?'<div class="ic-r">📏 '+escapar(c.r)+'</div>':'';})()+
    '<div class="fila-btn">'+(rec&&rec.pl?'<button class="btn principal" data-acc="plano" data-hoja="'+rec.pl+'" data-vista="'+vistaPlanoDe(el)+'">📐 Plano de detalle</button>':'')+
    (cods.length?'<button class="btn secundario" data-acc="eett" data-cod="'+cods.join(',')+'">📘 Terminación (EETT)</button>':'')+'</div>'+
-   '<div class="fila-btn"><button class="btn secundario" data-acc="elem" data-g="'+el.g+'">📋 Tareas'+(bits?' · '+bits+' registros':'')+'</button><button class="btn secundario" data-acc="nuevabit" data-g="'+el.g+'">📷 Foto / nota</button></div>';
+   '<div class="fila-btn"><button class="btn secundario" data-acc="cubic" data-g="'+el.g+'">📏 Cubicación</button><button class="btn secundario" data-acc="elem" data-g="'+el.g+'">📋 Tareas'+(bits?' · '+bits+' registros':'')+'</button><button class="btn secundario" data-acc="nuevabit" data-g="'+el.g+'">📷 Foto / nota</button></div>';
   p.classList.add('visible');}
 /* vista del plano de detalle que mejor muestra el elemento */
 function vistaPlanoDe(el){if(el.k==='cie'||el.k==='ins')return 'cielo';if(el.k==='pis'||el.k==='imp'||el.k==='mob')return 'planta';
@@ -2742,6 +2766,7 @@ function hojaElemento(g){const el=PROG.m3d.el.find(e=>e.g===g);if(!el)return;con
   const cods=(el.cod||[]);
   abrirHoja('<div class="hoja-titulo">'+escapar(el.t)+'</div><div class="hoja-sub">'+escapar(CAT[el.k].n)+(rec?' · '+escapar(rec.n):'')+'<br>'+escapar(el.d||'')+'<br><small>IFC '+escapar(el.cls||'')+' · '+escapar(el.g)+'</small></div>'+
    (el.dim?'<div class="ficha3">'+el.dim.map(([k,v])=>'<div class="dato"><span>'+escapar(k)+'</span><b>'+escapar(v)+'</b></div>').join('')+'</div>':'')+
+   bloqueCubic(el)+
    (cods.length?'<label class="etiqueta">Terminaciones y especificación</label>'+cods.map(c=>'<button class="ftar" data-acc="eett" data-cod="'+c+'" style="--c:#0891B2"><i></i><div class="tx"><b>'+escapar(c)+'</b><small>'+escapar((PROG.leyenda&&PROG.leyenda[c])||(PROG.eett&&PROG.eett[c]&&PROG.eett[c][0].tit)||'')+'</small></div><span class="pc">📘</span></button>').join(''):'')+
    (rec&&rec.pl?'<button class="btn principal grande" data-acc="plano" data-hoja="'+rec.pl+'" data-vista="'+vistaPlanoDe(el)+'">📐 Ver plano de detalle</button>':'')+
    '<label class="etiqueta">Tareas del programa ('+ts.length+')</label>'+(ts.length?ts.map(t=>filaTarea(t)).join(''):'<p class="nota">Sin tareas asociadas (elemento de contexto).</p>')+
@@ -3053,6 +3078,7 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-ac
   else if(a==='plano'){cerrarHoja();abrirPlano(b.dataset.hoja,b.dataset.vista);}
   else if(a==='cerrarplano')$('#visorPlano').classList.remove('visible');
   else if(a==='eett')hojaEETT(b.dataset.cod);
+  else if(a==='cubic')hojaCubic(b.dataset.g);
   else if(a==='anular'){const x=estado.local.find(z=>z.id===b.dataset.id);if(x){x.borrado=true;x.borradoTs=new Date().toISOString();x.enviado=false;await put('eventos',x);combinar();toast('Registro anulado','ok');if(x.k==='av')hojaTarea(x.t);else cerrarHoja();renderActual();}}
   else if(a==='borrar')hojaBorrar();
   else if(a==='nombre')abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');
