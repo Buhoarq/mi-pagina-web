@@ -5,7 +5,7 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
 
 ## Reglas (obligatorias)
 
-1. **Solo puedes modificar `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc`, `hormiflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
+1. **Solo puedes modificar `pilotoflow/avance.enc`, `pilotoflow/fotos.enc`, `imperflow/avance.enc`, `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc`, `hormiflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
    `modelo.enc`, `clave.json`, ni nada en `tabiflow/herramientas/`. Esos archivos los mantiene Claude.
    Si algo de eso parece necesitar cambios, avísale a Renato en vez de cambiarlo.
 2. **Nunca escribas la clave de obra** en ningún archivo, commit, mensaje de commit ni log.
@@ -135,3 +135,58 @@ git push
 ```
 
 Desde la v0.2 cada envío llega con dos archivos: el `.json` (el único que se consolida) y un `Resumen_HormiFlow_….pdf` (solo para leer; no se procesa). Usa la misma `TABIFLOW_CLAVE`. No toques `hormiflow/hormi.enc` (lo mantiene Claude). Copia `consolidar_hormi.py` a `tabiflow/herramientas/` si aún no está.
+
+
+## VentanaIntFlow (levantamiento de ventanas interiores)
+Los archivos `Levantamiento_VentanaIntFlow_*.json` se consolidan con `python3 herramientas/consolidar_ventana.py unir --web publicar/hcq/ventanaintflow --clave-web publicar/hcq/tabiflow <archivos>` (clave de obra en `TABIFLOW_CLAVE`). Genera `avance.enc` y `fotos.enc`; copia ambos a `mi-pagina-web/ventanaintflow/` y publica. No cambies el programa ni el modelo (`ventanas.enc`).
+
+## Publicar también en flujoplan.cl (desde el 25-10-2026) — OBLIGATORIO en cada consolidación
+
+Mientras se migra, el avance se publica en **los dos sitios**: la página de GitHub (`mi-pagina-web`, donde ya trabajas) y **flujoplan.cl** (repositorio `Buhoarq/flujoplan`, privado; Firebase se actualiza solo al hacer push).
+Después de cada `git push` en `mi-pagina-web`, copia **los mismos archivos de avance** a la carpeta `publicar/hcq/` del repositorio `flujoplan` (misma ruta) y súbelos:
+
+```bash
+# una vez: git clone https://github.com/Buhoarq/flujoplan.git ../flujoplan   (al lado de mi-pagina-web)
+cd ../flujoplan && git pull --rebase
+for f in tabiflow/avance.enc tabiflow/adjuntos.enc paviflow/avance.enc hormiflow/avance.enc lastplanner/plan.enc \
+         puertaflow/avance.enc puertaflow/coordavance.enc puertaflow/coordfotos.enc ventanaintflow/avance.enc ventanaintflow/fotos.enc imperflow/avance.enc; do
+  [ -f ../mi-pagina-web/$f ] && cp ../mi-pagina-web/$f publicar/hcq/$f
+done
+git add publicar/hcq/*/avance.enc publicar/hcq/tabiflow/adjuntos.enc publicar/hcq/lastplanner/plan.enc publicar/hcq/puertaflow/coord*.enc publicar/hcq/ventanaintflow/fotos.enc
+git status          # solo deben aparecer archivos .enc de avance
+git commit -m "Avance consolidado DD/MM/AAAA (nombres) · copia de mi-pagina-web"
+git push
+cd ../mi-pagina-web
+```
+
+Mismas reglas: solo esos archivos `.enc`, nunca la clave ni archivos descifrados, sin `--force`. Si `git status` muestra cualquier otro archivo, no lo subas y avísale a Renato.
+(El panel de TabiFlow y VentanaIntFlow ya publican solos en los dos sitios; si Renato publicó desde ahí, el `cp` no cambia nada.)
+
+## ImperFlow (impermeabilización) · desde el 25-10-2026
+
+Los archivos que empiezan con `Avance_ImperFlow_` se consolidan aparte y solo tocan `imperflow/avance.enc`:
+
+```bash
+python3 tabiflow/herramientas/consolidar_imper.py unir --web imperflow --clave-web tabiflow ../avances_recibidos/Avance_ImperFlow_*.json
+git add imperflow/avance.enc
+git commit -m "Avance ImperFlow consolidado DD/MM/AAAA (nombres)"
+git push
+```
+
+Misma `TABIFLOW_CLAVE`. No toques `imperflow/imper.enc` (lo mantiene Claude). Después copia `imperflow/avance.enc` también a `flujoplan/publicar/hcq/imperflow/` (ver «Publicar también en flujoplan.cl»).
+Desde el 25-10-2026 PaviFlow ya no tiene etapa de impermeabilización: si llega un `Avance_PaviFlow_` antiguo con registros de impermeabilización, `consolidar_pavi.py` los ignora (es normal).
+
+
+## PilotoFlow (Piloto UCI: programa, compras y bitácora) · desde el 26-10-2026
+
+Los archivos que empiezan con `Avance_PilotoFlow_` se consolidan aparte y solo tocan `pilotoflow/avance.enc` y `pilotoflow/fotos.enc` (las fotos de la bitácora van aparte):
+
+```bash
+python3 tabiflow/herramientas/consolidar_piloto.py unir --web pilotoflow --clave-web tabiflow ../avances_recibidos/Avance_PilotoFlow_*.json
+git add pilotoflow/avance.enc pilotoflow/fotos.enc
+git commit -m "Avance PilotoFlow consolidado DD/MM/AAAA (nombres)"
+git push
+```
+
+Misma `TABIFLOW_CLAVE`. No toques `pilotoflow/piloto.enc` ni `pilotoflow/planos.enc` (los mantiene Claude). Después copia `pilotoflow/avance.enc` y `pilotoflow/fotos.enc` también a `flujoplan/publicar/hcq/pilotoflow/` (ver «Publicar también en flujoplan.cl»).
+El coordinador también puede publicar sin IA desde la app (menú ⋮ → «Publicar el avance del equipo»), con la misma regla.

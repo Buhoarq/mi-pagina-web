@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Panel FlujoPlan v2.0 · Hospital de Coquimbo</title>
+<title>Panel FlujoPlan v2.1 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -456,7 +456,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v2.0</span></span>
+      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v2.1</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -482,7 +482,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
     </div>
   </section>
 </main>
-<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v2.0</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v2.1</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -507,7 +507,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v2.0',OBRA='Hospital de Coquimbo';
+const APP_VER='v2.1',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fmt0=n=>Math.round(n).toLocaleString('es-CL'),fmt1=n=>(Math.round(n*10)/10).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
 const pct=(a,b)=>b>0?100*a/b:0;
@@ -676,7 +676,8 @@ const MODULOS=[
   {id:'coord',n:'Refuerzos PFA',d:'Coordinación de refuerzos de puertas',c:'#DC2626',url:'../puertaflow/coordinacion.html',cargar:cargarCoord},
   /* FachadaFlow: próximamente (25-10-2026); cuando tenga toma de avance: {id:'fach',n:'FachadaFlow',d:'Fachadas',c:'#7C2D12',url:'../fachadaflow/',cargar:cargarFachada}, */
   {id:'cielo',n:'CieloFlow',d:'Cielos',c:'#0284C7',url:'../cieloflow/',cargar:cargarCielo},
-  {id:'lp',n:'Last Planner',d:'Plan semanal',c:'#7C3AED',url:'../lastplanner/',cargar:cargarLP}];
+  {id:'lp',n:'Last Planner',d:'Plan semanal',c:'#7C3AED',url:'../lastplanner/',cargar:cargarLP},
+  {id:'piloto',n:'PilotoFlow',d:'Piloto UCI (programa, compras y bitácora)',c:'#D7001F',url:'../pilotoflow/',cargar:cargarPiloto}];
 const RES={};
 /* ---------------- vista ---------------- */
 function barra(p,col){return '<div class="mini-prog ancha" style="--c:'+col+'"><i style="width:'+Math.min(100,p||0).toFixed(1)+'%"></i></div>';}
@@ -854,6 +855,7 @@ function motor(MA){const IT=new Map(MA.items.map(i=>[i.g,i]));const ets=MA.etapa
 /* ---------------- vista de detalle ---------------- */
 let DET=null;
 async function abrirDetalle(id){const m=MODULOS.find(x=>x.id===id);if(!m)return;
+  if(id==='piloto'){DET=null;cambiarVista('detalle');$('#detTitulo').innerHTML='<span style="color:'+m.c+'">'+m.n+'</span> · '+m.d;$('#detCuerpo').innerHTML='<p class="nota">Calculando…</p>';try{await detallePiloto(m);}catch(e){$('#detCuerpo').innerHTML='<p class="nota">No se pudo calcular: '+escapar(e.message)+'</p>';}return;}
   if(!MA_DE[id]){detalle(id);return;}
   cambiarVista('detalle');$('#detTitulo').innerHTML='<span style="color:'+m.c+'">'+m.n+'</span> · '+m.d;$('#detCuerpo').innerHTML='<p class="nota">Calculando…</p>';
   try{const MA=await MA_DE[id]();DET={m,MA,c:motor(MA)};pintarDetalle();}catch(e){$('#detCuerpo').innerHTML='<p class="nota">No se pudo calcular: '+escapar(e.message)+'</p>';}}
@@ -906,6 +908,64 @@ function pintarDetalle(){const {m,MA,c}=DET;const U=MA.unidad,f=(U==='m²'||U===
   h+='<div class="tarjeta"><h3>Avance por tipo</h3><div class="tabla-scroll"><table class="tabla"><tr><th>Tipo</th><th class="izq">Descripción</th><th>Cantidad</th><th>'+U+' modelo</th>'+E.map(e=>'<th>'+icono(e)+' '+e.c+'</th>').join('')+'</tr>'+
     Object.keys(tp).sort().map(t=>{const o=tp[t];return'<tr><td><b>'+escapar(t)+'</b></td><td class="izq" style="white-space:normal;min-width:200px">'+escapar(MA.tipos[t]||'')+'</td><td>'+fmt0(o.n)+'</td><td>'+f(o.Q)+'</td>'+E.map(e=>'<td>'+f(o[e.id])+'</td>').join('')+'</tr>';}).join('')+'</table></div></div>';
   h+='<p class="nota"><b>Cómo se calcula:</b> '+escapar(MA.nota)+' Si dos personas registran lo mismo, se cuenta una vez (cada registro aporta solo lo que sube el máximo). <b>'+U+' equivalentes</b>: cantidad × peso de cada etapa. <b>Proyección</b>: ritmo medio de los días con avance de las últimas 2 semanas, días hábiles de lunes a sábado.</p>';
+  $('#detCuerpo').innerHTML=h;}
+
+/* ================= PilotoFlow · Piloto UCI (programa, compras, temas y bitácora) =================
+   Mismas reglas que la app PilotoFlow: % de un resumen = promedio simple de sus hijas (como el Excel de Oficina Técnica);
+   avance general = promedio de Gestión técnica, Adquisiciones y Obra; programado lineal entre comienzo y fin (L–V sin feriados; «dt» en días corridos). */
+const PF={};
+function pfPrep(P,av){const T=new Map(),H=new Map();const FER=new Set((P.cal.feriados||[]).map(f=>f.f));const pila=[];
+  P.tareas.forEach(t=>{T.set(t.id,t);while(pila.length&&pila[pila.length-1].niv>=t.niv)pila.pop();t.padre=pila.length?pila[pila.length-1].id:null;if(t.padre){if(!H.has(t.padre))H.set(t.padre,[]);H.get(t.padre).push(t.id);}pila.push(t);});
+  P.tareas.forEach(t=>{t.hoja=!H.has(t.id);t.hito=t.tipo==='Hito'||(+t.dur===0&&t.hoja);t.predIds=String(t.pred||'').split(';').map(s=>parseInt(s,10)).filter(n=>T.has(n));});
+  const ev=((av&&av.eventos)||[]).filter(e=>!e.borrado);const AV=new Map(),MAT=new Map(),TEM=new Map();
+  ev.filter(e=>e.k==='av').forEach(e=>{const o=AV.get(e.t);if(!o||e.ts>o.ts)AV.set(e.t,e);});ev.filter(e=>e.k==='mat').forEach(e=>{const o=MAT.get(e.i);if(!o||e.ts>o.ts)MAT.set(e.i,e);});
+  ev.filter(e=>e.k==='tema').sort((a,b)=>a.ts.localeCompare(b.ts)).forEach(e=>{const o=TEM.get(e.tid)||{tid:e.tid,est:'ab'};['txt','resp','fecha'].forEach(k=>{if(e[k])o[k]=e[k];});if(e.est)o.est=e.est;TEM.set(e.tid,o);});
+  const hab=d=>{const w=aFecha(d).getDay();return w>0&&w<6&&!FER.has(d);};
+  const largo=(t,a,b)=>{if(b<a)return 0;let n=0,d=a;const c=/dt\b/.test(t.dtx||'')||t.tipo==='Secado';while(d<=b){if(c||hab(d))n++;d=sumarDias(d,1);}return n;};
+  const progEn=(t,d)=>{if(!t.ini||!t.fin)return 0;if(t.hito)return d>=t.fin?1:0;if(d<t.ini)return 0;if(d>=t.fin)return 1;const tot=largo(t,t.ini,t.fin);return tot?largo(t,t.ini,d)/tot:1;};
+  const realH=(t,d)=>{let v=+t.pct||0;const L=ev.filter(e=>e.k==='av'&&e.t===t.id&&(!d||e.dia<=d)).sort((a,b)=>a.ts.localeCompare(b.ts));if(!L.length&&t.hito){const dd=d||fechaADia(new Date());return (t.predIds.length?t.predIds.every(p=>realH(T.get(p),d)>=0.999):t.fin<=dd)?1:0;}L.forEach(e=>v=+e.v);return Math.max(0,Math.min(1,v));};
+  const en=(id,d,real)=>{const t=T.get(id);if(t.hoja)return real?realH(t,d):progEn(t,d);const h=H.get(id);return h.reduce((s,x)=>s+en(x,d,real),0)/h.length;};
+  const raiz=P.tareas.filter(t=>!t.padre);const F=[/GESTI/i,/ADQUISICI/i,/^OBRA/i].map(r=>raiz.find(t=>r.test(t.n))).filter(Boolean);
+  const gen=(d,real)=>F.reduce((s,f)=>s+en(f.id,d,real),0)/F.length;
+  return {P,T,H,F,AV,MAT,TEM,ev,en,gen,progEn,realH,hab};}
+async function cargarPiloto(){const P=await abrir('../pilotoflow/piloto.enc');const av=await abrirSiHay('../pilotoflow/avance.enc');const X=pfPrep(P,av);PF.X=X;PF.av=av;
+  const hoy=fechaADia(new Date());const real=X.gen(hoy,true),prog=X.gen(hoy,false);
+  const hojas=P.tareas.filter(t=>t.hoja&&!t.hito);const atr=hojas.filter(t=>t.fin<hoy&&X.realH(t)<0.999);const ok=hojas.filter(t=>X.realH(t)>=0.999);
+  let dF=0;for(let d=sumarDias(hoy,1);d<=P.cal.objetivo;d=sumarDias(d,1))if(X.hab(d))dF++;
+  const temas=[...X.TEM.values()].filter(x=>x.est!=='ce');const bit=X.ev.filter(e=>e.k==='bit');const fotos=bit.reduce((s,b)=>s+(+b.nf||0),0);
+  return {kpi:real*100,kpiTxt:'Avance general real (promedio de gestión, adquisiciones y obra, regla del Excel de OT) · programado hoy '+fmt1(prog*100)+'% · '+P.piloto.sub,
+    extras:[['Programado hoy',fmt1(prog*100)+'%'],['Diferencia',(real-prog>=0?'+':'')+fmt1((real-prog)*100)+' pts'],['Tareas atrasadas',fmt0(atr.length)],['Terminadas',ok.length+'/'+hojas.length],['Días hábiles al término',dF+' ('+diaCorta(P.cal.objetivo)+')'],['Temas abiertos',fmt0(temas.length)],['Bitácora',bit.length+' registros · '+fotos+' fotos']],
+    niveles:X.F.map(f=>[f.n.replace(/\s*\(.*$/,''),'programado '+fmt1(X.en(f.id,hoy,false)*100)+'%',X.en(f.id,hoy,true)*100,'']),nivelesTit:'Frente',
+    act:av&&av.actualizado,personas:personasDe(av),registros:X.ev.length};}
+/* ---------- detalle del piloto (vista grande para el administrador) ---------- */
+async function detallePiloto(m){const X=PF.X;if(!X){$('#detCuerpo').innerHTML='<p class="nota">Sin datos del piloto.</p>';return;}const P=X.P,hoy=fechaADia(new Date());
+  const real=X.gen(hoy,true),prog=X.gen(hoy,false);const k=(t,v,s,col)=>'<div class="kpi" style="--c:'+(col||m.c)+'"><span>'+t+'</span><b>'+v+'</b><small>'+s+'</small></div>';
+  const hojas=P.tareas.filter(t=>t.hoja&&!t.hito);const atr=hojas.filter(t=>t.fin<hoy&&X.realH(t)<0.999).sort((a,b)=>a.fin.localeCompare(b.fin));
+  const prox=hojas.filter(t=>X.realH(t)<1&&t.ini&&t.ini<=sumarDias(hoy,14)&&t.fin>=hoy).sort((a,b)=>a.ini.localeCompare(b.ini));
+  let dF=0;for(let d=sumarDias(hoy,1);d<=P.cal.objetivo;d=sumarDias(d,1))if(X.hab(d))dF++;
+  let h='<p class="nota" style="margin-bottom:10px">'+escapar(P.piloto.nombre+' · '+P.piloto.sub)+' · avance publicado '+(PF.av&&PF.av.actualizado?fechaHora(PF.av.actualizado):'—')+' · '+X.ev.length+' registros del equipo</p>';
+  h+='<div class="kpis">'+k('Avance general',fmt1(real*100)+'%','programado '+fmt1(prog*100)+'% · '+(real-prog>=0?'+':'')+fmt1((real-prog)*100)+' pts',real+0.02>=prog?'#16A34A':'#DC2626')+
+     X.F.map(f=>k(f.n.replace(/\s*\(.*$/,'').replace(/ –.*/,''),fmt1(X.en(f.id,hoy,true)*100)+'%','programado '+fmt1(X.en(f.id,hoy,false)*100)+'%')).join('')+
+     k('Días hábiles al término',String(dF),diaLarga(P.cal.objetivo)+' · tope '+diaCorta(P.cal.tope),'#15306E')+k('Tareas atrasadas',String(atr.length),'fin vencido sin 100 %',atr.length?'#DC2626':'#16A34A')+'</div>';
+  /* curva S semanal */
+  const ini=P.tareas.reduce((a,t)=>t.ini&&t.ini<a?t.ini:a,P.cal.inicio),fin=P.cal.tope;const dias=[];for(let d=ini;d<=fin;d=sumarDias(d,7))dias.push(d);
+  const R=dias.filter(d=>d>=sumarDias(P.cal.estado||P.cal.inicio,-6)&&d<=hoy);
+  h+='<div class="rejilla"><div class="tarjeta graf"><h3>Curva S · real vs. programado</h3>'+lineas(dias,[{nombre:'Programado',color:'#94A3B8',dash:1,v:dias.map(d=>X.gen(d,false)*100)},{nombre:'Real',color:m.c,v:dias.map(d=>R.includes(d)?X.gen(d,true)*100:(d===dias.find(x=>x>hoy)?X.gen(hoy,true)*100:null))}],{u:'%'})+'</div>';
+  /* compras */
+  const adq=X.F.find(f=>/ADQUISICI/i.test(f.n));const paq=adq?X.H.get(adq.id).map(id=>X.T.get(id)):[];
+  h+='<div class="tarjeta"><h3>Adquisiciones</h3><table class="prog-matriz"><tr><th>Paquete</th><th>%</th><th>Paso actual</th><th>Llega</th></tr>'+paq.map(p=>{const pas=(X.H.get(p.id)||[]).map(i=>X.T.get(i));const act=pas.find(s=>!s.hito&&X.realH(s)<1);const hito=pas.find(s=>s.hito);const r=X.en(p.id,hoy,true);
+    return '<tr><td>'+escapar(p.n.slice(0,60))+'</td><td><b>'+fmt0(r*100)+'%</b></td><td style="font-size:11px">'+(act?escapar(act.n.slice(0,40))+(act.fin<hoy?' <b style="color:#DC2626">atrasado</b>':''):'✔ en obra')+'</td><td>'+diaCorta(hito?hito.fin:p.fin)+'</td></tr>';}).join('')+'</table></div></div>';
+  h+='<div class="rejilla"><div class="tarjeta"><h3>⚠ Atrasadas ('+atr.length+')</h3>'+(atr.length?'<table class="prog-matriz"><tr><th>Tarea</th><th>Fin</th><th>%</th><th>Responsable</th></tr>'+atr.map(t=>'<tr><td>'+escapar(t.n.slice(0,70))+'</td><td>'+diaCorta(t.fin)+'</td><td>'+fmt0(X.realH(t)*100)+'%</td><td style="font-size:11px">'+escapar((t.resp||[]).join(', ').slice(0,40))+'</td></tr>').join('')+'</table>':'<p class="nota">Ninguna.</p>')+'</div>'+
+    '<div class="tarjeta"><h3>📅 Próximos 14 días ('+prox.length+')</h3><table class="prog-matriz"><tr><th>Tarea</th><th>Comienzo</th><th>Fin</th><th>Responsable</th></tr>'+prox.map(t=>'<tr><td>'+escapar(t.n.slice(0,70))+'</td><td>'+diaCorta(t.ini)+'</td><td>'+diaCorta(t.fin)+'</td><td style="font-size:11px">'+escapar((t.resp||[]).join(', ').slice(0,40))+'</td></tr>').join('')+'</table></div></div>';
+  const temas=[...X.TEM.values()].sort((a,b)=>(a.est==='ce')-(b.est==='ce')||(a.fecha||'9').localeCompare(b.fecha||'9'));
+  h+='<div class="rejilla"><div class="tarjeta"><h3>🤝 Temas y acuerdos ('+temas.filter(x=>x.est!=='ce').length+' abiertos)</h3><table class="prog-matriz"><tr><th>Tema</th><th>Responsable</th><th>Fecha</th><th>Estado</th></tr>'+temas.map(x=>'<tr><td style="text-align:left">'+escapar(x.txt)+'</td><td style="font-size:11px">'+escapar(x.resp||'—')+'</td><td>'+(x.fecha?diaCorta(x.fecha):'—')+'</td><td>'+(x.est==='ce'?'✔ cumplido':x.fecha&&x.fecha<hoy?'<b style="color:#DC2626">vencido</b>':'abierto')+'</td></tr>').join('')+'</table></div>';
+  /* comunicaciones (bitácora) con fotos */
+  const bit=X.ev.filter(e=>e.k==='bit').sort((a,b)=>b.ts.localeCompare(a.ts));let fotos={};try{fotos=((await abrir('../pilotoflow/fotos.enc')).fotos)||{};}catch(e){}
+  const TI={nota:'📝',foto:'📷',acuerdo:'🤝',problema:'🚧',com:'💬',visita:'🦺'};
+  h+='<div class="tarjeta"><h3>💬 Bitácora y comunicaciones ('+bit.length+')</h3>'+bit.slice(0,30).map(b=>{const fs=[];for(let i=0;i<(+b.nf||0)&&i<6;i++){const u=fotos[b.id+'#'+i];if(u)fs.push(u);}
+    return '<div style="border-bottom:1px solid var(--linea);padding:8px 0"><b>'+(TI[b.tipo]||'📝')+' '+escapar(b.por||'')+'</b> <small class="nota">'+diaLarga(b.dia)+'</small>'+(b.titulo?'<div><b>'+escapar(b.titulo)+'</b></div>':'')+(b.txt?'<div style="font-size:12.5px;white-space:pre-wrap">'+escapar(b.txt)+'</div>':'')+(b.t&&X.T.get(b.t)?'<div class="nota">Tarea: '+escapar(X.T.get(b.t).n)+'</div>':'')+
+      (fs.length?'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">'+fs.map(u=>'<img src="'+u+'" style="width:92px;height:92px;object-fit:cover;border-radius:8px">').join('')+'</div>':'')+'</div>';}).join('')+'</div></div>';
+  h+='<p class="nota">El detalle completo (Gantt interactivo, 3D, planos de detalle y EETT) está en <a href="../pilotoflow/">PilotoFlow</a>.</p>';
   $('#detCuerpo').innerHTML=h;}
 
 </script>
