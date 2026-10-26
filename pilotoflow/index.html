@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PilotoFlow v1.0 · Piloto UCI · Hospital de Coquimbo</title>
+<title>PilotoFlow v1.1 · Piloto UCI · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -586,7 +586,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Flow</span><span class="ver">v1.0</span></span>
+      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Flow</span><span class="ver">v1.1</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -631,7 +631,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <button class="pestana" data-v="compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg><span>Compras</span></button>
   <button class="pestana" data-v="bitacora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Bitácora</span></button>
 </nav>
-<footer id="pie"><span class="marca">PilotoFlow</span> <span class="vpie">v1.0</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PilotoFlow</span> <span class="vpie">v1.1</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2348,7 +2348,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.0',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.1',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -2674,13 +2674,15 @@ function colorElem(el){if(modo3==='part')return CAT[el.k]?CAT[el.k].c:'#D6D3D1';
   if(modo3==='hoy'){const hoy=hoyDia(),f=sumarDias(hoy,14);const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);
     if(ts.some(t=>t.est==='atr'))return '#DC2626';if(ts.some(t=>t.real<1&&t.ini<=hoy&&t.fin>=hoy))return '#2563EB';if(ts.some(t=>t.real<1&&t.ini>hoy&&t.ini<=f))return '#F59E0B';if(ts.length&&ts.every(t=>t.real>=1))return '#16A34A';return '#E2E8F0';}
   return '#CBD5E1';}
+/* opacidad por elemento: vidrios semitransparentes; la tela de la cortina propuesta, translúcida */
+function transp(el){if(el.tr)return el.tr;return el.k==='ven'||(el.k==='pue'&&/vidrio|PCV/i.test(el.t))?0.55:1;}
 function construir3(){if(SC3)return;const M=PROG.m3d;SC3=new THREE.Scene();fondo3();
   SC3.add(new THREE.HemisphereLight(0xffffff,0x8892a6,0.9));const dl=new THREE.DirectionalLight(0xffffff,0.7);dl.position.set(6,12,9);SC3.add(dl);const dl2=new THREE.DirectionalLight(0xffffff,0.25);dl2.position.set(-8,6,-6);SC3.add(dl2);
   M.el.forEach(el=>{const P=el.p,n=P.length/3,pos=new Float32Array(P.length);
     for(let i=0;i<n;i++){pos[i*3]=P[i*3]*0.01;pos[i*3+1]=P[i*3+2]*0.01;pos[i*3+2]=-P[i*3+1]*0.01;}
     const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setIndex(el.i);g.computeVertexNormals();
-    const tr=el.k==='ven'||(el.k==='pue'&&/vidrio|PCV/i.test(el.t));
-    const mat=new THREE.MeshLambertMaterial({color:0xcccccc,flatShading:true,side:THREE.DoubleSide,transparent:tr,opacity:tr?0.55:1});
+    const tr=transp(el);
+    const mat=new THREE.MeshLambertMaterial({color:0xcccccc,flatShading:true,side:THREE.DoubleSide,transparent:tr<1,opacity:tr});
     const m=new THREE.Mesh(g,mat);m.userData.el=el;
     const ed=new THREE.LineSegments(new THREE.EdgesGeometry(g,30),new THREE.LineBasicMaterial({color:0x334155,transparent:true,opacity:0.35}));m.add(ed);
     SC3.add(m);M3.push(m);el.mesh=m;});
@@ -3013,7 +3015,7 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-ac
   if(b.dataset.resp){estado.filtroG='resp:'+b.dataset.resp;estado._gScroll=false;cambiarVista('programa');return;}
   if(b.dataset.fprog!=null){estado.filtroG=b.dataset.fprog;renderPrograma();return;}
   if(b.dataset.escala){estado.escalaG=b.dataset.escala;estado._gScroll=false;renderPrograma();return;}
-  if(b.dataset.modo3){modo3=b.dataset.modo3;M3.forEach(m=>{const tr=m.userData.el.k==='ven';m.material.transparent=tr;m.material.opacity=tr?0.55:1;});render3();return;}
+  if(b.dataset.modo3){modo3=b.dataset.modo3;M3.forEach(m=>{const tr=transp(m.userData.el);m.material.transparent=tr<1;m.material.opacity=tr;});render3();return;}
   if(b.dataset.vista3){vista3(b.dataset.vista3);return;}
   if(b.dataset.capa){const k=b.dataset.capa;if(ocultos.has(k))ocultos.delete(k);else ocultos.add(k);pintar3();return;}
   if(b.dataset.fcompras!=null){estado.fCompras=b.dataset.fcompras;renderCompras();return;}
@@ -3042,7 +3044,7 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-ac
   else if(a==='tema'&&b.dataset.tid)alternarTema(b.dataset.tid);
   else if(a==='tema'){const o=document.documentElement.classList.toggle('oscuro');try{localStorage.setItem('tf_tema',o?'oscuro':'claro');}catch(_){}fondo3();pedirRender3();renderActual();}
   else if(a==='ver3d'){cerrarHoja();verTarea3(+b.dataset.t);}
-  else if(a==='todo3'){modo3='part';M3.forEach(m=>{const tr=m.userData.el.k==='ven';m.material.transparent=tr;m.material.opacity=tr?0.55:1;});render3();}
+  else if(a==='todo3'){modo3='part';M3.forEach(m=>{const tr=transp(m.userData.el);m.material.transparent=tr<1;m.material.opacity=tr;});render3();}
   else if(a==='cielo3'){if(ocultos.has('cie'))ocultos.delete('cie');else ocultos.add('cie');render3();}
   else if(a==='losa3'){if(ocultos.has('est_sup'))ocultos.delete('est_sup');else ocultos.add('est_sup');render3();}
   else if(a==='ley3'){estado.ley3=!estado.ley3;leyenda3();}
