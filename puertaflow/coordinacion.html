@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.19 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.20 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -562,7 +562,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.19 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.20 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -987,7 +987,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.19 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.20 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- estados de cada puerta (según el último ticket) ---------------- */
@@ -1003,10 +1003,13 @@ const TK={prog:{n:'Solicitar trazado',c:'Solicitar',ic:'📍'},tr1:{n:'Trazo ini
 const CATS=['Instalaciones sanitarias','Instalaciones eléctricas','Clima / HVAC','Corrientes débiles','Gases clínicos','Red húmeda / incendio','Estructura (hormigón / acero)','Arquitectura / tabiquería','Otra'];
 /* flujo de cada puerta: refuerzos o jefe piden trazar → trazador hace el trazo inicial y pide picar → jefe pica (y desarma tabique si corresponde) y pide retrazar →
    trazador retraza y libera → refuerzos instala y pide recepción → jefe o trazador reciben (basta uno). obra puede todo. */
+/* v0.20 (27-10-2026, pedido de Renato): cualquier rol puede registrar cualquier paso (si el jefe de terreno no usa la app, el trazador marca el picado, etc.).
+   «mios» sigue indicando qué le toca a cada rol para su lista de pendientes. */
+const TODOS_TK=['prog','tr1','cond','pic','lib','inst','ok','obs','prob','rdi'];
 const ROL={obra:{n:'Oficina Técnica / obra',tk:['prog','tr1','cond','pic','lib','inst','ok','obs','prob','rdi'],mios:['prog','tr1','pic','lib','inst','obs']},
-  jefe:{n:'Jefe de terreno',tk:['prog','cond','pic','ok','obs','prob','rdi'],mios:['tr1','inst']},
-  trazador:{n:'Trazador',tk:['tr1','lib','ok','obs','prob','rdi'],mios:['prog','pic','inst']},
-  refuerzos:{n:'Subcontrato de refuerzos',tk:['prog','inst','prob','rdi'],mios:['lib','obs']}};
+  jefe:{n:'Jefe de terreno',tk:TODOS_TK,mios:['tr1','inst']},
+  trazador:{n:'Trazador',tk:TODOS_TK,mios:['prog','pic','inst']},
+  refuerzos:{n:'Subcontrato de refuerzos',tk:TODOS_TK,mios:['lib','obs']}};
 const CHIP={obra:'🏗️ Obra',jefe:'👷 Jefe de terreno',trazador:'📐 Trazador',refuerzos:'🔩 Refuerzos'};
 /* ---------------- utilidades ---------------- */
 const fmt0=n=>Math.round(n).toLocaleString('es-CL');
@@ -1109,6 +1112,7 @@ function renderTablero(){if(!PUE.size)return;const nom=(estado.persona||'').trim
     jefe:'<b>📍 Solicita</b> trazar las puertas donde quieres avanzar. Cuando el trazador haga el trazo inicial, <b>🏷 indica la condición</b> (solo picar, o picar y desarmar tabique), manda a picar y avisa con <b>🔨 Picado listo</b> para que retracen. Al final, <b>✔ recibe</b> el refuerzo junto al trazador (basta que uno lo registre).',
     trazador:'Las puertas en <b>Por trazar</b> esperan tu <b>📐 Trazo inicial</b> (con eso el jefe de terreno manda a picar). Cuando el jefe avise <b>🔨 Picado listo</b>, retraza y envía <b>✅ Frente liberado</b> al subcontrato. También <b>✔ recibes</b> el refuerzo junto al jefe de terreno.',
     refuerzos:'Si quieres meterte a trabajar en una puerta, envía <b>📍 Solicitar trazado</b>. Las puertas en azul ya están liberadas: instala el refuerzo y envía <b>🔩 Refuerzo instalado</b> para que el jefe de terreno y el trazador vengan a recibir.'}[estado.rol];
+  if(estado.rol!=='obra')$('#rolTexto').innerHTML+='<br><span style="opacity:.85">✳ Si otra persona no alcanza a registrar su paso (por ejemplo el picado), puedes registrarlo tú: todos pueden cambiar cualquier estado y queda tu nombre en el historial.</span>';
   const c=conteo(estado.fNivel?p=>p.nv===estado.fNivel:null);
   $('#cuentas').innerHTML=ORDEN_EST.map(e=>'<button class="cuenta'+(estado.fEst===e?' on':'')+'" data-fest="'+e+'" style="--c:'+EST[e].color+'"><b>'+fmt0(c[e])+'</b><span>'+EST[e].c+'</span></button>').join('')+
     '<button class="cuenta'+(estado.fEst==='prob'?' on':'')+'" data-fest="prob" style="--c:#0F172A"><b>'+fmt0(c.prob)+'</b><span>🚧 Problemas</span></button>'+
@@ -1206,7 +1210,7 @@ function abrirFicha(p){const i=info(p.g),t=TIPOS[p.t]||{};const R=ROL[estado.rol
 function abrirFichaTicket(t){abrirHoja('<div class="hoja-titulo">'+TK[t.tipo].ic+' '+escapar(TK[t.tipo].n)+'</div><div class="hoja-sub">de <b>'+escapar(t.por)+'</b> ('+ROL[t.rol].n+') · '+fechaHora(t.ts)+'</div>'+
   (t.fecha?'<p>📅 Se necesita para el <b>'+diaCorta(t.fecha)+'</b></p>':'')+(t.cond?'<p>🏷 <b>'+COND[t.cond]+'</b></p>':'')+(t.desarme?'<p>🔨 Se desarmó también el tabique</p>':'')+(t.cat?'<p>🏷 '+escapar(t.cat)+'</p>':'')+(t.nota?'<p>📝 '+escapar(t.nota)+'</p>':'')+htmlFotos(t.fotos)+
   '<div class="lista-busca">'+t.g.map(g=>{const p=PUE.get(g);return p?filaPuerta(p):'';}).join('')+'</div>');pintarFotos();}
-function validar(tipo,gs){const malos=[];const ob=estado.rol==='obra';gs.forEach(g=>{const e=est(g);
+function validar(tipo,gs){const malos=[];const ob=true; /* v0.20: todos con las mismas reglas que obra */gs.forEach(g=>{const e=est(g);
     if(tipo==='prog'&&e!=='sin')malos.push(g);
     if(tipo==='tr1'&&!(e==='sin'||e==='prog'))malos.push(g);
     if(tipo==='cond'&&!(e==='sin'||e==='prog'||e==='tr1'))malos.push(g);
