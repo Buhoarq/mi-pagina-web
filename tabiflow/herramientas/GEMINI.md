@@ -5,7 +5,7 @@ Tu tarea es **solo una**: unir los archivos de avance que te entregue Renato y p
 
 ## Reglas (obligatorias)
 
-1. **Solo puedes modificar `pilotoflow/avance.enc`, `pilotoflow/fotos.enc`, `imperflow/avance.enc`, `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc`, `hormiflow/avance.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
+1. **Solo puedes modificar `pilotoflow/avance.enc`, `pilotoflow/fotos.enc`, `imperflow/avance.enc`, `tabiflow/avance.enc`, `tabiflow/adjuntos.enc`, `paviflow/avance.enc`, `hormiflow/avance.enc`, `hormiflow/fotos.enc` y `lastplanner/plan.enc`** (este último guarda las fotos y notas, desde la v5.0). No toques `index.html`, `panel.html`, `sw.js`,
    `modelo.enc`, `clave.json`, ni nada en `tabiflow/herramientas/`. Esos archivos los mantiene Claude.
    Si algo de eso parece necesitar cambios, avísale a Renato en vez de cambiarlo.
 2. **Nunca escribas la clave de obra** en ningún archivo, commit, mensaje de commit ni log.
@@ -125,16 +125,16 @@ git add puertaflow/coordavance.enc puertaflow/coordfotos.enc
 
 ## HormiFlow (hormigón armado) · desde el 20-10-2026
 
-Los archivos que empiezan con `Avance_HormiFlow_` se consolidan aparte y solo tocan `hormiflow/avance.enc`:
+Los archivos que empiezan con `Avance_HormiFlow_` se consolidan aparte y solo tocan `hormiflow/avance.enc` y `hormiflow/fotos.enc` (fotos de los protocolos de calidad, desde la v0.9):
 
 ```bash
 python3 tabiflow/herramientas/consolidar_hormi.py unir --web hormiflow --clave-web tabiflow ../avances_recibidos/Avance_HormiFlow_*.json
-git add hormiflow/avance.enc
+git add hormiflow/avance.enc hormiflow/fotos.enc
 git commit -m "Avance HormiFlow consolidado DD/MM/AAAA (nombres)"
 git push
 ```
 
-Desde la v0.2 cada envío llega con dos archivos: el `.json` (el único que se consolida) y un `Resumen_HormiFlow_….pdf` (solo para leer; no se procesa). Usa la misma `TABIFLOW_CLAVE`. No toques `hormiflow/hormi.enc` (lo mantiene Claude). Copia `consolidar_hormi.py` a `tabiflow/herramientas/` si aún no está.
+Desde la v0.2 cada envío llega con dos archivos: el `.json` (el único que se consolida) y un `Resumen_HormiFlow_….pdf` (solo para leer; no se procesa). Usa la misma `TABIFLOW_CLAVE`. No toques `hormiflow/hormi.enc` (lo mantiene Claude). Copia `consolidar_hormi.py` a `tabiflow/herramientas/` si aún no está (**desde la v0.9 reemplázalo por la versión nueva**: valida los elementos de los tres edificios y guarda las fotos).
 
 
 ## VentanaIntFlow (levantamiento de ventanas interiores)
@@ -148,11 +148,11 @@ Después de cada `git push` en `mi-pagina-web`, copia **los mismos archivos de a
 ```bash
 # una vez: git clone https://github.com/Buhoarq/flujoplan.git ../flujoplan   (al lado de mi-pagina-web)
 cd ../flujoplan && git pull --rebase
-for f in tabiflow/avance.enc tabiflow/adjuntos.enc paviflow/avance.enc hormiflow/avance.enc lastplanner/plan.enc \
+for f in tabiflow/avance.enc tabiflow/adjuntos.enc paviflow/avance.enc hormiflow/avance.enc hormiflow/fotos.enc lastplanner/plan.enc \
          puertaflow/avance.enc puertaflow/coordavance.enc puertaflow/coordfotos.enc ventanaintflow/avance.enc ventanaintflow/fotos.enc imperflow/avance.enc; do
   [ -f ../mi-pagina-web/$f ] && cp ../mi-pagina-web/$f publicar/hcq/$f
 done
-git add publicar/hcq/*/avance.enc publicar/hcq/tabiflow/adjuntos.enc publicar/hcq/lastplanner/plan.enc publicar/hcq/puertaflow/coord*.enc publicar/hcq/ventanaintflow/fotos.enc
+git add publicar/hcq/*/avance.enc publicar/hcq/tabiflow/adjuntos.enc publicar/hcq/lastplanner/plan.enc publicar/hcq/puertaflow/coord*.enc publicar/hcq/ventanaintflow/fotos.enc publicar/hcq/hormiflow/fotos.enc
 git status          # solo deben aparecer archivos .enc de avance
 git commit -m "Avance consolidado DD/MM/AAAA (nombres) · copia de mi-pagina-web"
 git push

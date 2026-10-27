@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""HormiFlow (FlujoPlan) · une los archivos Avance_HormiFlow_*.json en hormiflow/avance.enc.
+"""HormiFlow (FlujoPlan) · une los archivos Avance_HormiFlow_*.json en hormiflow/avance.enc (y las fotos de los protocolos en hormiflow/fotos.enc).
 Uso (desde la raíz del repositorio):
   python3 tabiflow/herramientas/consolidar_hormi.py unir --web hormiflow --clave-web tabiflow ../avances_recibidos/Avance_HormiFlow_*.json
 La clave de obra se toma de la variable de entorno TABIFLOW_CLAVE (nunca la escribas en el repositorio).
@@ -9,13 +9,20 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from consolidar import clave_de, cifrar, descifrar
 def unir(a):
     key = clave_de(a.clave_web, a.clave)
-    modelo = descifrar(key, open(os.path.join(a.web, 'hormi.enc'), 'rb').read())
-    els = {e['g']: e for e in modelo['el']}
-    padres = {e['pg'] for e in modelo['el'] if e.get('pg')}          # muros divididos: aún se aceptan registros hechos sobre el muro entero
+    els, padres = {}, set()                                           # todos los edificios (hormi.enc, hormi_ind.enc, hormi_cosam.enc…)
+    for fn in sorted(os.listdir(a.web)):
+        if fn.startswith('hormi') and fn.endswith('.enc'):
+            modelo = descifrar(key, open(os.path.join(a.web, fn), 'rb').read())
+            for e in modelo['el']:
+                els[e['g']] = e
+                if e.get('pg'): padres.add(e['pg'])          # muros divididos: aún se aceptan registros hechos sobre el muro entero
     conocido = lambda g: g in els or g in padres
     ruta = os.path.join(a.web, 'avance.enc')
     base = descifrar(key, open(ruta, 'rb').read()) if os.path.exists(ruta) else {'eventos': []}
     ev = {e['id']: e for e in base.get('eventos', [])}
+    rf = os.path.join(a.web, 'fotos.enc')                             # v0.9: fotos de los protocolos de calidad (id → JPEG comprimido)
+    fotos = descifrar(key, open(rf, 'rb').read()) if os.path.exists(rf) else {}
+    nfot = len(fotos)
     personas = set(base.get('personas', [])); fuentes = list(base.get('fuentes', []))
     L = ['Consolidación HormiFlow · ' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M'), '']
     for f in a.archivos:
@@ -32,12 +39,14 @@ def unir(a):
             elif e.get('k') == 'comp' and not x.get('borrado'):          # el compromiso puede recibir causa de incumplimiento
                 for c in ('causa', 'notaCausa'):
                     if e.get(c) and e.get(c) != x.get(c): x[c] = e[c]
+        for fid, dat in (d.get('fotos') or {}).items():
+            if isinstance(dat, str) and dat.startswith('data:image/'): fotos[fid] = dat
         if d.get('por'): personas.add(d['por'])
         fuentes.append({'archivo': os.path.basename(f), 'por': d.get('por'), 'exportado': d.get('exportado')})
         L.append('- ✓ %s (%s): %d registros nuevos, %d anulados%s' % (os.path.basename(f), d.get('por'), nuevos, anul, (', %d ignorados (elemento inexistente)' % ign) if ign else ''))
     est = collections.defaultdict(dict)
     for e in ev.values():
-        if e.get('borrado') or e.get('k') == 'comp': continue
+        if e.get('borrado') or e.get('k') in ('comp', 'prot') or 'g' not in e: continue
         o = est[e['g']].get(e['et'])
         if o is None or e['ts'] > o[1]: est[e['g']][e['et']] = (e['f'], e['ts'])   # el último registro manda (se puede desmarcar)
     vol = collections.defaultdict(lambda: [0.0, 0.0])
@@ -48,7 +57,8 @@ def unir(a):
           '| Nivel | m³ modelo | m³ hormigonados | % |', '|---|---:|---:|---:|']
     for nv, (q, V) in vol.items(): L.append('| %s | %.1f | %.1f | %.1f %% |' % (nv, V, q, 100 * q / V if V else 0))
     out = {'modulo': 'hormi', 'actualizado': datetime.datetime.now().astimezone().isoformat(), 'eventos': list(ev.values()), 'personas': sorted(personas), 'fuentes': fuentes}
-    open(ruta, 'wb').write(cifrar(key, out))
+    open(ruta, 'wb').write(cifrar(key, out)); open(rf, 'wb').write(cifrar(key, fotos))
+    L.append('Protocolos de calidad vigentes: %d · fotos: %d (%d nuevas)' % (sum(1 for e in ev.values() if e.get('k') == 'prot' and not e.get('borrado')), len(fotos), len(fotos) - nfot))
     print('\n'.join(L))
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest='cmd', required=True)

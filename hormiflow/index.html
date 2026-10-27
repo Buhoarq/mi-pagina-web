@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>HormiFlow v0.8 β · Hospital de Coquimbo</title>
+<title>HormiFlow v0.9 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -524,6 +524,11 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
 .sl-fila{display:grid;grid-template-columns:1fr 1.2fr 46px;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--linea)}
 .sl-fila label{font-weight:800;color:var(--texto);font-size:13px}.sl-fila small{display:block;font-weight:600;color:var(--tenue);font-size:10.5px}
 .sl-fila input{accent-color:var(--primario-osc);height:28px;width:100%}.sl-fila b{text-align:right;font-variant-numeric:tabular-nums}
+.fotos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 8px}
+.fotos-grid .fg{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--panel2,#F1F5F9)}
+.fotos-grid img{width:100%;height:100%;object-fit:cover;display:block}
+.fotos-grid .fg button{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:99px;border:none;background:rgba(15,23,42,.7);color:#fff;font-weight:800;font-size:12px}
+.log li.click,tr.click{cursor:pointer}
 </style>
 </head>
 <body>
@@ -531,7 +536,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Flow</span><span class="ver">v0.8 β</span></span>
+      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Flow</span><span class="ver">v0.9 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -545,7 +550,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#475569"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
-          <div><span class="eyebrow">HormiFlow v0.8 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
+          <div><span class="eyebrow">HormiFlow v0.9 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
         </div>
       </div>
       <div class="tarjeta"><h3 style="margin-bottom:8px">🏢 Edificio</h3><div class="barra-chips" id="chipsEdifIni" style="flex-wrap:wrap"></div></div>
@@ -566,6 +571,8 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   </section>
   <section id="vista-visor" class="vista">
     <div class="barra-chips" id="chipsEdif"></div>
+    <div class="barra-chips" id="chipsVista"></div>
+    <div class="barra-chips" id="chipsSub" style="display:none"></div>
     <div class="barra-chips" id="chipsNivel"></div>
     <div class="barra-chips" id="chipsFam"></div>
     <div class="barra-chips" id="chipsModo"></div>
@@ -584,6 +591,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <section id="vista-avance" class="vista">
     <div class="contenedor">
       <div class="tarjeta"><h3>🏢 Avance por nivel</h3><div id="avNiveles"></div></div>
+      <div class="tarjeta"><h3>🧾 Protocolos de calidad</h3><div id="avProt"></div></div>
       <div class="tarjeta"><h3>🧱 Avance por tipo de elemento</h3><div id="avFam"></div></div>
       <div class="tarjeta"><h3>⚖️ Etapas y ponderación</h3><div id="avEtapas"></div></div>
     </div>
@@ -596,7 +604,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">HormiFlow</span> <span class="vpie">v0.8 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">HormiFlow</span> <span class="vpie">v0.9 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2313,8 +2321,9 @@ THREE.OrbitControls=OrbitControls;
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.8 β',MODELO_REV=5;let OBRA='Hospital de Coquimbo';
+const APP_VER='v0.9 β',MODELO_REV=6;let OBRA='Hospital de Coquimbo';
 /* v0.5: un archivo cifrado por edificio; el elegido se recuerda en el teléfono (cambiar = recargar) */
+/* v0.9: avance por planta (cimientos, radier, losas, muros) y por elevación de ejes además del 3D; protocolos de calidad con fotos comprimidas e informe PDF */
 /* v0.7: sin el Edificio Principal (pedido de Renato). Muros y pilares en 2 por la altura; losas, radieres y fundaciones corridas en paños ≤ 6×6 m */
 const EDIFICIOS=[{id:'ind',n:'Edificio Industrial (grupo electrógeno)',f:'hormi_ind.enc'},
   {id:'sc',n:'Sala Cuna',f:'hormi.enc'},{id:'cosam',n:'COSAM',f:'hormi_cosam.enc'}];
@@ -2355,7 +2364,7 @@ function descargar(blob,nombre){const a=document.createElement('a');a.href=URL.c
 async function compartirArchivo(blob,nombre,titulo,texto){try{const f=new File([blob],nombre,{type:blob.type});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share(Object.assign({files:[f],title:titulo},texto?{text:texto}:{}));return;}}catch(e){if(e&&e.name==='AbortError')return;}descargar(blob,nombre);}
 function progreso(t){const p=$('#progreso');if(t){$('#progresoTexto').textContent=t;p.classList.add('visible');}else p.classList.remove('visible');}
 /* ---------------- almacenamiento local ---------------- */
-let DB=null;const mem={eventos:{},meta:{}};
+let DB=null;const mem={eventos:{},meta:{},fotos:{}};
 function abrirDB(nombre,ver,stores){return new Promise((res,rej)=>{let rq;try{rq=ver?indexedDB.open(nombre,ver):indexedDB.open(nombre);}catch(e){rej(e);return;}
   rq.onupgradeneeded=e=>{const db=e.target.result;(stores||[]).forEach(s=>{if(!db.objectStoreNames.contains(s))db.createObjectStore(s,{keyPath:'id'});});};
   rq.onsuccess=e=>res(e.target.result);rq.onerror=()=>rej(rq.error);rq.onblocked=()=>rej(new Error('bloqueado'));});}
@@ -2375,12 +2384,13 @@ async function bajar(url,fresco){const r=await fetch(url+(fresco?('?t='+Date.now
 async function infoClave(){return (await fetch(RUTA_TABI+'clave.json?t='+Date.now(),{cache:'no-store'}).catch(()=>caches.match(RUTA_TABI+'clave.json'))||await caches.match(RUTA_TABI+'clave.json')).json();}
 async function verificar(key){const info=await infoClave();await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer);return key;}
 /* ---------------- estado ---------------- */
-const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',fNivel:null,fFam:new Set(FAMS),modo:'alc',etV:'hor',sem:inicioSem(hoyDia()),sel:new Set(),previas:true,deshacer:[],op:Object.assign({},OPA_DEF),res:true,fSem:'todos'};
-let CLAVE=null,MOD=null,EL=new Map(),PADRE=new Map(),ESTADO=new Map(),COMPS=[],TOT={V:0};
+const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',fNivel:null,fFam:new Set(FAMS),modo:'alc',etV:'hor',sem:inicioSem(hoyDia()),sel:new Set(),previas:true,deshacer:[],op:Object.assign({},OPA_DEF),res:true,fSem:'todos',vVista:'3d',planta:null,elev:null};
+let CLAVE=null,MOD=null,EL=new Map(),PADRE=new Map(),ESTADO=new Map(),COMPS=[],PROTS=[],TOT={V:0};
 const f=(g,et)=>{const s=ESTADO.get(g);return s&&s[et]?s[et].f:0;};
 function combinar(){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
-  ESTADO=new Map();COMPS=[];
+  ESTADO=new Map();COMPS=[];PROTS=[];
   for(const e of m.values()){if(e.borrado)continue;
+    if(e.k==='prot'){const gs=[];e.gs.forEach(g=>{if(EL.has(g))gs.push(g);else if(PADRE.has(g))gs.push(...PADRE.get(g));});if(gs.length)PROTS.push(gs.length===e.gs.length?e:Object.assign({},e,{gs}));continue;}
     if(e.k==='comp'){const gs=[];e.gs.forEach(g=>{if(EL.has(g))gs.push(g);else if(PADRE.has(g))gs.push(...PADRE.get(g));});if(!gs.length)continue;COMPS.push(gs.length===e.gs.length&&gs.every((g,i)=>g===e.gs[i])?e:Object.assign({},e,{gs}));continue;}
     const ids=EL.has(e.g)?[e.g]:(PADRE.get(e.g)||[]);
     for(const g of ids){let s=ESTADO.get(g);if(!s){s={};ESTADO.set(g,s);}
@@ -2391,7 +2401,7 @@ function resumen(filtro){const r={V:0,n:0,eq:0,et:{mon:[0,0],mol:[0,0],enf:[0,0]
   for(const el of EL.values()){if(filtro&&!filtro(el))continue;r.V+=el.v;r.n++;r.eq+=el.v*pond(el);etapasDe(el).forEach(et=>{r.et[et][1]+=el.v;r.et[et][0]+=el.v*f(el.g,et);});}return r;}
 const pendientes=()=>estado.local.filter(e=>!e.enviado).length;
 /* ---------------- registro de avance ---------------- */
-async function registrar(el,et,fv,lote){const e={id:uid(),ed:ED.id,g:el.g,nv:el.nv,et,f:fv,dia:hoyDia(),ts:new Date().toISOString(),por:estado.persona,disp:estado.disp};estado.local.push(e);await put('eventos',e);lote&&lote.push(e.id);}
+async function registrar(el,et,fv,lote){const e={id:uid(),ed:ED.id,g:el.g,nv:el.nv,et,f:fv,dia:hoyDia(),ts:new Date().toISOString(),por:estado.persona,disp:estado.disp};if(estado._pr)e.pr=estado._pr;estado.local.push(e);await put('eventos',e);lote&&lote.push(e.id);}
 async function aplicar(el,et,fv,lote){const ets=etapasDe(el),i=ets.indexOf(et);if(i<0)return false;let cambio=false;
   if(fv>=1){for(let k=0;k<=i;k++){if(k<i&&!estado.previas)continue;if(f(el.g,ets[k])<1){await registrar(el,ets[k],1,lote);cambio=true;combinar();}}}
   else{for(let k=ets.length-1;k>=i;k--){if(f(el.g,ets[k])>0){await registrar(el,ets[k],0,lote);cambio=true;combinar();}}}
@@ -2434,11 +2444,11 @@ async function cargarModelo(){progreso('Abriendo la estructura…');let fresco=f
     location.reload();await new Promise(()=>{});}
   ORDEN=MOD.el.some(e=>e.fam==='Acero')?ORDEN_HA.concat(['mon']):ORDEN_HA.slice();
   EL=new Map();TOT.V=0;
-  PADRE=new Map();MOD.el.forEach(el=>{EL.set(el.g,el);TOT.V+=el.v;if(el.pg){if(!PADRE.has(el.pg))PADRE.set(el.pg,[]);PADRE.get(el.pg).push(el.g);}});progreso(null);}
+  PADRE=new Map();MOD.el.forEach(el=>{EL.set(el.g,el);TOT.V+=el.v;if(el.pg){if(!PADRE.has(el.pg))PADRE.set(el.pg,[]);PADRE.get(el.pg).push(el.g);}});armarPresets();progreso(null);}
 async function cargarEquipo(manual){try{const b=await descifrar(CLAVE,await bajar('avance.enc',true));estado.base=b;await metaSet('base',b);combinar();renderTodo();if(manual)toast('Avance del equipo actualizado','ok');}
   catch(e){if(manual)toast(navigator.onLine?'Todavía no hay avance publicado del equipo':'Sin conexión: se muestra lo último guardado');}}
 /* ================= visor 3D (three.js) ================= */
-let R=null,SC=null,CAM=null,CTL=null,MESH=[],PLANO=null,pedido=false,CY=[0,7];
+let R=null,SC=null,CAM=null,CTL=null,CAM3=null,CTL3=null,CAMO=null,CTLO=null,MESH=[],PLANO=null,pedido=false,CY=[0,7];
 function pedirRender(){if(pedido||!R)return;pedido=true;requestAnimationFrame(()=>{pedido=false;if(CTL)CTL.update();R.render(SC,CAM);});}
 function construirEscena(){if(SC)return;
   SC=new THREE.Scene();fondo();
@@ -2456,17 +2466,20 @@ function construirEscena(){if(SC)return;
 function initVisor(){const cv=$('#v3d');construirEscena();
   try{R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:false});}catch(e){$('#v3dWrap').innerHTML='<p class="nota" style="padding:20px">Este teléfono no puede mostrar gráficos 3D (WebGL).</p>';return;}
   R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-  CAM=new THREE.PerspectiveCamera(45,1,0.2,3000);
-  CTL=new THREE.OrbitControls(CAM,cv);CTL.enableDamping=false;CTL.screenSpacePanning=true;CTL.maxPolarAngle=Math.PI*0.52;CTL.rotateSpeed=0.9;CTL.addEventListener('change',pedirRender);
+  CAM3=CAM=new THREE.PerspectiveCamera(45,1,0.2,3000);
+  CTL3=CTL=new THREE.OrbitControls(CAM,cv);CTL.enableDamping=false;CTL.screenSpacePanning=true;CTL.maxPolarAngle=Math.PI*0.52;CTL.rotateSpeed=0.9;CTL.addEventListener('change',pedirRender);
+  /* v0.9: cámara ortogonal para planta y elevación (sin girar: solo mover y zoom) */
+  CAMO=new THREE.OrthographicCamera(-10,10,10,-10,0.1,2000);CTLO=new THREE.OrbitControls(CAMO,cv);CTLO.enableRotate=false;CTLO.enableDamping=false;CTLO.screenSpacePanning=true;CTLO.enabled=false;CTLO.addEventListener('change',pedirRender);
   /* toque = seleccionar (sin confundirlo con girar o hacer zoom) */
   let d0=null;cv.addEventListener('pointerdown',e=>{d0={x:e.clientX,y:e.clientY,t:Date.now(),n:1};});
   cv.addEventListener('pointermove',e=>{if(d0&&(Math.abs(e.clientX-d0.x)>6||Math.abs(e.clientY-d0.y)>6))d0.mov=true;});
   cv.addEventListener('pointerup',e=>{if(!d0||d0.mov||Date.now()-d0.t>600){d0=null;return;}const x=e.clientX,y=e.clientY;d0=null;tocar(x,y);});
   cv.addEventListener('pointercancel',()=>{d0=null;});
-  new ResizeObserver(ajustarVisor).observe($('#v3dWrap'));ajustarVisor();if(estado.fNivel){aplicarFiltros();encuadrar(MESH.filter(m=>m.visible));}else encuadrar();}
+  new ResizeObserver(ajustarVisor).observe($('#v3dWrap'));ajustarVisor();if(estado.vVista!=='3d'){usarVista();return;}if(estado.fNivel){aplicarFiltros();encuadrar(MESH.filter(m=>m.visible));}else encuadrar();}
 function fondo(){if(!SC)return;SC.background=new THREE.Color(document.documentElement.classList.contains('oscuro')?0x0F172A:0xEEF2F7);}
-function ajustarVisor(){if(!R)return;const w=$('#v3dWrap').clientWidth,h=$('#v3dWrap').clientHeight;if(!w||!h)return;R.setSize(w,h,false);CAM.aspect=w/h;CAM.updateProjectionMatrix();pedirRender();}
-function encuadrar(solo){if(!R)return;const b=new THREE.Box3();let n=0;
+function ajustarVisor(){if(!R)return;const w=$('#v3dWrap').clientWidth,h=$('#v3dWrap').clientHeight;if(!w||!h)return;R.setSize(w,h,false);CAM3.aspect=w/h;CAM3.updateProjectionMatrix();
+  if(CAMO){const hh=CAMO.userData.h||10;CAMO.left=-hh*w/h;CAMO.right=hh*w/h;CAMO.top=hh;CAMO.bottom=-hh;CAMO.updateProjectionMatrix();}pedirRender();}
+function encuadrar(solo){if(!R)return;if(estado.vVista!=='3d'){encuadrarVista();return;}const b=new THREE.Box3();let n=0;
   (solo||MESH).forEach(m=>{if(m.visible){b.expandByObject(m);n++;}});if(!n)return;
   const c=b.getCenter(new THREE.Vector3()),s=b.getSize(new THREE.Vector3()),r=Math.max(s.length()/2,3);
   const dist=r/Math.sin(CAM.fov*Math.PI/360)*0.95;const dir=new THREE.Vector3(0.75,0.62,0.95).normalize();
@@ -2498,16 +2511,16 @@ function pintar(){if(!SC)return;const ix=indiceSem();
     const tr=op<0.995;if(mt.transparent!==tr){mt.transparent=tr;mt.needsUpdate=true;}mt.opacity=op;mt.depthWrite=op>=0.5;
     if(m.userData.ed){const em=m.userData.ed.material;em.color.set(sel?0x1E3A8A:0x334155);em.opacity=sel?1:0.5*Math.max(op,0.3);}}
   leyenda();pedirRender();}
-function aplicarFiltros(){if(!SC)return;
-  for(const el of MOD.el){const v=(!estado.fNivel||el.nv===estado.fNivel)&&estado.fFam.has(el.fam);el.mesh.visible=v;if(!v&&estado.sel.has(el.g))estado.sel.delete(el.g);}
+function aplicarFiltros(){if(!SC)return;const fv=filtroVista();
+  for(const el of MOD.el){const v=fv(el);el.mesh.visible=v;if(!v&&estado.sel.has(el.g))estado.sel.delete(el.g);}
   chips();pintar();panelSel();}
 function aplicarCorte(p){if(!R)return;const y0=0,y1=CY[1];const c=y0+(y1-y0)*p/100;$('#corteVal').textContent=Math.round(p)+'%';
   if(p>=99.5){R.clippingPlanes=[];}else{PLANO.constant=c+0.01;R.clippingPlanes=[PLANO];}pedirRender();}
-function leyenda(){const L=$('#leyenda');if(!L)return;let h='';
+function leyenda(){const L=$('#leyenda');if(!L)return;let h=tituloVista();
   const res=(estado.res&&estado.modo!=='sem')?'<br><i style="background:'+COMP.pend.color+'"></i>📌 Comprometido sem. '+diaCorta(estado.sem):'';
-  if(estado.modo==='alc'){h='<b>Etapa alcanzada</b><br><i style="background:'+GRIS+';opacity:'+(estado.op.pend/100)+'"></i>Sin partir (fantasma)<br><i style="background:linear-gradient(90deg,'+GRIS+','+ETAPAS.hor.color+')"></i>Parcial = color intermedio<br>'+ORDEN.map(et=>'<i style="background:'+ETAPAS[et].color+'"></i>'+ETAPAS[et].n).join('<br>')+res;}
-  else if(estado.modo==='et'){const et=estado.etV;h='<b>'+ETAPAS[et].n+'</b><br><i style="background:'+ETAPAS[et].color+'"></i>Hecho<br><i style="background:'+GRIS+';opacity:'+(estado.op.pend/100)+'"></i>Falta (fantasma)<br><i style="background:'+GRIS_CLARO+'"></i>No aplica'+res;}
-  else{h='<b>Compromisos · sem. '+diaCorta(estado.sem)+'</b><br>'+['pend','prog','ok','tarde','venc'].map(k=>'<i style="background:'+COMP[k].color+'"></i>'+COMP[k].n).join('<br>')+'<br><i style="background:'+GRIS_CLARO+'"></i>Sin compromiso (fantasma)';}
+  if(estado.modo==='alc'){h+='<b>Etapa alcanzada</b><br><i style="background:'+GRIS+';opacity:'+(estado.op.pend/100)+'"></i>Sin partir (fantasma)<br><i style="background:linear-gradient(90deg,'+GRIS+','+ETAPAS.hor.color+')"></i>Parcial = color intermedio<br>'+ORDEN.map(et=>'<i style="background:'+ETAPAS[et].color+'"></i>'+ETAPAS[et].n).join('<br>')+res;}
+  else if(estado.modo==='et'){const et=estado.etV;h+='<b>'+ETAPAS[et].n+'</b><br><i style="background:'+ETAPAS[et].color+'"></i>Hecho<br><i style="background:'+GRIS+';opacity:'+(estado.op.pend/100)+'"></i>Falta (fantasma)<br><i style="background:'+GRIS_CLARO+'"></i>No aplica'+res;}
+  else{h+='<b>Compromisos · sem. '+diaCorta(estado.sem)+'</b><br>'+['pend','prog','ok','tarde','venc'].map(k=>'<i style="background:'+COMP[k].color+'"></i>'+COMP[k].n).join('<br>')+'<br><i style="background:'+GRIS_CLARO+'"></i>Sin compromiso (fantasma)';}
   L.innerHTML=h;}
 /* ----- foto 3D para los informes (renderiza aparte, sin tocar el visor) ----- */
 function foto(modo,sem,w,h){construirEscena();const g0={modo:estado.modo,sem:estado.sem,sel:estado.sel};estado.modo=modo;estado.sem=sem;estado.sel=new Set();
@@ -2522,7 +2535,7 @@ function foto(modo,sem,w,h){construirEscena();const g0={modo:estado.modo,sem:est
 /* ----- barras de filtros ----- */
 function navSem(){return '<button class="chipf" data-semm="-1">‹</button><span class="chip">'+diaCorta(estado.sem)+' – '+diaCorta(sumarDias(estado.sem,6))+'</span><button class="chipf" data-semm="1">›</button>';}
 function chips(){
-  {const ce=$('#chipsEdif');if(ce)ce.innerHTML=chipsEdificio();}
+  {const ce=$('#chipsEdif');if(ce)ce.innerHTML=chipsEdificio();}chipsVista();
   $('#chipsNivel').innerHTML='<button class="chipf'+(!estado.fNivel?' on':'')+'" data-niv="">Todos los niveles</button>'+(MOD?MOD.niveles:[]).map(n=>'<button class="chipf'+(estado.fNivel===n.id?' on':'')+'" data-niv="'+n.id+'">'+escapar(n.id)+'</button>').join('');
   const fams=FAMS.filter(x=>MOD&&MOD.el.some(e=>e.fam===x));
   $('#chipsFam').innerHTML=fams.map(x=>'<button class="chipf'+(estado.fFam.has(x)?' on':'')+'" data-fam="'+x+'">'+x+'</button>').join('');
@@ -2539,12 +2552,13 @@ function panelSel(){const P=$('#panelSel');if(!P)return;const els=[...estado.sel
     return '<button class="et-btn '+cls+'" data-mk="'+et+'" style="--c:'+ETAPAS[et].color+';--p:'+(100*av)+'%">'+ETAPAS[et].c+'<small>'+((av>0&&h<ap.length)?fmt0(100*av)+'%':h+'/'+ap.length)+'</small></button>';}).join('');
   P.innerHTML='<div class="res"><b>'+els.length+' elemento'+(els.length===1?'':'s')+'</b><span>'+fmt1(V)+' m³</span><span class="esp"></span><label class="toggle-mini"><input type="checkbox" id="chkPrevias" '+(estado.previas?'checked':'')+'> Completar previas</label></div>'+
     '<div class="et-botones">'+bots+'</div>'+
+    '<div class="fila-acc" style="margin-bottom:6px"><button class="prim" data-sa="prot">🧾 Protocolo y fotos</button>'+(els.some(e=>e.fam==='Muro'||e.fam==='Viga')?'<button data-sa="elev">📐 Elevación de este muro</button>':'')+'</div>'+
     '<div class="fila-acc"><button data-sa="mas">🎯 Seleccionar</button><button data-sa="ficha">'+(els.length===1?'ℹ Ficha':'📋 Lista')+'</button><button data-sa="pct">📊 %</button><button class="prim" data-sa="comp">📌 Comprometer</button><button data-sa="undo">↶</button><button data-sa="limpiar">✕</button></div>';
   P.classList.add('visible');}
 /* ----- fichas y hojas ----- */
 const nomNivel=id=>{const n=(MOD&&MOD.niveles||[]).find(x=>x.id===id);return n&&n.nombre&&n.nombre!==id?id+' · '+n.nombre:id;};
 function histDe(g){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
-  return [...m.values()].filter(e=>e.g===g&&!e.borrado&&e.k!=='comp').sort((a,b)=>b.ts.localeCompare(a.ts));}
+  return [...m.values()].filter(e=>e.g===g&&!e.borrado&&e.k!=='comp'&&e.k!=='prot').sort((a,b)=>b.ts.localeCompare(a.ts));}
 function fichaEl(g){const el=EL.get(g);if(!el)return;const ets=etapasDe(el);
   const filas=ets.map(et=>{const o=ESTADO.get(g)&&ESTADO.get(g)[et];const v=f(g,et),p=Math.round(100*v),col=ETAPAS[et].color;
     return '<div class="etapa-fila" style="flex-wrap:wrap"><div class="info"><b style="color:'+col+'">'+ETAPAS[et].n+'</b>'+(v>0&&o?(v>=1?'✔ ':'')+escapar(o.ev.por)+' · '+diaCorta(o.ev.dia):'Pendiente')+'</div><div class="acc"><button class="frac-btn'+(v>=1?' on':'')+'" style="--c:'+col+'" data-fe="'+et+'" data-g="'+g+'">'+(v>=1?'Hecho ✓':'Hecho 100%')+'</button></div>'+
@@ -2553,7 +2567,7 @@ function fichaEl(g){const el=EL.get(g);if(!el)return;const ets=etapasDe(el);
   const hist=histDe(g).slice(0,12).map(e=>'<li><b>'+ETAPAS[e.et].n+'</b> '+(e.f>=1?'hecho':e.f>0?Math.round(100*e.f)+'%':'desmarcado')+' · '+diaCorta(e.dia)+' · '+escapar(e.por)+'</li>').join('');
   abrirHoja('<div class="hoja-titulo">'+escapar(el.fam)+' '+escapar(el.t)+(el.pt?' · '+escapar(el.pt):'')+'</div><div class="hoja-sub">'+escapar(nomNivel(el.nv))+' · '+fmt1(el.v)+' m³ · pond. '+fmt0(100*pond(el))+'%</div>'+filas+
     (el.pg?'<p class="nota" style="margin-top:8px">🧩 Parte '+escapar(el.pt)+' de un muro dividido en '+(PADRE.get(el.pg)||[]).length+' partes. <button class="frac-btn" data-selmuro="'+escapar(el.pg)+'">Seleccionar todo el muro</button></p>':'')+
-    (comps?'<label class="etiqueta" style="margin-top:10px">Compromisos</label><ul class="log">'+comps+'</ul>':'')+(hist?'<label class="etiqueta" style="margin-top:10px">Historial</label><ul class="log">'+hist+'</ul>':'')+
+    protsHtml(g)+(comps?'<label class="etiqueta" style="margin-top:10px">Compromisos</label><ul class="log">'+comps+'</ul>':'')+(hist?'<label class="etiqueta" style="margin-top:10px">Historial</label><ul class="log">'+hist+'</ul>':'')+
     '<p class="nota" style="margin-top:10px;font-size:11px;word-break:break-all">ID Revit '+escapar(el.id||'—')+' · GUID '+escapar(g)+'</p>');}
 function listaSel(){const els=[...estado.sel].map(g=>EL.get(g)).filter(Boolean);const c={};els.forEach(e=>{const k=e.fam+' '+e.t+' · '+e.nv;c[k]=(c[k]||0)+1;});
   abrirHoja('<div class="hoja-titulo">📋 '+els.length+' elementos seleccionados</div><div class="lista-busca">'+Object.entries(c).sort().map(([k,n])=>'<button data-q="'+escapar(k)+'">'+escapar(k)+'<small>× '+n+'</small></button>').join('')+'</div><p class="nota" style="margin-top:8px">Toca una fila para quitarla de la selección.</p>');}
@@ -2606,6 +2620,7 @@ function renderInicio(){if(!MOD)return;{const c=$('#chipsEdifIni');if(c)c.innerH
 function renderAvance(){if(!MOD)return;
   $('#avNiveles').innerHTML='<table class="prog-matriz">'+cabMatriz+MOD.niveles.map(n=>filaNivel(n,false)).join('')+'</table>';
   $('#avFam').innerHTML='<table class="prog-matriz tabla-et"><tr><th>Tipo</th><th>Elem.</th><th>m³</th><th>Pond.</th><th>Horm.</th></tr>'+FAMS.filter(x=>MOD.el.some(e=>e.fam===x)).map(x=>{const r=resumen(e=>e.fam===x);return '<tr><td>'+x+'</td><td>'+r.n+'</td><td>'+fmt0(r.V)+'</td><td><b>'+fmt1(pct(r.eq,r.V))+'%</b></td><td>'+fmt0(pct(r.et.hor[0],r.et.hor[1]))+'%</td></tr>';}).join('')+'</table>';
+  {const c=$('#avProt');if(c)c.innerHTML=listaProts();}
   $('#avEtapas').innerHTML='<table class="prog-matriz tabla-et"><tr><th>Etapa</th><th>Cimientos / radier</th><th>Muros, vigas, losas</th></tr>'+ORDEN.map(et=>'<tr><td style="color:'+ETAPAS[et].color+'">'+ETAPAS[et].n+'</td><td>'+(PESOS_C[et]?PESOS_C[et]+'%':'—')+'</td><td>'+PESOS_D[et]+'%</td></tr>').join('')+'</table><p class="nota" style="margin-top:8px">El avance ponderado se calcula por volumen de hormigón (m³) de cada elemento.</p>';}
 function renderSemana(){if(!MOD)return;const C=$('#semanaCont');if(!C)return;const sem=estado.sem,L=compsDe(sem),pp=ppcSem(sem),ahora=inicioSem(hoyDia()),F=estado.fSem;
   const orden={venc:0,prog:1,pend:2,tarde:3,ok:4};
@@ -2750,18 +2765,208 @@ async function informeLP(){progreso('Armando el informe…');await new Promise(r
 /* resumen de lo que se envía al coordinador */
 function pdfEnvio(nuevos){const doc=pdfBase();const TIT='Reporte de avance enviado';const sub=OBRA+' · '+(estado.persona||'');pdfCab(doc,TIT,sub);let y=23;
   doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('Avance de '+(estado.persona||'—')+' · '+new Date().toLocaleString('es-CL',{dateStyle:'short',timeStyle:'short'}),PM,y);y+=5;
-  const reg=nuevos.filter(e=>e.k!=='comp'),cm=nuevos.filter(e=>e.k==='comp');const gr={};
+  const reg=nuevos.filter(e=>e.k!=='comp'&&e.k!=='prot'),cm=nuevos.filter(e=>e.k==='comp'),pr=nuevos.filter(e=>e.k==='prot');const gr={};
   reg.forEach(e=>{const el=EL.get(e.g);if(!el)return;const k=el.nv+'|'+e.et+'|'+(e.f>=1?'Hecho':'Desmarcado');const x=gr[k]||(gr[k]={nv:el.nv,et:e.et,acc:e.f>=1?'Hecho':'Desmarcado',n:0,V:0});x.n++;x.V+=el.v;});
   y=pdfNota(doc,y,reg.length+' registros nuevos en '+new Set(reg.map(e=>e.g)).size+' elementos · '+cm.length+' compromiso(s) nuevo(s)');
   y=pdfTit(doc,y+2,'Registros por nivel y etapa');
   y=pdfTabla(doc,y,[{t:'Nivel',w:50},{t:'Etapa',w:50},{t:'Acción',w:40},{t:'Elementos',w:34,al:'r'},{t:'m3',w:34,al:'r'}],Object.values(gr).sort((a,b)=>a.nv.localeCompare(b.nv)||ORDEN.indexOf(a.et)-ORDEN.indexOf(b.et)).map(x=>({c:[x.nv,ETAPAS[x.et].n,x.acc,String(x.n),fmt1(x.V)]})),TIT,sub);
   if(cm.length){y=pdfTit(doc,y+3,'Compromisos creados');y=pdfTabla(doc,y,[{t:'Semana',w:40},{t:'Etapa',w:36},{t:'Nivel',w:36},{t:'Elementos',w:26,al:'r'},{t:'Responsable',w:50},{t:'Nota',w:PW-2*PM-188}],cm.map(c=>({c:[diaCorta(c.sem)+' – '+diaCorta(sumarDias(c.sem,6)),ETAPAS[c.et].n,nivelesDe(c),String(c.gs.length),c.resp||c.por||'',c.nota||'']})),TIT,sub);}
+  if(pr.length){y=pdfTit(doc,y+3,'Protocolos de calidad');y=pdfTabla(doc,y,[{t:'N° protocolo',w:40},{t:'Fecha',w:24},{t:'Etapa',w:36},{t:'Nivel',w:36},{t:'Elementos',w:26,al:'r'},{t:'Fotos',w:20,al:'r'},{t:'Observación',w:PW-2*PM-182}],pr.map(p=>({c:[p.num||'s/n',diaCorta(p.fecha||p.dia),ETAPAS[p.et].n,(p.nv||'').split(',').join(' / '),String(p.gs.length),String((p.fotos||[]).length),p.nota||'']})),TIT,sub);}
   pdfPie(doc);return doc.output('blob');}
 /* ----- transparencia ("fantasma") ----- */
 let tOp=null;const guardarOp=()=>{clearTimeout(tOp);tOp=setTimeout(()=>metaSet('op',estado.op),400);};
 function hojaVer(){const o=estado.op;const fila=(k,n,sub)=>'<div class="sl-fila"><label>'+n+'<small>'+sub+'</small></label><input type="range" min="10" max="100" step="5" value="'+o[k]+'" data-op="'+k+'"><b id="opv_'+k+'">'+o[k]+'%</b></div>';
   abrirHoja('<div class="hoja-titulo">👁 Transparencia</div><div class="hoja-sub">Cuánto se ve cada cosa. Menos % = más fantasma.</div>'+fila('pend','Por hacer','lo que falta')+fila('comp','Comprometido','de la semana elegida')+fila('hecho','Hecho','lo ya ejecutado')+
    '<div class="fila-acc"><button data-opr="1">Restablecer (75 · 90 · 100)</button><button data-opr="2">Más fantasma (30 · 90 · 100)</button></div>');}
+/* ================= v0.9 · vistas en planta y elevación de ejes ================= */
+/* Planta: cimientos, radier, losas y vigas por nivel, muros y pilares por nivel. Elevación: lo que está sobre un eje (o sobre un muro elegido), visto de frente. */
+let PRESETS=[],ELEV_SET=new Set(),OVL=null;
+function geo(el){if(el._geo)return el._geo;const P=el.p;let x0=1e9,y0=1e9,z0=1e9,x1=-1e9,y1=-1e9,z1=-1e9;
+  for(let i=0;i<P.length;i+=3){const x=P[i],y=P[i+1],z=P[i+2];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;if(z<z0)z0=z;if(z>z1)z1=z;}
+  return el._geo={x0:x0/100,y0:y0/100,z0:z0/100,x1:x1/100,y1:y1/100,z1:z1/100};}
+function armarPresets(){const L=[],has=fn=>MOD.el.some(fn);
+  if(has(e=>e.fam==='Cimentación'))L.push({id:'cim',n:'Cimientos',f:e=>e.fam==='Cimentación'});
+  if(has(e=>e.fam==='Radier'))L.push({id:'rad',n:'Radier',f:e=>e.fam==='Radier'});
+  MOD.niveles.forEach(n=>{const fl=e=>e.nv===n.id&&(e.fam==='Losa'||e.fam==='Viga'),fm=e=>e.nv===n.id&&(e.fam==='Muro'||e.fam==='Pilar');
+    if(has(fm))L.push({id:'muro:'+n.id,n:'Muros y pilares '+n.id,f:fm});if(has(fl))L.push({id:'losa:'+n.id,n:'Losa y vigas '+n.id,f:fl});});
+  if(has(e=>e.fam==='Acero'))L.push({id:'ace',n:'Estructura metálica',f:e=>e.fam==='Acero'});PRESETS=L;}
+const natural=(a,b)=>{const na=/^\d/.test(a),nb=/^\d/.test(b);if(na!==nb)return na?1:-1;return a.localeCompare(b,'es',{numeric:true});};
+const ejesOrd=()=>(MOD.ejes||[]).map((e,i)=>({e,i})).sort((a,b)=>natural(a.e.t,b.e.t));
+function enLinea(el,L){if(!['Muro','Pilar','Viga','Cimentación','Acero'].includes(el.fam))return false;
+  const [a,b]=L.p;let ux=b[0]-a[0],uy=b[1]-a[1];const Ls=Math.hypot(ux,uy);ux/=Ls;uy/=Ls;const nx=-uy,ny=ux;
+  let s0=1e9,s1=-1e9,d0=1e9,d1=-1e9;const P=el.p;
+  for(let i=0;i<P.length;i+=3){const x=P[i]/100-a[0],y=P[i+1]/100-a[1];const s=x*ux+y*uy,d=x*nx+y*ny;if(s<s0)s0=s;if(s>s1)s1=s;if(d<d0)d0=d;if(d>d1)d1=d;}
+  if(s1<-1||s0>Ls+1)return false;const dm=(d0+d1)/2,an=d1-d0,lg=s1-s0;
+  if(Math.abs(dm)>0.6&&!(d0<=0.05&&d1>=-0.05&&an<1.2))return false;
+  return el.fam==='Pilar'||lg>=an*0.8;}
+function filtroVista(){if(estado.vVista==='planta'){const p=PRESETS.find(x=>x.id===estado.planta);return p?p.f:()=>false;}
+  if(estado.vVista==='elev'){const S=ELEV_SET;return e=>S.has(e.g);}
+  return e=>(!estado.fNivel||e.nv===estado.fNivel)&&estado.fFam.has(e.fam);}
+function tituloVista(){if(estado.vVista==='planta'){const p=PRESETS.find(x=>x.id===estado.planta);return '<b style="color:var(--primario-osc)">🗺 Planta · '+escapar(p?p.n:'—')+'</b><br>';}
+  if(estado.vVista==='elev'&&estado.elev)return '<b style="color:var(--primario-osc)">📐 Elevación · '+escapar(estado.elev.t)+'</b><br>';return '';}
+/* giro de la planta: los ejes quedan horizontales y verticales en la pantalla */
+function giroPlanta(){const E=MOD.ejes||[];if(!E.length)return 0;const v=E.map(e=>{let a=Math.atan2(e.p[1][1]-e.p[0][1],e.p[1][0]-e.p[0][0]);a=((a%(Math.PI/2))+Math.PI/2)%(Math.PI/2);if(a>Math.PI/4)a-=Math.PI/2;return a;}).sort((x,y)=>x-y);return v[Math.floor(v.length/2)];}
+function fijarElev(L){estado.elev=L;ELEV_SET=new Set(MOD.el.filter(e=>enLinea(e,L)).map(e=>e.g));}
+function chipsVista(){const V=$('#chipsVista'),S=$('#chipsSub');if(!V||!MOD)return;const vv=estado.vVista;
+  V.innerHTML=[['3d','🧊 3D'],['planta','🗺 Planta'],['elev','📐 Elevación']].map(([k,n])=>'<button class="chipf'+(vv===k?' on':'')+'" data-vv="'+k+'">'+n+'</button>').join('')+
+    (vv==='elev'?'<span class="sep-v"></span><button class="chipf" data-lado="1">⇄ Ver del otro lado</button>':'');
+  if(vv==='planta')S.innerHTML=PRESETS.map(p=>'<button class="chipf'+(estado.planta===p.id?' on':'')+'" data-pl="'+p.id+'">'+escapar(p.n)+'</button>').join('');
+  else if(vv==='elev'){const E=ejesOrd();S.innerHTML=(E.length?E.map(({e,i})=>'<button class="chipf'+(estado.elev&&estado.elev.i===i?' on':'')+'" data-ej="'+i+'">Eje '+escapar(e.t)+'</button>').join(''):'<span class="nota">Este edificio no trae ejes: elige un muro en 3D y toca 📐</span>')+
+    (estado.elev&&estado.elev.i==null?'<button class="chipf on">'+escapar(estado.elev.t)+'</button>':'');}
+  else S.innerHTML='';
+  S.style.display=vv==='3d'?'none':'';['#chipsNivel','#chipsFam'].forEach(q=>{const x=$(q);if(x)x.style.display=vv==='3d'?'':'none';});
+  ['#btnCorte'].forEach(q=>{const x=$(q);if(x)x.style.display=vv==='3d'?'':'none';});}
+function usarVista(){if(!R)return;const orto=estado.vVista!=='3d';
+  CAM=orto?CAMO:CAM3;CTL=orto?CTLO:CTL3;CTL3.enabled=!orto;CTLO.enabled=orto;
+  if(orto){R.clippingPlanes=[];$('#corte').classList.remove('visible');}
+  aplicarFiltros();overlay();encuadrar(MESH.filter(m=>m.visible));}
+function cambiarVV(v){if(v==='planta'&&!estado.planta)estado.planta=(PRESETS[0]||{}).id||null;
+  if(v==='elev'&&!estado.elev){const E=ejesOrd();if(E.length)fijarElev(Object.assign({i:E[0].i,lado:1},E[0].e));}
+  estado.vVista=v;estado.sel.clear();if(R)usarVista();else chips();}
+/* encuadre de la cámara ortogonal: planta mirando hacia abajo (norte arriba) o elevación de frente al eje */
+function encuadreO(cam,asp,vis){const b=new THREE.Box3();vis.forEach(m=>b.expandByObject(m));if(b.isEmpty())return null;
+  const c=b.getCenter(new THREE.Vector3()),s=b.getSize(new THREE.Vector3());let hw,hh,t=c.clone();
+  if(estado.vVista==='planta'){const ph=giroPlanta(),rS=new THREE.Vector3(Math.cos(ph),0,-Math.sin(ph)),uS=new THREE.Vector3(-Math.sin(ph),0,-Math.cos(ph));
+    let r0=1e9,r1=-1e9,u0=1e9,u1=-1e9;for(const x of [b.min.x,b.max.x])for(const z of [b.min.z,b.max.z]){const q=new THREE.Vector3(x,0,z).sub(new THREE.Vector3(c.x,0,c.z));const a=q.dot(rS),d=q.dot(uS);if(a<r0)r0=a;if(a>r1)r1=a;if(d<u0)u0=d;if(d>u1)u1=d;}
+    t=c.clone().addScaledVector(rS,(r0+r1)/2).addScaledVector(uS,(u0+u1)/2);hw=(r1-r0)/2*1.06+1.5;hh=(u1-u0)/2*1.06+1.5;cam.up.copy(uS);cam.position.set(t.x,b.max.y+200,t.z);}
+  else{const L=estado.elev,[a,bb]=L.p;let ux=bb[0]-a[0],uy=bb[1]-a[1];const l=Math.hypot(ux,uy);ux/=l;uy/=l;
+    const uS=new THREE.Vector3(ux,0,-uy),nS=new THREE.Vector3(-uy,0,-ux).multiplyScalar(L.lado||1);
+    let m0=1e9,m1=-1e9;for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z]){const q=new THREE.Vector3(x,y,z).sub(c).dot(uS);if(q<m0)m0=q;if(q>m1)m1=q;}
+    t=c.clone().addScaledVector(uS,(m0+m1)/2);hw=(m1-m0)/2*1.06+1;hh=s.y/2*1.1+1;cam.up.set(0,1,0);cam.position.copy(t).addScaledVector(nS,200);}
+  if(hw/hh>asp)hh=hw/asp;else hw=hh*asp;
+  cam.left=-hw;cam.right=hw;cam.top=hh;cam.bottom=-hh;cam.near=1;cam.far=1000;cam.zoom=1;cam.userData.h=hh;cam.lookAt(t);cam.updateProjectionMatrix();return t;}
+function encuadrarVista(){const vis=MESH.filter(m=>m.visible);const w=$('#v3dWrap').clientWidth||1,h=$('#v3dWrap').clientHeight||1;const t=encuadreO(CAMO,w/h,vis);if(t){CTLO.target.copy(t);CTLO.update();}pedirRender();}
+/* ejes y niveles dibujados sobre la vista (siempre encima, no se pueden tocar) */
+function etiqueta(txt,col){const cv=document.createElement('canvas'),x=cv.getContext('2d');x.font='bold 44px Arial, Helvetica, sans-serif';const w=Math.max(64,Math.ceil(x.measureText(txt).width)+34);cv.width=w;cv.height=64;x.font='bold 44px Arial, Helvetica, sans-serif';
+  x.fillStyle='#fff';x.strokeStyle=col;x.lineWidth=5;const r=29;x.beginPath();x.moveTo(r+3,3);x.lineTo(w-r-3,3);x.arc(w-r-3,32,r,-Math.PI/2,Math.PI/2);x.lineTo(r+3,61);x.arc(r+3,32,r,Math.PI/2,-Math.PI/2);x.closePath();x.fill();x.stroke();
+  x.fillStyle=col;x.textAlign='center';x.textBaseline='middle';x.fillText(txt,w/2,34);const t=new THREE.CanvasTexture(cv);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:t,depthTest:false,transparent:true}));sp.renderOrder=1000;sp.userData.r=w/64;return sp;}
+function linea(pts,col,dash){const g=new THREE.BufferGeometry().setFromPoints(pts);const m=dash?new THREE.LineDashedMaterial({color:col,dashSize:dash,gapSize:dash*0.6,depthTest:false,transparent:true,opacity:0.9}):new THREE.LineBasicMaterial({color:col,depthTest:false,transparent:true,opacity:0.8});
+  const l=new THREE.Line(g,m);if(dash)l.computeLineDistances();l.renderOrder=999;return l;}
+function overlay(){if(OVL){SC.remove(OVL);OVL.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){if(o.material.map)o.material.map.dispose();o.material.dispose();}});OVL=null;}
+  if(estado.vVista==='3d')return;const vis=MESH.filter(m=>m.visible);const b=new THREE.Box3();vis.forEach(m=>b.expandByObject(m));if(b.isEmpty())return;
+  const s=b.getSize(new THREE.Vector3());OVL=new THREE.Group();const COL=0xB91C1C,CS='#B91C1C';
+  const pon=(sp,p,k)=>{sp.position.copy(p);sp.scale.set(k*sp.userData.r,k,1);OVL.add(sp);};
+  if(estado.vVista==='planta'){const k=Math.max(0.7,Math.max(s.x,s.z)/32),y=b.max.y+0.3;
+    (MOD.ejes||[]).forEach(e=>{const [a,c]=e.p;const A=new THREE.Vector3(a[0],y,-a[1]),C=new THREE.Vector3(c[0],y,-c[1]);OVL.add(linea([A,C],COL,k*0.5));
+      const u=C.clone().sub(A).normalize();pon(etiqueta(e.t,CS),A.clone().addScaledVector(u,-k*0.7),k);pon(etiqueta(e.t,CS),C.clone().addScaledVector(u,k*0.7),k);});}
+  else{const L=estado.elev,[a,c]=L.p;let ux=c[0]-a[0],uy=c[1]-a[1];const l=Math.hypot(ux,uy);ux/=l;uy/=l;const k=Math.max(0.55,Math.max(s.y,Math.hypot(s.x,s.z))/34);
+    const uS=new THREE.Vector3(ux,0,-uy);const cen=b.getCenter(new THREE.Vector3());let m0=1e9,m1=-1e9;
+    for(const x of [b.min.x,b.max.x])for(const z of [b.min.z,b.max.z]){const q=new THREE.Vector3(x,0,z).sub(cen).dot(uS);if(q<m0)m0=q;if(q>m1)m1=q;}
+    (MOD.ejes||[]).forEach(e=>{if(e===L||(L.i!=null&&MOD.ejes[L.i]===e))return;const [p,q]=e.p;let vx=q[0]-p[0],vy=q[1]-p[1];const lv=Math.hypot(vx,vy);vx/=lv;vy/=lv;const cr=ux*vy-uy*vx;if(Math.abs(cr)<0.5)return;
+      const t=((p[0]-a[0])*vy-(p[1]-a[1])*vx)/cr;const X=a[0]+ux*t,Y=a[1]+uy*t;const P=new THREE.Vector3(X,0,-Y);const sp=P.clone().sub(cen).dot(uS);if(sp<m0-1.5||sp>m1+1.5)return;
+      OVL.add(linea([new THREE.Vector3(X,b.min.y-0.4,-Y),new THREE.Vector3(X,b.max.y+0.4,-Y)],COL,k*0.45));pon(etiqueta(e.t,CS),new THREE.Vector3(X,b.max.y+0.4+k*0.65,-Y),k);});
+    const A=cen.clone().addScaledVector(uS,m0-1),C=cen.clone().addScaledVector(uS,m1+1);
+    (MOD.niveles||[]).forEach(n=>{if(n.z<b.min.y-1||n.z>b.max.y+1)return;OVL.add(linea([new THREE.Vector3(A.x,n.z,A.z),new THREE.Vector3(C.x,n.z,C.z)],0x475569,k*0.3));
+      const tx=n.id+' '+(n.z>=0?'+':'')+n.z.toFixed(2);const e1=etiqueta(tx,'#475569'),e2=etiqueta(tx,'#475569');pon(e1,new THREE.Vector3(A.x,n.z,A.z).addScaledVector(uS,-k*0.4*e1.userData.r-0.3),k*0.8);pon(e2,new THREE.Vector3(C.x,n.z,C.z).addScaledVector(uS,k*0.4*e2.userData.r+0.3),k*0.8);});}
+  SC.add(OVL);}
+/* ================= v0.9 · protocolos de calidad y fotos ================= */
+let FOTOS_EQ=null;
+async function fotoGuardar(id,d){if(!DB){mem.fotos[id]={id,d};return;}await tx('fotos','readwrite',s=>s.put({id,d}));}
+async function fotoLeer(id){if(!DB){const x=mem.fotos[id];if(x)return x.d;}else{const x=await tx('fotos','readonly',s=>s.get(id));if(x&&x.d)return x.d;}
+  if(!FOTOS_EQ){try{FOTOS_EQ=await descifrar(CLAVE,await bajar('fotos.enc',true));}catch(e){FOTOS_EQ={};}}return FOTOS_EQ[id]||null;}
+/* comprime la foto en el teléfono: lado mayor 1280 px, JPEG calidad 0,6 (≈ 100–250 KB) */
+function comprimir(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const M=1280,k=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.6));};im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('imagen no válida'));};im.src=u;});}
+const protsDe=g=>PROTS.filter(p=>p.gs.includes(g)).sort((a,b)=>b.ts.localeCompare(a.ts));
+const etqProt=p=>'N° '+escapar(p.num||'s/n');
+function protsHtml(g){const L=protsDe(g);if(!L.length)return '';
+  return '<label class="etiqueta" style="margin-top:10px">🧾 Protocolos de calidad</label><ul class="log">'+L.map(p=>'<li class="click" data-prot="'+p.id+'"><b>'+etqProt(p)+'</b> · '+ETAPAS[p.et].n+' · '+diaCorta(p.fecha||p.dia)+(p.fotos&&p.fotos.length?' · 📷 '+p.fotos.length:'')+' · '+escapar(p.por)+'</li>').join('')+'</ul>';}
+function listaProts(){if(!PROTS.length)return '<p class="nota">Aún no hay protocolos. En el visor selecciona elementos y toca <b>🧾 Protocolo y fotos</b>.</p><button class="btn secundario" data-pinf="1" style="width:100%;margin-top:8px;justify-content:center">📄 Informe de protocolos (PDF)</button>';
+  const L=PROTS.slice().sort((a,b)=>(b.fecha||b.dia).localeCompare(a.fecha||a.dia)||b.ts.localeCompare(a.ts));
+  return '<table class="prog-matriz"><tr><th>N°</th><th>Fecha</th><th>Etapa</th><th>Elem.</th><th>m³</th><th>📷</th></tr>'+L.slice(0,60).map(p=>'<tr class="click" data-prot="'+p.id+'"><td><b>'+escapar(p.num||'s/n')+'</b></td><td>'+diaCorta(p.fecha||p.dia)+'</td><td style="color:'+ETAPAS[p.et].color+'">'+ETAPAS[p.et].c+'</td><td>'+p.gs.length+'</td><td>'+fmt1(p.gs.reduce((s,g)=>s+(EL.get(g)?EL.get(g).v:0),0))+'</td><td>'+((p.fotos||[]).length||'')+'</td></tr>').join('')+'</table>'+
+    (L.length>60?'<p class="nota">Se muestran los 60 más recientes; el informe los incluye todos.</p>':'')+'<button class="btn principal grande" data-pinf="1" style="width:100%;margin-top:10px">📄 Informe de protocolos (PDF)</button>';}
+let FOTOS_TMP=[];
+function hojaProtocolo(){const els=[...estado.sel].map(g=>EL.get(g)).filter(Boolean);if(!els.length)return;FOTOS_TMP=[];
+  const ets=ORDEN.filter(et=>els.some(e=>etapasDe(e).includes(et)));const def=ets.find(et=>els.some(e=>etapasDe(e).includes(et)&&f(e.g,et)<1))||ets[ets.length-1];
+  abrirHoja('<div class="hoja-titulo">🧾 Protocolo de calidad</div><div class="hoja-sub">'+els.length+' elemento'+(els.length===1?'':'s')+' · '+fmt1(els.reduce((s,e)=>s+e.v,0))+' m³ · '+escapar([...new Set(els.map(e=>e.nv))].join(', '))+'</div>'+
+   '<label class="etiqueta">Etapa que respalda el protocolo</label><div class="fila-acc" id="prEt" style="flex-wrap:wrap">'+ets.map(et=>'<button data-pet="'+et+'" class="'+(et===def?'prim':'')+'" style="min-width:45%">'+ETAPAS[et].n+'</button>').join('')+'</div>'+
+   '<label class="toggle-mini" style="margin-top:8px"><input type="checkbox" id="prMarcar" checked> Dar la etapa por terminada (100 %) en estos elementos</label>'+
+   '<label class="etiqueta" style="margin-top:10px">N° de protocolo</label><input id="prNum" class="campo" maxlength="30" placeholder="Ej. PC-HA-0123" inputmode="text">'+
+   '<label class="etiqueta" style="margin-top:10px">Fecha del protocolo</label><input id="prFecha" class="campo" type="date" value="'+hoyDia()+'">'+
+   '<label class="etiqueta" style="margin-top:10px">Observación (opcional)</label><input id="prNota" class="campo" maxlength="160" placeholder="Ej. revisado por ITO, recubrimientos OK">'+
+   '<label class="etiqueta" style="margin-top:10px">📷 Fotos (se comprimen en el teléfono)</label><div id="prFotos" class="fotos-grid"></div>'+
+   '<button class="btn secundario" id="prFotoBtn" style="width:100%;justify-content:center">📷 Tomar o elegir fotos</button><input type="file" id="prFotoIn" accept="image/*" multiple hidden>'+
+   '<button class="btn principal grande" id="prOk" style="width:100%;margin-top:12px">Guardar protocolo</button>');
+  window._prEt=def;$$('#prEt [data-pet]').forEach(b=>b.onclick=()=>{window._prEt=b.dataset.pet;$$('#prEt button').forEach(x=>x.classList.toggle('prim',x===b));});
+  const pinta=()=>{$('#prFotos').innerHTML=FOTOS_TMP.map((d,i)=>'<div class="fg"><img src="'+d+'" alt="foto"><button data-qf="'+i+'">✕</button></div>').join('');$$('#prFotos [data-qf]').forEach(b=>b.onclick=()=>{FOTOS_TMP.splice(+b.dataset.qf,1);pinta();});};
+  $('#prFotoBtn').onclick=()=>$('#prFotoIn').click();
+  $('#prFotoIn').onchange=async e=>{const fs=[...e.target.files];e.target.value='';for(const fl of fs){try{FOTOS_TMP.push(await comprimir(fl));}catch(x){toast('Una foto no se pudo leer','error');}}pinta();};
+  $('#prOk').onclick=async()=>{const num=$('#prNum').value.trim();if(!num){toast('Escribe el N° de protocolo','error');$('#prNum').focus();return;}
+    const et=window._prEt,gs=els.filter(e=>etapasDe(e).includes(et)).map(e=>e.g);if(!gs.length){toast('Ninguno de los elementos tiene esa etapa','error');return;}
+    $('#prOk').disabled=true;const id=uid(),lote=[];
+    if($('#prMarcar').checked){estado._pr=id;try{for(const g of gs)await aplicar(EL.get(g),et,1,lote);}finally{estado._pr=null;}}
+    const fotos=[];for(let i=0;i<FOTOS_TMP.length;i++){const fid=id+'#'+i;await fotoGuardar(fid,FOTOS_TMP[i]);fotos.push(fid);}
+    const vis={m:estado.vVista};if(estado.vVista==='planta')vis.pl=estado.planta;if(estado.vVista==='elev'&&estado.elev)vis.el={t:estado.elev.t,p:estado.elev.p,lado:estado.elev.lado||1,i:estado.elev.i};
+    const p={id,k:'prot',ed:ED.id,gs,et,num,fecha:$('#prFecha').value||hoyDia(),nota:$('#prNota').value.trim(),fotos,vis,nv:[...new Set(gs.map(g=>EL.get(g).nv))].join(','),dia:hoyDia(),ts:new Date().toISOString(),por:estado.persona,disp:estado.disp};
+    estado.local.push(p);await put('eventos',p);lote.push(id);estado.deshacer.push(lote);FOTOS_TMP=[];
+    combinar();cerrarHoja();pintar();panelSel();renderInicio();toast('🧾 Protocolo '+num+' guardado · '+gs.length+' elementos'+(fotos.length?' · '+fotos.length+' foto'+(fotos.length>1?'s':''):''),'ok');};}
+async function hojaProt(id){const p=PROTS.find(x=>x.id===id);if(!p)return;const tipos={};p.gs.forEach(g=>{const e=EL.get(g);if(e){const k=e.fam+' '+e.t+' · '+e.nv;tipos[k]=(tipos[k]||0)+1;}});
+  const propio=estado.local.some(x=>x.id===p.id&&x.por===estado.persona);
+  abrirHoja('<div class="hoja-titulo">🧾 Protocolo '+etqProt(p)+'</div><div class="hoja-sub">'+ETAPAS[p.et].n+' · '+diaLarga(p.fecha||p.dia)+' · '+p.gs.length+' elementos · '+fmt1(p.gs.reduce((s,g)=>s+(EL.get(g)?EL.get(g).v:0),0))+' m³ · registrado por '+escapar(p.por)+'</div>'+
+   (p.nota?'<p>📝 '+escapar(p.nota)+'</p>':'')+'<div id="pFotos" class="fotos-grid">'+((p.fotos||[]).length?'<p class="nota">Cargando fotos…</p>':'<p class="nota">Sin fotos.</p>')+'</div>'+
+   '<ul class="log">'+Object.entries(tipos).sort().map(([k,n])=>'<li>'+escapar(k)+' × '+n+'</li>').join('')+'</ul>'+
+   '<div class="fila-acc" style="margin-top:10px"><button class="prim" data-pver="'+p.id+'">🧊 Ver en el visor</button>'+(propio?'<button data-pan="'+p.id+'" style="color:var(--peligro-osc)">Anular</button>':'')+'</div>');
+  const us=[];for(const fid of p.fotos||[]){const d=await fotoLeer(fid);if(d)us.push(d);}const c=$('#pFotos');if(c)c.innerHTML=us.length?us.map(d=>'<div class="fg"><img src="'+d+'" data-fz="1" alt="foto"></div>').join(''):((p.fotos||[]).length?'<p class="nota">Las fotos aún no están publicadas (se ven cuando el coordinador consolida el envío).</p>':'<p class="nota">Sin fotos.</p>');}
+function verProt(p){cerrarHoja();const v=p.vis||{m:'3d'};estado.sel.clear();
+  if(v.m==='planta'&&PRESETS.some(x=>x.id===v.pl)){estado.planta=v.pl;estado.vVista='planta';}
+  else if(v.m==='elev'&&v.el){fijarElev(Object.assign({},v.el));estado.vVista='elev';}
+  else{estado.vVista='3d';estado.fNivel=null;estado.fFam=new Set(FAMS);}
+  cambiarVista('visor');usarVista();p.gs.forEach(g=>{const e=EL.get(g);if(e&&e.mesh.visible)estado.sel.add(g);});pintar();panelSel();if(estado.vVista==='3d')encuadrar(p.gs.map(g=>EL.get(g)&&EL.get(g).mesh).filter(Boolean));}
+/* foto de la vista del protocolo (planta, elevación o 3D) con sus elementos destacados */
+function fotoProt(p,w,h){construirEscena();const sv={vVista:estado.vVista,planta:estado.planta,elev:estado.elev,es:ELEV_SET,sel:estado.sel,modo:estado.modo,res:estado.res};
+  const vis0=MOD.el.map(e=>e.mesh.visible);const v=p.vis||{m:'3d'};let url=null,bg=SC.background;
+  try{if(v.m==='planta'&&PRESETS.some(x=>x.id===v.pl)){estado.vVista='planta';estado.planta=v.pl;}else if(v.m==='elev'&&v.el){estado.vVista='elev';fijarElev(Object.assign({},v.el));}else estado.vVista='3d';
+    estado.sel=new Set(p.gs);estado.modo='alc';estado.res=false;const fv=estado.vVista==='3d'?()=>true:filtroVista();MOD.el.forEach(e=>{e.mesh.visible=fv(e)||estado.sel.has(e.g);});overlay();pintar();
+    const r2=new THREE.WebGLRenderer({canvas:document.createElement('canvas'),antialias:true,preserveDrawingBuffer:true});r2.setPixelRatio(1);r2.setSize(w,h,false);let cam;
+    if(estado.vVista==='3d'){cam=new THREE.PerspectiveCamera(40,w/h,0.2,3000);const b=new THREE.Box3();p.gs.forEach(g=>{const e=EL.get(g);if(e)b.expandByObject(e.mesh);});
+      const c=b.getCenter(new THREE.Vector3()),s=b.getSize(new THREE.Vector3()),r=Math.max(s.length()/2,4)*1.8;const dist=r/Math.sin(cam.fov*Math.PI/360)*0.7;
+      cam.position.copy(c).addScaledVector(new THREE.Vector3(0.62,0.78,0.95).normalize(),dist);cam.lookAt(c);cam.near=Math.max(0.1,dist/200);cam.far=dist*8;cam.updateProjectionMatrix();}
+    else{cam=new THREE.OrthographicCamera(-1,1,1,-1,0.1,2000);encuadreO(cam,w/h,MESH.filter(m=>m.visible));}
+    SC.background=new THREE.Color(0xFFFFFF);r2.render(SC,cam);url=r2.domElement.toDataURL('image/jpeg',0.88);r2.dispose();try{r2.forceContextLoss();}catch(e){}}
+  catch(e){url=null;}
+  SC.background=bg;Object.assign(estado,{vVista:sv.vVista,planta:sv.planta,elev:sv.elev,sel:sv.sel,modo:sv.modo,res:sv.res});ELEV_SET=sv.es;MOD.el.forEach((e,i)=>{e.mesh.visible=vis0[i];});overlay();pintar();return url;}
+const tamImg=u=>new Promise(r=>{const i=new Image();i.onload=()=>r([i.width,i.height]);i.onerror=()=>r([4,3]);i.src=u;});
+function hojaInformeProt(){const n=PROTS.length;
+  abrirHoja('<div class="hoja-titulo">🧾 Informe de protocolos de calidad</div><div class="hoja-sub">'+n+' protocolo'+(n===1?'':'s')+' registrados en '+escapar(ED.n)+'</div>'+
+   '<label class="etiqueta">Periodo</label><select id="ipPer" class="campo"><option value="0">Todos</option><option value="7">Últimos 7 días</option><option value="30" selected>Últimos 30 días</option><option value="sem">Semana actual (jueves a miércoles)</option></select>'+
+   '<label class="etiqueta" style="margin-top:10px">Etapa</label><select id="ipEt" class="campo"><option value="">Todas</option>'+ORDEN.map(et=>'<option value="'+et+'">'+ETAPAS[et].n+'</option>').join('')+'</select>'+
+   '<label class="toggle-mini" style="margin-top:10px"><input type="checkbox" id="ipFotos" checked> Incluir las fotos (una página por protocolo)</label>'+
+   '<button class="btn principal grande" id="ipOk" style="width:100%;margin-top:12px">📄 Generar PDF</button>');
+  $('#ipOk').onclick=()=>{const per=$('#ipPer').value,et=$('#ipEt').value;const d0=per==='0'?'':per==='sem'?inicioSem(hoyDia()):sumarDias(hoyDia(),-(+per));
+    const L=PROTS.filter(p=>(!d0||(p.fecha||p.dia)>=d0)&&(!et||p.et===et));cerrarHoja();if(!L.length){toast('No hay protocolos en ese filtro');return;}informeProt(L,$('#ipFotos').checked,per==='0'?'Todos los protocolos':per==='sem'?'Semana del '+diaCorta(d0):'Desde el '+diaCorta(d0));};}
+async function informeProt(L,conFotos,periodo){progreso('Armando el informe de protocolos…');await new Promise(r=>setTimeout(r,60));
+  try{L=L.slice().sort((a,b)=>(a.fecha||a.dia).localeCompare(b.fecha||b.dia)||String(a.num).localeCompare(String(b.num),'es',{numeric:true}));
+    const doc=pdfBase(),TIT='Protocolos de calidad · Hormigón armado',sub=OBRA+' · '+periodo;pdfCab(doc,TIT,sub);let y=23;
+    const vol=p=>p.gs.reduce((s,g)=>s+(EL.get(g)?EL.get(g).v:0),0);const V=L.reduce((s,p)=>s+vol(p),0),nf=L.reduce((s,p)=>s+(p.fotos||[]).length,0),ne=new Set(L.flatMap(p=>p.gs)).size;
+    doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('Registro de protocolos de calidad · '+ED.n,PM,y);y+=5;
+    y=pdfNota(doc,y,'Generado por '+(estado.persona||'—')+' el '+new Date().toLocaleString('es-CL',{dateStyle:'short',timeStyle:'short'})+' · con el avance publicado del equipo y los registros de este teléfono');
+    const kw=(PW-2*PM-9)/4;pdfKpi(doc,PM,y,kw,String(L.length),'Protocolos',periodo,'#1C4192');pdfKpi(doc,PM+kw+3,y,kw,String(ne),'Elementos respaldados',fmt1(V)+' m3','#16A34A');
+    pdfKpi(doc,PM+2*(kw+3),y,kw,String(nf),'Fotos','comprimidas en el teléfono','#0891B2');const r=resumen();pdfKpi(doc,PM+3*(kw+3),y,kw,fmt1(pct(r.eq,r.V))+'%','Avance ponderado del edificio','hormigonado '+fmt1(pct(r.et.hor[0],r.et.hor[1]))+'%','#475569');y+=27;
+    y=pdfTit(doc,y,'Resumen');
+    y=pdfTabla(doc,y,[{t:'N° protocolo',w:32},{t:'Fecha',w:20},{t:'Etapa',w:28},{t:'Nivel',w:30},{t:'Vista',w:40},{t:'Elem.',w:14,al:'r'},{t:'m3',w:18,al:'r'},{t:'Fotos',w:14,al:'r'},{t:'Registró',w:34},{t:'Observación',w:PW-2*PM-230}],
+      L.map(p=>({c:[p.num||'s/n',diaCorta(p.fecha||p.dia),ETAPAS[p.et].n,(p.nv||'').split(',').join(' / '),vistaTxt(p),String(p.gs.length),fmt1(vol(p)),String((p.fotos||[]).length),p.por||'',p.nota||''],col:rgb(ETAPAS[p.et].color),cj:2})),TIT,sub);
+    if(conFotos){for(let k=0;k<L.length;k++){const p=L[k];progreso('Protocolo '+(k+1)+' de '+L.length+'…');await new Promise(r=>setTimeout(r,20));
+      doc.addPage();pdfCab(doc,TIT,sub);y=23;doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(...rgb(ETAPAS[p.et].color));doc.text('Protocolo N° '+(p.num||'s/n'),PM,y);
+      doc.setTextColor(30,41,59);doc.setFontSize(10);doc.text(ETAPAS[p.et].n+' · '+diaLarga(p.fecha||p.dia)+' · '+p.gs.length+' elementos · '+fmt1(vol(p))+' m3',PM+62,y);y+=5;
+      y=pdfNota(doc,y,'Nivel: '+(p.nv||'').split(',').join(' / ')+' · Vista: '+vistaTxt(p)+' · Registró: '+(p.por||'—')+(p.nota?' · Obs.: '+p.nota:''));
+      const iw=150,ih=100,im=fotoProt(p,1200,800);doc.setDrawColor(203,213,225);if(im)doc.addImage(im,'JPEG',PM,y,iw,ih);doc.rect(PM,y,iw,ih);
+      const fx=PM+iw+5,fw=PW-PM-fx,us=[];for(const fid of p.fotos||[]){const d=await fotoLeer(fid);if(d)us.push(d);}
+      if(us.length){const n=Math.min(us.length,4),cols=n===1?1:2,rows=Math.ceil(n/cols),cw=(fw-(cols-1)*3)/cols,ch=(ih-(rows-1)*3)/rows;
+        for(let i=0;i<n;i++){const [a,b]=await tamImg(us[i]);let w=cw,h=cw*b/a;if(h>ch){h=ch;w=ch*a/b;}const x=fx+(i%cols)*(cw+3)+(cw-w)/2,yy=y+Math.floor(i/cols)*(ch+3)+(ch-h)/2;doc.addImage(us[i],'JPEG',x,yy,w,h);}
+        if(us.length>4){doc.setFontSize(8);doc.setTextColor(100,116,139);doc.text('+ '+(us.length-4)+' foto(s) más en HormiFlow',fx,y+ih+4);}}
+      else{doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(100,116,139);doc.text((p.fotos||[]).length?'Fotos aún no publicadas por el coordinador.':'Sin fotos.',fx+2,y+6);}
+      y+=ih+6;doc.setTextColor(30,41,59);const tipos={};p.gs.forEach(g=>{const e=EL.get(g);if(!e)return;const kk=e.fam+' '+e.t+' · '+e.nv;(tipos[kk]=tipos[kk]||{n:0,V:0,pt:[]}).n++;tipos[kk].V+=e.v;if(e.pt)tipos[kk].pt.push(e.pt);});
+      y=pdfTabla(doc,y,[{t:'Elemento (tipo · nivel)',w:110},{t:'Cantidad',w:22,al:'r'},{t:'m3',w:22,al:'r'},{t:'Partes / paños',w:PW-2*PM-154}],Object.entries(tipos).sort().map(([kk,x])=>({c:[kk,String(x.n),fmt1(x.V),[...new Set(x.pt)].slice(0,12).join(', ')]})),TIT,sub);}}
+    pdfPie(doc);progreso(null);const blob=doc.output('blob');await compartirArchivo(blob,'Protocolos_HormiFlow_'+ED.id+'_'+hoyDia()+'.pdf','Protocolos de calidad · HormiFlow','Informe de protocolos de calidad · '+ED.n);toast('Informe listo','ok');}
+  catch(e){progreso(null);toast('No se pudo armar el informe: '+e.message,'error');}}
+function vistaTxt(p){const v=p.vis||{};if(v.m==='planta'){const x=PRESETS.find(q=>q.id===v.pl);return 'Planta '+(x?x.n:'');}if(v.m==='elev'&&v.el)return 'Elevación '+(v.el.i!=null?'eje ':'')+v.el.t;return '3D';}
+function elevDeMuro(){const el=[...estado.sel].map(g=>EL.get(g)).find(e=>e&&(e.fam==='Muro'||e.fam==='Viga'));if(!el)return;
+  const P=el.p;let mx=0,my=0,n=P.length/3;for(let i=0;i<P.length;i+=3){mx+=P[i];my+=P[i+1];}mx/=n*100;my/=n*100;let sxx=0,syy=0,sxy=0;
+  for(let i=0;i<P.length;i+=3){const x=P[i]/100-mx,y=P[i+1]/100-my;sxx+=x*x;syy+=y*y;sxy+=x*y;}const th=0.5*Math.atan2(2*sxy,sxx-syy);const ux=Math.cos(th),uy=Math.sin(th);
+  /* recta del muro: atraviesa todo el edificio para tomar los muros alineados */
+  const D=Math.hypot(MOD.dim_m[0],MOD.dim_m[1]);const L={t:'Muro '+el.t+(el.pt?' '+el.pt:''),p:[[mx-ux*D,my-uy*D],[mx+ux*D,my+uy*D]],lado:1,i:null};
+  fijarElev(L);estado.vVista='elev';estado.sel.clear();usarVista();toast('📐 Elevación sobre la línea del muro · '+ELEV_SET.size+' elementos');}
 /* ================= envío, menú y eventos ================= */
 async function compartirArchivos(archivos,titulo,texto){try{const fl=archivos.map(a=>new File([a.blob],a.nombre,{type:a.blob.type}));if(navigator.canShare&&navigator.canShare({files:fl})){await navigator.share({files:fl,title:titulo,text:texto});return true;}}catch(e){if(e&&e.name==='AbortError')return false;}archivos.forEach((a,i)=>setTimeout(()=>descargar(a.blob,a.nombre),i*400));return true;}
 async function exportar(){const mios=estado.local.filter(e=>e.por===estado.persona||e.k==='comp');if(!mios.length){toast('Todavía no tienes registros');return;}
@@ -2770,6 +2975,7 @@ async function exportar(){const mios=estado.local.filter(e=>e.por===estado.perso
   const base='_'+slug+'_'+hoyDia()+'_'+String(ahora.getHours()).padStart(2,'0')+'h'+String(ahora.getMinutes()).padStart(2,'0');
   const hoy=mios.filter(e=>!e.borrado&&e.dia===hoyDia()&&e.k!=='comp'),nc=mios.filter(e=>!e.borrado&&e.k==='comp'&&e.dia===hoyDia()).length;
   const texto='Para el coordinador · Avance HormiFlow · '+estado.persona+' · '+diaCorta(hoyDia())+': '+new Set(hoy.map(e=>e.g)).size+' elementos hoy, '+hoy.length+' registros'+(nc?', '+nc+' compromiso(s)':'')+'.';
+  {const ps=mios.filter(e=>e.k==='prot'&&!e.borrado),pend=ps.filter(e=>!e.enviado),usar=pend.length?pend:ps;const fo={};for(const p of usar)for(const fid of p.fotos||[]){const x=await fotoLeer(fid);if(x)fo[fid]=x;}if(Object.keys(fo).length)d.fotos=fo;}
   const archivos=[{blob:new Blob([JSON.stringify(d)],{type:'application/json'}),nombre:'Avance_HormiFlow'+base+'.json'}];
   try{const nuevos=estado.local.filter(e=>!e.enviado&&!e.borrado);archivos.push({blob:pdfEnvio(nuevos),nombre:'Resumen_HormiFlow'+base+'.pdf'});}catch(e){}
   const ok=await compartirArchivos(archivos,'Avance HormiFlow',texto);
@@ -2792,13 +2998,22 @@ function cambiarEdificio(id){if(id===ED.id)return;try{localStorage.setItem('hf_e
 function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">HormiFlow '+APP_VER+' · '+OBRA+' · por Renato Martínez Palominos</p>'+
   '<p class="nota" style="margin:2px 0 4px">Edificio</p><div class="barra-chips" style="flex-wrap:wrap;margin-bottom:8px">'+chipsEdificio()+'</div>'+
   '<button class="menu-item" data-acc="enviar">📤 Enviar mi avance al coordinador</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
-  '<button class="menu-item" data-inf="1">📄 Informe Last Planner (PDF)</button><button class="menu-item" data-ver="1">👁 Transparencia del modelo</button>'+
+  '<button class="menu-item" data-inf="1">📄 Informe Last Planner (PDF)</button><button class="menu-item" data-pinf="1">🧾 Informe de protocolos de calidad (PDF)</button><button class="menu-item" data-ver="1">👁 Transparencia del modelo</button>'+
   '<button class="menu-item" data-acc="restaurar">⬇️ Restaurar mi avance desde un archivo</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
   '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a>'+
   '<button class="menu-item" data-acc="borrar" style="color:var(--peligro-osc)">🗑 Borrar mis avances de este teléfono</button><button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
 document.addEventListener('click',async e=>{const t=e.target;
   let b;
   if((b=t.closest('[data-edif]'))){cambiarEdificio(b.dataset.edif);return;}
+  if((b=t.closest('[data-vv]'))){cambiarVV(b.dataset.vv);return;}
+  if((b=t.closest('[data-pl]'))){estado.planta=b.dataset.pl;estado.sel.clear();usarVista();return;}
+  if((b=t.closest('[data-ej]'))){const i=+b.dataset.ej;fijarElev(Object.assign({i,lado:estado.elev&&estado.elev.i===i?estado.elev.lado:1},MOD.ejes[i]));estado.sel.clear();usarVista();return;}
+  if((b=t.closest('[data-lado]'))){if(estado.elev){estado.elev.lado=-(estado.elev.lado||1);usarVista();}return;}
+  if((b=t.closest('[data-prot]'))){hojaProt(b.dataset.prot);return;}
+  if((b=t.closest('[data-pinf]'))){hojaInformeProt();return;}
+  if((b=t.closest('[data-pver]'))){const p=PROTS.find(x=>x.id===b.dataset.pver);if(p)verProt(p);return;}
+  if((b=t.closest('[data-pan]'))){const x=estado.local.find(q=>q.id===b.dataset.pan);if(x){x.borrado=true;x.borradoTs=new Date().toISOString();x.enviado=false;await put('eventos',x);combinar();cerrarHoja();renderTodo();toast('Protocolo anulado (el avance marcado se mantiene; usa ↶ o la ficha si quieres quitarlo)');}return;}
+  if(t.dataset&&t.dataset.fz){abrirHoja('<img src="'+t.src+'" style="width:100%;border-radius:12px" alt="foto">');return;}
   if((b=t.closest('[data-niv]'))){estado.fNivel=b.dataset.niv||null;aplicarFiltros();encuadrar(MESH.filter(m=>m.visible));return;}
   if((b=t.closest('[data-fam]'))){const x=b.dataset.fam;if(estado.fFam.has(x)){if(estado.fFam.size>1)estado.fFam.delete(x);}else estado.fFam.add(x);aplicarFiltros();return;}
   if((b=t.closest('[data-modo]'))){estado.modo=b.dataset.modo;chips();pintar();return;}
@@ -2806,16 +3021,16 @@ document.addEventListener('click',async e=>{const t=e.target;
   if((b=t.closest('[data-semm]'))){estado.sem=sumarDias(estado.sem,7*+b.dataset.semm);chips();pintar();return;}
   if((b=t.closest('[data-mk]'))){marcarSel(b.dataset.mk);return;}
   if((b=t.closest('[data-sa]'))){const a=b.dataset.sa;
-    if(a==='limpiar'){estado.sel.clear();pintar();panelSel();}else if(a==='undo')deshacer();else if(a==='comp')hojaComprometer();else if(a==='pct')hojaPct();else if(a==='mas')toolsSel();
+    if(a==='limpiar'){estado.sel.clear();pintar();panelSel();}else if(a==='prot')hojaProtocolo();else if(a==='elev')elevDeMuro();else if(a==='undo')deshacer();else if(a==='comp')hojaComprometer();else if(a==='pct')hojaPct();else if(a==='mas')toolsSel();
     else if(a==='ficha'){if(estado.sel.size===1)fichaEl([...estado.sel][0]);else listaSel();}return;}
   if((b=t.closest('[data-st]'))){selTool(b.dataset.st);return;}
   if((b=t.closest('[data-stf]'))){selTool('f:'+b.dataset.stf);return;}
   if((b=t.closest('[data-q]'))){const k=b.dataset.q;[...estado.sel].forEach(g=>{const el=EL.get(g);if(el&&(el.fam+' '+el.t+' · '+el.nv)===k)estado.sel.delete(g);});pintar();panelSel();if(estado.sel.size)listaSel();else cerrarHoja();return;}
   if((b=t.closest('[data-fe]'))){const el=EL.get(b.dataset.g),et=b.dataset.fe;const lote=[];await aplicar(el,et,f(el.g,et)>=1?0:1,lote);if(lote.length)estado.deshacer.push(lote);combinar();pintar();panelSel();renderInicio();fichaEl(el.g);return;}
-  if((b=t.closest('[data-nv]'))){estado.fNivel=b.dataset.nv;cambiarVista('visor');aplicarFiltros();encuadrar(MESH.filter(m=>m.visible));return;}
+  if((b=t.closest('[data-nv]'))){estado.fNivel=b.dataset.nv;estado.vVista='3d';cambiarVista('visor');usarVista();aplicarFiltros();encuadrar(MESH.filter(m=>m.visible));return;}
   if((b=t.closest('[data-comp]'))){hojaComp(b.dataset.comp);return;}
   if((b=t.closest('[data-sm]'))){estado.sem=sumarDias(estado.sem,7*+b.dataset.sm);renderSemana();return;}
-  if((b=t.closest('[data-cv]'))){const c=COMPS.find(x=>x.id===b.dataset.cv);if(!c)return;cerrarHoja();estado.sem=c.sem;estado.modo='sem';estado.fNivel=null;estado.fFam=new Set(FAMS);cambiarVista('visor');aplicarFiltros();
+  if((b=t.closest('[data-cv]'))){const c=COMPS.find(x=>x.id===b.dataset.cv);if(!c)return;cerrarHoja();estado.sem=c.sem;estado.modo='sem';estado.fNivel=null;estado.fFam=new Set(FAMS);estado.vVista='3d';cambiarVista('visor');usarVista();
     estado.sel=new Set(c.gs.filter(g=>EL.has(g)));pintar();panelSel();encuadrar(c.gs.map(g=>EL.get(g)&&EL.get(g).mesh).filter(Boolean));return;}
   if((b=t.closest('[data-can]'))){const x=estado.local.find(q=>q.id===b.dataset.can);if(x){x.borrado=true;x.borradoTs=new Date().toISOString();x.enviado=false;await put('eventos',x);combinar();cerrarHoja();renderTodo();toast('Compromiso anulado');}return;}
   if((b=t.closest('[data-res]'))){estado.res=!estado.res;chips();pintar();return;}
@@ -2844,7 +3059,7 @@ async function claveDeTabiFlow(){try{const db=await abrirDB('TabiFlowHCQ');if(!d
   const get=k=>new Promise(r=>{const q=db.transaction('meta','readonly').objectStore('meta').get(k);q.onsuccess=()=>r(q.result?q.result.v:null);q.onerror=()=>r(null);});
   const key=await get('clave'),per=await get('persona');db.close();if(key){await verificar(key);return {key,per};}}catch(e){}return null;}
 async function iniciar(){
-  try{DB=await abrirDB('HormiFlowHCQ',1,['eventos','meta']);}catch(e){DB=null;}
+  try{DB=await abrirDB('HormiFlowHCQ',2,['eventos','meta','fotos']);}catch(e){DB=null;}
   try{if(navigator.serviceWorker&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});}catch(e){}
   try{if(localStorage.getItem('tf_tema')==='oscuro')document.documentElement.classList.add('oscuro');}catch(e){}
   estado.disp=await metaGet('disp')||uid();await metaSet('disp',estado.disp);
