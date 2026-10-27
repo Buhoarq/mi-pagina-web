@@ -655,7 +655,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v6.9 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v7.0 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1088,7 +1088,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v6.9 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiFlow',APP_VER='v7.0 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -2116,10 +2116,15 @@ function bindEventos(){
   let tR;window.addEventListener('resize',()=>{clearTimeout(tR);tR=setTimeout(()=>{if($('#vista-plano').classList.contains('activa')&&dimensionarLienzo())render();},200);});
 }
 /* ---------------- acceso con clave de obra ---------------- */
+/* v-equipo (27-10-2026): claves personales del equipo (tabiflow/equipo_acceso.json guarda la clave de obra cifrada con cada una); abren todos los módulos */
+async function passEquipo(pass,ruta){try{const acc=await (await fetch(ruta+'equipo_acceso.json?t='+Date.now(),{cache:'no-store'})).json();
+  for(const x of (acc&&acc.alt)||[]){try{const ka=await crypto.subtle.deriveKey({name:'PBKDF2',salt:Uint8Array.from(atob(x.salt),c=>c.charCodeAt(0)),iterations:x.iter,hash:'SHA-256'},await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']),{name:'AES-GCM',length:256},false,['decrypt']);
+    const u=Uint8Array.from(atob(x.w),c=>c.charCodeAt(0));const pl=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(0,12)},ka,u.slice(12));
+    const o=JSON.parse(await new Response(new Blob([pl]).stream().pipeThrough(new DecompressionStream('gzip'))).text());if(o&&o.pass)return o.pass;}catch(e){}}}catch(e){}return null;}
 async function intentarDesbloqueo(pass){
   const info=await (await fetch(DATOS+'clave.json?t='+Date.now(),{cache:'no-store'}).catch(()=>caches.match(DATOS+'clave.json'))||await caches.match(DATOS+'clave.json')).json();
-  const key=await derivarClave(pass,info.salt,info.iter);
-  await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer); // lanza error si la clave no es correcta
+  const chk=Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer;let key=await derivarClave(pass,info.salt,info.iter);
+  try{await descifrar(key,chk);}catch(e){const p2=await passEquipo(pass,typeof DATOS!=='undefined'?DATOS:'');if(!p2)throw e;key=await derivarClave(p2,info.salt,info.iter);await descifrar(key,chk);} // lanza error si la clave no es correcta
   return key;}
 async function abrirModelo(key){
   setAcceso('Abriendo el modelo del hospital…');
