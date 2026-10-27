@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PilotoFlow v1.4 · Piloto UCI · Hospital de Coquimbo</title>
+<title>PilotoFlow v1.5 · Piloto UCI · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -586,7 +586,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Flow</span><span class="ver">v1.4</span></span>
+      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Flow</span><span class="ver">v1.5</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -631,7 +631,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <button class="pestana" data-v="compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg><span>Compras</span></button>
   <button class="pestana" data-v="bitacora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Bitácora</span></button>
 </nav>
-<footer id="pie"><span class="marca">PilotoFlow</span> <span class="vpie">v1.4</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PilotoFlow</span> <span class="vpie">v1.5</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2348,7 +2348,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.4',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.5',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -2661,7 +2661,7 @@ async function guardarFechas(id){const ini=$('#inFrIni').value||'',fin=$('#inFrF
    terminación (EETT), el plano de detalle del recinto, las tareas que lo afectan y su bitácora. */
 const CAT={tab:{n:'Tabiques',c:'#94A3B8'},tra:{n:'Revestimientos y trasdosados',c:'#CBD5E1'},cie:{n:'Cielo',c:'#E2E8F0'},pis:{n:'Piso',c:'#818CF8'},imp:{n:'Impermeabilización',c:'#7DD3FC'},
   rp:{n:'Porcelanato',c:'#F5F5F4'},ven:{n:'Ventanas y mamparas',c:'#67E8F9'},pue:{n:'Puertas',c:'#FCD34D'},art:{n:'Artefactos sanitarios',c:'#FFFFFF'},acc:{n:'Accesorios',c:'#FDA4AF'},
-  ins:{n:'Instalaciones y luminarias',c:'#FDE68A'},mob:{n:'Equipamiento',c:'#C4B5FD'},fac:{n:'Fachada (exterior)',c:'#E7E5E4'},est:{n:'Estructura (losas y pilares)',c:'#64748B'},otr:{n:'Otros',c:'#D6D3D1'}};
+  ins:{n:'Instalaciones y luminarias',c:'#FDE68A'},mob:{n:'Equipamiento',c:'#C4B5FD'},fac:{n:'Fachada (exterior)',c:'#E7E5E4'},est:{n:'Estructura (losas y pilares)',c:'#64748B'},ecie:{n:'Estructura de cielo (propuesta)',c:'#2563EB'},otr:{n:'Otros',c:'#D6D3D1'}};
 let R3=null,SC3=null,CAM3=null,CTL3=null,M3=[],pedido3=false,SEL3=null,modo3='part',ocultos=new Set(['est_sup','cie']),corte3=null;
 function pedirRender3(){if(pedido3||!R3)return;pedido3=true;requestAnimationFrame(()=>{pedido3=false;if(CTL3)CTL3.update();R3.render(SC3,CAM3);});}
 /* tareas que construyen cada elemento (lista en el modelo: el.ts = [ids]); el avance del elemento es el promedio de sus tareas */
@@ -2669,7 +2669,7 @@ function avanceElem(el){const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);
 function progElem(el){const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);if(!ts.length)return null;let s=0;ts.forEach(t=>s+=t.prog);return s/ts.length;}
 function elementosDeTarea(id){if(!PROG||!PROG.m3d)return [];const fam=new Set(hojasDe(id).map(t=>t.id).concat([id]));return PROG.m3d.el.filter(e=>(e.ts||[]).some(x=>fam.has(x)));}
 const colAv=v=>v==null?'#CBD5E1':v>=0.999?'#16A34A':v>=0.5?'#84CC16':v>0?'#F59E0B':'#F87171';
-function colorElem(el){if(modo3==='part')return CAT[el.k]?CAT[el.k].c:'#D6D3D1';
+function colorElem(el){if(modo3==='part')return el.col||(CAT[el.k]?CAT[el.k].c:'#D6D3D1');
   if(modo3==='av'){if(el.k==='est')return '#94A3B8';return colAv(avanceElem(el));}
   if(modo3==='hoy'){const hoy=hoyDia(),f=sumarDias(hoy,14);const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);
     if(ts.some(t=>t.est==='atr'))return '#DC2626';if(ts.some(t=>t.real<1&&t.ini<=hoy&&t.fin>=hoy))return '#2563EB';if(ts.some(t=>t.real<1&&t.ini>hoy&&t.ini<=f))return '#F59E0B';if(ts.length&&ts.every(t=>t.real>=1))return '#16A34A';return '#E2E8F0';}
@@ -2755,7 +2755,7 @@ function panel3(el){const p=$('#panel3');const ts=(el.ts||[]).map(id=>T.get(id))
    (el.d?'<div class="ic-r">'+escapar(el.d)+'</div>':'')+
    (av!=null?'<div class="av-doble chico"><div><span>Avance</span><b>'+fm(av*100,0)+'%</b></div><div><span>Programado hoy</span><b>'+fm(pr*100,0)+'%</b></div><div><span>Tareas</span><b>'+ts.length+'</b></div></div>':'')+
    (()=>{const c=cubicar(el);return c?'<div class="ic-r">📏 '+escapar(c.r)+'</div>':'';})()+
-   '<div class="fila-btn">'+(rec&&rec.pl?'<button class="btn principal" data-acc="plano" data-hoja="'+rec.pl+'" data-vista="'+vistaPlanoDe(el)+'">📐 Plano de detalle</button>':'')+
+   '<div class="fila-btn">'+(el.hoja||(rec&&rec.pl)?'<button class="btn principal" data-acc="plano" data-hoja="'+(el.hoja||rec.pl)+'" data-vista="'+vistaPlanoDe(el)+'">📐 Plano de detalle</button>':'')+
    (cods.length?'<button class="btn secundario" data-acc="eett" data-cod="'+cods.join(',')+'">📘 Terminación (EETT)</button>':'')+'</div>'+
    '<div class="fila-btn"><button class="btn secundario" data-acc="cubic" data-g="'+el.g+'">📏 Cubicación</button><button class="btn secundario" data-acc="elem" data-g="'+el.g+'">📋 Tareas'+(bits?' · '+bits+' registros':'')+'</button><button class="btn secundario" data-acc="nuevabit" data-g="'+el.g+'">📷 Foto / nota</button></div>';
   p.classList.add('visible');}
@@ -2768,7 +2768,7 @@ function hojaElemento(g){const el=PROG.m3d.el.find(e=>e.g===g);if(!el)return;con
    (el.dim?'<div class="ficha3">'+el.dim.map(([k,v])=>'<div class="dato"><span>'+escapar(k)+'</span><b>'+escapar(v)+'</b></div>').join('')+'</div>':'')+
    bloqueCubic(el)+
    (cods.length?'<label class="etiqueta">Terminaciones y especificación</label>'+cods.map(c=>'<button class="ftar" data-acc="eett" data-cod="'+c+'" style="--c:#0891B2"><i></i><div class="tx"><b>'+escapar(c)+'</b><small>'+escapar((PROG.leyenda&&PROG.leyenda[c])||(PROG.eett&&PROG.eett[c]&&PROG.eett[c][0].tit)||'')+'</small></div><span class="pc">📘</span></button>').join(''):'')+
-   (rec&&rec.pl?'<button class="btn principal grande" data-acc="plano" data-hoja="'+rec.pl+'" data-vista="'+vistaPlanoDe(el)+'">📐 Ver plano de detalle</button>':'')+
+   (el.hoja||(rec&&rec.pl)?'<button class="btn principal grande" data-acc="plano" data-hoja="'+(el.hoja||rec.pl)+'" data-vista="'+vistaPlanoDe(el)+'">📐 Ver plano de detalle</button>':'')+
    '<label class="etiqueta">Tareas del programa ('+ts.length+')</label>'+(ts.length?ts.map(t=>filaTarea(t)).join(''):'<p class="nota">Sin tareas asociadas (elemento de contexto).</p>')+
    '<button class="btn secundario" data-acc="nuevabit" data-g="'+g+'" style="width:100%;justify-content:center;margin-top:8px">📷 Agregar foto o nota a este elemento</button>'+
    (bits.length?'<label class="etiqueta">Bitácora del elemento</label>'+bits.map(b=>tarjetaBit(b)).join(''):''));if(bits.some(b=>b.nf))cargarFotos();}
