@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.21 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.22 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -562,7 +562,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.21 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.22 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -987,7 +987,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.21 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.22 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 let TIPOSTAB={},TABSEL=null;   /* v0.21: tipos de tabique (TF en rojo tenue) y tabique tocado */
@@ -1170,7 +1170,8 @@ function render(){if(!ctx||!estado.nivel)return;const n=estado.nivel;const W=cv.
   dibujarEscaleras(ctx,n,px);
   ctx.fillStyle='#475569';n.mur.forEach(r=>poly(r,true));ctx.fillStyle='#334155';n.col.forEach(r=>poly(r,true));
   ctx.fillStyle=osc?'#64748B':'#94A3B8';n.tab.forEach(t=>{if(!t.tf)t.p.forEach(r=>poly(r,true));});
-  ctx.fillStyle=osc?'#A35A5A':'#F2A3A3';n.tab.forEach(t=>{if(t.tf)t.p.forEach(r=>poly(r,true));});
+  ctx.fillStyle=osc?'rgba(248,113,113,.55)':'rgba(239,68,68,.45)';ctx.strokeStyle=osc?'rgba(248,113,113,.85)':'rgba(220,38,38,.6)';ctx.lineWidth=1.6*px;ctx.lineJoin='round';
+  n.tab.forEach(t=>{if(t.tf)t.p.forEach(r=>{if(r.length<4)return;ctx.beginPath();ctx.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)ctx.lineTo(r[i],r[i+1]);ctx.closePath();ctx.fill();ctx.stroke();});});
   if(TABSEL&&n.tab.includes(TABSEL)){ctx.fillStyle='#DC2626';ctx.strokeStyle='#DC2626';ctx.lineWidth=3*px;TABSEL.p.forEach(r=>{poly(r,true);if(r.length>=4){ctx.beginPath();ctx.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)ctx.lineTo(r[i],r[i+1]);ctx.closePath();ctx.stroke();}});}
   if(V.s>0.02){ctx.strokeStyle='rgba(215,0,31,.30)';ctx.lineWidth=1*px;ctx.setLineDash([6*px,4*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);ctx.lineTo(e.p[2],e.p[3]);ctx.stroke();});ctx.setLineDash([]);}
   for(const p of n.pue){const i=info(p.g),c=EST[i.est].color;const r=Math.max(p.rad*1.35,8*px);if(!vis([p.cx-r,p.cy-r,p.cx+r,p.cy+r]))continue;
@@ -1181,17 +1182,17 @@ function render(){if(!ctx||!estado.nivel)return;const n=estado.nivel;const W=cv.
   if(V.s>0.06){ctx.fillStyle=osc?'#64748B':'#94A3B8';ctx.textAlign='center';ctx.textBaseline='middle';const fs=9*px;ctx.font='600 '+fs+'px Inter,system-ui,sans-serif';
     for(const r of n.rec){if(!r.c||!r.ln||r.h<fs*1.6)continue;const x=r.c[0],y=r.c[1];if(x<vx0||x>vx1||y<vy0||y>vy1)continue;const max=Math.floor(r.w*.9/(fs*.56));if(max<5)continue;let t=r.ln;if(t.length>max)t=t.slice(0,max-1)+'…';ctx.fillText(t,x,y);}}
   if(V.s>0.09){ctx.fillStyle=osc?'#F8FAFC':'#0F172A';ctx.font='800 '+9*px+'px Inter,system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='bottom';for(const p of n.pue)if(vis(p.bb))ctx.fillText(p.t,p.cx,p.cy-Math.max(p.rad*1.35,8*px)-2*px);}
-  $('#etqFlot').innerHTML='<b>'+corto(n.id)+'</b> · 1 m = '+fmt0(V.s*100)+' px · <span style="color:#E57373">▮</span> Tabique TF'+(estado.selModo?' · <span style="color:#B91C1C">toca puertas para seleccionarlas</span>':'');}
+  $('#etqFlot').innerHTML='<b>'+corto(n.id)+'</b> · 1 m = '+fmt0(V.s*100)+' px · <span style="color:#EF4444">▮</span> Tabique TF'+(estado.selModo?' · <span style="color:#B91C1C">toca puertas para seleccionarlas</span>':'');}
 function puertaEn(sx,sy){const x=(sx-V.tx)/V.s,y=(sy-V.ty)/V.s;const tol=Math.max(80,24/V.s);let best=null,bd=1e18;
   for(const p of estado.nivel.pue){const d=Math.hypot(p.cx-x,p.cy-y);if(d<Math.max(tol,p.rad*1.4)&&d<bd){bd=d;best=p;}}return best;}
 function dSeg(x,y,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;const u=l?Math.max(0,Math.min(1,((x-ax)*dx+(y-ay)*dy)/l)):0;return Math.hypot(x-ax-u*dx,y-ay-u*dy);}
 function tabiqueEn(sx,sy){if(!estado.nivel)return null;const x=(sx-V.tx)/V.s,y=(sy-V.ty)/V.s;const tol=Math.max(10,14/V.s);let best=null,bd=1e18;
-  for(const t of estado.nivel.tab){const b=t.bb;if(x<b[0]-tol||x>b[2]+tol||y<b[1]-tol||y>b[3]+tol)continue;
+  for(const t of estado.nivel.tab){if(!t.tf)continue;const b=t.bb;if(x<b[0]-tol||x>b[2]+tol||y<b[1]-tol||y>b[3]+tol)continue;
     for(const r of t.p){let dentro=false,d=1e18;for(let i=0,j=r.length-2;i<r.length;j=i,i+=2){const xi=r[i],yi=r[i+1],xj=r[j],yj=r[j+1];if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)dentro=!dentro;d=Math.min(d,dSeg(x,y,xi,yi,xj,yj));}
       if(dentro)d=0;if(d<=tol&&d<bd){bd=d;best=t;}}}return best;}
 function abrirTabique(t){TABSEL=t;render();const ds=TIPOSTAB[t.t];const d=typeof ds==='string'?ds:(ds&&(ds.d||ds.n))||'';
   const mismos=estado.nivel.tab.filter(x=>x.t===t.t).length;
-  abrirHoja('<div class="hoja-titulo">🧱 Tabique '+escapar(t.t||'sin tipo')+'</div><div class="hoja-sub">'+(t.tf?'<b style="color:#DC2626">Tabique TF</b> · ':'')+corto(estado.nivel.id)+'</div>'+
+  abrirHoja('<div class="hoja-titulo">🧱 Tabique '+escapar(t.t||'sin tipo')+'</div><div class="hoja-sub"><b style="color:#DC2626">Tabique TF</b> · '+corto(estado.nivel.id)+'</div>'+
     '<div class="ficha"><div class="meta-item"><span>Tipo</span><b>'+escapar(t.t||'—')+'</b></div>'+(d?'<div class="meta-item" style="grid-column:1/-1"><span>Descripción</span><b>'+escapar(d)+'</b></div>':'')+
     '<div class="meta-item"><span>Tramos de este tipo en el nivel</span><b>'+mismos+'</b></div></div>');}
 const ptrs=new Map();let gesto=null;
