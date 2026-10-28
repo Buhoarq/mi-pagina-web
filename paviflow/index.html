@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PaviFlow v1.10 · Hospital de Coquimbo</title>
+<title>PaviFlow v1.11 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -398,6 +398,15 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 
 /* ================= TabiFlow ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
+/* v1.11 · color por tipo de piso (chips como CieloFlow) */
+.barra-chips{flex:none;display:flex;gap:6px;overflow-x:auto;padding:6px 10px;border-bottom:1px solid var(--linea);background:rgba(255,255,255,.85);scrollbar-width:none;align-items:center}
+.barra-chips::-webkit-scrollbar{display:none}
+html.oscuro .barra-chips{background:var(--panel)}
+.chipf{flex:none;padding:6px 11px;border-radius:99px;border:1px solid var(--linea);background:#fff;font-size:12px;font-weight:800;color:var(--cuerpo);white-space:nowrap}
+.chipf.on{background:var(--primario-osc);border-color:var(--primario-osc);color:#fff}
+.chipf .pt{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.chipf small{font-weight:600;opacity:.75;margin-left:4px}
+html.oscuro .chipf{background:var(--panel2);color:var(--texto)}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
 .lienzo-wrap{flex:1;min-height:0;position:relative;overflow:hidden;background:#EEF2F7;touch-action:none}
 html.oscuro .lienzo-wrap{background:#0F172A}
@@ -465,7 +474,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Pavi</span><span class="np2">Flow</span><span class="ver">v1.10</span></span>
+      <span class="brand-name"><span class="np">Pavi</span><span class="np2">Flow</span><span class="ver">v1.11</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Pavimentos</span>
     </div>
   </div>
@@ -479,7 +488,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M3 15l9-5 9 5-9 5z"/><path d="M3 10l9-5 9 5"/></svg></div>
-          <div><span class="eyebrow">PaviFlow v1.10 · Módulo de pavimentos de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
+          <div><span class="eyebrow">PaviFlow v1.11 · Módulo de pavimentos de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
         </div>
         <p>Los pavimentos del modelo de interiores ya están cargados por nivel, recinto y paño de obra (cortados por ejes, de 6 m como máximo), con su tipo y superficie. Elige el nivel, la etapa y toca los paños: los m² y el % se calculan solos. Se usa igual que TabiFlow y con la misma clave de obra.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#0891B2"></span>Sobrelosa</span><span class="ley"><span class="ic g" style="background:#DC2626"></span>Base / nivelación</span><span class="ley"><span class="ic g" style="background:#F59E0B"></span>Instalación</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>Terminación</span></div>
@@ -504,7 +513,8 @@ html.oscuro .brand-name .np{color:#F59E0B}
       <div class="visor-titulo"><strong id="tituloNivel">—</strong><span id="subNivel">—</span></div>
     </div>
     <div class="niveles-strip"><button id="btnNivelAntes" class="nav" aria-label="Nivel inferior">‹</button><div id="nivelChips"></div><button id="btnNivelDespues" class="nav" aria-label="Nivel superior">›</button></div>
-    <div class="visor-modos"><div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button></div></div>
+    <div class="visor-modos"><div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button></div><div class="segmentado mini"><button id="segColAv" class="activo">Color: avance</button><button id="segColTipo">Color: tipo de piso</button></div></div>
+    <div class="barra-chips oculto" id="leyTipos"></div>
     <div class="paleta oculto" id="paleta">
       <div class="paleta-tipos" id="paletaTipos"></div>
       <div class="fila-herr"><label class="toggle-mini"><input type="checkbox" id="chkPrevias" checked> Completar etapas previas</label><button class="herr-btn" id="btnDeshacer">↩ Deshacer</button></div>
@@ -533,7 +543,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">PaviFlow</span> <span class="vpie">v1.10</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PaviFlow</span> <span class="vpie">v1.11</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -558,7 +568,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.10',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.11',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas por sistema de pavimento ---------------- */
@@ -618,7 +628,7 @@ async function bajar(url,fresco){const r=await fetch(url+(fresco?('?t='+Date.now
 async function infoClave(){return (await fetch(RUTA_TABI+'clave.json?t='+Date.now(),{cache:'no-store'}).catch(()=>caches.match(RUTA_TABI+'clave.json'))||await caches.match(RUTA_TABI+'clave.json')).json();}
 async function verificar(key){const info=await infoClave();await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer);return key;}
 /* ---------------- estado ---------------- */
-const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nivel:null,modo:'ver',etapa:'inst',previas:true,sel:null,deshacer:[]};
+const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nivel:null,modo:'ver',etapa:'inst',previas:true,sel:null,deshacer:[],color:'av',fT:null};
 let CLAVE=null,MOD=null,NIVELES=[],PIS=new Map(),PADRE=new Map(),ESTADO=new Map(),TOT={A:0};
 function combinar(){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
   ESTADO=new Map();for(const e of m.values()){if(e.borrado)continue;const gs=PIS.has(e.g)?[e.g]:(PADRE.get(e.g)||[]);
@@ -680,13 +690,25 @@ function renderTodo(){if(estado.vista==='inicio')renderInicio();if(estado.vista=
 const V={s:0.05,tx:0,ty:0};let cv,ctx,dpr=1;
 function ajustarLienzo(){const w=$('#lienzoWrap');dpr=window.devicePixelRatio||1;cv.width=w.clientWidth*dpr;cv.height=w.clientHeight*dpr;cv.style.width=w.clientWidth+'px';cv.style.height=w.clientHeight+'px';}
 function encuadrar(){const n=estado.nivel,w=$('#lienzoWrap');const b=n.bbox||[0,0,20000,15000];const s=Math.min(w.clientWidth/(b[2]-b[0]),w.clientHeight/(b[3]-b[1]))*0.94;V.s=s;V.tx=(w.clientWidth-(b[2]-b[0])*s)/2-b[0]*s;V.ty=(w.clientHeight-(b[3]-b[1])*s)/2-b[1]*s;}
-function abrirNivel(id,sinVista){estado.nivel=NIVELES.find(n=>n.id===id);estado.sel=null;if(!sinVista&&estado.vista!=='plano'){cambiarVista('plano');}ajustarLienzo();encuadrar();renderNiveles();renderPaleta();render();}
+function abrirNivel(id,sinVista){estado.nivel=NIVELES.find(n=>n.id===id);estado.sel=null;estado.fT=null;if(!sinVista&&estado.vista!=='plano'){cambiarVista('plano');}ajustarLienzo();encuadrar();renderNiveles();renderPaleta();renderLeyTipos();render();}
 function renderNiveles(){$('#nivelChips').innerHTML=NIVELES.map(n=>{const r=resumen(p=>p.nv===n.id);return '<button class="nivel-chip'+(n===estado.nivel?' activo':'')+'" data-nv="'+n.id+'">'+corto(n.id)+'<span class="cnt" style="background:#FDECD2;color:#92400E">'+fmt0(pct(r.eq,r.A))+'%</span></button>';}).join('');
   $$('#nivelChips [data-nv]').forEach(b=>b.onclick=()=>abrirNivel(b.dataset.nv));const n=estado.nivel;if(!n)return;const r=resumen(p=>p.nv===n.id);
   $('#tituloNivel').textContent='Nivel '+corto(n.id).slice(1)+' · '+n.id;$('#subNivel').textContent=n.pis.length+' paños · '+fmt0(r.A)+' m² · '+fmt1(pct(r.eq,r.A))+'% pond.';}
 function renderPaleta(){$('#paletaTipos').innerHTML=ORDEN_ET.map(et=>{const r=resumen(p=>p.nv===(estado.nivel&&estado.nivel.id));const [a,b]=r.et[et];
   return '<button class="tipo-btn'+(estado.etapa===et?' activo':'')+'" data-et="'+et+'"><span class="ic g" style="background:'+ETAPAS[et].color+'"></span>'+ETAPAS[et].c+'<span class="pct">'+(b?fmt0(pct(a,b))+'%':'—')+'</span></button>';}).join('');
   $$('#paletaTipos [data-et]').forEach(b=>b.onclick=()=>{estado.etapa=b.dataset.et;renderPaleta();});}
+/* v1.11 · color por tipo de piso: cada código con su color fijo (vinílicos en azules/verdes/naranjo/morado como la cubicación) */
+const COLT={'SV-01':'#2563EB','SV-02':'#EA580C','SV-03':'#059669','SV-04':'#7C3AED','SBM-04':'#C9B79C','SBM-05':'#44403C','SP-01':'#CA8A04','SP-02':'#F59E0B','SP-03':'#DC2626','SP-04':'#9F1239',
+  'SH-01':'#64748B','SHL-01':'#94A3B8','SM-01':'#92400E','SI-02':'#0E7490','ST-01':'#06B6D4','IMP':'#CBD5E1','EXT-ASF':'#9CA3AF','EXT-BAL':'#D6C7A1','EXT-GRA':'#84CC16','EXT-PIE':'#B08D57','EXT-CAU':'#EC4899','EXT-DEK':'#C2853D','EXT-HOR':'#D1D5DB'};
+const PAL_EXTRA=['#0EA5E9','#E11D48','#65A30D','#9333EA','#D946EF','#14B8A6'];
+function colTipo(t){if(COLT[t])return COLT[t];let h=0;for(const ch of t)h=(h*31+ch.charCodeAt(0))>>>0;return PAL_EXTRA[h%PAL_EXTRA.length];}
+function setColor(c){estado.color=c;if(c!=='tipo')estado.fT=null;try{localStorage.setItem('paviflow-color',c);}catch(_){}
+  $('#segColAv').classList.toggle('activo',c==='av');$('#segColTipo').classList.toggle('activo',c==='tipo');renderLeyTipos();requestAnimationFrame(()=>{ajustarLienzo();render();});}
+function renderLeyTipos(){const el=$('#leyTipos');if(!el)return;const on=estado.color==='tipo'&&estado.nivel;el.classList.toggle('oculto',!on);if(!on)return;
+  const m=new Map();estado.nivel.pis.forEach(p=>{const e=m.get(p.t)||{t:p.t,d:p.d,A:0,x:p.x};e.A+=p.A;m.set(p.t,e);});
+  const L=[...m.values()].sort((a,b)=>(a.x?1:0)-(b.x?1:0)||b.A-a.A);
+  el.innerHTML=L.map(e=>'<button class="chipf'+(estado.fT===e.t?' on':'')+'" data-ft="'+escapar(e.t)+'" title="'+escapar(e.d)+'"><span class="pt" style="background:'+colTipo(e.t)+'"></span>'+escapar(e.x?e.d:e.t)+'<small>'+fmt0(e.A)+' m²</small></button>').join('');
+  $$('#leyTipos [data-ft]').forEach(b=>b.onclick=()=>{estado.fT=estado.fT===b.dataset.ft?null:b.dataset.ft;renderLeyTipos();render();if(estado.fT){const e=m.get(estado.fT);toast(e.d+' · '+fmt0(e.A)+' m² en este nivel');}});}
 function colorPiso(p){const u=ultimaEt(p);if(!u)return null;return {c:ETAPAS[u].color,a:fEt(p.g,u)>=1?.82:.45};}
 
 /* v·terreno: pavimentos exteriores (pavimentación + paisajismo) y losas estructurales como base de la planta */
@@ -711,7 +733,8 @@ function render(){if(!ctx||!estado.nivel)return;const n=estado.nivel;const W=cv.
   ctx.setTransform(V.s*dpr,0,0,V.s*dpr,V.tx*dpr,V.ty*dpr);const px=1/V.s;
   const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+W/dpr/V.s,vy1=vy0+H/dpr/V.s;const vis=bb=>!(bb[2]<vx0||bb[0]>vx1||bb[3]<vy0||bb[1]>vy1);
   baseTerreno(ctx,n,px);
-  for(const p of n.pis){if(!vis(p.bb))continue;const c=colorPiso(p);if(p.x&&!c){ctx.strokeStyle='rgba(100,116,139,.55)';ctx.lineWidth=.8*px;ctx.stroke(p.path);continue;}ctx.fillStyle=c?c.c:'#E8ECF2';ctx.globalAlpha=c?c.a:1;ctx.fill(p.path);ctx.globalAlpha=1;
+  if(estado.color==='tipo'){for(const p of n.pis){if(!vis(p.bb))continue;const col=colTipo(p.t),f=!estado.fT||estado.fT===p.t;ctx.fillStyle=col;ctx.globalAlpha=f?(p.x?.3:.85):.1;ctx.fill(p.path);ctx.globalAlpha=f?1:.25;ctx.lineWidth=.8*px;ctx.strokeStyle=f&&!p.x?'rgba(15,23,42,.45)':'rgba(148,163,184,.35)';ctx.stroke(p.path);ctx.globalAlpha=1;}}
+  else for(const p of n.pis){if(!vis(p.bb))continue;const c=colorPiso(p);if(p.x&&!c){ctx.strokeStyle='rgba(100,116,139,.55)';ctx.lineWidth=.8*px;ctx.stroke(p.path);continue;}ctx.fillStyle=c?c.c:'#E8ECF2';ctx.globalAlpha=c?c.a:1;ctx.fill(p.path);ctx.globalAlpha=1;
     ctx.lineWidth=(c&&c.a>.8?1.4:.8)*px;ctx.strokeStyle=c?c.c:'#B6C0CE';ctx.stroke(p.path);}
   dibujarEscaleras(ctx,n,px);
   ctx.fillStyle='#475569';n.mur.forEach(r=>poly(r,true));ctx.fillStyle='#334155';n.col.forEach(r=>poly(r,true));
@@ -750,13 +773,13 @@ function initGestos(){const w=$('#lienzoWrap');
   w.addEventListener('wheel',e=>{e.preventDefault();const [x,y]=xy(e);const f=Math.exp(-e.deltaY*0.0015);const s=Math.max(.004,Math.min(1.2,V.s*f));const wx=(x-V.tx)/V.s,wy=(y-V.ty)/V.s;V.s=s;V.tx=x-wx*s;V.ty=y-wy*s;render();},{passive:false});}
 function zoom(f){const w=$('#lienzoWrap');const x=w.clientWidth/2,y=w.clientHeight/2;const s=Math.max(.004,Math.min(1.2,V.s*f));const wx=(x-V.tx)/V.s,wy=(y-V.ty)/V.s;V.s=s;V.tx=x-wx*s;V.ty=y-wy*s;render();}
 function aviso(t){$('#avisoTexto').textContent=t;$('#avisoPlano').classList.remove('oculto');}
-function setModo(m){estado.modo=m;$('#segVer').classList.toggle('activo',m==='ver');$('#segPincel').classList.toggle('activo',m==='pincel');$('#segPincel').classList.toggle('marcando',m==='pincel');
+function setModo(m){if(m==='pincel'&&estado.color==='tipo')setColor('av');estado.modo=m;$('#segVer').classList.toggle('activo',m==='ver');$('#segPincel').classList.toggle('activo',m==='pincel');$('#segPincel').classList.toggle('marcando',m==='pincel');
   $('#paleta').classList.toggle('oculto',m!=='pincel');$('#lienzoWrap').classList.toggle('pincel',m==='pincel');if(m==='pincel'){aviso('Toca o arrastra un dedo sobre los paños para pintarlos con la etapa elegida. Con dos dedos mueves y haces zoom.');}
   requestAnimationFrame(()=>{ajustarLienzo();render();});}
 /* ---------------- ficha ---------------- */
 function abrirFicha(p){const w=pesosDe(p);const hist=[];const m=new Map();((estado.base&&estado.base.eventos)||[]).concat(estado.local).forEach(e=>{if(e.g===p.g||(p.pg&&e.g===p.pg))m.set(e.id,e);});
   [...m.values()].sort((a,b)=>a.ts.localeCompare(b.ts)).forEach(e=>hist.push('<li>'+new Date(e.ts).toLocaleString('es-CL',{dateStyle:'short',timeStyle:'short'})+' — '+escapar(nombreEt(p,e.et))+' '+Math.round(e.f*100)+'%'+(e.borrado?' (anulado)':'')+' · <b>'+escapar(e.por||'')+'</b></li>'));
-  abrirHoja('<h2 style="font-size:19px">🟫 '+escapar(p.r||'Recinto sin nombre')+'</h2><p class="nota">'+(p.pn?'<b>Paño '+escapar(p.pn)+'</b> · ':'')+(p.e?'ejes '+escapar(p.e)+' · ':'')+escapar(p.d)+'</p>'+
+  abrirHoja('<h2 style="font-size:19px">🟫 '+escapar(p.r||'Recinto sin nombre')+'</h2><p class="nota">'+(p.pn?'<b>Paño '+escapar(p.pn)+'</b> · ':'')+(p.e?'ejes '+escapar(p.e)+' · ':'')+escapar(p.d)+(p.t0?' <small>(en el modelo BIM 24-10 figura como '+escapar(p.t0)+' caucho; se cambió a vinílico)</small>':'')+'</p>'+
    '<div class="ficha"><div class="stat"><b>'+fmt1(p.A)+'</b><span>m² de piso</span></div><div class="stat"><b style="font-size:15px;line-height:1.2">'+(SIS[p.s]||SIS.otr).n+(p.sl?' + sobrelosa':'')+'</b><span>sistema</span></div><div class="stat"><b>'+fmt1(pondPiso(p)*100)+'%</b><span>ponderado</span></div></div>'+
    '<p class="eyebrow" style="margin:6px 0">Etapas · jornada '+diaCorta(hoyDia())+'</p>'+
    etapasDe(p).map(et=>{const f=fEt(p.g,et),ev=(ESTADO.get(p.g)||{})[et];return '<div class="etapa-fila" style="--c:'+ETAPAS[et].color+'"><span class="ic g" style="background:'+ETAPAS[et].color+';width:18px;height:18px;border-radius:5px;display:inline-block"></span><div class="info"><b>'+escapar(nombreEt(p,et))+' <span style="font-weight:600;color:var(--tenue)">· '+w[et]+'%</span></b>'+(ev?Math.round(f*100)+'% · '+diaCorta(ev.ev.dia)+' · '+escapar(ev.ev.por||''):'Pendiente')+'</div></div>'+
@@ -816,7 +839,7 @@ async function iniciar(){
   renderInicio();cargarEquipo(false);}
 window.addEventListener('DOMContentLoaded',()=>{cv=$('#lienzo');ctx=cv.getContext('2d');ctxHit=document.createElement('canvas').getContext('2d');initGestos();
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');
-  $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#btnDeshacer').onclick=deshacer;$('#chkPrevias').onchange=e=>estado.previas=e.target.checked;
+  $('#segColAv').onclick=()=>setColor('av');$('#segColTipo').onclick=()=>setColor('tipo');try{if(localStorage.getItem('paviflow-color')==='tipo'){estado.color='tipo';$('#segColAv').classList.remove('activo');$('#segColTipo').classList.add('activo');}}catch(_){}$('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#btnDeshacer').onclick=deshacer;$('#chkPrevias').onchange=e=>estado.previas=e.target.checked;
   $('#btnZoomMas').onclick=()=>zoom(1.5);$('#btnZoomMenos').onclick=()=>zoom(1/1.5);$('#btnAjustar').onclick=()=>{encuadrar();render();};$('#btnCerrarAviso').onclick=()=>$('#avisoPlano').classList.add('oculto');
   $('#btnVolverPlano').onclick=()=>cambiarVista('inicio');$('#btnMenu').onclick=abrirMenu;$('#velo').onclick=cerrarHoja;
   $('#btnNivelAntes').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i>0)abrirNivel(NIVELES[i-1].id);};$('#btnNivelDespues').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i<NIVELES.length-1)abrirNivel(NIVELES[i+1].id);};
