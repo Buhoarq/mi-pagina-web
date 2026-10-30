@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Last Planner · TabiFlow · Hospital de Coquimbo</title>
+<title>LastPlan · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,7 +396,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
-/* ================= TabiFlow ================= */
+/* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
 .lienzo-wrap{flex:1;min-height:0;position:relative;overflow:hidden;background:#EEF2F7;touch-action:none}
@@ -494,7 +494,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M580 600H1020V1080H580ZM620 720V1040H980V720Z" fill-rule="evenodd"/><path d="M680 540H725V660H680ZM875 540H920V660H875Z"/><path d="M675 880L735 820L785 870L895 760L955 820L785 990Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Flow</span><span class="ver" id="verBadge">Last Planner β</span></span>
+      <span class="brand-name"><span class="np">Last</span><span class="np2">Plan</span><span class="ver" id="verBadge">v7.2 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -513,12 +513,12 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiFlow 6.0 beta · versión de prueba · Plan semanal</span>
+            <span class="eyebrow">TabiPlan 6.0 beta · versión de prueba · Plan semanal</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
         <p>Los <b id="heroeN">—</b> tabiques del modelo de interiores ya están cargados por nivel, con su tipo, largo y superficie. No hay que subir planos: <b>elige el nivel, la etapa y toca los muros</b>. Los m² y el % de avance se calculan solos.</p>
-        <div class="info-sello" style="margin-top:10px">🧪 <b>Versión de prueba: Plan semanal (Last Planner).</b> Los jefes de terreno comprometen <b>tabique por tabique</b> qué etapa se hará cada semana y con qué subcontrato (planta → <b>📋 Planificar</b>). La pestaña <b>Plan</b> compara lo comprometido con el avance registrado: % de plan cumplido (PPC), causas de no cumplimiento e informe PDF. Para el avance diario sigue usando <a href="../tabiflow/" style="font-weight:800;color:inherit">TabiFlow</a>.</div>
+        <div class="info-sello" style="margin-top:10px">🧪 <b>Versión de prueba: Plan semanal (Last Planner).</b> Los jefes de terreno comprometen <b>tabique por tabique</b> qué etapa se hará cada semana y con qué subcontrato (planta → <b>📋 Planificar</b>). La pestaña <b>Plan</b> compara lo comprometido con el avance registrado: % de plan cumplido (PPC), causas de no cumplimiento e informe PDF. Para el avance diario sigue usando <a href="../tabiflow/" style="font-weight:800;color:inherit">TabiPlan</a>.</div>
         <div class="leyenda-tipos" id="leyendaInicio"></div>
       </div>
       <div class="tarjeta solo-obra" id="tarjetaEquipo"></div>
@@ -655,12 +655,12 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiFlow</span> <span class="vpie">Last Planner v7.1 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiPlan</span> <span class="vpie">LastPlan v7.2 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M580 600H1020V1080H580ZM620 720V1040H980V720Z" fill-rule="evenodd"/><path d="M680 540H725V660H680ZM875 540H920V660H875Z"/><path d="M675 880L735 820L785 870L895 760L955 820L785 990Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
-    <h2><span style="color:var(--primario)">Tabi</span><span style="color:var(--ambar)">Flow</span> <span style="font-size:17px;color:var(--tenue)">Last Planner</span></h2>
+    <h2><span style="color:var(--primario)">Last</span><span style="color:var(--ambar)">Plan</span> <span style="font-size:17px;color:var(--tenue)">plan semanal</span></h2>
     <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo de obra</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
@@ -669,7 +669,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
     <p class="nota" style="margin-top:8px">La primera vez se necesita internet para descargar el modelo (≈1 MB). Después funciona sin conexión.</p>
-    <p class="nota" style="margin-top:14px;font-size:10.5px">TabiFlow · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+    <p class="nota" style="margin-top:14px;font-size:10.5px">TabiPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
   </div>
 </div>
 <div id="velo"></div>
@@ -1082,13 +1082,13 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 <script>
 'use strict';
 /* =====================================================================
-   TabiFlow v1.0 — Avance de tabiques desde el modelo BIM (IFC)
+   TabiPlan v1.0 — Avance de tabiques desde el modelo BIM (IFC)
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados.
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiFlow',APP_VER='v7.1 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiPlan',APP_VER='v7.2 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1178,7 +1178,7 @@ function cerrarHoja(){$('#hoja').classList.remove('abierta');$('#velo').classLis
 
 /* ---------------- almacenamiento ---------------- */
 let DB=null,MODO_ALM='mem';const mem={eventos:{},jornadas:{},meta:{},adjuntos:{},compromisos:{},causas:{}};
-/* v6 β: base de datos propia (no toca la de TabiFlow) y archivos del modelo/avance leídos desde ../tabiflow/ */
+/* v6 β: base de datos propia (no toca la de TabiPlan) y archivos del modelo/avance leídos desde ../tabiflow/ */
 const DB_NOMBRE='LastPlannerHCQ',DATOS='../tabiflow/';
 function abrirDB(){return new Promise((res,rej)=>{if(!('indexedDB' in window)){rej(new Error('sin IndexedDB'));return;}
   let rq;try{rq=indexedDB.open(DB_NOMBRE,1);}catch(e){rej(e);return;}
@@ -1597,7 +1597,7 @@ function abrirTabique(g){
   const hist=(EV_POR_G.get(g)||[]).filter(e=>!e.borrado).sort((a,b)=>a.ts.localeCompare(b.ts));
   let h='<div class="hoja-titulo">🧱 Tabique '+escapar(t.t)+(t.tr?' · tramo '+t.tr+' de '+t.ntr:'')+'</div><div class="hoja-sub">'+escapar(tipoDesc)+'<br><b>'+composicion(t)+'</b>'+(t.tr?' · tabique de '+fmt1(t.L*t.ntr)+' m dividido en '+t.ntr+' tramos para registrar avance':'')+'<br>'+(t.r.length?'Recintos: <b>'+t.r.map(escapar).join(' · ')+'</b>':'')+'</div>'+
     '<div class="ficha"><div class="meta-item"><span>Largo</span><b>'+fmt1(t.L)+' m</b></div><div class="meta-item"><span>Alto</span><b>'+fmt1(t.H)+' m</b></div><div class="meta-item"><span>Superficie</span><b>'+fmt1(t.A)+' m²</b></div></div>'+
-    '<label class="etiqueta">'+(LP?'Avance ya registrado (se marca en TabiFlow)':'Etapas · jornada activa '+diaCorta(estado.diaActivo)+(cer?' 🔒':''))+'</label>';
+    '<label class="etiqueta">'+(LP?'Avance ya registrado (se marca en TabiPlan)':'Etapas · jornada activa '+diaCorta(estado.diaActivo)+(cer?' 🔒':''))+'</label>';
   t.seq.forEach(id=>{const e=ET[id];const o=s[e.id];const f=o?o.f:0;
     h+='<div class="etapa-fila">'+icono(e,true)+'<div class="info"><b>'+e.nombre+'</b>'+(o?(Math.round(f*100)+'% · '+diaLarga(o.dia)+(o.ev&&o.ev.por?' · '+escapar(o.ev.por):'')+(o.ev&&o.ev.cuad?' · '+escapar(o.ev.cuad):'')):'Pendiente')+'</div><div class="acc">';
     if(!cer){h+='<button class="frac-btn'+(f>=1?' on':'')+'" style="--c:'+e.color+'" data-tf="fr" data-et="'+e.id+'" data-f="1">100%</button>';
@@ -1814,7 +1814,7 @@ function renderOpcionesInforme(){const prev=new Set($$('#opcionesNiveles input:n
     return'<label class="opcion"><input type="checkbox" value="'+n.id+'"'+(prev.has(n.id)||(!tiene&&!prev.size&&eventosVigentes().length)?'':' checked')+'> '+escapar(etiquetaNivel(n))+' · '+n.id+'<span class="chip" style="margin-left:auto">'+pct(r[n.id].est.A,n.tot.est).toFixed(0)+'% estr.</span></label>';}).join('');}
 const CAMPOS_PORT=[['portMandante','mandante'],['portSubcontrato','subcontrato'],['portInspector','inspector']];
 async function guardarPortada(){CAMPOS_PORT.forEach(([id,k])=>{estado.portada[k]=$('#'+id).value.trim();});await metaSet('portada',estado.portada);}
-function logoPDF(doc,x,y,s){ /* logotipo TabiFlow (vector) */
+function logoPDF(doc,x,y,s){ /* logotipo TabiPlan (vector) */
   const k=s/1218,X=v=>x+(v-192)*k,Y=v=>y+(v-208)*k;
   doc.setFillColor(220,4,40);doc.roundedRect(x,y,1218*k,1198*k,200*k,200*k,'F');doc.setFillColor(255,255,255);
   /* trazado con rectas y curvas cúbicas, en coordenadas del dibujo original */
@@ -1995,7 +1995,7 @@ async function generarInforme(){
     for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(120,130,150);
       doc.text(APP_NOMBRE+' '+APP_VER+' · Desarrollado por '+APP_AUTOR+' · Avance de tabiques desde modelo BIM · '+OBRA,10,H-5);doc.text('Pág. '+i+' / '+np,W-10,H-5,{align:'right'});}
     setProgreso('Compilando PDF…');await pausa();
-    const blob=doc.output('blob');const nombre='TabiFlow_HCQ_avance_tabiques_'+hasta+'.pdf';
+    const blob=doc.output('blob');const nombre='TabiPlan_HCQ_avance_tabiques_'+hasta+'.pdf';
     const r=$('#resultadoInforme');r.classList.remove('oculto');
     r.innerHTML='<b style="color:var(--esmeralda-osc)">✓ Informe generado</b><p class="nota" style="margin:6px 0 12px">'+nombre+' · '+np+' hojas doble carta · '+(blob.size/1048576).toFixed(1)+' MB · vectorial</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><button class="btn secundario" data-inf="ver">👁 Abrir</button><button class="btn secundario" data-inf="bajar">⬇ Bajar</button><button class="btn principal" data-inf="compartir">Compartir</button></div>';
     r.onclick=e=>{const b=e.target.closest('[data-inf]');if(!b)return;if(b.dataset.inf==='ver')window.open(URL.createObjectURL(blob),'_blank');if(b.dataset.inf==='bajar')descargar(blob,nombre);if(b.dataset.inf==='compartir')compartirArchivo(blob,nombre,'Avance de tabiques HCQ');};
@@ -2023,7 +2023,7 @@ async function exportarAvance(){
 async function exportarRespaldo(){return exportarAvance();}
 async function importarRespaldo(file){
   /* Restaura en este teléfono un archivo de avance PROPIO (p. ej. al cambiar de celular) */
-  try{const d=JSON.parse(await file.text());if(d.app!=='TabiFlowHCQ')throw new Error('no es un archivo de TabiFlow HCQ');
+  try{const d=JSON.parse(await file.text());if(d.app!=='TabiFlowHCQ')throw new Error('no es un archivo de TabiPlan HCQ');
     if(d.por&&d.por!==estado.persona&&!(await confirmar('Archivo de otra persona','Este archivo es de "'+d.por+'" y tú estás como "'+estado.persona+'". Si lo restauras, esos registros quedarán en este teléfono a nombre de '+d.por+'. Para juntar el avance del equipo, mejor envíaselo a Renato.','Restaurar igual')))return;
     const por=new Map(estado.local.map(e=>[e.id,e]));let nuevos=0;const cambios=[];
     (d.eventos||[]).forEach(e=>{if(!TAB[e.g])return;const ex=por.get(e.id);if(!ex){estado.local.push(e);por.set(e.id,e);cambios.push(e);nuevos++;}else if(e.borrado&&!ex.borrado){ex.borrado=true;ex.borradoTs=e.borradoTs;cambios.push(ex);}});
@@ -2039,7 +2039,7 @@ function exportarCSV(){
   const filas=[['Nivel','GUID IFC','Tramo','ID Revit','Tipo','Composición','Recintos','Largo m','Alto m','Superficie m2'].concat(ETAPAS.flatMap(e=>[e.corto+' %',e.corto+' fecha',e.corto+' por'])).concat(['m2 cara 2'])];
   NIVELES.forEach(n=>n.tab.forEach(t=>{const s=ESTADO_G.get(t.g)||{};filas.push([n.id,t.gb||t.g,t.tr?t.tr+'/'+t.ntr:'',t.id,t.t,composicion(t),t.r.join(' | '),t.L,t.H,t.A].concat(ETAPAS.flatMap(e=>!t.seq.includes(e.id)?['','','']:s[e.id]?[Math.round(s[e.id].f*100),s[e.id].dia,(s[e.id].ev&&s[e.id].ev.por)||'']:[0,'',''])).concat([+((famFrac(t.g,'c2')||0)*t.A).toFixed(2)]));}));
   const csv=filas.map(r=>r.map(v=>{const x=typeof v==='number'?String(v).replace('.',','):String(v==null?'':v);return/[";\n]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x;}).join(';')).join('\n');
-  descargar(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),'TabiFlow_HCQ_tabiques_'+hoyDia()+'.csv');toast('CSV exportado (un tabique por fila, con GUID del modelo)','ok');}
+  descargar(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}),'TabiPlan_HCQ_tabiques_'+hoyDia()+'.csv');toast('CSV exportado (un tabique por fila, con GUID del modelo)','ok');}
 async function borrarAvance(){
   const p=pendientesEnvio();
   if(!(await confirmar('Borrar mi plan de este teléfono','Se borrarán '+estado.local.length+' registros propios, '+(estado.adjLocal||[]).length+' fotos/notas y '+estado.jornadas.length+' jornadas de este teléfono'+(p?' — OJO: '+p+' aún no los has enviado':'')+'. El avance consolidado del equipo no se toca.','Borrar',true)))return;
@@ -2050,7 +2050,7 @@ function abrirMenu(){
     (estado.rol==='sub'?'<div class="info-sello indigo">Entraste como subcontrato <b>'+escapar(estado.subNombre)+'</b>: ves solo tus compromisos (consulta).</div>':'<button class="menu-item" data-accion="m-exportar">📤 Enviar mi plan al coordinador</button>')+
     '<button class="menu-item" data-accion="m-base">🔄 Actualizar avance y plan del equipo</button>'+
     '<button class="menu-item" data-accion="m-importar">⬇️ Restaurar mi plan desde un archivo</button>'+
-    '<a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (versión oficial)</a>'+'<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a>'+
+    '<a class="menu-item" href="../tabiflow/">🧱 Ir a TabiPlan (versión oficial)</a>'+'<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a>'+
     '<button class="menu-item" data-accion="m-nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
     '<button class="menu-item" data-accion="m-salir">🔒 Olvidar la clave en este teléfono</button>'+
     '<button class="menu-item" data-accion="m-oscuro">🌙 Modo oscuro <span class="chip" style="margin-left:auto">'+(estado.oscuro?'sí':'no')+'</span></button>'+
@@ -2235,7 +2235,7 @@ function famTexto(fam,sep){return FAMILIAS.filter(f=>fam[f.id]&&fam[f.id].A>=.5)
 function pisoTxt(id){const n=nivelPorId(id);return n?cortoNivel(n):id;}
 
 /* ---------- dibujo del plan en la planta ---------- */
-/* relleno = avance real (mismos colores que TabiFlow) */
+/* relleno = avance real (mismos colores que TabiPlan) */
 function colorPlan(t){const a=etapaAlcanzada(t.g);return a?{c:a.e.color,a:a.f<1?.5:1}:{c:COLOR_SIN,a:1};}
 function peorEstado(l){let w='ok';l.forEach(c=>{const k=estadoComp(c).k;if(RANGO_C[k]>RANGO_C[w])w=k;});return w;}
 const etapaMayor=l=>l.reduce((a,b)=>ordenEt(b.et)>ordenEt(a.et)?b:a);
@@ -2343,7 +2343,7 @@ function tablaGrupoHTML(titulo,lista,clave,nombre,cerr,conCausas){const g={};lis
 function famChips(fam){return'<div class="ppc-est" style="margin-top:8px">'+FAMILIAS.filter(f=>fam[f.id]&&fam[f.id].A>=.5).map(f=>'<span><i style="--c:'+f.color+'"></i>'+fmt0(fam[f.id].A)+' m² '+f.corto.toLowerCase()+'</span>').join('')+'</div>';}
 function renderPlan(){const el=$('#planContenido');if(!el||!M)return;reindexarPlan();
   const s=estado.planSem,hoyL=semActual(),lTodo=COMP.filter(c=>c.sem===s),l=filtroPlan(lTodo),r=resumenComp(l),cerr=semCerrada(s),pc=pendientesCausa();
-  let h='<h2>✅ Cumplimiento del plan</h2><p class="nota" style="margin-bottom:12px">Semana de plan de jueves a miércoles. Un compromiso se cumple cuando la etapa llega a su meta registrada en TabiFlow hasta el miércoles. <b>PPC</b> = % de compromisos cumplidos. Cada jefe de terreno justifica lo que él planificó y no se cumplió.</p>';
+  let h='<h2>✅ Cumplimiento del plan</h2><p class="nota" style="margin-bottom:12px">Semana de plan de jueves a miércoles. Un compromiso se cumple cuando la etapa llega a su meta registrada en TabiPlan hasta el miércoles. <b>PPC</b> = % de compromisos cumplidos. Cada jefe de terreno justifica lo que él planificó y no se cumplió.</p>';
   if(pc.length&&s!==pc[0].sem)h+='<div class="info-sello">⚠ Tienes <b>'+pc.length+' compromiso(s) sin justificar</b>. Hasta justificarlos no puedes planificar.<br><button class="btn ambar" data-pacc="justificar" style="margin-top:8px">Justificar ahora</button></div>';
   h+='<div class="plan-sem"><button class="btn-icono" data-pnav="-7" aria-label="Semana anterior">‹</button><b>'+etiquetaSem(s)+'<br><span class="chip '+(cerr?'':(s===hoyL?'acento':''))+'" style="margin-top:4px">'+(cerr?'cerrada':(s===hoyL?'en curso':'próxima'))+'</span></b><button class="btn-icono" data-pnav="7" aria-label="Semana siguiente">›</button></div>';
   h+='<label class="opcion"><input type="checkbox" data-lpmios'+(estado.lpSoloMios?' checked':'')+'> Solo lo que yo planifiqué</label>'+(estado.lpPiso?'<label class="opcion" style="margin-bottom:10px"><input type="checkbox" data-lppiso'+(estado.lpSoloPiso?' checked':'')+'> Solo mi piso ('+pisoTxt(estado.lpPiso)+')</label>':'');
@@ -2411,12 +2411,12 @@ function resumenEnvio(){const s=semActual(),l=COMP.filter(c=>c.sem===s&&c.por===
 async function desbloqueoSub(){throw new Error('Clave incorrecta');}
 async function verificarClave(key){const info=await (await fetch(DATOS+'clave.json',{cache:'no-store'}).catch(()=>caches.match(DATOS+'clave.json'))||await caches.match(DATOS+'clave.json')).json();
   await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer);}
-/* si este teléfono ya tiene TabiFlow abierto con la clave de obra, entra sin pedirla */
+/* si este teléfono ya tiene TabiPlan abierto con la clave de obra, entra sin pedirla */
 async function claveDeTabiFlow(){try{const db=await new Promise((res,rej)=>{const q=indexedDB.open('TabiFlowHCQ');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);q.onupgradeneeded=()=>{};});
   if(!db.objectStoreNames.contains('meta')){db.close();return null;}
   const get=k=>new Promise(r=>{const q=db.transaction('meta','readonly').objectStore('meta').get(k);q.onsuccess=()=>r(q.result?q.result.v:null);q.onerror=()=>r(null);});
   const key=await get('clave'),per=await get('persona');db.close();if(key){await verificarClave(key);return{key,per};}}catch(e){}return null;}
-/* lo marcado en TabiFlow en este mismo teléfono (aún sin consolidar) también se ve al planificar */
+/* lo marcado en TabiPlan en este mismo teléfono (aún sin consolidar) también se ve al planificar */
 async function leerAvanceTabiFlow(){try{const db=await new Promise((res,rej)=>{const q=indexedDB.open('TabiFlowHCQ');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);q.onupgradeneeded=()=>{};});
   if(!db.objectStoreNames.contains('eventos')){db.close();return[];}
   const l=await new Promise(r=>{const q=db.transaction('eventos','readonly').objectStore('eventos').getAll();q.onsuccess=()=>r(q.result||[]);q.onerror=()=>r([]);});db.close();return l.filter(e=>TAB[e.g]||TRAMOS[e.g]);}catch(e){return[];}}
@@ -2518,7 +2518,7 @@ async function generarPdfPlanObra(piso,sem,todos){reindexarPlan();
       planoPlanPDF(doc,{n,reg:n.bbox,x0:96,y0:27,aw:W-104,ah:H-44,comps:cs,general:true});
       leyendaPlanPDF(doc,96,H-11,FAMILIAS.filter(f=>r.fam[f.id]));}
     const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...PT.tenue);
-      doc.text('TabiFlow Last Planner · © 2026 '+APP_AUTOR+' · '+OBRA,10,H-5);doc.text('Hoja '+i+' de '+np,W-10,H-5,{align:'right'});}
+      doc.text('LastPlan · © 2026 '+APP_AUTOR+' · '+OBRA,10,H-5);doc.text('Hoja '+i+' de '+np,W-10,H-5,{align:'right'});}
     const blob=doc.output('blob'),pis=niveles.map(cortoNivel).join('-'),nombre='Plan_semanal_'+pis+'_'+sem+'.pdf';
     const texto='Plan de avance semanal '+niveles.map(cortoNivel).join(', ')+' · '+etiquetaSem(sem)+': '+fmt0(rTot.A)+' m² ('+famTexto(rTot.fam,', ')+'). Una hoja por piso.';
     ocultarProgreso();
@@ -2533,7 +2533,7 @@ async function generarInformePlan(){
   mostrarProgreso('Preparando informe de cumplimiento…');await pausa();
   try{const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'p',unit:'mm',format:'letter',compress:true});
     const W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight(),r=resumenComp(l),cerr=semCerrada(s);
-    const tit='CUMPLIMIENTO DEL PLAN SEMANAL',sub='Last Planner · '+etiquetaSemLarga(s),der=cerr?'Semana cerrada':'Al '+diaLarga(hoyDia());
+    const tit='CUMPLIMIENTO DEL PLAN SEMANAL',sub='LastPlan · '+etiquetaSemLarga(s),der=cerr?'Semana cerrada':'Al '+diaLarga(hoyDia());
     encabezadoPlan(doc,W,tit,sub,der);
     const c={doc,M:10,W:W-20,y:30,lim:H-14,nueva(){doc.addPage();encabezadoPlan(doc,W,tit+' (cont.)',sub,der);this.y=30;}};
     doc.setFillColor(...PT.suave);doc.roundedRect(c.M,c.y,c.W,30,3,3,'F');
@@ -2543,7 +2543,7 @@ async function generarInformePlan(){
     doc.text(r.ok+' de '+r.n+' compromisos cumplidos · '+fmt0(r.Alog)+' de '+fmt0(r.A)+' m2 pedidos',c.M+48,c.y+16.5);
     let x=c.M+48;['ok','curso','pend','no'].forEach(k=>{if(!r[k])return;doc.setFillColor(...hexRgb(EST_C[k].c));doc.rect(x,c.y+20.6,3,3,'F');doc.text(EST_C[k].n+': '+r[k],x+4.5,c.y+23.2);x+=doc.getTextWidth(EST_C[k].n+': '+r[k])+11;});
     c.y+=37;
-    const nota=doc.splitTextToSize('Semana de plan de jueves a miércoles. Compromiso cumplido = la etapa del tabique llegó a su meta registrada en TabiFlow hasta el miércoles. m2 pedidos = superficie de la etapa x (meta - avance al inicio de la semana). Generado el '+fmtFecha(new Date().toISOString())+' por '+estado.persona+'.',c.W);
+    const nota=doc.splitTextToSize('Semana de plan de jueves a miércoles. Compromiso cumplido = la etapa del tabique llegó a su meta registrada en TabiPlan hasta el miércoles. m2 pedidos = superficie de la etapa x (meta - avance al inicio de la semana). Generado el '+fmtFecha(new Date().toISOString())+' por '+estado.persona+'.',c.W);
     doc.setFontSize(8);doc.setTextColor(...PT.tenue);doc.text(nota,c.M,c.y);c.y+=nota.length*3.6+4;
     const tabla=(tt,clave,nombre)=>{const g={};l.forEach(q=>{const k=clave(q);(g[k]=g[k]||[]).push(q);});tituloSec(c,tt);
       const fs=Object.keys(g).sort().map(k=>{const z=resumenComp(g[k]);return[nombre(k),z.n,z.ok,z.no,z.ppc.toFixed(0)+' %',fmt0(z.A),fmt0(z.Alog)];});
@@ -2582,7 +2582,7 @@ async function generarInformePlan(){
     if(no.length){tituloSec(c,'Detalle de compromisos no cumplidos');tablaPDF(c,cols,no.map(fila));}
     if(resto.length){tituloSec(c,'Detalle de compromisos cumplidos y por cumplir');tablaPDF(c,cols,resto.map(fila));}
     const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...PT.tenue);
-      doc.text('TabiFlow Last Planner · © 2026 '+APP_AUTOR+' · '+OBRA,c.M,H-6);doc.text('Hoja '+i+' de '+np,W-c.M,H-6,{align:'right'});}
+      doc.text('LastPlan · © 2026 '+APP_AUTOR+' · '+OBRA,c.M,H-6);doc.text('Hoja '+i+' de '+np,W-c.M,H-6,{align:'right'});}
     const blob=doc.output('blob'),nombre='Cumplimiento_plan_semanal_'+s+'.pdf';
     ocultarProgreso();
     abrirHoja('<div class="hoja-titulo">✓ Informe de cumplimiento listo</div><div class="hoja-sub">'+nombre+' · '+np+' hoja(s) carta · PPC '+r.ppc.toFixed(0)+' %</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><button class="btn secundario" id="ipVer">👁 Abrir</button><button class="btn secundario" id="ipBajar">⬇ Bajar</button><button class="btn principal" id="ipComp">Compartir</button></div>');

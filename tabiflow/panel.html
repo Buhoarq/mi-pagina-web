@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>TabiFlow Panel · Hospital de Coquimbo</title>
+<title>TabiPlan Panel · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -445,7 +445,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M520 1080H1080V1130H520Z"/><path d="M560 760H700V1060H560Z"/><path d="M730 640H870V1060H730Z" opacity=".75"/><path d="M900 520H1040V1060H900Z" opacity=".5"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2" style="margin-left:-7px">Flow</span><span class="ver">Panel v5.5</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2" style="margin-left:-7px">Plan</span><span class="ver">Panel v5.5</span></span>
       <span class="brand-sub" id="subPanel">Hospital de Coquimbo · Administración y coordinación · <b style="color:#15803D">Modelo actualizado 15-10-2026</b></span>
     </div>
   </div>
@@ -553,19 +553,19 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
       </div>
     </div>
   </section>
-  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiFlow v6.9 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
+  <p class="nota" style="text-align:center;font-size:10.5px;margin:18px 0 10px">TabiPlan v7.0 · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados</p>
 </div>
 
 <div id="acceso" class="visible">
   <div class="acceso-caja">
     <img src="icono.svg" alt="" style="width:60px;height:60px">
-    <h2 style="margin:8px 0 2px"><span style="color:var(--primario)">Tabi</span><span style="color:var(--ambar)">Flow</span> · Panel</h2>
+    <h2 style="margin:8px 0 2px"><span style="color:var(--primario)">Tabi</span><span style="color:var(--ambar)">Plan</span> · Panel</h2>
     <p class="nota" style="margin-bottom:14px">Indicadores y coordinación · Hospital de Coquimbo</p>
     <label class="etiqueta">Clave de obra</label>
     <input id="accPass" class="campo" type="password" autocomplete="current-password">
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-    <p class="nota" style="margin-top:10px;font-size:10.5px">TabiFlow · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+    <p class="nota" style="margin-top:10px;font-size:10.5px">TabiPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
   </div>
 </div>
 <div id="dialogo"></div>
@@ -573,7 +573,7 @@ body{overflow:auto;height:auto;min-height:100dvh;display:block}
 <script>
 'use strict';
 /* =====================================================================
-   TabiFlow Panel — Indicadores (administrador) y Coordinación
+   TabiPlan Panel — Indicadores (administrador) y Coordinación
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados.
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
@@ -687,7 +687,7 @@ function vacioEt(){return{est:0,c1:0,pb:0,ais:0,c2:0,fen:0,eq:0};}
 /* ---------------- unir archivos (misma lógica que consolidar.py) ---------------- */
 function unirEn(av,d,nombre){
   const r={archivo:nombre,por:'—',nuevos:0,anulados:0,ignorados:0,error:null};
-  if(!d||d.app!=='TabiFlowHCQ'){r.error='no es un archivo de TabiFlow HCQ';return r;}
+  if(!d||d.app!=='TabiFlowHCQ'){r.error='no es un archivo de TabiPlan HCQ';return r;}
   const por=(d.por||'').trim()||'—';r.por=por;
   const idx=new Map(av.eventos.map(e=>[e.id,e]));
   (d.eventos||[]).forEach(e0=>{const e=Object.assign({},e0);delete e._base;
@@ -872,7 +872,7 @@ async function publicar(){
     st.textContent='Cifrando y subiendo…';const u8=await cifrar(base);
     const nArch=TRABAJO.archivos.length,nDot=Object.keys(TRABAJO.dot).length,res=[];
     for(const x of L){if(x.err){res.push('⚠ '+x.R.nombre+': '+x.err);continue;}
-      try{await ghEscribir(x.R,u8,x.sha,'TabiFlow: avance consolidado '+hoyDia()+' ('+nArch+' archivos, '+nDot+' días dotación)');res.push('✅ '+x.R.nombre);}catch(e){res.push('⚠ '+x.R.nombre+': '+e.message);}}
+      try{await ghEscribir(x.R,u8,x.sha,'TabiPlan: avance consolidado '+hoyDia()+' ('+nArch+' archivos, '+nDot+' días dotación)');res.push('✅ '+x.R.nombre);}catch(e){res.push('⚠ '+x.R.nombre+': '+e.message);}}
     AV=base;TRABAJO.archivos=[];TRABAJO.dot={};TRABAJO.config=null;marcarEstado();renderTodo();
     st.innerHTML='Publicado '+fmtFecha(AV.actualizado)+' · '+res.map(escapar).join(' · ')+'. Los celulares lo verán en 1–2 minutos al abrir la app con internet.';toast(res.some(r=>r[0]==='⚠')?'Publicado con avisos: revisa el detalle':'Avance publicado en los dos sitios ✓',res.some(r=>r[0]==='⚠')?'error':'ok');}
   catch(e){console.error(e);st.textContent='⚠ No se pudo publicar: '+e.message;toast('No se pudo publicar: '+e.message,'error');}

@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PaviFlow v1.11 · Hospital de Coquimbo</title>
+<title>PaviPlan v1.12 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,9 +396,9 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
-/* ================= TabiFlow ================= */
+/* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
-/* v1.11 · color por tipo de piso (chips como CieloFlow) */
+/* v1.11 · color por tipo de piso (chips como CieloPlan) */
 .barra-chips{flex:none;display:flex;gap:6px;overflow-x:auto;padding:6px 10px;border-bottom:1px solid var(--linea);background:rgba(255,255,255,.85);scrollbar-width:none;align-items:center}
 .barra-chips::-webkit-scrollbar{display:none}
 html.oscuro .barra-chips{background:var(--panel)}
@@ -462,7 +462,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
 .paleta-tipos .tipo-btn{padding:5px 2px;font-size:10px}
 .paleta-tipos .tipo-btn .ic.g{width:15px;height:15px}
 
-/* ================= PaviFlow ================= */
+/* ================= PaviPlan ================= */
 .brand-name .np{color:#B45309}
 html.oscuro .brand-name .np{color:#F59E0B}
 .paleta-tipos{grid-template-columns:repeat(4,1fr)!important}
@@ -474,7 +474,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Pavi</span><span class="np2">Flow</span><span class="ver">v1.11</span></span>
+      <span class="brand-name"><span class="np">Pavi</span><span class="np2">Plan</span><span class="ver">v1.12</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Pavimentos</span>
     </div>
   </div>
@@ -488,9 +488,9 @@ html.oscuro .brand-name .np{color:#F59E0B}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M3 15l9-5 9 5-9 5z"/><path d="M3 10l9-5 9 5"/></svg></div>
-          <div><span class="eyebrow">PaviFlow v1.11 · Módulo de pavimentos de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
+          <div><span class="eyebrow">PaviPlan v1.12 · Módulo de pavimentos de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
         </div>
-        <p>Los pavimentos del modelo de interiores ya están cargados por nivel, recinto y paño de obra (cortados por ejes, de 6 m como máximo), con su tipo y superficie. Elige el nivel, la etapa y toca los paños: los m² y el % se calculan solos. Se usa igual que TabiFlow y con la misma clave de obra.</p>
+        <p>Los pavimentos del modelo de interiores ya están cargados por nivel, recinto y paño de obra (cortados por ejes, de 6 m como máximo), con su tipo y superficie. Elige el nivel, la etapa y toca los paños: los m² y el % se calculan solos. Se usa igual que TabiPlan y con la misma clave de obra.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#0891B2"></span>Sobrelosa</span><span class="ley"><span class="ic g" style="background:#DC2626"></span>Base / nivelación</span><span class="ley"><span class="ic g" style="background:#F59E0B"></span>Instalación</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>Terminación</span></div>
       </div>
       <div class="tarjeta" id="tarjetaEquipo"></div>
@@ -543,19 +543,19 @@ html.oscuro .brand-name .np{color:#F59E0B}
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">PaviFlow</span> <span class="vpie">v1.11</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PaviPlan</span> <span class="vpie">v1.12</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
-    <h2><span style="color:#B45309">Pavi</span><span style="color:var(--ambar)">Flow</span></h2>
-    <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo de obra · misma clave que TabiFlow</p>
+    <h2><span style="color:#B45309">Pavi</span><span style="color:var(--ambar)">Plan</span></h2>
+    <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo de obra · misma clave que TabiPlan</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
     <label class="etiqueta">Clave de obra</label>
     <input id="accPass" class="campo" type="password" placeholder="Clave entregada por Oficina Técnica" autocomplete="current-password">
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-    <p class="nota" style="margin-top:14px;font-size:10.5px">PaviFlow · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+    <p class="nota" style="margin-top:14px;font-size:10.5px">PaviPlan · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
   </div>
 </div>
 <div id="velo"></div>
@@ -564,17 +564,17 @@ html.oscuro .brand-name .np{color:#F59E0B}
 <div id="toasts"></div>
 <input type="file" id="inputRespaldo" accept="application/json,.json" hidden>
 <script>
-/* PaviFlow · módulo de pavimentos de FlujoPlan
+/* PaviPlan · módulo de pavimentos de FlujoPlan
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.11',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.12',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas por sistema de pavimento ---------------- */
 const ETAPAS={sob:{n:'Sobrelosa',c:'Sobrelosa',color:'#0891B2'},base:{n:'Base / nivelación',c:'Base',color:'#DC2626'},
   inst:{n:'Instalación',c:'Instalación',color:'#F59E0B'},term:{n:'Terminación',c:'Terminación',color:'#16A34A'}};
-/* v1.9 (25-10-2026, pedido de Renato): la impermeabilización sale de PaviFlow y pasa a su propio módulo, ImperFlow.
+/* v1.9 (25-10-2026, pedido de Renato): la impermeabilización sale de PaviPlan y pasa a su propio módulo, ImperPlan.
    v1.8 (25-10-2026): escaleras como un elemento más (gris). v1.7: escaleras en la planta.
    v1.6 (25-10-2026, pedido de Renato): los pavimentos grandes vienen cortados en PAÑOS de obra (por recinto, por ejes estructurales y
    en paños de 6 m como máximo fuera de los ejes). GUID <guid>~n; 'pg' = pavimento original: lo marcado antes sobre el pavimento completo vale para sus paños.
@@ -617,7 +617,7 @@ async function put(st,o){if(!DB){mem[st][o.id]=o;return;}await tx(st,'readwrite'
 async function todos(st){if(!DB)return Object.values(mem[st]);return tx(st,'readonly',s=>s.getAll());}
 async function metaGet(k){if(!DB)return mem.meta[k]?mem.meta[k].v:undefined;const r=await tx('meta','readonly',s=>s.get(k));return r?r.v:undefined;}
 async function metaSet(k,v){await put('meta',{id:k,v});}
-/* ---------------- cifrado (igual que TabiFlow, misma clave de obra) ---------------- */
+/* ---------------- cifrado (igual que TabiPlan, misma clave de obra) ---------------- */
 async function derivarClave(pass,saltB64,iter){const salt=Uint8Array.from(atob(saltB64),c=>c.charCodeAt(0));
   const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']);
   return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);}
@@ -793,17 +793,17 @@ async function exportar(){const mios=estado.local.filter(e=>e.por===estado.perso
   const d={app:'PaviFlowHCQ',modulo:'pavi',tipo:'avance',ver:1,por:estado.persona,disp:estado.disp,exportado:new Date().toISOString(),eventos:mios.map(e=>{const o=Object.assign({},e);delete o.enviado;return o;})};
   const ahora=new Date();const slug=(estado.persona||'persona').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Avance_PaviFlow_'+slug+'_'+hoyDia()+'_'+String(ahora.getHours()).padStart(2,'0')+'h'+String(ahora.getMinutes()).padStart(2,'0')+'.json';
-  const hoy=mios.filter(e=>!e.borrado&&e.dia===hoyDia());const texto='Avance PaviFlow · '+estado.persona+' · '+diaCorta(hoyDia())+': '+new Set(hoy.map(e=>e.g)).size+' paños, '+hoy.length+' registros, '+fmt0(m2Hoy())+' m² eq.';
-  await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,'Avance PaviFlow',texto);
+  const hoy=mios.filter(e=>!e.borrado&&e.dia===hoyDia());const texto='Avance PaviPlan · '+estado.persona+' · '+diaCorta(hoyDia())+': '+new Set(hoy.map(e=>e.g)).size+' paños, '+hoy.length+' registros, '+fmt0(m2Hoy())+' m² eq.';
+  await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,'Avance PaviPlan',texto);
   for(const e of estado.local){if(!e.enviado){e.enviado=true;await put('eventos',e);}}renderInicio();}
-async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.app!=='PaviFlowHCQ')throw new Error('no es un archivo de PaviFlow');let n=0;
+async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.app!=='PaviFlowHCQ')throw new Error('no es un archivo de PaviPlan');let n=0;
   for(const e of d.eventos||[]){if(estado.local.some(x=>x.id===e.id))continue;e.enviado=true;estado.local.push(e);await put('eventos',e);n++;}combinar();renderTodo();toast(n+' registros restaurados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
 /* ---------------- menú ---------------- */
-function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">PaviFlow '+APP_VER+' · '+OBRA+' · por Renato Martínez Palominos</p>'+
+function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">PaviPlan '+APP_VER+' · '+OBRA+' · por Renato Martínez Palominos</p>'+
   '<button class="menu-item" data-acc="enviar">📤 Enviar mi avance por WhatsApp o correo</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
   '<button class="menu-item" data-acc="restaurar">⬇️ Restaurar mi avance desde un archivo</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
-  '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a>'+
+  '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiPlan (tabiques)</a>'+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
 function pedirNombre(){abrirHoja('<h2 style="font-size:19px">Tu nombre</h2><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');}
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-acc]');if(!b)return;const a=b.dataset.acc;

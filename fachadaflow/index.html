@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>FachadaFlow v0.1 β · Hospital de Coquimbo</title>
+<title>FachadaPlan v0.2 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,7 +433,7 @@ html.oscuro #leyenda,html.oscuro .etiqueta-flotante{background:rgba(30,41,59,.95
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M500 520H1100V1100H500Z" opacity=".35"/><path d="M540 560H690V700H540ZM725 560H875V700H725ZM910 560H1060V700H910ZM540 740H690V880H540ZM725 740H875V880H725ZM910 740H1060V880H910ZM540 920H690V1060H540ZM910 920H1060V1060H910Z"/><path d="M725 920H875V1100H725Z"/><path d="M460 1100H1140V1140H460Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Fachada</span><span class="np2">Flow</span><span class="ver">v0.1 β</span></span>
+      <span class="brand-name"><span class="np">Fachada</span><span class="np2">Plan</span><span class="ver">v0.2 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Fachadas</span>
     </div>
   </div>
@@ -458,30 +458,30 @@ html.oscuro #leyenda,html.oscuro .etiqueta-flotante{background:rgba(30,41,59,.95
   <button class="pestana" data-v="alzado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h16v17M8 8h3M13 8h3M8 12h3M13 12h3M10 21v-4h4v4"/></svg><span>Alzado</span></button>
   <button class="pestana" data-v="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumen</span></button>
 </nav>
-<footer id="pie"><span class="marca">FachadaFlow</span> <span class="vpie">v0.1 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">FachadaPlan</span> <span class="vpie">v0.2 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso"><div class="acceso-caja">
   <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M500 520H1100V1100H500Z" opacity=".35"/><path d="M540 560H690V700H540ZM725 560H875V700H725ZM910 560H1060V700H910ZM540 740H690V880H540ZM725 740H875V880H725ZM910 740H1060V880H910ZM540 920H690V1060H540ZM910 920H1060V1060H910Z"/><path d="M725 920H875V1100H725Z"/><path d="M460 1100H1140V1140H460Z"/></g></svg></div>
-  <h2><span style="color:#7C2D12">Fachada</span><span style="color:var(--ambar)">Flow</span></h2>
+  <h2><span style="color:#7C2D12">Fachada</span><span style="color:var(--ambar)">Plan</span></h2>
   <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo autorizado</p>
   <label class="etiqueta">Tu nombre</label><input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
   <label class="etiqueta">Clave de acceso</label><input id="accPass" class="campo" type="password" placeholder="Clave entregada por Oficina Técnica" autocomplete="current-password">
   <button class="btn principal grande" id="accEntrar">Entrar</button>
   <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-  <p class="nota" style="margin-top:14px;font-size:10.5px">FachadaFlow · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+  <p class="nota" style="margin-top:14px;font-size:10.5px">FachadaPlan · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
 </div></div>
 <div id="velo"></div>
 <div id="hoja"><div class="asa"></div><div id="hojaContenido"></div></div>
 <div id="progreso"><div class="spinner"></div><p id="progresoTexto"></p></div>
 <div id="toasts"></div>
 <script>
-/* FachadaFlow · módulo de fachadas de FlujoPlan (v0.1 β · estudio, 25-10-2026)
+/* FachadaPlan · módulo de fachadas de FlujoPlan (v0.1 β · estudio, 25-10-2026)
    Alzados de cada fachada (exteriores por orientación y fachadas de patios interiores) del edificio principal, el industrial,
    COSAM y Sala Cuna, con cada elemento del modelo: fachada ventilada, paneles, EIFS, tabiques y trasdosados exteriores,
    aislación, muros cortina, ventanas y puertas. Permite ver por capas (encender/apagar tipos) y la ficha de cada elemento.
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.1 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.2 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 const fmt0=n=>Math.round(n).toLocaleString('es-CL'),fmt1=n=>(Math.round(n*10)/10).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});

@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>CieloFlow v0.14 β · Hospital de Coquimbo</title>
+<title>CieloPlan v0.15 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,7 +396,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
-/* ================= TabiFlow ================= */
+/* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
 .lienzo-wrap{flex:1;min-height:0;position:relative;overflow:hidden;background:#EEF2F7;touch-action:none}
@@ -453,7 +453,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
 .paleta-tipos .tipo-btn{padding:5px 2px;font-size:10px}
 .paleta-tipos .tipo-btn .ic.g{width:15px;height:15px}
 
-/* ================= HormiFlow ================= */
+/* ================= HormiPlan ================= */
 .brand-name .np{color:#0284C7}
 html.oscuro .brand-name .np{color:#CBD5E1}
 .paleta-tipos{grid-template-columns:repeat(4,1fr)!important}
@@ -575,7 +575,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M470 560H1130V610H470Z"/><path d="M560 610H590V770H560ZM785 610H815V770H785Z"/><path d="M500 770H700V840H500ZM715 770H885V840H715Z"/><path d="M1010 610H1040V770H1010ZM900 770H1100V840H900Z" opacity=".5"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Flow</span><span class="ver">v0.14 β</span></span>
+      <span class="brand-name"><span class="np">Cielo</span><span class="np2">Plan</span><span class="ver">v0.15 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -617,11 +617,11 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
   <button class="pestana" data-v="buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>Buscar</span></button>
   <button class="pestana" data-v="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumen</span></button>
 </nav>
-<footer id="pie"><span class="marca">CieloFlow</span> <span class="vpie">v0.14 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">CieloPlan</span> <span class="vpie">v0.15 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M470 560H1130V610H470Z"/><path d="M560 610H590V770H560ZM785 610H815V770H785Z"/><path d="M500 770H700V840H500ZM715 770H885V840H715Z"/><path d="M1010 610H1040V770H1010ZM900 770H1100V840H900Z" opacity=".5"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/></g></svg></div>
-    <h2><span style="color:#0284C7">Hormi</span><span style="color:var(--ambar)">Flow</span></h2>
+    <h2><span style="color:#0284C7">Hormi</span><span style="color:var(--ambar)">Plan</span></h2>
     <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo autorizado</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
@@ -629,7 +629,7 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
     <input id="accPass" class="campo" type="password" placeholder="Clave entregada por Oficina Técnica" autocomplete="current-password">
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-    <p class="nota" style="margin-top:14px;font-size:10.5px">CieloFlow · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+    <p class="nota" style="margin-top:14px;font-size:10.5px">CieloPlan · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
   </div>
 </div>
 <div id="velo"></div>
@@ -637,11 +637,11 @@ html.oscuro #leyenda{background:rgba(30,41,59,.94);color:var(--texto)}
 <div id="progreso"><div class="spinner"></div><p id="progresoTexto"></p></div>
 <div id="toasts"></div>
 <script>
-/* CieloFlow · altura de cielo por recinto, desde el modelo BIM (módulo de terminaciones de FlujoPlan)
+/* CieloPlan · altura de cielo por recinto, desde el modelo BIM (módulo de terminaciones de FlujoPlan)
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.14 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.15 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -673,7 +673,7 @@ async function put(st,o){if(!DB){mem[st][o.id]=o;return;}await tx(st,'readwrite'
 async function todos(st){if(!DB)return Object.values(mem[st]);return tx(st,'readonly',s=>s.getAll());}
 async function metaGet(k){if(!DB)return mem.meta[k]?mem.meta[k].v:undefined;const r=await tx('meta','readonly',s=>s.get(k));return r?r.v:undefined;}
 async function metaSet(k,v){await put('meta',{id:k,v});}
-/* ---------------- cifrado (igual que TabiFlow, misma clave de obra) ---------------- */
+/* ---------------- cifrado (igual que TabiPlan, misma clave de obra) ---------------- */
 async function derivarClave(pass,saltB64,iter){const salt=Uint8Array.from(atob(saltB64),c=>c.charCodeAt(0));
   const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']);
   return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);}
@@ -721,7 +721,7 @@ function renderInicio(){if(!MOD)return;const nom=(estado.persona||'').trim().spl
   $('#saludo').innerHTML=saludoHora()+(nom?', '+escapar(nom):'')+' 👋<small>Consulta a qué altura va el cielo de cada recinto.</small>';
   $('#statRec').textContent=fm(all.n,0);$('#statCon').textContent=fm(all.con,0);$('#statModa').textContent=all.moda==null?'—':fm(all.moda,2)+' m';$('#statRango').textContent=all.min==null?'—':fm(all.min,2)+' – '+fm(all.max,2);
   $('#inicioNiveles').innerHTML='<table class="prog-matriz"><tr><th>Nivel</th><th>Recintos</th><th>Con cielo</th><th>Mín.</th><th>Típica</th><th>Máx.</th></tr>'+NIV.map(n=>{const s=statsNv(n.id);return '<tr class="click" data-nv="'+n.id+'"><td>'+escapar(n.id)+'</td><td>'+fm(s.n,0)+'</td><td>'+fm(s.con,0)+'</td><td>'+fm(s.min,2)+'</td><td><b>'+fm(s.moda,2)+'</b></td><td>'+fm(s.max,2)+'</td></tr>';}).join('')+'</table><p class="nota" style="margin-top:6px">Alturas en metros, desde el piso del recinto hasta la cara inferior del cielo. Toca un nivel para verlo en planta.</p>';}
-/* ----- plano vectorial (el mismo plano de TabiFlow: muros, puertas, estructura y ejes) con los recintos coloreados por altura de cielo ----- */
+/* ----- plano vectorial (el mismo plano de TabiPlan: muros, puertas, estructura y ejes) con los recintos coloreados por altura de cielo ----- */
 let PLAN=null;const V={s:0.02,tx:0,ty:0};let rafR=0;
 const lienzo=()=>$('#lienzo'),wrapP=()=>$('#planoWrap');
 function bboxP(arr){let x0=1e12,y0=1e12,x1=-1e12,y1=-1e12;for(let i=0;i<arr.length;i+=2){const x=arr[i],y=arr[i+1];if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}return[x0,y0,x1,y1];}
@@ -871,11 +871,11 @@ function renderResumen(){if(!MOD)return;
    '<div class="tarjeta"><button class="btn principal grande" data-acc="csv">📑 Descargar planilla (CSV para Excel)</button></div>';}
 async function exportarCSV(){const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';const L=['Nivel;Número;Recinto;Área m²;Altura de cielo m;Otras alturas m;Tipo de cielo;Descripción;Cielo indicado en ficha;Altura piso-losa m;GUID'];
   MOD.rec.slice().sort((a,b)=>a.nv.localeCompare(b.nv)||a.n.localeCompare(b.n,'es',{numeric:true})).forEach(r=>{const ds=hDist(r);L.push([r.nv,r.n,r.l,m2(r.A),r.c.length?fm(hDom(r),2):'',ds.length>1?ds.map(x=>fm(x,2)).join(' / '):'',r.c.length?r.c[0].t:'',r.c.length?r.c[0].d:'',r.cod,fm(r.z1-r.z0,2),r.g].map(q).join(';'));});
-  await compartirArchivo(new Blob(['﻿'+L.join('\r\n')],{type:'text/csv'}),'CieloFlow_alturas_de_cielo_'+hoyDia()+'.csv','Alturas de cielo por recinto');}
+  await compartirArchivo(new Blob(['﻿'+L.join('\r\n')],{type:'text/csv'}),'CieloPlan_alturas_de_cielo_'+hoyDia()+'.csv','Alturas de cielo por recinto');}
 /* ================= menú y eventos ================= */
-function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">CieloFlow '+APP_VER+' · '+OBRA+' · modelo '+escapar(MOD?MOD.modelo:'')+' · por Renato Martínez Palominos</p>'+
+function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">CieloPlan '+APP_VER+' · '+OBRA+' · modelo '+escapar(MOD?MOD.modelo:'')+' · por Renato Martínez Palominos</p>'+
   '<button class="menu-item" data-acc="csv">📑 Descargar planilla de alturas (CSV)</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
-  '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a><button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
+  '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiPlan (tabiques)</a><button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
 document.addEventListener('click',async e=>{const t=e.target;let b;
   if((b=t.closest('[data-pnv]'))){estado.nv=b.dataset.pnv;estado.sel=null;renderPlano();return;}
   if((b=t.closest('[data-modo]'))){estado.modo=b.dataset.modo;estado.fH=null;estado.fTipo='';chipsPlano();pintarPlano();return;}
@@ -898,7 +898,7 @@ function mostrarAcceso(){$('#acceso').classList.add('visible');return new Promis
   try{const info=await infoClave();let key=null;try{key=await derivarClave(pass,info.salt,info.iter);await verificar(key);}catch(e){key=await claveDeCielo(pass);if(!key){const p2=await passEquipo(pass,'../tabiflow/');if(p2){key=await derivarClave(p2,info.salt,info.iter);await verificar(key);}}if(!key)throw e;}estado.persona=nom;await metaSet('persona',nom);await metaSet('clave',key);try{localStorage.setItem('obraflow_nombre',nom);}catch(_){}$('#acceso').classList.remove('visible');res(key);}
   catch(e){$('#accesoEstado').textContent=navigator.onLine?'Clave incorrecta':'Sin conexión: la primera vez necesitas internet';$('#accEntrar').disabled=false;}};
   $('#accEntrar').onclick=go;$('#accPass').addEventListener('keydown',e=>{if(e.key==='Enter')go();});});}
-/* clave propia de CieloFlow: acceso.json guarda la clave de obra cifrada con ella */
+/* clave propia de CieloPlan: acceso.json guarda la clave de obra cifrada con ella */
 /* v-equipo (27-10-2026): claves personales del equipo (tabiflow/equipo_acceso.json guarda la clave de obra cifrada con cada una); abren todos los módulos */
 async function passEquipo(pass,ruta){try{const acc=await (await fetch(ruta+'equipo_acceso.json?t='+Date.now(),{cache:'no-store'})).json();
   for(const x of (acc&&acc.alt)||[]){try{const ka=await crypto.subtle.deriveKey({name:'PBKDF2',salt:Uint8Array.from(atob(x.salt),c=>c.charCodeAt(0)),iterations:x.iter,hash:'SHA-256'},await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']),{name:'AES-GCM',length:256},false,['decrypt']);

@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="coord.webmanifest">
-<title>PuertaFlow · Coordinación de refuerzos</title>
+<title>PuertaPlan · Coordinación de refuerzos</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,7 +396,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
-/* ================= TabiFlow ================= */
+/* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
 .lienzo-wrap{flex:1;min-height:0;position:relative;overflow:hidden;background:#EEF2F7;touch-action:none}
@@ -453,7 +453,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
 .paleta-tipos .tipo-btn{padding:5px 2px;font-size:10px}
 .paleta-tipos .tipo-btn .ic.g{width:15px;height:15px}
 
-/* ================= PuertaFlow ================= */
+/* ================= PuertaPlan ================= */
 .brand-name .np{color:#0F766E}
 html.oscuro .brand-name .np{color:#2DD4BF}
 .paleta-tipos{grid-template-columns:repeat(6,1fr)!important}
@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.23 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.24 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -525,7 +525,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M6 3h10l2 1v16l-2 1H6z"/><path d="M3 12h4M17 12h4"/></svg></div>
-          <div><span class="eyebrow">PuertaFlow · Coordinación de refuerzos de puertas cortafuego (ficha oficial)</span><h2>Liberar frentes y avanzar</h2></div>
+          <div><span class="eyebrow">PuertaPlan · Coordinación de refuerzos de puertas cortafuego (ficha oficial)</span><h2>Liberar frentes y avanzar</h2></div>
         </div>
         <p id="rolTexto"></p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#F59E0B"></span>📍 Trazado solicitado</span><span class="ley"><span class="ic g" style="background:#DB2777"></span>📐 Trazo inicial · por picar</span><span class="ley"><span class="ic g" style="background:#14B8A6"></span>🔨 Picado listo · por retrazar</span><span class="ley"><span class="ic g" style="background:#2563EB"></span>✅ Frente liberado</span><span class="ley"><span class="ic g" style="background:#7C3AED"></span>🔩 Refuerzo instalado</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>✔ Recibido</span><span class="ley"><span class="ic g" style="background:#EA580C"></span>⚠ Observado</span></div>
@@ -562,11 +562,11 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">Coordinación v0.23 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">Coordinación v0.24 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
-    <h2><span style="color:#0F766E">Puerta</span><span style="color:var(--ambar)">Flow</span></h2>
+    <h2><span style="color:#0F766E">Puerta</span><span style="color:var(--ambar)">Plan</span></h2>
     <p class="nota" style="margin-bottom:16px">Coordinación de refuerzos · Hospital de Coquimbo<br>Entra con la clave que te entregó Oficina Técnica (jefe de terreno, trazadores, subcontrato de refuerzos u obra).</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
@@ -574,7 +574,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
     <input id="accPass" class="campo" type="password" placeholder="Clave de coordinación" autocomplete="current-password">
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-    <p class="nota" style="margin-top:14px;font-size:10.5px">PuertaFlow · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+    <p class="nota" style="margin-top:14px;font-size:10.5px">PuertaPlan · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
   </div>
 </div>
 <div id="visor"><div class="visor-barra"><div class="t"><b id="visorTitulo">Detalle</b><small id="visorSub"></small></div><button class="btn-icono" id="visorMenos" aria-label="Alejar">−</button><button class="btn-icono" id="visorMas" aria-label="Acercar">＋</button><button class="btn-icono" id="visorCerrar" aria-label="Cerrar">✕</button></div><div id="visorCaja"><img id="visorImg" alt="Detalle oficial"></div></div>
@@ -983,11 +983,11 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 //# sourceMappingURL=jspdf.umd.min.js.map
 </script>
 <script>
-/* PuertaFlow · Coordinación de refuerzos (trazadores ↔ subcontrato de refuerzos ↔ obra)
+/* PuertaPlan · Coordinación de refuerzos (trazadores ↔ subcontrato de refuerzos ↔ obra)
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.23 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.24 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 let TIPOSTAB={},TABSEL=null;   /* v0.21: tipos de tabique (TF en rojo tenue) y tabique tocado */
@@ -1276,8 +1276,8 @@ function miniPlano(p){const n=NIVELES.find(x=>x.id===p.nv);const W=640,H=420,s=0
   x.fillStyle='#DC2626';x.font='800 '+13*px+'px sans-serif';x.fillText(p.t,p.cx,p.cy-Math.max(p.rad*1.6,18*px)-10*px);return c.toDataURL('image/jpeg',0.8);}
 async function informeRDI(){const ts=ticketsTodos().filter(t=>!t.borrado&&t.tipo==='rdi'&&(!estado.fNivel||t.g.some(g=>(PUE.get(g)||{}).nv===estado.fNivel))).sort((a,b)=>a.ts.localeCompare(b.ts));
   if(!ts.length){toast('No hay interferencias registradas'+(estado.fNivel?' en este nivel':''));return;}progreso('Armando el informe de interferencias…');
-  let h='<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Interferencias para RDI · PuertaFlow</title><style>body{font-family:Inter,system-ui,sans-serif;color:#0F172A;margin:0;padding:18px;font-size:13px}h1{font-size:20px;margin:0 0 2px;color:#1C4192}.sub{color:#64748B;margin-bottom:14px}.it{border:1px solid #E2E8F0;border-radius:10px;padding:12px;margin:0 0 14px;break-inside:avoid}.it h2{font-size:15px;margin:0 0 6px}.it h2 span{color:#DC2626}table{border-collapse:collapse;width:100%;margin:6px 0}td{border-bottom:1px solid #EEF2F7;padding:4px 6px;vertical-align:top}td:first-child{color:#64748B;width:120px}.ims{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.ims img{max-width:48%;max-height:300px;border-radius:6px;border:1px solid #E2E8F0}.plano{width:100%;max-width:640px;border:1px solid #E2E8F0;border-radius:6px}.bt{position:sticky;top:0;background:#fff;padding:8px 0;margin-bottom:8px}.bt button{font-size:14px;padding:8px 14px;border-radius:8px;border:0;background:#1C4192;color:#fff;font-weight:700}@media print{.bt{display:none}body{padding:0}}</style></head><body>'+
-    '<div class="bt"><button onclick="print()">🖨 Imprimir / guardar PDF</button></div><h1>Interferencias para RDI · Puertas cortafuego</h1><div class="sub">Hospital de Coquimbo · '+(estado.fNivel?etqNivel(estado.fNivel)+' · ':'')+ts.length+' registro(s) · generado el '+fechaHora(new Date().toISOString())+' por '+escapar(estado.persona)+' · PuertaFlow Coordinación '+APP_VER+'</div>';
+  let h='<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Interferencias para RDI · PuertaPlan</title><style>body{font-family:Inter,system-ui,sans-serif;color:#0F172A;margin:0;padding:18px;font-size:13px}h1{font-size:20px;margin:0 0 2px;color:#1C4192}.sub{color:#64748B;margin-bottom:14px}.it{border:1px solid #E2E8F0;border-radius:10px;padding:12px;margin:0 0 14px;break-inside:avoid}.it h2{font-size:15px;margin:0 0 6px}.it h2 span{color:#DC2626}table{border-collapse:collapse;width:100%;margin:6px 0}td{border-bottom:1px solid #EEF2F7;padding:4px 6px;vertical-align:top}td:first-child{color:#64748B;width:120px}.ims{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.ims img{max-width:48%;max-height:300px;border-radius:6px;border:1px solid #E2E8F0}.plano{width:100%;max-width:640px;border:1px solid #E2E8F0;border-radius:6px}.bt{position:sticky;top:0;background:#fff;padding:8px 0;margin-bottom:8px}.bt button{font-size:14px;padding:8px 14px;border-radius:8px;border:0;background:#1C4192;color:#fff;font-weight:700}@media print{.bt{display:none}body{padding:0}}</style></head><body>'+
+    '<div class="bt"><button onclick="print()">🖨 Imprimir / guardar PDF</button></div><h1>Interferencias para RDI · Puertas cortafuego</h1><div class="sub">Hospital de Coquimbo · '+(estado.fNivel?etqNivel(estado.fNivel)+' · ':'')+ts.length+' registro(s) · generado el '+fechaHora(new Date().toISOString())+' por '+escapar(estado.persona)+' · PuertaPlan Coordinación '+APP_VER+'</div>';
   let k=0;for(const t of ts){for(const g of t.g){const p=PUE.get(g);if(!p)continue;k++;const ti=TIPOS[p.t]||{};
       const ims=[];for(const f of t.fotos||[]){const d=await fotoDe(f.id);if(d)ims.push('<img src="'+d+'">');}
       h+='<div class="it"><h2><span>INT-'+String(k).padStart(3,'0')+'</span> · '+escapar(p.t)+' · '+escapar(etqNivel(p.nv))+'</h2><table>'+
@@ -1313,9 +1313,9 @@ function planoNivel(n,W,H){const c=document.createElement('canvas');c.width=W;c.
     if(e.prob||e.rdi.length){x.fillStyle=e.rdi.length?'#0891B2':'#0F172A';x.beginPath();x.arc(p.cx+r,p.cy-r,3.2*px,0,Math.PI*2);x.fill();}}
   return c.toDataURL('image/jpeg',0.85);}
 async function pdfTickets(ts,titulo,sub,opc){opc=opc||{};const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});const W=210,H=297,M=12;let y=0,pag=0;
-  const cab=()=>{pag++;doc.setFillColor(15,118,110);doc.rect(0,0,W,14,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('PuertaFlow · '+titulo,M,9.3);
+  const cab=()=>{pag++;doc.setFillColor(15,118,110);doc.rect(0,0,W,14,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('PuertaPlan · '+titulo,M,9.3);
     doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text('Hospital de Coquimbo',W-M,9.3,{align:'right'});doc.setTextColor(30,41,59);y=20;};
-  const pie=()=>{doc.setFontSize(7);doc.setTextColor(120,130,145);doc.text('PuertaFlow Coordinación '+APP_VER+' · generado el '+fechaHora(new Date().toISOString())+' por '+estado.persona+' · © 2026 Renato Martínez Palominos',M,H-6);doc.text('Pág. '+pag,W-M,H-6,{align:'right'});doc.setTextColor(30,41,59);};
+  const pie=()=>{doc.setFontSize(7);doc.setTextColor(120,130,145);doc.text('PuertaPlan Coordinación '+APP_VER+' · generado el '+fechaHora(new Date().toISOString())+' por '+estado.persona+' · © 2026 Renato Martínez Palominos',M,H-6);doc.text('Pág. '+pag,W-M,H-6,{align:'right'});doc.setTextColor(30,41,59);};
   const nueva=()=>{pie();doc.addPage();cab();};
   cab();doc.setFontSize(9.5);doc.setTextColor(71,85,105);doc.splitTextToSize(sub,W-2*M).forEach(l=>{doc.text(l,M,y);y+=4.6;});y+=2;doc.setTextColor(30,41,59);
   if(opc.resumen){const c=conteo(opc.filtro);const est=ORDEN_EST.map(e=>[EST[e].n,c[e],EST[e].color]).concat([['Con problema en el frente',c.prob,'#0F172A'],['Con interferencia para RDI',c.rdi,'#0891B2']]);
@@ -1370,9 +1370,9 @@ async function exportar(){const mios=estado.local.filter(t=>t.por===estado.perso
   progreso('Armando el PDF de tus tickets…');let files=[new File([JSON.stringify(d)],nombre,{type:'application/json'})];
   try{const b=await pdfTickets(delDia,'Tickets para el coordinador',estado.persona+' ('+(NOMR[estado.rol]||estado.rol)+') · '+diaLargaFecha(hoyDia())+' · '+delDia.length+' ticket(s). El archivo .json adjunto es el que se consolida; este PDF es para leerlo.');
     files.push(new File([b],nombre.replace(/\.json$/,'.pdf'),{type:'application/pdf'}));}catch(e){toast('El PDF no se pudo armar; se envía solo el archivo','error');}
-  progreso(null);await compartirVarios(files,'Tickets PuertaFlow para el coordinador','Para el coordinador · tickets de coordinación de '+estado.persona+' ('+(NOMR[estado.rol]||estado.rol)+') · '+diaCorta(hoyDia())+'. Adjunto el archivo .json (para publicar) y el informe PDF con las fotos.');
+  progreso(null);await compartirVarios(files,'Tickets PuertaPlan para el coordinador','Para el coordinador · tickets de coordinación de '+estado.persona+' ('+(NOMR[estado.rol]||estado.rol)+') · '+diaCorta(hoyDia())+'. Adjunto el archivo .json (para publicar) y el informe PDF con las fotos.');
   for(const t of estado.local){if(!t.enviado){t.enviado=true;await put('tickets',t);}}renderTodo();}
-async function abrirArchivo(file){try{const d=JSON.parse(await file.text());if(d.app!=='PuertaCoordHCQ')throw new Error('no es un archivo de tickets de PuertaFlow');let n=0;
+async function abrirArchivo(file){try{const d=JSON.parse(await file.text());if(d.app!=='PuertaCoordHCQ')throw new Error('no es un archivo de tickets de PuertaPlan');let n=0;
   for(const t of d.tickets||[]){if(estado.local.some(x=>x.id===t.id))continue;t.recibido=true;t.enviado=true;estado.local.push(t);await put('tickets',t);n++;}combinar();renderTodo();toast(n+' ticket(s) cargados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
 /* ---------------- menú y eventos ---------------- */
@@ -1387,10 +1387,10 @@ function hojaBorrar(){const n=propios().filter(t=>!t.borrado).length,p=pendiente
    '<label class="toggle-mini" style="display:flex;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;font-weight:700"><input type="checkbox" id="chkBorrar" style="width:18px;height:18px"> Entiendo que no se puede deshacer</label><button class="btn secundario" id="btnBorrarOk" disabled style="width:100%;margin-top:10px;color:var(--peligro-osc);justify-content:center">🗑 Borrar de este teléfono</button>');
   $('#chkBorrar').onchange=e=>{$('#btnBorrarOk').disabled=!e.target.checked;};
   $('#btnBorrarOk').onclick=async()=>{await vaciarLocal();cerrarHoja();toast('Avance de este teléfono borrado','ok');};}
-function abrirMenu(){abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">PuertaFlow · Coordinación '+APP_VER+' · '+OBRA+' · '+ROL[estado.rol].n+' · por Renato Martínez Palominos</div>'+
+function abrirMenu(){abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">PuertaPlan · Coordinación '+APP_VER+' · '+OBRA+' · '+ROL[estado.rol].n+' · por Renato Martínez Palominos</div>'+
   '<button class="menu-item" data-acc="enviar">📤 Enviar al coordinador (archivo + informe PDF con fotos)</button><button class="menu-item" data-acc="pdfest">📊 Informe PDF del estado (plantas y tickets de la semana)</button><button class="menu-item" data-acc="rdi">🧾 Informe PDF de interferencias para RDI</button><button class="menu-item" data-acc="equipo">🔄 Actualizar coordinación</button>'+
   '<button class="menu-item" data-acc="abrir">📥 Abrir archivo de tickets</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
-  (estado.rol==='obra'?'<a class="menu-item" href="index.html">🚪 Ir a PuertaFlow (avance de puertas)</a><a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a>':'')+
+  (estado.rol==='obra'?'<a class="menu-item" href="index.html">🚪 Ir a PuertaPlan (avance de puertas)</a><a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a>':'')+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button><button class="menu-item" data-acc="borrar" style="color:var(--peligro-osc)">🗑 Borrar mis tickets de este teléfono</button>');}
 document.addEventListener('click',async e=>{
   const fe=e.target.closest('[data-fest]');if(fe){estado.fEst=estado.fEst===fe.dataset.fest?'':fe.dataset.fest;renderTablero();return;}

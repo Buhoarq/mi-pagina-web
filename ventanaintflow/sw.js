@@ -1,6 +1,6 @@
-/* VentanaIntFlow HCQ — service worker: la app y el modelo cifrado quedan disponibles sin conexión.
+/* VentanaIntPlan HCQ — service worker: la app y el modelo cifrado quedan disponibles sin conexión.
    avance.enc (consolidado del equipo) se pide siempre a la red primero y, sin señal, se usa la copia guardada. */
-const CACHE='ventanaintflow-hcq-v1.11';
+const CACHE='ventanaintflow-hcq-v1.12';
 const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','./ventanas.enc','../tabiflow/clave.json'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('ventanaintflow-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});

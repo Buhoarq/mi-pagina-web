@@ -1,6 +1,6 @@
 {
-  "name": "Last Planner · TabiFlow · Hospital de Coquimbo",
-  "short_name": "Last Planner",
+  "name": "LastPlan · Hospital de Coquimbo",
+  "short_name": "LastPlan",
   "description": "Plan semanal de tabiques (Last Planner) para jefes de terreno · versión de prueba. Desarrollado por Renato Martínez Palominos.",
   "start_url": "./index.html",
   "scope": "./",

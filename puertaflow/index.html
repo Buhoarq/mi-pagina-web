@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PuertaFlow v0.23 β · Hospital de Coquimbo</title>
+<title>PuertaPlan v0.24 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,7 +396,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
-/* ================= TabiFlow ================= */
+/* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
 .lienzo-wrap{flex:1;min-height:0;position:relative;overflow:hidden;background:#EEF2F7;touch-action:none}
@@ -453,7 +453,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
 .paleta-tipos .tipo-btn{padding:5px 2px;font-size:10px}
 .paleta-tipos .tipo-btn .ic.g{width:15px;height:15px}
 
-/* ================= PuertaFlow ================= */
+/* ================= PuertaPlan ================= */
 .brand-name .np{color:#0F766E}
 html.oscuro .brand-name .np{color:#2DD4BF}
 .paleta-tipos{grid-template-columns:repeat(6,1fr)!important}
@@ -494,12 +494,12 @@ html.oscuro #visor{background:#0F172A}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Flow</span><span class="ver">v0.23 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.24 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Puertas</span>
     </div>
   </div>
   <button id="chipJornada" class="chip boton acento">📅 —</button>
-  <a id="btnFlujo" class="btn-icono" href="../obraflow/" aria-label="Ir a FlujoPlan" title="Ir a la portada FlujoPlan (TabiFlow, PuertaFlow…)" style="display:grid;place-items:center;font-size:19px;text-decoration:none">🏗️</a>
+  <a id="btnFlujo" class="btn-icono" href="../obraflow/" aria-label="Ir a FlujoPlan" title="Ir a la portada FlujoPlan (TabiPlan, PuertaPlan…)" style="display:grid;place-items:center;font-size:19px;text-decoration:none">🏗️</a>
   <button id="btnMenu" class="btn-icono" aria-label="Menú"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>
 </header>
 <main id="contenido">
@@ -509,7 +509,7 @@ html.oscuro #visor{background:#0F172A}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#0F766E"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M6 3h10l2 1v16l-2 1H6z"/><circle cx="14" cy="12" r="1"/></svg></div>
-          <div><span class="eyebrow">PuertaFlow v0.23 β · Módulo de puertas de FlujoPlan (maqueta)</span><h2>Ubica cada tipo de puerta y marca su avance</h2></div>
+          <div><span class="eyebrow">PuertaPlan v0.24 β · Módulo de puertas de FlujoPlan (maqueta)</span><h2>Ubica cada tipo de puerta y marca su avance</h2></div>
         </div>
         <p>Las 4.164 puertas del modelo de interiores ya están cargadas por nivel, con su tipo, resistencia al fuego y clasificación acústica. Usa <b>🎯 Filtrar tipos</b> para encerrar en un círculo de color uno o varios tipos (por ejemplo las cortafuego) y ubícalas piso por piso. Las puertas RF y acústicas llevan la etapa de <b>refuerzo metálico</b>.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#64748B"></span>Trazado</span><span class="ley"><span class="ic g" style="background:#DC2626"></span>Refuerzo</span><span class="ley"><span class="ic g" style="background:#F59E0B"></span>Recibido</span><span class="ley"><span class="ic g" style="background:#2563EB"></span>Marco</span><span class="ley"><span class="ic g" style="background:#7C3AED"></span>Hoja</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>Quincallería</span></div>
@@ -566,19 +566,19 @@ html.oscuro #visor{background:#0F172A}
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaFlow</span> <span class="vpie">v0.23 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">v0.24 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
-    <h2><span style="color:#0F766E">Puerta</span><span style="color:var(--ambar)">Flow</span></h2>
-    <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo de obra · misma clave que TabiFlow</p>
+    <h2><span style="color:#0F766E">Puerta</span><span style="color:var(--ambar)">Plan</span></h2>
+    <p class="nota" style="margin-bottom:16px">Hospital de Coquimbo · acceso restringido al equipo de obra · misma clave que TabiPlan</p>
     <label class="etiqueta">Tu nombre</label>
     <input id="accNombre" class="campo" maxlength="40" placeholder="Nombre y apellido" autocomplete="name">
     <label class="etiqueta">Clave de obra</label>
     <input id="accPass" class="campo" type="password" placeholder="Clave entregada por Oficina Técnica" autocomplete="current-password">
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-    <p class="nota" style="margin-top:14px;font-size:10.5px">PuertaFlow · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+    <p class="nota" style="margin-top:14px;font-size:10.5px">PuertaPlan · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
   </div>
 </div>
 <div id="visor"><div class="visor-barra"><div class="t"><b id="visorTitulo">Detalle</b><small id="visorSub"></small></div><button class="btn-icono" id="visorMenos" aria-label="Alejar">−</button><button class="btn-icono" id="visorMas" aria-label="Acercar">＋</button><button class="btn-icono" id="visorCerrar" aria-label="Cerrar">✕</button></div><div id="visorCaja"><img id="visorImg" alt="Detalle oficial"></div></div>
@@ -588,11 +588,11 @@ html.oscuro #visor{background:#0F172A}
 <div id="toasts"></div>
 <input type="file" id="inputRespaldo" accept="application/json,.json" hidden>
 <script>
-/* PuertaFlow · módulo de puertas de FlujoPlan (maqueta β)
+/* PuertaPlan · módulo de puertas de FlujoPlan (maqueta β)
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.23 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.24 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 let TIPOSTAB={},TABSEL=null;   /* v0.23: tabiques TF en rojo y su ficha al tocarlos (igual que la coordinación) */
@@ -630,7 +630,7 @@ async function put(st,o){if(!DB){mem[st][o.id]=o;return;}await tx(st,'readwrite'
 async function todos(st){if(!DB)return Object.values(mem[st]);return tx(st,'readonly',s=>s.getAll());}
 async function metaGet(k){if(!DB)return mem.meta[k]?mem.meta[k].v:undefined;const r=await tx('meta','readonly',s=>s.get(k));return r?r.v:undefined;}
 async function metaSet(k,v){await put('meta',{id:k,v});}
-/* ---------------- cifrado (igual que TabiFlow, misma clave de obra) ---------------- */
+/* ---------------- cifrado (igual que TabiPlan, misma clave de obra) ---------------- */
 async function derivarClave(pass,saltB64,iter){const salt=Uint8Array.from(atob(saltB64),c=>c.charCodeAt(0));
   const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']);
   return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);}
@@ -873,10 +873,10 @@ async function exportar(){const mios=estado.local.filter(e=>e.por===estado.perso
   const d={app:'PuertaFlowHCQ',modulo:'puerta',tipo:'avance',ver:1,por:estado.persona,disp:estado.disp,exportado:new Date().toISOString(),eventos:mios.map(e=>{const o=Object.assign({},e);delete o.enviado;return o;})};
   const ahora=new Date();const slug=(estado.persona||'persona').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Avance_PuertaFlow_'+slug+'_'+hoyDia()+'_'+String(ahora.getHours()).padStart(2,'0')+'h'+String(ahora.getMinutes()).padStart(2,'0')+'.json';
-  const hoy=mios.filter(e=>!e.borrado&&e.dia===hoyDia());const texto='Avance PuertaFlow · '+estado.persona+' · '+diaCorta(hoyDia())+': '+new Set(hoy.map(e=>e.g)).size+' puertas, '+hoy.length+' registros.';
-  await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,'Avance PuertaFlow',texto);
+  const hoy=mios.filter(e=>!e.borrado&&e.dia===hoyDia());const texto='Avance PuertaPlan · '+estado.persona+' · '+diaCorta(hoyDia())+': '+new Set(hoy.map(e=>e.g)).size+' puertas, '+hoy.length+' registros.';
+  await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,'Avance PuertaPlan',texto);
   for(const e of estado.local){if(!e.enviado){e.enviado=true;await put('eventos',e);}}renderInicio();}
-async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.app!=='PuertaFlowHCQ')throw new Error('no es un archivo de PuertaFlow');let n=0;
+async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.app!=='PuertaFlowHCQ')throw new Error('no es un archivo de PuertaPlan');let n=0;
   for(const e of d.eventos||[]){if(estado.local.some(x=>x.id===e.id))continue;e.enviado=true;estado.local.push(e);await put('eventos',e);n++;}combinar();renderTodo();toast(n+' registros restaurados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
 /* ---------------- menú ---------------- */
@@ -890,10 +890,10 @@ function hojaBorrar(){const n=estado.local.filter(e=>!e.borrado).length,p=pendie
    '<label class="toggle-mini" style="display:flex;gap:8px;align-items:center;margin-top:14px;font-size:12.5px;font-weight:700"><input type="checkbox" id="chkBorrar" style="width:18px;height:18px"> Entiendo que no se puede deshacer</label><button class="btn secundario" id="btnBorrarOk" disabled style="width:100%;margin-top:10px;color:var(--peligro-osc);justify-content:center">🗑 Borrar de este teléfono</button>');
   $('#chkBorrar').onchange=e=>{$('#btnBorrarOk').disabled=!e.target.checked;};
   $('#btnBorrarOk').onclick=async()=>{await vaciarLocal();cerrarHoja();toast('Avance de este teléfono borrado','ok');};}
-function abrirMenu(){abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">PuertaFlow '+APP_VER+' · '+OBRA+' · por Renato Martínez Palominos</div>'+
+function abrirMenu(){abrirHoja('<div class="hoja-titulo">Menú</div><div class="hoja-sub">PuertaPlan '+APP_VER+' · '+OBRA+' · por Renato Martínez Palominos</div>'+
   '<button class="menu-item" data-acc="enviar">📤 Enviar mi avance por WhatsApp o correo</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
   '<button class="menu-item" data-acc="restaurar">⬇️ Restaurar mi avance desde un archivo</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
-  '<a class="menu-item" href="coordinacion.html">🤝 Coordinación de refuerzos (trazadores ↔ subcontrato)</a><a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiFlow (tabiques)</a>'+
+  '<a class="menu-item" href="coordinacion.html">🤝 Coordinación de refuerzos (trazadores ↔ subcontrato)</a><a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiPlan (tabiques)</a>'+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button><button class="menu-item" data-acc="borrar" style="color:var(--peligro-osc)">🗑 Borrar mi avance de este teléfono</button>');}
 function pedirNombre(){abrirHoja('<div class="hoja-titulo">Tu nombre</div><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');}
 document.addEventListener('click',async e=>{

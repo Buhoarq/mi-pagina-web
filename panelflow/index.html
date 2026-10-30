@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Panel FlujoPlan v2.2 · Hospital de Coquimbo</title>
+<title>Panel FlujoPlan v2.3 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -456,7 +456,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M550 980A250 250 0 0 1 1050 980H965A165 165 0 0 0 635 980Z"/><path d="M550 980A250 250 0 0 1 627 800L687 860A165 165 0 0 0 635 980Z" opacity=".55"/><path d="M780 975L945 805L822 1002Z"/><path d="M800 945A40 40 0 1 1 799 945Z"/><path d="M560 1035H1040V1075H560Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v2.2</span></span>
+      <span class="brand-name"><span class="np">Panel</span> <span class="np2" style="margin-left:0">FlujoPlan</span><span class="ver">v2.3</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -482,7 +482,7 @@ html.oscuro .brand-name .np{color:#CBD5E1}
     </div>
   </section>
 </main>
-<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v2.2</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">Panel FlujoPlan</span> <span class="vpie">v2.3</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M550 980A250 250 0 0 1 1050 980H965A165 165 0 0 0 635 980Z"/><path d="M550 980A250 250 0 0 1 627 800L687 860A165 165 0 0 0 635 980Z" opacity=".55"/><path d="M780 975L945 805L822 1002Z"/><path d="M800 945A40 40 0 1 1 799 945Z"/><path d="M560 1035H1040V1075H560Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -501,13 +501,13 @@ html.oscuro .brand-name .np{color:#CBD5E1}
 <div id="toasts"></div>
 <script>
 /* Panel FlujoPlan · indicadores de TODOS los módulos para el administrador (Oficina Técnica)
-   v2.0 (25-10-2026): cada módulo tiene su DETALLE con los mismos indicadores del panel de TabiFlow (detalle.js).
+   v2.0 (25-10-2026): cada módulo tiene su DETALLE con los mismos indicadores del panel de TabiPlan (detalle.js).
    Lee los datos publicados y cifrados de cada módulo (modelo + avance consolidado del equipo) y calcula sus KPI en el navegador.
    Para sumar un módulo futuro: agregar una entrada a MODULOS con su función cargar() (ver el final de este archivo).
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v2.2',OBRA='Hospital de Coquimbo';
+const APP_VER='v2.3',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fmt0=n=>Math.round(n).toLocaleString('es-CL'),fmt1=n=>(Math.round(n*10)/10).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
 const pct=(a,b)=>b>0?100*a/b:0;
@@ -529,7 +529,7 @@ async function bajarJSON(url){const r=await fetch(url+'?t='+Date.now(),{cache:'n
 async function abrir(url){return descifrar(CLAVE,await bajar(url));}
 async function abrirSiHay(url){try{return await abrir(url);}catch(e){return null;}}
 async function verificar(key){const info=await bajarJSON('../tabiflow/clave.json');await descifrar(key,B64(info.check).buffer);return key;}
-/* clave propia del coordinador (la misma del panel de TabiFlow): panel_acceso.json guarda la clave de obra cifrada con ella */
+/* clave propia del coordinador (la misma del panel de TabiPlan): panel_acceso.json guarda la clave de obra cifrada con ella */
 async function claveDePanel(pass){try{const acc=await bajarJSON('../tabiflow/panel_acceso.json');
   for(const x of (acc&&acc.alt)||[]){try{const ka=await derivarClave(pass,x.salt,x.iter);const u=B64(x.w);
     const pl=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(0,12)},ka,u.slice(12));
@@ -548,7 +548,7 @@ function maxPor(eventos,clave){const m=new Map();for(const e of eventos||[]){if(
 function personasDe(av){const s=new Set(av&&av.personas||[]);((av&&av.eventos)||[]).forEach(e=>{if(e.por)s.add(e.por);});return [...s];}
 function ultimoDia(av){let u='';((av&&av.eventos)||[]).forEach(e=>{if(!e.borrado&&(e.ts||e.dia||'')>u)u=e.ts||e.dia;});return u||null;}
 
-/* ================= TabiFlow (tabiques) ================= */
+/* ================= TabiPlan (tabiques) ================= */
 function seqDe(t){if(!t.np)return['fen'];if(t.uc){const s=t.dir?[]:['est','ais'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);return s;}const s=['est'];for(let i=1;i<=t.np;i++)s.push('c1p'+i);if(t.pb)s.push('pb');s.push('ais');for(let i=1;i<=t.np;i++)s.push('c2p'+i);return s;}
 const famEt=et=>et.startsWith('c1')?'c1':et.startsWith('c2')?'c2':et;
 async function cargarTabi(){
@@ -567,7 +567,7 @@ async function cargarTabi(){
     niveles:M.niveles.map(n=>nv[n.id]?[corto(n.id),fmt0(nv[n.id].A)+' m²',pct(nv[n.id].eq,nv[n.id].A),'cara 2 '+fmt0(pct(...nv[n.id].c2))+'%']:null).filter(Boolean),
     act:(av&&av.actualizado)||ultimoDia(av),personas:personasDe(av),registros:((av&&av.eventos)||[]).filter(e=>!e.borrado).length};}
 
-/* ================= PaviFlow (pavimentos) ================= */
+/* ================= PaviPlan (pavimentos) ================= */
 const PV_SIS={vin:['base','inst','term'],por:['inst','term'],bal:['base','inst','term'],hor:['inst','term'],mad:['base','inst','term'],otr:['inst','term'],asf:['base','inst'],ext:['base','inst','term']};
 const PV_PESO={sob:25,base:20,inst:35,term:10};
 async function cargarPavi(){
@@ -582,7 +582,7 @@ async function cargarPavi(){
     extras:[['Sobrelosa',fmt1(pct(...sob))+'% de '+fmt0(sob[1])+' m²'],['Interiores',fmt1(pct(...inn))+'%'],['Exteriores',fmt1(pct(...ex))+'% de '+fmt0(ex[1])+' m²']],
     niveles:nv,act:(av&&av.actualizado)||ultimoDia(av),personas:personasDe(av),registros:((av&&av.eventos)||[]).filter(e=>!e.borrado).length};}
 
-/* ================= ImperFlow (impermeabilización) ================= */
+/* ================= ImperPlan (impermeabilización) ================= */
 const IM_SIS={cem:{et:['cem'],n:'Cementicio flexible'},pu:{et:['pu','pro'],n:'Poliuretano + mortero de protección'},puv:{et:['pu','ter'],n:'Poliuretano de tránsito vehicular'},rad:{et:['pol'],n:'Radier: polietileno + hidrófugo'},pend:{et:['imp'],n:'Tipo por confirmar'}},IM_PESO={cem:100,pu:70,pro:30,ter:30,pol:100,imp:100};
 async function cargarImper(){
   const P=await abrir('../imperflow/imper.enc');const av=await abrirSiHay('../imperflow/avance.enc');const F=maxPor(av&&av.eventos,e=>e.g+'|'+e.et);
@@ -593,20 +593,20 @@ async function cargarImper(){
   return {kpi:pct(eq,A),kpiTxt:'avance ponderado de '+fmt0(A)+' m² impermeabilizados',extras:Object.keys(IM_SIS).filter(k=>sis[k]).map(k=>[IM_SIS[k].n,fmt1(pct(...sis[k]))+'% de '+fmt0(sis[k][1])+' m²']),
     niveles:nv,act:(av&&av.actualizado)||ultimoDia(av),personas:personasDe(av),registros:((av&&av.eventos)||[]).filter(e=>!e.borrado).length};}
 
-/* ================= FachadaFlow (fachadas, estudio: aún sin toma de avance) ================= */
+/* ================= FachadaPlan (fachadas, estudio: aún sin toma de avance) ================= */
 async function cargarFachada(){const D=await abrir('../fachadaflow/fachadas.enc');const fam={};let A=0,n=0;
   D.fachadas.forEach(f=>f.el.forEach(e=>{A+=e.A;n++;const k=/^VENTANA|^V[A-Z]{1,3}-/.test(e.t)?'Ventanas':/^FHPL|^FVHPL/.test(e.t)?'Fachada ventilada HPL':/^ATF/.test(e.t)?'Aislación':/^TIC|^RIC/.test(e.t)?'Tabique fibrocemento':/^FEE/.test(e.t)?'EIFS':'Otros';fam[k]=(fam[k]||0)+e.A;}));
   const ed={};D.fachadas.forEach(f=>{ed[f.ed]=(ed[f.ed]||0)+f.el.reduce((a,e)=>a+e.A,0);});
   return {kpi:null,kpiTxt:'estudio de fachadas: '+D.fachadas.length+' alzados (aún sin toma de avance)',extras:Object.entries(fam).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,fmt0(v)+' m²']),
     niveles:Object.entries(ed).map(([k,v])=>[k,fmt0(v)+' m²',null,'']),nivelesTit:'Por edificio',act:null,personas:[],registros:0};}
 
-/* ================= CieloFlow (cielos) ================= */
+/* ================= CieloPlan (cielos) ================= */
 async function cargarCielo(){
   const C=await abrir('../cieloflow/cielos.enc');let n=0,con=0,A=0;const nv=[];
   C.niveles.forEach(x=>{let a=0,c=0;x.rec.forEach(r=>{n++;if(r.c&&r.c.length){con++;c++;}a+=r.A||0;});A+=a;nv.push([corto(x.id),x.rec.length+' recintos',null,c+' con cielo']);});
   return {kpi:null,kpiTxt:'módulo de información (aún sin toma de avance)',extras:[['Recintos',fmt0(n)],['Con cielo modelado',fmt0(con)],['Superficie',fmt0(A)+' m²']],niveles:nv,act:null,personas:[],registros:0};}
 
-/* ================= VentanaIntFlow (ventanas interiores) ================= */
+/* ================= VentanaIntPlan (ventanas interiores) ================= */
 async function cargarVentana(){
   const V=await abrir('../ventanaintflow/ventanas.enc');const av=await abrirSiHay('../ventanaintflow/avance.enc');
   const U=ultimoPor(av&&av.eventos,e=>e.g+'|'+e.k);let tot=0,lev=0,lis=0,rec=0,ins=0;const nv=[];
@@ -615,7 +615,7 @@ async function cargarVentana(){
     extras:[['Listas para levantar',fmt0(lis)],['Recibidas (sin instalar)',fmt0(rec)],['Instaladas',fmt0(ins)+' · '+fmt1(pct(ins,tot))+'%']],
     niveles:nv,act:(av&&av.actualizado)||ultimoDia(av),personas:personasDe(av),registros:((av&&av.eventos)||[]).filter(e=>!e.borrado).length};}
 
-/* ================= PuertaFlow (puertas) ================= */
+/* ================= PuertaPlan (puertas) ================= */
 const PU_SIS={ref:{traz:5,ref:30,rec:5,mar:25,hoja:25,quin:10},sin:{traz:10,mar:40,hoja:35,quin:15}};
 async function cargarPuerta(){
   const P=await abrir('../puertaflow/puertas.enc');const av=await abrirSiHay('../puertaflow/avance.enc');let co=[];
@@ -644,7 +644,7 @@ async function cargarCoord(){const {D,T,tk}=await datosCoord();
     extras:Object.keys(CO_EST).filter(k=>c[k]).map(k=>[CO_EST[k],fmt0(c[k])]).concat([['Frente liberado o más',fmt0(avanzadas)+' · '+fmt1(pct(avanzadas,tot))+'%'],['Con interferencia RDI',fmt0(nr)],['Con problema abierto',fmt0(np)]]),
     niveles:nv,act:(T&&T.actualizado)||(tk.length?tk[tk.length-1].ts:null),personas:[...per],registros:tk.length};}
 
-/* ================= HormiFlow (hormigón armado) ================= */
+/* ================= HormiPlan (hormigón armado) ================= */
 const HO_ED=[['Edificio Industrial','../hormiflow/hormi_ind.enc'],['Sala Cuna','../hormiflow/hormi.enc'],['COSAM','../hormiflow/hormi_cosam.enc']];
 const HO_C={mol:25,enf:30,hor:45},HO_D={mol:25,enf:25,hor:40,des:10};
 async function cargarHormi(){
@@ -667,17 +667,17 @@ async function cargarLP(){const P=await abrir('../lastplanner/plan.enc');const c
 /* ================= registro de módulos =================
    id · nombre · color · url · cargar(). Un módulo nuevo = una línea más aquí (y su función cargar). */
 const MODULOS=[
-  {id:'tabi',n:'TabiFlow',d:'Tabiques',c:'#1C4192',url:'../tabiflow/',cargar:cargarTabi},
-  {id:'pavi',n:'PaviFlow',d:'Pavimentos',c:'#B45309',url:'../paviflow/',cargar:cargarPavi},
-  {id:'imper',n:'ImperFlow',d:'Impermeabilización',c:'#0369A1',url:'../imperflow/',cargar:cargarImper},
-  {id:'hormi',n:'HormiFlow',d:'Hormigón armado',c:'#475569',url:'../hormiflow/',cargar:cargarHormi},
-  {id:'vent',n:'VentanaIntFlow',d:'Ventanas interiores',c:'#0E7490',url:'../ventanaintflow/',cargar:cargarVentana},
-  {id:'puerta',n:'PuertaFlow',d:'Puertas',c:'#0F766E',url:'../puertaflow/',cargar:cargarPuerta},
+  {id:'tabi',n:'TabiPlan',d:'Tabiques',c:'#1C4192',url:'../tabiflow/',cargar:cargarTabi},
+  {id:'pavi',n:'PaviPlan',d:'Pavimentos',c:'#B45309',url:'../paviflow/',cargar:cargarPavi},
+  {id:'imper',n:'ImperPlan',d:'Impermeabilización',c:'#0369A1',url:'../imperflow/',cargar:cargarImper},
+  {id:'hormi',n:'HormiPlan',d:'Hormigón armado',c:'#475569',url:'../hormiflow/',cargar:cargarHormi},
+  {id:'vent',n:'VentanaIntPlan',d:'Ventanas interiores',c:'#0E7490',url:'../ventanaintflow/',cargar:cargarVentana},
+  {id:'puerta',n:'PuertaPlan',d:'Puertas',c:'#0F766E',url:'../puertaflow/',cargar:cargarPuerta},
   {id:'coord',n:'Refuerzos PFA',d:'Coordinación de refuerzos de puertas',c:'#DC2626',url:'../puertaflow/coordinacion.html',cargar:cargarCoord},
-  /* FachadaFlow: próximamente (25-10-2026); cuando tenga toma de avance: {id:'fach',n:'FachadaFlow',d:'Fachadas',c:'#7C2D12',url:'../fachadaflow/',cargar:cargarFachada}, */
-  {id:'cielo',n:'CieloFlow',d:'Cielos',c:'#0284C7',url:'../cieloflow/',cargar:cargarCielo},
-  {id:'lp',n:'Last Planner',d:'Plan semanal',c:'#7C3AED',url:'../lastplanner/',cargar:cargarLP},
-  {id:'piloto',n:'PilotoFlow',d:'Piloto UCI (programa, compras y bitácora)',c:'#D7001F',url:'../pilotoflow/',cargar:cargarPiloto}];
+  /* FachadaPlan: próximamente (25-10-2026); cuando tenga toma de avance: {id:'fach',n:'FachadaPlan',d:'Fachadas',c:'#7C2D12',url:'../fachadaflow/',cargar:cargarFachada}, */
+  {id:'cielo',n:'CieloPlan',d:'Cielos',c:'#0284C7',url:'../cieloflow/',cargar:cargarCielo},
+  {id:'lp',n:'LastPlan',d:'Plan semanal',c:'#7C3AED',url:'../lastplanner/',cargar:cargarLP},
+  {id:'piloto',n:'PilotoPlan',d:'Piloto UCI (programa, compras y bitácora)',c:'#D7001F',url:'../pilotoflow/',cargar:cargarPiloto}];
 const RES={};
 /* ---------------- vista ---------------- */
 function barra(p,col){return '<div class="mini-prog ancha" style="--c:'+col+'"><i style="width:'+Math.min(100,p||0).toFixed(1)+'%"></i></div>';}
@@ -722,12 +722,12 @@ window.addEventListener('DOMContentLoaded',()=>{
   $('#velo').onclick=cerrarHoja;$('#btnRecargar').onclick=cargarTodo;$('#btnCsv').onclick=csv;iniciar();});
 
 /* =====================================================================
-   Panel FlujoPlan v2.0 · DETALLE POR MÓDULO con los mismos indicadores del panel de TabiFlow
-   (pedido de Renato, 25-10-2026: "la misma info y KPIs de detalle que el panel de TabiFlow, por cada módulo").
+   Panel FlujoPlan v2.0 · DETALLE POR MÓDULO con los mismos indicadores del panel de TabiPlan
+   (pedido de Renato, 25-10-2026: "la misma info y KPIs de detalle que el panel de TabiPlan, por cada módulo").
    Cada módulo se traduce a un "modelo de avance" común:
      items: [{g, nv, tipo, Q (m², m³ o unidades), st: {etapa: {fam, w (peso en eq. por unidad), nf (etapas de su familia)}}}]
      ev:    [{g, et, f (0–1), dia, ts, por}]          (eventos vigentes, ya repartidos a los paños / tramos / partes)
-   y el MOTOR calcula igual que el panel de TabiFlow: cada registro aporta solo lo que sube el máximo de esa etapa (sin duplicar
+   y el MOTOR calcula igual que el panel de TabiPlan: cada registro aporta solo lo que sube el máximo de esa etapa (sin duplicar
    si dos personas marcan lo mismo); cantidad por familia = Q × incremento / etapas de la familia; equivalente = Q × incremento × peso.
    ===================================================================== */
 const pad2=n=>String(n).padStart(2,'0');
@@ -739,7 +739,7 @@ const diaCorta=k=>k?k.slice(8,10)+'/'+k.slice(5,7):'';
 const diaLarga=k=>k?k.slice(8,10)+'/'+k.slice(5,7)+'/'+k.slice(0,4):'';
 function icono(e){return'<i class="ic '+(e.forma==='circulo'?'ci':'')+'" style="--c:'+e.color+'"></i>';}
 const diaDe=e=>e.dia||(e.ts||'').slice(0,10);
-/* gráficos: copiados del panel de TabiFlow */
+/* gráficos: copiados del panel de TabiPlan */
 function ejeY(max){const paso=[1,2,5,10,20,25,50,100,200,250,500,1000,2000,2500,5000,10000].find(p=>max/p<=5)||20000;return{paso,tope:Math.max(paso,Math.ceil(max/paso)*paso)};}
 function barrasApiladas(dias,series,valor,opt={}){
   if(!dias.length)return'<p class="nota">Sin datos en el periodo.</p>';
@@ -780,7 +780,7 @@ async function maTabi(){const M=await abrir('../tabiflow/modelo.enc');const av=a
     gs.forEach(g=>{const it=IT.get(g);const ets=(e.et==='c1'||e.et==='c2')?Object.keys(it.st).filter(x=>x.startsWith(e.et)):[e.et];ets.forEach(et=>{if(it.st[et])ev.push({g,et,f:e.f||0,dia:diaDe(e),ts:e.ts||'',por:e.por||'—'});});});});
   const tipos={};Object.entries(M.tipos||{}).forEach(([k,v])=>tipos[k]=typeof v==='string'?v:(v.d||v.n||''));
   return {unidad:'m²',cosa:'tabiques',gente:'tabiqueros',etapas:TF_ET,items,ev,dot:av.dotacion||{},tipos,act:av.actualizado,ordenNv:M.niveles.map(n=>n.id),
-    nota:'m² = superficie neta de una cara de cada tabique × % registrado en cada etapa; cara 1 / cara 2 = promedio de sus placas; ponderación de la coordinación de TabiFlow (estructura '+Math.round(p.est*100)+' %, cara 1 '+Math.round(p.c1*100)+' %, plomo '+Math.round(p.pb*100)+' %, aislación '+Math.round(p.ais*100)+' %, cara 2 '+Math.round(p.c2*100)+' %).'};}
+    nota:'m² = superficie neta de una cara de cada tabique × % registrado en cada etapa; cara 1 / cara 2 = promedio de sus placas; ponderación de la coordinación de TabiPlan (estructura '+Math.round(p.est*100)+' %, cara 1 '+Math.round(p.c1*100)+' %, plomo '+Math.round(p.pb*100)+' %, aislación '+Math.round(p.ais*100)+' %, cara 2 '+Math.round(p.c2*100)+' %).'};}
 const PV_ET=[{id:'sob',n:'Sobrelosa',c:'Sobrelosa',color:'#0891B2'},{id:'base',n:'Base / nivelación',c:'Base',color:'#DC2626'},{id:'inst',n:'Instalación',c:'Instalación',color:'#F59E0B'},{id:'term',n:'Terminación',c:'Terminación',color:'#16A34A'}];
 async function maPavi(){const P=await abrir('../paviflow/pisos.enc');const av=await abrirSiHay('../paviflow/avance.enc')||{eventos:[]};const items=[];
   P.niveles.forEach(n=>n.pis.forEach(p=>{let s=(P.tipos[p.t]||{}).s||'otr';if(!PV_SIS[s])s='otr';const ets=(p.sl?['sob']:[]).concat(PV_SIS[s]);const tot=ets.reduce((a,e)=>a+PV_PESO[e],0);
@@ -910,8 +910,8 @@ function pintarDetalle(){const {m,MA,c}=DET;const U=MA.unidad,f=(U==='m²'||U===
   h+='<p class="nota"><b>Cómo se calcula:</b> '+escapar(MA.nota)+' Si dos personas registran lo mismo, se cuenta una vez (cada registro aporta solo lo que sube el máximo). <b>'+U+' equivalentes</b>: cantidad × peso de cada etapa. <b>Proyección</b>: ritmo medio de los días con avance de las últimas 2 semanas, días hábiles de lunes a sábado.</p>';
   $('#detCuerpo').innerHTML=h;}
 
-/* ================= PilotoFlow · Piloto UCI (programa, compras, temas y bitácora) =================
-   Mismas reglas que la app PilotoFlow: % de un resumen = promedio simple de sus hijas (como el Excel de Oficina Técnica);
+/* ================= PilotoPlan · Piloto UCI (programa, compras, temas y bitácora) =================
+   Mismas reglas que la app PilotoPlan: % de un resumen = promedio simple de sus hijas (como el Excel de Oficina Técnica);
    avance general = promedio de Gestión técnica, Adquisiciones y Obra; programado lineal entre comienzo y fin (L–V sin feriados; «dt» en días corridos). */
 const PF={};
 function pfPrep(P,av){const T=new Map(),H=new Map();const FER=new Set((P.cal.feriados||[]).map(f=>f.f));const pila=[];
@@ -965,7 +965,7 @@ async function detallePiloto(m){const X=PF.X;if(!X){$('#detCuerpo').innerHTML='<
   h+='<div class="tarjeta"><h3>💬 Bitácora y comunicaciones ('+bit.length+')</h3>'+bit.slice(0,30).map(b=>{const fs=[];for(let i=0;i<(+b.nf||0)&&i<6;i++){const u=fotos[b.id+'#'+i];if(u)fs.push(u);}
     return '<div style="border-bottom:1px solid var(--linea);padding:8px 0"><b>'+(TI[b.tipo]||'📝')+' '+escapar(b.por||'')+'</b> <small class="nota">'+diaLarga(b.dia)+'</small>'+(b.titulo?'<div><b>'+escapar(b.titulo)+'</b></div>':'')+(b.txt?'<div style="font-size:12.5px;white-space:pre-wrap">'+escapar(b.txt)+'</div>':'')+(b.t&&X.T.get(b.t)?'<div class="nota">Tarea: '+escapar(X.T.get(b.t).n)+'</div>':'')+
       (fs.length?'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">'+fs.map(u=>'<img src="'+u+'" style="width:92px;height:92px;object-fit:cover;border-radius:8px">').join('')+'</div>':'')+'</div>';}).join('')+'</div></div>';
-  h+='<p class="nota">El detalle completo (Gantt interactivo, 3D, planos de detalle y EETT) está en <a href="../pilotoflow/">PilotoFlow</a>.</p>';
+  h+='<p class="nota">El detalle completo (Gantt interactivo, 3D, planos de detalle y EETT) está en <a href="../pilotoflow/">PilotoPlan</a>.</p>';
   $('#detCuerpo').innerHTML=h;}
 
 </script>
