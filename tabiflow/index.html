@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiPlan v7.0 · Hospital de Coquimbo</title>
+<title>TabiPlan v7.1 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -459,7 +459,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M520 1080H1080V1130H520Z"/><path d="M560 760H700V1060H560Z"/><path d="M730 640H870V1060H730Z" opacity=".75"/><path d="M900 520H1040V1060H900Z" opacity=".5"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Plan</span><span class="ver" id="verBadge">v7.0</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Plan</span><span class="ver" id="verBadge">v7.1</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -477,15 +477,16 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiPlan v7.0 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiPlan v7.1 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
         <p>Los <b id="heroeN">—</b> tabiques del modelo (interiores, trasdosados y fachada) ya están cargados por nivel, con su tipo, largo y superficie. No hay que subir planos: <b>elige el nivel, la etapa y toca los muros</b>. Los m² y el % de avance se calculan solos.</p>
-        <div class="info-sello verde" style="margin-top:10px">🆕 <b>Novedades v6.8 · modelo del 24-10-2026</b>: ahora también están los <b>trasdosados</b> (una cara: estructura → aislación → placas; los directos solo placas), los <b>tabiques de fachada</b> del modelo de exteriores, las <b>ventanas exteriores y muros cortina</b> (celeste), los <b>patios y terrazas</b> (verde claro), los recintos nuevos y la estructura del modelo de cálculo actualizado. Menú ⋮ → <b>🧱 Qué tabiques ver</b> para mirar solo interiores, trasdosados o fachada. Tu avance se conserva completo.</div>
+        <div class="info-sello verde" style="margin-top:10px">🆕 <b>Novedades v7.1 · Calidad</b>: en <b>Planta</b>, con ☑ Varios selecciona uno o más tabiques y toca <b>🔎 Calidad</b> para registrar el <b>N° de protocolo</b>, si está <b>abierto o cerrado</b>, notas y fotos, y levantar una <b>RDI</b> en PDF con la información técnica de los tabiques y su ubicación por ejes en el plano. Los tabiques con protocolo abierto se ven con contorno violeta punteado.</div>
         <div class="leyenda-tipos" id="leyendaInicio"></div>
       </div>
       <div class="tarjeta" id="tarjetaEquipo"></div>
+      <div class="tarjeta" id="tarjetaCalidad"></div>
       <div class="estadisticas">
         <div class="stat"><b id="statM2">—</b><span>m² tabiques modelo</span></div>
         <div class="stat"><b id="statEst">—</b><span>% estructura</span></div>
@@ -541,6 +542,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
       <div class="fila-herr">
         <span class="chip" id="chipVarios">☑ 0 tabiques</span>
         <button class="herr-btn activo" id="btnVariosAvance">✔ Dar avance</button>
+        <button class="herr-btn" id="btnVariosCalidad">🔎 Calidad</button>
         <button class="herr-btn" id="btnVariosLimpiar">✕ Limpiar</button>
         <button class="herr-btn" id="btnVariosDeshacer">↩ Deshacer</button>
       </div>
@@ -617,7 +619,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiPlan</span> <span class="vpie">v7.0</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiPlan</span> <span class="vpie">v7.1</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1050,7 +1052,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiPlan',APP_VER='v7.0',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiPlan',APP_VER='v7.1',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1425,6 +1427,7 @@ function render(){
   {const conAdj=new Set([...((estado.base&&estado.base.adjuntos)||[]),...(estado.adjLocal||[])].filter(a=>!a.borrado).map(a=>a.g));
    if(conAdj.size){ctx.lineWidth=1.5*px;n.tab.forEach(t=>{if(!conAdj.has(t.g)||!visible(t.bb))return;ctx.beginPath();ctx.arc(t.cx,t.cy,Math.max(4.5*px,12),0,Math.PI*2);ctx.fillStyle='#1C4192';ctx.fill();ctx.strokeStyle='#FFFFFF';ctx.stroke();});}}
   estado._franjasVisibles=conFranjas;
+  dibujarCalidad(ctx,n,px,visible);
   if(estado.multi.size){ctx.save();ctx.fillStyle='rgba(245,158,11,.28)';ctx.strokeStyle='#F59E0B';ctx.lineWidth=3.5*px;
     n.tab.forEach(t=>{if(estado.multi.has(t.g)&&visible(t.bb)){ctx.fill(t.path);ctx.stroke(t.path);}});ctx.restore();}
   if(estado.sel&&TAB[estado.sel]&&TAB[estado.sel].nv===n.id){const t=TAB[estado.sel];ctx.strokeStyle='#F59E0B';ctx.lineWidth=4*px;ctx.stroke(t.path);}
@@ -1579,7 +1582,7 @@ async function deshacer(){
 
 /* ---------------- selección múltiple (v5.9): misma ficha de etapas que un tabique, aplicada al grupo ---------------- */
 function renderVarios(){const c=$('#chipVarios');if(!c)return;let A=0,n=0;estado.multi.forEach(g=>{const t=TAB[g];if(t){A+=t.A;n++;}});
-  c.textContent='☑ '+n+' tabique'+(n===1?'':'s')+' · '+fmt0(A)+' m²';$('#btnVariosAvance').disabled=!n;$('#btnVariosLimpiar').disabled=!n;$('#btnVariosDeshacer').disabled=!estado.pilaDeshacer.length;}
+  c.textContent='☑ '+n+' tabique'+(n===1?'':'s')+' · '+fmt0(A)+' m²';$('#btnVariosAvance').disabled=!n;{const q=$('#btnVariosCalidad');if(q)q.disabled=!n;}$('#btnVariosLimpiar').disabled=!n;$('#btnVariosDeshacer').disabled=!estado.pilaDeshacer.length;}
 function selVarios(){return [...estado.multi].map(g=>TAB[g]).filter(Boolean);}
 function abrirVarios(){
   const ts=selVarios();if(!ts.length){toast('Primero toca los tabiques que quieres seleccionar');return;}
@@ -1632,7 +1635,7 @@ function abrirTabique(g){
     if(!cer)h+='<div class="slider-etapa" style="--c:'+e.color+'"><input type="range" min="0" max="100" step="10" value="'+Math.round(f*100)+'" data-sl="'+e.id+'" aria-label="% '+e.corto+'"><span class="sl-val" id="slv_'+e.id+'">'+Math.round(f*100)+'%</span></div>';});
   if(incoherente(g))h+='<div class="info-sello" style="margin-top:8px">⚠ <b>Incoherente:</b> una etapa posterior tiene más avance que una anterior. Revísalo en terreno y corrige el % que corresponda.</div>';
   h+='<p class="nota" style="margin:8px 0">Desliza para fijar el % de cada etapa (de 10 en 10). Con "Completar etapas previas" activo, las etapas anteriores quedan al menos con el mismo % (la aislación solo exige la 1ª placa de la cara 1). Para marcar rápido varios tabiques usa <b>🖌 Pincel</b>.</p>';
-  h+=htmlAdjuntos(t);
+  h+=htmlAdjuntos(t);h+=htmlCalTabique(t);
   if(hist.length)h+='<label class="etiqueta">Historial</label><ul class="log">'+hist.map(e=>'<li>'+diaLarga(e.dia)+' '+fmtHora(e.ts)+' — '+ET[e.et].corto+' '+Math.round(e.f*100)+'%'+(e.por?' · <b>'+escapar(e.por)+'</b>':'')+(e.cuad?' · '+escapar(e.cuad):'')+(e.auto?' (automática)':'')+(e._base?'':' · <i>sin enviar</i>')+'</li>').join('')+'</ul><br>';
   h+='<p class="nota" style="word-break:break-all">ID Revit <b>'+escapar(t.id)+'</b> · GUID IFC '+escapar(t.gb||t.g)+(t.tr?' (tramo '+t.tr+')':'')+'</p>';
   abrirHoja(h);enlazarAdjuntos(t);
@@ -1740,7 +1743,7 @@ function renderInicio(){
     '<p class="nota" style="margin-bottom:10px">'+(b.actualizado?'Consolidado publicado el <b>'+fmtFecha(b.actualizado)+'</b> · '+fmt0((b.eventos||[]).length)+' registros de '+((b.personas||[]).length||'—')+' persona(s)'+((b.personas||[]).length?': '+b.personas.map(escapar).join(', '):''):'Aún no hay avance consolidado publicado.')+'</p>'+
     '<div class="info-sello '+(pend?'':'verde')+'" style="margin-bottom:10px">'+(pend?'📤 Tienes <b>'+pend+' registro(s) sin enviar</b>. Al terminar el día toca "Enviar mi avance" y mándale el archivo a Renato.':'✓ Todo tu avance ya está en el consolidado.')+'</div>'+
     '<div class="fila-btn"><button class="btn principal" id="btnEnviarAvance">📤 Enviar mi avance</button><button class="btn secundario" id="btnActualizarBase">🔄 Actualizar equipo</button></div>';
-  $('#btnEnviarAvance').onclick=exportarAvance;$('#btnActualizarBase').onclick=()=>cargarBase(true);
+  $('#btnEnviarAvance').onclick=exportarAvance;renderTarjetaCalidad();$('#btnActualizarBase').onclick=()=>cargarBase(true);
   $('#tarjetaJornada').innerHTML='<h3>📅 Jornada '+diaLarga(estado.diaActivo)+' <span class="chip '+(cer?'rojo':(j?'verde':''))+'" style="margin-left:6px">'+(cer?'cerrada':(j?'abierta':'sin iniciar'))+'</span></h3>'+
     '<p class="nota" style="margin-bottom:6px">Levantamiento de <b>'+escapar(estado.persona)+'</b> · '+(estado.cuadrilla?'Cuadrilla activa: <b>'+escapar(estado.cuadrilla)+'</b>':'Sin cuadrilla asignada')+'</p>'+
     '<div class="res-tipos">'+FAMILIAS.map(e=>'<div class="res-tipo">'+icono(e,true)+'<div><b>'+fmt0(totalEtapa(h,e.id))+' m²</b><small>'+e.corto+'</small></div></div>').join('')+'</div>'+
@@ -2058,12 +2061,13 @@ async function generarInforme(){
 async function exportarAvance(){
   const mios=estado.local.filter(e=>e.por===estado.persona);
   if(!mios.length&&!(estado.adjLocal||[]).length){toast('Aún no tienes avance registrado para enviar');return;}
+  const misCal=calMios();
   const d={app:'TabiFlowHCQ',tipo:'avance',ver:2,por:estado.persona,disp:estado.dispositivo,exportado:new Date().toISOString(),
-    eventos:mios.map(e=>{const o=Object.assign({},e);delete o._base;return o;}),adjuntos:(estado.adjLocal||[]).filter(a=>a.por===estado.persona),jornadas:estado.jornadas.map(j=>Object.assign({por:estado.persona},j))};
+    eventos:mios.map(e=>{const o=Object.assign({},e);delete o._base;return o;}),adjuntos:(estado.adjLocal||[]).filter(a=>a.por===estado.persona&&a.k!=='cal'),calidad:misCal,jornadas:estado.jornadas.map(j=>Object.assign({por:estado.persona},j))};
   const slug=(estado.persona||'persona').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Avance_'+slug+'_'+hoyDia()+'_'+new Date().toTimeString().slice(0,5).replace(':','h')+'.json';
-  const hoyEv=mios.filter(e=>!e.borrado&&e.dia===estado.diaActivo);const tabs=new Set(hoyEv.map(e=>e.g));const nAdj=(estado.adjLocal||[]).filter(a=>!a.borrado&&a.dia===estado.diaActivo&&a.por===estado.persona).length;
-  const resumen='Avance TabiPlan · '+estado.persona+' · '+diaCorta(estado.diaActivo)+': '+tabs.size+' tabiques, '+hoyEv.length+' registros'+(nAdj?', '+nAdj+' fotos/notas':'');
+  const hoyEv=mios.filter(e=>!e.borrado&&e.dia===estado.diaActivo);const tabs=new Set(hoyEv.map(e=>e.g));const nAdj=(estado.adjLocal||[]).filter(a=>!a.borrado&&a.k!=='cal'&&a.dia===estado.diaActivo&&a.por===estado.persona).length;const nCal=misCal.filter(a=>!a.borrado).length;
+  const resumen='Avance TabiPlan · '+estado.persona+' · '+diaCorta(estado.diaActivo)+': '+tabs.size+' tabiques, '+hoyEv.length+' registros'+(nAdj?', '+nAdj+' fotos/notas':'')+(nCal?', '+nCal+' registros de calidad':'');
   await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,resumen,resumen);
   await metaSet('ultimoEnvio',new Date().toISOString());toast('Listo: elige WhatsApp o correo y envíaselo al coordinador','ok');}
 async function exportarRespaldo(){return exportarAvance();}
@@ -2074,6 +2078,7 @@ async function importarRespaldo(file){
     const por=new Map(estado.local.map(e=>[e.id,e]));let nuevos=0;const cambios=[];
     (d.eventos||[]).forEach(e=>{if(!TAB[e.g])return;const ex=por.get(e.id);if(!ex){estado.local.push(e);por.set(e.id,e);cambios.push(e);nuevos++;}else if(e.borrado&&!ex.borrado){ex.borrado=true;ex.borradoTs=e.borradoTs;cambios.push(ex);}});
     await putMuchos('eventos',cambios);
+    {const ya=new Set((estado.adjLocal||[]).map(x=>x.id));for(const x of (d.calidad||[]).concat((d.adjuntos||[]).filter(a=>TAB[a.g]))){if(ya.has(x.id))continue;estado.adjLocal.push(x);await put('adjuntos',x);ya.add(x.id);}}
     for(const j of d.jornadas||[]){const ex=getJornada(j.id);if(!ex){estado.jornadas.push(j);await put('jornadas',j);continue;}
       ex.inspector=ex.inspector||j.inspector;ex.obs=[ex.obs,j.obs].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(' / ');
       if(j.cerrada&&!ex.cerrada){ex.cerrada=true;ex.cerradaEn=j.cerradaEn;ex.resumenCierre=j.resumenCierre;}
@@ -2143,7 +2148,7 @@ function bindEventos(){
   $$('.pestana').forEach(b=>b.addEventListener('click',()=>cambiarVista(b.dataset.v)));
   $('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');$('#btnIrInforme').onclick=()=>cambiarVista('informe');
   $('#btnMenu').onclick=abrirMenu;$('#chipJornada').onclick=()=>abrirJornada(estado.diaActivo);$('#btnReiniciarTodo').onclick=borrarAvance;
-  $('#hojaContenido').addEventListener('click',e=>{manejarAccion(e);accionFicha(e);accionVarios(e);});
+  $('#hojaContenido').addEventListener('click',e=>{manejarAccion(e);accionFicha(e);accionVarios(e);accionCal(e);});
   $('#hojaContenido').addEventListener('input',e=>{const va=e.target.closest('[data-vasl]');if(va){const v=$('#vav_'+va.dataset.vasl);if(v)v.textContent=va.value+'%';return;}const sl=e.target.closest('[data-sl]');if(sl){const v=$('#slv_'+sl.dataset.sl);if(v)v.textContent=sl.value+'%';}});
   $('#hojaContenido').addEventListener('change',e=>{const va=e.target.closest('[data-vasl]');if(va){fijarVarios(va.dataset.vasl,parseInt(va.value,10)/100);return;}const sl=e.target.closest('[data-sl]');if(!sl)return;const t=TAB[estado.sel];if(t)fijarFraccion(t,sl.dataset.sl,parseInt(sl.value,10)/100);});
   $('#inputRespaldo').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(f)importarRespaldo(f);});
@@ -2151,7 +2156,7 @@ function bindEventos(){
   $('#btnNivelAntes').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i>0)abrirNivel(NIVELES[i-1].id);};
   $('#btnNivelDespues').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i<NIVELES.length-1)abrirNivel(NIVELES[i+1].id);};
   $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#segVarios').onclick=()=>setModo('varios');
-  $('#btnVariosAvance').onclick=abrirVarios;$('#btnVariosLimpiar').onclick=()=>{estado.multi.clear();renderVarios();pedirRender();};$('#btnVariosDeshacer').onclick=async()=>{await deshacer();renderVarios();};
+  $('#btnVariosAvance').onclick=abrirVarios;{const q=$('#btnVariosCalidad');if(q)q.onclick=()=>hojaCalNueva([...estado.multi]);}$('#btnVariosLimpiar').onclick=()=>{estado.multi.clear();renderVarios();pedirRender();};$('#btnVariosDeshacer').onclick=async()=>{await deshacer();renderVarios();};
   $('#btnEnfoque').onclick=()=>{aplicarEnfoque(!document.body.classList.contains('enfoque'));setTimeout(()=>{if(dimensionarLienzo())render();},60);};
   $('#chipVista').onclick=abrirVistaSel;$('#btnBuscar').onclick=abrirBuscar;$('#chipCuadrilla').onclick=()=>abrirJornada(estado.diaActivo);
   $('#btnCerrarAviso').onclick=()=>$('#avisoPlano').classList.add('oculto');
@@ -2236,6 +2241,188 @@ async function iniciar(){
   if(pend.length){const j=pend[pend.length-1];setTimeout(()=>toastAccion('La jornada '+diaCorta(j.id)+' quedó abierta. Ciérrala para dejar constancia.','Revisar',()=>abrirJornada(j.id)),1200);}
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',iniciar);else iniciar();
+
+/* ================= v7.1 · Calidad: protocolos y RDI sobre uno o varios tabiques (pedido de Renato, 30-10-2026) =================
+   Cada registro de calidad vive en el almacén 'adjuntos' con k:'cal' (no lleva g, así no se mezcla con las fotos del tabique).
+   Registro: {id, k:'cal', pid, ts, dia, por, disp, gs?, num?, tipo?, est?('ab'|'ce'), nota?, fotos?[dataURL], rdi?{num,asunto,consulta,propuesta,est('pend'|'resp'),resp}, borrado?}
+   El primer registro de un protocolo (id===pid) define los tabiques; los siguientes agregan notas/fotos o cambian estado, N°, tipo o RDI
+   (el último que trae el dato manda). Viaja en "Enviar mi avance" (lista `calidad`); el consolidado trae el índice en avance.enc y
+   las fotos en adjuntos.enc con clave id#n. Cualquiera que entra puede registrar; queda con su nombre. */
+const CAL_TIPOS=['Estructura','Instalaciones embutidas','Aislación','Placas cara 1','Placas cara 2','Huincha y empaste','Plomo','Recepción final','Otro'];
+function calRegistros(){const m=new Map();((estado.base&&estado.base.calidad)||[]).forEach(x=>m.set(x.id,x));
+  (estado.adjLocal||[]).filter(x=>x.k==='cal').forEach(x=>m.set(x.id,Object.assign({},m.get(x.id)||{},x)));return [...m.values()];}
+function protocolos(){const g=new Map();calRegistros().filter(x=>!x.borrado).sort((a,b)=>a.ts.localeCompare(b.ts)).forEach(x=>{
+    let p=g.get(x.pid);if(!p){if(x.id!==x.pid&&!x.gs)return;p={pid:x.pid,gs:x.gs||[],num:'',tipo:'',est:'ab',rdi:null,hist:[],por:x.por,dia:x.dia,ts0:x.ts,ts:x.ts};g.set(x.pid,p);}
+    if(x.gs&&x.gs.length)p.gs=x.gs;['num','tipo','est'].forEach(k=>{if(x[k])p[k]=x[k];});if(x.rdi)p.rdi=Object.assign({},p.rdi||{},x.rdi);
+    p.hist.push(x);p.ts=x.ts;});
+  return [...g.values()].sort((a,b)=>b.ts.localeCompare(a.ts));}
+function protocolosDe(gid){return protocolos().filter(p=>p.gs.includes(gid));}
+function calPendientes(){const b=new Set(((estado.base&&estado.base.calidad)||[]).map(x=>x.id+'|'+(x.borrado?1:0)));
+  return (estado.adjLocal||[]).filter(x=>x.k==='cal'&&x.por===estado.persona&&!b.has(x.id+'|'+(x.borrado?1:0))).length;}
+function calMios(){return (estado.adjLocal||[]).filter(x=>x.k==='cal'&&x.por===estado.persona);}
+function fotosCal(x){const n=(x.fotos&&x.fotos.length)||x.nf||0;const r=[];for(let i=0;i<n;i++){const f=(x.fotos&&x.fotos[i])||FOTOS_EQUIPO.get(x.id+'#'+i);r.push(f||null);}return r;}
+async function guardarCal(o){const x=Object.assign({id:uid(),k:'cal',ts:new Date().toISOString(),dia:hoyDia(),por:estado.persona,disp:estado.dispositivo},o);if(!x.pid)x.pid=x.id;
+  estado.adjLocal=(estado.adjLocal||[]).concat([x]);await put('adjuntos',x);pedirRender();return x;}
+function tabsDe(p){return p.gs.map(g=>TAB[g]).filter(Boolean);}
+function nivelesDe(ts){return [...new Set(ts.map(t=>t.nv))];}
+function etqEstado(p){return p.est==='ce'?'<span class="chip verde">cerrado</span>':'<span class="chip rojo">abierto</span>';}
+/* ejes entre los que cae un punto: "12–13 / C–D" */
+function ejesDePunto(n,x,y){const v=[],h=[];(n.ejes||[]).forEach(e=>{const xs=[e.p[0],e.p[e.p.length-2]],ys=[e.p[1],e.p[e.p.length-1]];const vert=Math.abs(xs[1]-xs[0])<Math.abs(ys[1]-ys[0]);
+    const m=vert?(xs[0]+xs[1])/2:(ys[0]+ys[1])/2;(vert?v:h).push({t:e.t,m});});
+  const par=(l,c)=>{if(!l.length)return'';l.sort((a,b)=>a.m-b.m);let i=l.findIndex(q=>q.m>=c);if(i===-1)return l[l.length-1].t;if(Math.abs(l[i].m-c)<60||i===0)return l[i].t;return [l[i-1].t,l[i].t].sort((x,y)=>x.localeCompare(y,'es',{numeric:true})).join('–');};
+  return [par(v,x),par(h,y)].filter(Boolean).join(' / ');}
+function ejesDeTabique(t){const n=NIVELES.find(x=>x.id===t.nv);return n?ejesDePunto(n,t.cx!=null?t.cx:(bboxAnillos(t.p)[0]+bboxAnillos(t.p)[2])/2,t.cy!=null?t.cy:(bboxAnillos(t.p)[1]+bboxAnillos(t.p)[3])/2):'';}
+/* ---------- hojas ---------- */
+function hojaCalNueva(gs){const ts=gs.map(g=>TAB[g]).filter(Boolean);if(!ts.length){toast('Primero selecciona uno o más tabiques');return;}
+  ts.forEach(t=>{const n=NIVELES.find(x=>x.id===t.nv);if(n)prepNivel(n);});
+  const A=ts.reduce((s,t)=>s+t.A,0);const prev=[...new Map(ts.flatMap(t=>protocolosDe(t.g)).map(p=>[p.pid,p])).values()];
+  let h='<div class="hoja-titulo">🔎 Calidad · '+ts.length+' tabique'+(ts.length===1?'':'s')+'</div><div class="hoja-sub">'+[...new Set(ts.map(t=>t.t))].slice(0,6).map(escapar).join(' · ')+'<br><b>'+fmt1(A)+' m²</b> · '+nivelesDe(ts).map(escapar).join(' · ')+'</div>';
+  if(prev.length)h+='<label class="etiqueta">Protocolos que ya incluyen estos tabiques</label><ul class="log">'+prev.map(p=>'<li><a href="#" data-cal="ver" data-pid="'+p.pid+'">Protocolo '+escapar(p.num||'s/n')+'</a> · '+escapar(p.tipo||'')+' · '+etqEstado(p)+(p.rdi&&p.rdi.num?' · RDI '+escapar(p.rdi.num):'')+'</li>').join('')+'</ul>';
+  h+='<label class="etiqueta">N° de protocolo</label><input id="calNum" class="campo" maxlength="40" placeholder="Ej.: PC-TAB-N3-015">'+
+    '<label class="etiqueta">Partida inspeccionada</label><select id="calTipo" class="campo">'+CAL_TIPOS.map(x=>'<option>'+x+'</option>').join('')+'</select>'+
+    '<label class="etiqueta">Estado</label><div class="fila-btn"><label class="opcion"><input type="radio" name="calEst" value="ab" checked> Abierto</label><label class="opcion"><input type="radio" name="calEst" value="ce"> Cerrado</label></div>'+
+    '<label class="etiqueta">Nota</label><textarea id="calNota" class="campo" rows="3" maxlength="800" placeholder="Observaciones de la inspección"></textarea>'+
+    '<label class="etiqueta">Fotos</label><label class="btn secundario adj-btn">📷 Agregar fotos<input type="file" accept="image/*" multiple id="calFotos" hidden></label><div class="adj-lista" id="calFotosPrev"></div>'+
+    '<label class="opcion" style="margin-top:10px"><input type="checkbox" id="calConRdi"> Levantar una RDI con estos tabiques</label>'+
+    '<div id="calRdiCaja" hidden>'+formRdi({})+'</div>'+
+    '<div class="fila-btn" style="margin-top:12px"><button class="btn principal" data-cal="crear">Guardar registro de calidad</button></div>'+
+    '<p class="nota" style="margin-top:8px">Queda con tu nombre y viaja en <b>📤 Enviar mi avance</b>. Después puedes agregar notas y fotos, cerrarlo o sacar el PDF del protocolo y de la RDI (con la ubicación por ejes en el plano).</p>';
+  abrirHoja(h);estado._calGs=ts.map(t=>t.g);estado._calFotos=[];
+  $('#calConRdi').onchange=e=>{$('#calRdiCaja').hidden=!e.target.checked;};enlazarFotosCal('calFotos','calFotosPrev');}
+function formRdi(r){return '<label class="etiqueta">N° de RDI</label><input id="rdiNum" class="campo" maxlength="40" value="'+escAttr(r.num||'')+'" placeholder="Ej.: RDI-ARQ-0471">'+
+  '<label class="etiqueta">Asunto</label><input id="rdiAsunto" class="campo" maxlength="140" value="'+escAttr(r.asunto||'')+'" placeholder="Ej.: Interferencia de ducto con tabique TIY-01 eje 12">'+
+  '<label class="etiqueta">Consulta / descripción del problema</label><textarea id="rdiConsulta" class="campo" rows="4" maxlength="2000">'+escapar(r.consulta||'')+'</textarea>'+
+  '<label class="etiqueta">Propuesta de solución (opcional)</label><textarea id="rdiProp" class="campo" rows="3" maxlength="1500">'+escapar(r.propuesta||'')+'</textarea>'+
+  '<label class="etiqueta">Estado de la RDI</label><select id="rdiEst" class="campo"><option value="pend"'+(r.est!=='resp'?' selected':'')+'>Pendiente de respuesta</option><option value="resp"'+(r.est==='resp'?' selected':'')+'>Respondida</option></select>'+
+  '<label class="etiqueta">Respuesta (cuando llegue)</label><textarea id="rdiResp" class="campo" rows="2" maxlength="1500">'+escapar(r.resp||'')+'</textarea>';}
+function leerRdi(){return {num:($('#rdiNum').value||'').trim(),asunto:($('#rdiAsunto').value||'').trim(),consulta:($('#rdiConsulta').value||'').trim(),propuesta:($('#rdiProp').value||'').trim(),est:$('#rdiEst').value,resp:($('#rdiResp').value||'').trim()};}
+function enlazarFotosCal(inp,prev){const i=$('#'+inp);if(!i)return;i.addEventListener('change',async()=>{const fs=[...(i.files||[])];if(!fs.length)return;
+  try{mostrarProgreso('Comprimiendo '+fs.length+' foto(s)…');for(const f of fs)estado._calFotos.push(await comprimirFoto(f));}catch(e){toast('No se pudo leer una foto: '+e.message,'error');}finally{ocultarProgreso();}
+  $('#'+prev).innerHTML=estado._calFotos.map(f=>'<div class="adj-item"><img src="'+f+'" alt="Foto"></div>').join('');i.value='';});}
+async function crearCal(){const gs=estado._calGs||[];if(!gs.length)return;const num=($('#calNum').value||'').trim();
+  const o={gs,num,tipo:$('#calTipo').value,est:($$('input[name="calEst"]').find(r=>r.checked)||{}).value||'ab',nota:($('#calNota').value||'').trim(),fotos:estado._calFotos||[]};
+  if($('#calConRdi').checked){o.rdi=leerRdi();if(!o.rdi.asunto&&!o.rdi.consulta){toast('Escribe el asunto o la consulta de la RDI','error');return;}}
+  const x=await guardarCal(o);estado._calFotos=[];toast('Registro de calidad guardado'+(o.rdi?' con RDI':''),'ok');hojaProt(x.pid);renderTarjetaCalidad();}
+function hojaProt(pid){const p=protocolos().find(q=>q.pid===pid);if(!p){toast('No se encontró el registro','error');return;}
+  const ts=tabsDe(p);ts.forEach(t=>{const n=NIVELES.find(x=>x.id===t.nv);if(n)prepNivel(n);});const A=ts.reduce((s,t)=>s+t.A,0);
+  let h='<div class="hoja-titulo">🔎 Protocolo '+escapar(p.num||'s/n')+' '+etqEstado(p)+'</div><div class="hoja-sub">'+escapar(p.tipo||'')+' · creado el '+diaLarga(p.dia)+' por <b>'+escapar(p.por||'—')+'</b><br>'+ts.length+' tabique(s) · '+fmt1(A)+' m² · '+nivelesDe(ts).map(escapar).join(' · ')+(p.gs.length>ts.length?' · <i>'+(p.gs.length-ts.length)+' fuera de la vista actual</i>':'')+'</div>';
+  h+='<label class="etiqueta">Tabiques</label><ul class="log">'+ts.map(t=>'<li><a href="#" data-cal="irtab" data-g="'+t.g+'">'+escapar(t.t)+'</a> · '+fmt1(t.L)+' m · '+fmt1(t.A)+' m² · ejes '+escapar(ejesDeTabique(t)||'—')+(t.r.length?' · '+escapar(t.r[0]):'')+'</li>').join('')+'</ul>';
+  if(p.rdi&&(p.rdi.asunto||p.rdi.consulta||p.rdi.num))h+='<div class="info-sello" style="margin:8px 0">📨 <b>RDI '+escapar(p.rdi.num||'(sin N°)')+'</b> · '+(p.rdi.est==='resp'?'respondida':'pendiente')+'<br>'+escapar(p.rdi.asunto||'')+(p.rdi.resp?'<br><b>Respuesta:</b> '+escapar(p.rdi.resp):'')+'</div>';
+  h+='<label class="etiqueta">Historial, notas y fotos</label><div class="adj-lista">'+p.hist.map(x=>{const fs=fotosCal(x);const cambios=[];if(x.id!==x.pid){if(x.est)cambios.push(x.est==='ce'?'cerró el protocolo':'reabrió el protocolo');if(x.num)cambios.push('N° '+x.num);if(x.tipo)cambios.push(x.tipo);if(x.rdi)cambios.push('actualizó la RDI');}else cambios.push('creó el registro');
+      const mio=(estado.adjLocal||[]).some(y=>y.id===x.id)&&x.por===estado.persona;
+      return '<div class="adj-item" style="flex-wrap:wrap">'+fs.map((f,i)=>f?'<img src="'+f+'" alt="Foto" data-cal="foto" data-id="'+x.id+'" data-i="'+i+'">':'<div class="adj-sinfoto">📷<br>sin conexión</div>').join('')+
+        '<div class="adj-txt">'+(x.nota?'<b>'+escapar(x.nota)+'</b><br>':'')+'<span class="nota">'+diaLarga(x.dia)+' '+fmtHora(x.ts)+' · '+escapar(x.por||'—')+' · '+cambios.join(', ')+'</span>'+(mio?' <button class="frac-btn quitar" data-cal="borrar" data-id="'+x.id+'" title="Borrar">✕</button>':'')+'</div></div>';}).join('')+'</div>';
+  h+='<label class="etiqueta">Agregar seguimiento</label><textarea id="calNota" class="campo" rows="2" maxlength="800" placeholder="Nota de seguimiento"></textarea>'+
+    '<label class="btn secundario adj-btn">📷 Agregar fotos<input type="file" accept="image/*" multiple id="calFotos" hidden></label><div class="adj-lista" id="calFotosPrev"></div>'+
+    '<div class="fila-btn" style="margin-top:8px"><button class="btn principal" data-cal="nota" data-pid="'+p.pid+'">Guardar seguimiento</button>'+
+    '<button class="btn secundario" data-cal="estado" data-pid="'+p.pid+'">'+(p.est==='ce'?'🔓 Reabrir':'✅ Cerrar protocolo')+'</button></div>'+
+    '<details class="mas" style="margin-top:10px"><summary>✏️ N° de protocolo y partida</summary><input id="calNum" class="campo" maxlength="40" value="'+escAttr(p.num||'')+'"><select id="calTipo" class="campo">'+CAL_TIPOS.map(x=>'<option'+(x===p.tipo?' selected':'')+'>'+x+'</option>').join('')+'</select><button class="btn secundario" data-cal="datos" data-pid="'+p.pid+'">Guardar cambios</button></details>'+
+    '<details class="mas" style="margin-top:6px"'+(p.rdi?'':'')+'><summary>📨 '+(p.rdi?'Editar la RDI':'Levantar una RDI')+'</summary>'+formRdi(p.rdi||{})+'<button class="btn secundario" data-cal="rdi" data-pid="'+p.pid+'">Guardar RDI</button></details>'+
+    '<div class="fila-btn" style="margin-top:12px"><button class="btn secundario" data-cal="pdfprot" data-pid="'+p.pid+'">📄 PDF protocolo</button>'+(p.rdi?'<button class="btn principal" data-cal="pdfrdi" data-pid="'+p.pid+'">📨 PDF RDI</button>':'')+'<button class="btn secundario" data-cal="marcar" data-pid="'+p.pid+'">🗺️ Ver en planta</button></div>';
+  abrirHoja(h);estado._calFotos=[];enlazarFotosCal('calFotos','calFotosPrev');
+  if(p.hist.some(x=>fotosCal(x).some(f=>!f)))cargarFotosEquipo().then(()=>{if($('#hoja').classList.contains('abierta')&&$('[data-cal="nota"][data-pid="'+pid+'"]'))hojaProt(pid);});}
+function hojaListaCal(filtro){filtro=filtro||estado._calFiltro||'ab';estado._calFiltro=filtro;const ps=protocolos();
+  const L=ps.filter(p=>filtro==='todo'||(filtro==='rdi'?!!p.rdi:p.est===filtro));
+  let h='<div class="hoja-titulo">🔎 Calidad · protocolos y RDI</div><div class="hoja-sub">'+ps.filter(p=>p.est!=='ce').length+' abiertos · '+ps.filter(p=>p.est==='ce').length+' cerrados · '+ps.filter(p=>p.rdi).length+' con RDI</div>'+
+    '<div class="chips">'+[['ab','Abiertos'],['ce','Cerrados'],['rdi','Con RDI'],['todo','Todos']].map(([k,t])=>'<button class="chip-boton'+(filtro===k?' activo':'')+'" data-cal="filtro" data-f="'+k+'">'+t+'</button>').join('')+'</div>';
+  h+=L.length?'<ul class="log">'+L.map(p=>{const ts=tabsDe(p);return '<li><a href="#" data-cal="ver" data-pid="'+p.pid+'"><b>'+escapar(p.num||'Protocolo s/n')+'</b></a> '+etqEstado(p)+'<br>'+escapar(p.tipo||'')+' · '+ts.length+' tabique(s) · '+nivelesDe(ts).map(escapar).join(', ')+(p.rdi?' · 📨 RDI '+escapar(p.rdi.num||'')+' ('+(p.rdi.est==='resp'?'respondida':'pendiente')+')':'')+'<br><span class="nota">'+diaLarga(p.dia)+' · '+escapar(p.por||'')+' · último movimiento '+diaLarga(p.ts.slice(0,10))+'</span></li>';}).join('')+'</ul>'
+    :'<p class="nota">No hay registros en este filtro. Para crear uno: en <b>Planta</b> usa ☑ Varios, selecciona los tabiques y toca <b>🔎 Calidad</b> (o ábrelo desde la ficha de un tabique).</p>';
+  h+='<div class="fila-btn" style="margin-top:10px"><button class="btn secundario" data-cal="pdflista">📄 Listado PDF</button></div>';
+  abrirHoja(h);}
+function renderTarjetaCalidad(){const el=$('#tarjetaCalidad');if(!el)return;const ps=protocolos();const ab=ps.filter(p=>p.est!=='ce').length,rd=ps.filter(p=>p.rdi&&p.rdi.est!=='resp').length,pe=calPendientes();
+  el.innerHTML='<h3>🔎 Calidad · protocolos y RDI</h3><div class="res-tipos"><div class="res-tipo"><div><b>'+ab+'</b><small>abiertos</small></div></div><div class="res-tipo"><div><b>'+(ps.length-ab)+'</b><small>cerrados</small></div></div><div class="res-tipo"><div><b>'+rd+'</b><small>RDI pendientes</small></div></div></div>'+
+    (pe?'<div class="info-sello" style="margin:8px 0">📤 Tienes <b>'+pe+' registro(s) de calidad sin enviar</b>; viajan con "Enviar mi avance".</div>':'')+
+    '<p class="nota" style="margin:6px 0 10px">En Planta, con ☑ Varios selecciona tabiques y toca <b>🔎 Calidad</b>: N° de protocolo, abierto o cerrado, notas, fotos y RDI con su ubicación por ejes.</p>'+
+    '<button class="btn secundario" id="btnVerCalidad">Ver protocolos</button>';$('#btnVerCalidad').onclick=()=>hojaListaCal();}
+function htmlCalTabique(t){const ps=protocolosDe(t.g);let h='<label class="etiqueta">🔎 Calidad</label>';
+  if(ps.length)h+='<ul class="log">'+ps.map(p=>'<li><a href="#" data-cal="ver" data-pid="'+p.pid+'">Protocolo '+escapar(p.num||'s/n')+'</a> · '+escapar(p.tipo||'')+' · '+etqEstado(p)+(p.rdi?' · 📨 RDI '+escapar(p.rdi.num||''):'')+'</li>').join('')+'</ul>';
+  return h+'<button class="btn secundario adj-btn" data-cal="nuevo1" data-g="'+t.g+'">🔎 Registro de calidad / RDI de este tabique</button>';}
+async function accionCal(e){const b=e.target.closest('[data-cal]');if(!b)return;e.preventDefault();const a=b.dataset.cal,pid=b.dataset.pid;
+  if(a==='ver'){hojaProt(pid);return;}
+  if(a==='nuevo1'){hojaCalNueva([b.dataset.g]);return;}
+  if(a==='crear'){await crearCal();return;}
+  if(a==='filtro'){hojaListaCal(b.dataset.f);return;}
+  if(a==='irtab'){const t=TAB[b.dataset.g];if(!t)return;cerrarHoja();if(!estado.nivel||estado.nivel.id!==t.nv)abrirNivel(t.nv);else cambiarVista('plano');const m=600;ajustarVista([t.bb[0]-m,t.bb[1]-m,t.bb[2]+m,t.bb[3]+m]);estado.sel=t.g;pedirRender();return;}
+  if(a==='marcar'){const p=protocolos().find(q=>q.pid===pid);if(!p)return;const ts=tabsDe(p);if(!ts.length)return;cerrarHoja();setModo('varios');estado.multi=new Set(ts.filter(t=>t.nv===ts[0].nv).map(t=>t.g));
+    if(!estado.nivel||estado.nivel.id!==ts[0].nv)abrirNivel(ts[0].nv);else cambiarVista('plano');const bb=bboxTabs(ts.filter(t=>t.nv===ts[0].nv));const m=800;ajustarVista([bb[0]-m,bb[1]-m,bb[2]+m,bb[3]+m]);renderVarios();pedirRender();return;}
+  if(a==='nota'){const nota=($('#calNota').value||'').trim();const fotos=estado._calFotos||[];if(!nota&&!fotos.length){toast('Escribe una nota o agrega una foto');return;}await guardarCal({pid,nota,fotos});toast('Seguimiento guardado','ok');hojaProt(pid);renderTarjetaCalidad();return;}
+  if(a==='estado'){const p=protocolos().find(q=>q.pid===pid);const est=p.est==='ce'?'ab':'ce';const nota=($('#calNota').value||'').trim();await guardarCal({pid,est,nota,fotos:estado._calFotos||[]});toast(est==='ce'?'Protocolo cerrado':'Protocolo reabierto','ok');hojaProt(pid);renderTarjetaCalidad();pedirRender();return;}
+  if(a==='datos'){await guardarCal({pid,num:($('#calNum').value||'').trim(),tipo:$('#calTipo').value});toast('Datos actualizados','ok');hojaProt(pid);return;}
+  if(a==='rdi'){const r=leerRdi();if(!r.asunto&&!r.consulta&&!r.num){toast('Completa al menos el asunto o la consulta','error');return;}await guardarCal({pid,rdi:r});toast('RDI guardada','ok');hojaProt(pid);renderTarjetaCalidad();return;}
+  if(a==='borrar'){const x=(estado.adjLocal||[]).find(y=>y.id===b.dataset.id);if(!x)return;if(!await confirmar('Borrar registro','Se borra este registro tuyo de calidad (si es el primero, se borra el protocolo completo).','Borrar',true))return;
+    x.borrado=true;x.borradoTs=new Date().toISOString();await put('adjuntos',x);const p=protocolos().find(q=>q.pid===x.pid);if(p)hojaProt(x.pid);else{cerrarHoja();toast('Protocolo borrado','ok');}renderTarjetaCalidad();pedirRender();return;}
+  if(a==='foto'){const x=calRegistros().find(y=>y.id===b.dataset.id);const f=x&&fotosCal(x)[+b.dataset.i];if(!f)return;const v=document.createElement('div');v.className='visor-foto';v.innerHTML='<img src="'+f+'" alt="Foto"><p>'+(x.nota?escapar(x.nota)+' · ':'')+diaLarga(x.dia)+' '+fmtHora(x.ts)+' · '+escapar(x.por||'')+'</p>';v.addEventListener('click',()=>v.remove());document.body.appendChild(v);return;}
+  if(a==='pdfprot'||a==='pdfrdi'){await pdfCalidad(pid,a==='pdfrdi');return;}
+  if(a==='pdflista'){await pdfListaCal();return;}}
+function bboxTabs(ts){let b=[1e12,1e12,-1e12,-1e12];ts.forEach(t=>{const q=t.bb||bboxAnillos(t.p);b=[Math.min(b[0],q[0]),Math.min(b[1],q[1]),Math.max(b[2],q[2]),Math.max(b[3],q[3])];});return b;}
+/* en la planta: tabiques con protocolo abierto, contorno violeta punteado; cerrado, verde fino */
+function dibujarCalidad(ctx,n,px,visible){const ps=protocolos();if(!ps.length)return;const ab=new Set(),ce=new Set();ps.forEach(p=>p.gs.forEach(g=>(p.est==='ce'?ce:ab).add(g)));
+  ctx.save();ctx.setLineDash([6*px,4*px]);ctx.lineWidth=2.6*px;ctx.strokeStyle='#7C3AED';n.tab.forEach(t=>{if(ab.has(t.g)&&visible(t.bb))ctx.stroke(t.path);});
+  ctx.setLineDash([]);ctx.lineWidth=1.4*px;ctx.strokeStyle='#059669';n.tab.forEach(t=>{if(ce.has(t.g)&&!ab.has(t.g)&&visible(t.bb))ctx.stroke(t.path);});ctx.restore();}
+/* ---------- PDF: protocolo o RDI (carta vertical) ---------- */
+async function pdfCalidad(pid,esRdi){const p=protocolos().find(q=>q.pid===pid);if(!p)return;const ts=tabsDe(p);if(!ts.length){toast('Los tabiques de este registro no están en la vista actual (cambia "Qué tabiques ver" a Todo)','error');return;}
+  mostrarProgreso('Armando el PDF…');await new Promise(r=>setTimeout(r,30));if(p.hist.some(x=>fotosCal(x).some(f=>!f)))await cargarFotosEquipo();
+  try{const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'letter'});const W=215.9,H=279.4,Mg=12;let y=30;
+    const tit=esRdi?'Requerimiento de información (RDI)':'Protocolo de calidad · tabiques',sub=esRdi?('RDI '+(p.rdi.num||'(sin N°)')+' · protocolo '+(p.num||'s/n')):('Protocolo '+(p.num||'s/n')+' · '+(p.tipo||''));
+    const cab=()=>{encabezado(doc,W,tit,sub,hoyDia());y=30;};const nueva=()=>{doc.addPage();cab();};const lim=H-16;cab();
+    const linea=(k,v)=>{doc.setFont('helvetica','bold');doc.setFontSize(8.6);doc.setTextColor(...PT.tenue);doc.text(k,Mg,y);doc.setFont('helvetica','normal');doc.setTextColor(...PT.texto);
+      const L=doc.splitTextToSize(String(v||'—'),W-Mg*2-42);doc.text(L,Mg+42,y);y+=Math.max(5,L.length*4.2)+0.6;};
+    const titulo=t=>{if(y+16>lim)nueva();doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...PT.osc);doc.text(t,Mg,y+2);y+=8;};
+    const parrafo=t=>{doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...PT.texto);doc.splitTextToSize(t||'—',W-Mg*2).forEach(l=>{if(y+5>lim)nueva();doc.text(l,Mg,y);y+=4.4;});y+=2;};
+    ts.forEach(t=>{const n=NIVELES.find(x=>x.id===t.nv);if(n)prepNivel(n);});
+    const nivs=nivelesDe(ts).map(id=>NIVELES.find(n=>n.id===id)).filter(Boolean);
+    const recs=[...new Set(ts.flatMap(t=>t.r))];const A=ts.reduce((s,t)=>s+t.A,0);
+    titulo('1. Identificación');
+    if(esRdi){linea('N° RDI',p.rdi.num);linea('Asunto',p.rdi.asunto);linea('Estado',p.rdi.est==='resp'?'Respondida':'Pendiente de respuesta');}
+    linea('Protocolo',(p.num||'s/n')+' · '+(p.tipo||'')+' · '+(p.est==='ce'?'cerrado':'abierto'));
+    linea('Emitido por',(p.por||'—')+' · '+diaLarga(p.dia));
+    linea('Nivel / piso',nivs.map(n=>etiquetaNivel(n)+' ('+n.id+')').join(' · '));
+    linea('Ejes',[...new Set(ts.map(t=>ejesDeTabique(t)).filter(Boolean))].join(' · '));
+    linea('Recintos',recs.join(' · ')||'—');
+    linea('Tabiques',ts.length+' · '+fmt1(A)+' m² (una cara)');
+    if(esRdi){titulo('2. Consulta');parrafo(p.rdi.consulta);if(p.rdi.propuesta){titulo('3. Propuesta de solución');parrafo(p.rdi.propuesta);}
+      if(p.rdi.resp){titulo('Respuesta');parrafo(p.rdi.resp);}}
+    titulo((esRdi?'4':'2')+'. Información técnica de los tabiques');
+    const cols=[{t:'Tipo',w:30},{t:'Composición',w:44},{t:'Largo m',w:15,r:1},{t:'Alto m',w:14,r:1},{t:'m²',w:14,r:1},{t:'Ejes',w:24},{t:'Recinto',w:34},{t:'Avance',w:16.9}];
+    const c={doc,M:Mg,W:W-Mg*2,get y(){return y;},set y(v){y=v;},lim,nueva};
+    tablaPDF(c,cols,ts.map(t=>{const ea=etapaAlcanzada(t.g);return [t.t,composicion(t),fmt1(t.L),fmt1(t.H),fmt1(t.A),ejesDeTabique(t),t.r[0]||'',ea?ea.e.corto+' '+Math.round(ea.f*100)+'%':'—'];}));
+    const tipos=[...new Set(ts.map(t=>t.t))];
+    tipos.forEach(tp=>{const d=(M.tipos&&M.tipos[tp])||'';if(!d)return;doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...PT.texto);if(y+8>lim)nueva();doc.text(tp,Mg,y);
+      doc.setFont('helvetica','normal');doc.splitTextToSize(d,W-Mg*2-30).forEach((l,i)=>{if(y+4>lim)nueva();doc.text(l,Mg+30,y);y+=3.8;});y+=1.2;});
+    doc.setFont('helvetica','normal');doc.setFontSize(7.4);doc.setTextColor(...PT.tenue);if(y+5>lim)nueva();doc.text('ID Revit: '+ts.map(t=>t.id+(t.tr?' (tramo '+t.tr+')':'')).join(', '),Mg,y,{maxWidth:W-Mg*2});y+=8;
+    /* plano de ubicación por nivel, con los ejes y los tabiques involucrados resaltados */
+    nivs.forEach((n,ni)=>{const tn=ts.filter(t=>t.nv===n.id);let bb=bboxTabs(tn);const mg=Math.max(900,0.35*Math.max(bb[2]-bb[0],bb[3]-bb[1]));bb=[bb[0]-mg,bb[1]-mg,bb[2]+mg,bb[3]+mg];
+      const aw=W-Mg*2,ah=118;const rw=bb[2]-bb[0],rh=bb[3]-bb[1];if(rw/rh>aw/ah){const d=(rw*ah/aw-rh)/2;bb[1]-=d;bb[3]+=d;}else{const d=(rh*aw/ah-rw)/2;bb[0]-=d;bb[2]+=d;}
+      if(y+ah+14>lim)nueva();titulo((esRdi?'5':'3')+'. Ubicación · '+etiquetaNivel(n)+' ('+n.id+')'+(nivs.length>1?' · '+(ni+1)+'/'+nivs.length:''));
+      const r=planoPDF(doc,{n,reg:bb,x0:Mg,y0:y,aw,ah,corte:hoyDia(),desde:'9999-12-31',opc:{ejes:true,recintos:true,siglas:false},general:false});
+      /* rótulo de cada eje en el borde del recuadro (arriba los verticales, a la izquierda los horizontales) */
+      doc.setFont('helvetica','bold');doc.setFontSize(6);(n.ejes||[]).forEach(e=>{const xa=e.p[0],ya=e.p[1],xb=e.p[e.p.length-2],yb=e.p[e.p.length-1];const vert=Math.abs(xb-xa)<Math.abs(yb-ya);const m=vert?(xa+xb)/2:(ya+yb)/2;
+        let cx,cy;if(vert){if(m<bb[0]||m>bb[2])return;cx=r.X(m);cy=r.oy+3.2;}else{if(m<bb[1]||m>bb[3])return;cx=r.ox+3.2;cy=r.Y(m);}
+        doc.setFillColor(255,255,255);doc.setDrawColor(220,38,38);doc.setLineWidth(.25);doc.circle(cx,cy,2.6,'FD');doc.setTextColor(185,28,28);doc.text(String(e.t),cx,cy+0.8,{align:'center'});});
+      doc.setDrawColor(215,0,31);doc.setLineWidth(.9);tn.forEach(t=>t.p.forEach(q=>polyPDF(doc,q,r.X,r.Y,r.k,'S')));
+      doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(215,0,31);tn.forEach((t,i)=>{if(tn.length<=25)doc.text(String(i+1),r.X(t.cx)+1.2,r.Y(t.cy)-1.2);});
+      y=r.oy+r.dh+4;doc.setFont('helvetica','normal');doc.setFontSize(7.4);doc.setTextColor(...PT.tenue);doc.text('En rojo: tabiques del registro (numerados en el orden de la tabla). Ejes en rojo punteado. Escala aprox. 1:'+fmt0(r.escala)+'.',Mg,y);y+=8;});
+    /* notas y fotos */
+    titulo((esRdi?'6':'4')+'. Registro, notas y fotos');
+    for(const x of p.hist){const fs=fotosCal(x).filter(Boolean);const cambios=[];if(x.id===x.pid)cambios.push('registro inicial');if(x.id!==x.pid&&x.est)cambios.push(x.est==='ce'?'cierre':'reapertura');if(x.id!==x.pid&&x.rdi)cambios.push('RDI actualizada');
+      doc.setFont('helvetica','bold');doc.setFontSize(8.4);doc.setTextColor(...PT.texto);if(y+10>lim)nueva();doc.text(diaLarga(x.dia)+' '+fmtHora(x.ts)+' · '+(x.por||'—')+(cambios.length?' · '+cambios.join(', '):''),Mg,y);y+=4.6;
+      if(x.nota)parrafo(x.nota);
+      const fw=(W-Mg*2-6)/2;for(let i=0;i<fs.length;i+=2){const par=fs.slice(i,i+2).map(f=>{let iw=fw,ih=fw*0.75;try{const pr=doc.getImageProperties(f);ih=fw*pr.height/pr.width;if(ih>95){ih=95;iw=95*pr.width/pr.height;}}catch(e){}return{f,iw,ih};});
+        const rh=Math.max(...par.map(q=>q.ih));if(y+rh+4>lim)nueva();par.forEach((q,j)=>{try{doc.addImage(q.f,'JPEG',Mg+j*(fw+6),y,q.iw,q.ih);}catch(e){}});y+=rh+4;}
+      y+=2;}
+    if(esRdi){if(y+30>lim)nueva();y+=6;const bw=(W-Mg*2-12)/3;['Emitido por (Calidad / OT)','Revisado (Oficina Técnica)','Recibido (ITO / Arquitectura)'].forEach((t,i)=>{const x=Mg+i*(bw+6);doc.setDrawColor(148,163,184);doc.setLineWidth(.3);doc.rect(x,y,bw,22);doc.setFont('helvetica','normal');doc.setFontSize(7.4);doc.setTextColor(...PT.tenue);doc.text(t,x+2,y+20);});y+=26;}
+    const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...PT.tenue);doc.text(APP_NOMBRE+' '+APP_VER+' · Calidad · © 2026 '+APP_AUTOR+' · '+OBRA,Mg,H-6);doc.text('Hoja '+i+' de '+np,W-Mg,H-6,{align:'right'});}
+    const nom=(esRdi?'RDI_'+(p.rdi.num||'sin_numero'):'Protocolo_'+(p.num||'sn'))+'_TabiPlan_'+hoyDia();
+    ocultarProgreso();await compartirArchivo(doc.output('blob'),nom.replace(/[^\w.-]+/g,'_')+'.pdf',tit,sub);}
+  catch(e){ocultarProgreso();console.error(e);toast('No se pudo armar el PDF: '+e.message,'error');}}
+async function pdfListaCal(){const ps=protocolos();if(!ps.length){toast('No hay registros de calidad');return;}
+  const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'letter'});const W=279.4,H=215.9,Mg=10;let y=30;
+  encabezado(doc,W,'Calidad · protocolos y RDI de tabiques',ps.length+' registros · '+ps.filter(p=>p.est!=='ce').length+' abiertos',hoyDia());
+  const c={doc,M:Mg,W:W-Mg*2,get y(){return y;},set y(v){y=v;},lim:H-14,nueva:()=>{doc.addPage();encabezado(doc,W,'Calidad · protocolos y RDI de tabiques','continuación',hoyDia());y=30;}};
+  tablaPDF(c,[{t:'Protocolo',w:34},{t:'Partida',w:34},{t:'Estado',w:18},{t:'Nivel',w:18},{t:'Ejes',w:36},{t:'Tabiques',w:16,r:1},{t:'m²',w:16,r:1},{t:'RDI',w:34},{t:'Creado',w:20},{t:'Por',w:33.4}],
+    ps.map(p=>{const ts=tabsDe(p);return [p.num||'s/n',p.tipo||'',p.est==='ce'?'cerrado':'abierto',nivelesDe(ts).join(', '),[...new Set(ts.map(ejesDeTabique).filter(Boolean))].join(' · '),String(ts.length),fmt1(ts.reduce((s,t)=>s+t.A,0)),p.rdi?((p.rdi.num||'s/n')+' · '+(p.rdi.est==='resp'?'resp.':'pend.')):'',diaLarga(p.dia),p.por||''];}));
+  const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFontSize(7);doc.setTextColor(...PT.tenue);doc.text(APP_NOMBRE+' '+APP_VER+' · © 2026 '+APP_AUTOR,Mg,H-5);doc.text('Hoja '+i+' de '+np,W-Mg,H-5,{align:'right'});}
+  await compartirArchivo(doc.output('blob'),'Calidad_TabiPlan_'+hoyDia()+'.pdf','Calidad · protocolos y RDI','');}
 
 </script>
 </body>

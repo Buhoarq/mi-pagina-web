@@ -494,7 +494,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M580 600H1020V1080H580ZM620 720V1040H980V720Z" fill-rule="evenodd"/><path d="M680 540H725V660H680ZM875 540H920V660H875Z"/><path d="M675 880L735 820L785 870L895 760L955 820L785 990Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Last</span><span class="np2">Plan</span><span class="ver" id="verBadge">v7.2 β</span></span>
+      <span class="brand-name"><span class="np">Last</span><span class="np2">Plan</span><span class="ver" id="verBadge">v7.3 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -655,7 +655,7 @@ html.oscuro .sel-sub,html.oscuro .plan-fila select,html.oscuro .plan-fila input{
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planificar</span></button>
   <button class="pestana" data-v="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 3h6v3H9z"/><path d="m8.8 13.2 2.2 2.2 4.4-4.6"/></svg><span>Cumplimiento</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiPlan</span> <span class="vpie">LastPlan v7.2 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiPlan</span> <span class="vpie">LastPlan v7.3 β</span> · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1088,7 +1088,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiPlan',APP_VER='v7.2 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiPlan',APP_VER='v7.3 β',APP_AUTOR='Renato Martínez Palominos',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -2399,7 +2399,7 @@ async function cargarPlan(manual){if(!CLAVE)return;
     reindexarPlan();renderTodo();pedirRender();if(manual)toast('Plan del equipo actualizado','ok');}
   catch(e){if(manual)toast('No se pudo leer el plan del equipo: '+e.message,'error');}}
 async function importarPlan(d){const loc=new Map((estado.compLocal||[]).map(c=>[c.id,c]));const cam=[];
-  (d.compromisos||[]).forEach(c=>{if(!TAB[c.g])return;const ex=loc.get(c.id);if(!ex){estado.compLocal.push(c);loc.set(c.id,c);cam.push(c);}else if(c.borrado&&!ex.borrado){ex.borrado=true;ex.borradoTs=c.borradoTs;cam.push(ex);}});
+  (d.compromisos||[]).forEach(c=>{if(!TAB[c.g]&&!c.mod)return;const ex=loc.get(c.id);if(!ex){estado.compLocal.push(c);loc.set(c.id,c);cam.push(c);}else if(c.borrado&&!ex.borrado){ex.borrado=true;ex.borradoTs=c.borradoTs;cam.push(ex);}});
   if(cam.length)await putMuchos('compromisos',cam);
   const cs=[];(d.causas||[]).forEach(x=>{const ex=(estado.causasLocal||[]).find(c=>c.id===x.id);if(!ex||x.ts>ex.ts){estado.causasLocal=(estado.causasLocal||[]).filter(c=>c.id!==x.id).concat([x]);cs.push(x);}});
   if(cs.length)await putMuchos('causas',cs);reindexarPlan();}
@@ -2591,6 +2591,131 @@ async function generarInformePlan(){
   }catch(e){console.error(e);ocultarProgreso();toast('Error generando el informe: '+e.message,'error');}}
 
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',iniciar);else iniciar();
+
+/* ================= v7.3 · LastPlan para otros módulos: PaviPlan, PuertaPlan y HormiPlan (pedido de Renato, 30-10-2026) =================
+   Compromiso de módulo: {id, mod:'pavi'|'puerta'|'hormi', g, et, sem, nv, grp, ed?, meta:1, por, ts, dia, disp} en el mismo almacén
+   'compromisos' (los de tabiques no llevan `mod`; compromisosTodos() ya los separa porque su g no es un tabique). Viajan en "Enviar al
+   coordinador" y se consolidan en lastplanner/plan.enc igual que los demás. El cumplimiento se lee del avance publicado de cada módulo
+   (paviflow/avance.enc, puertaflow/avance.enc, hormiflow/avance.enc): la etapa debe llegar al 100 % hasta el miércoles de la semana. */
+const MODS={
+  pavi:{n:'PaviPlan',ico:'🟫',ruta:'../paviflow/',u:'m²',dec:1,orden:['sob','base','inst','term'],
+    et:{sob:['Sobrelosa','#0891B2'],base:['Base / nivelación','#DC2626'],inst:['Instalación','#F59E0B'],term:['Terminación','#16A34A']}},
+  puerta:{n:'PuertaPlan',ico:'🚪',ruta:'../puertaflow/',u:'un',dec:0,orden:['traz','ref','rec','mar','hoja','quin'],
+    et:{traz:['Trazado del vano','#64748B'],ref:['Refuerzo metálico','#DC2626'],rec:['Refuerzo recibido','#F59E0B'],mar:['Marco','#2563EB'],hoja:['Hoja','#7C3AED'],quin:['Quincallería y ajuste','#16A34A']}},
+  hormi:{n:'HormiPlan',ico:'🏗',ruta:'../hormiflow/',u:'m³',dec:1,orden:['mon','mol','enf','hor','des'],
+    et:{mon:['Montaje estructura metálica','#EA580C'],mol:['Moldaje','#7C3AED'],enf:['Enfierradura','#F59E0B'],hor:['Hormigonado','#16A34A'],des:['Descimbre','#0F766E']}}};
+const PAVI_SIS={vin:['base','inst','term'],por:['inst','term'],bal:['base','inst','term'],hor:['inst','term'],mad:['base','inst','term'],otr:['inst','term'],asf:['base','inst'],ext:['base','inst','term']};
+const HORMI_ED=[{id:'ind',n:'Edificio Industrial',f:'hormi_ind.enc'},{id:'sc',n:'Sala Cuna',f:'hormi.enc'},{id:'cosam',n:'COSAM',f:'hormi_cosam.enc'}];
+const MD={};          /* datos cargados por módulo: {items:Map, niveles:[{id,n}], ev:Map(g → eventos), cargado} */
+const fmtQ=(mod,q)=>MODS[mod].dec?fmt1(q):fmt0(q);
+async function cargarMod(mod,fresco){if(MD[mod]&&MD[mod].cargado&&!fresco)return MD[mod];const R=MODS[mod].ruta;const d={items:new Map(),niveles:[],ev:new Map(),cargado:false};
+  const nv=new Map();const add=(it)=>{d.items.set(it.g,it);if(!nv.has(it.nv))nv.set(it.nv,{id:it.nv,n:it.nvn||it.nv,q:0,c:0});const o=nv.get(it.nv);o.q+=it.q;o.c++;};
+  if(mod==='pavi'){const P=await descifrar(CLAVE,await bajar(R+'pisos.enc',true));const T=P.tipos||{};
+    P.niveles.forEach(n=>n.pis.forEach(p=>{const tp=T[p.t]||{};if(p.t==='IMP')return;const ets=(p.sl?['sob']:[]).concat(PAVI_SIS[tp.s]||PAVI_SIS.otr);
+      add({mod,g:p.g,pg:p.pg,nv:n.id,grp:p.x?'Exterior · '+(tp.d||p.t):(p.r||'Sin recinto'),lbl:p.t+(p.e?' · ejes '+p.e:'')+(p.pn?' · paño '+p.pn:''),d:tp.d||p.t,q:+p.A||0,ets});}));}
+  if(mod==='puerta'){const P=await descifrar(CLAVE,await bajar(R+'puertas.enc',true));const T=P.tipos||{};
+    P.niveles.forEach(n=>n.pue.forEach(p=>{const r=Array.isArray(p.r)?p.r:[];const ref=p.ref===true||p.ref==='True';
+      add({mod,g:p.g,nv:n.id,grp:r[0]||'Sin recinto',lbl:p.t+(p.an?' '+p.an+'×'+p.al:'')+(r[1]&&r[1]!==r[0]?' · hacia '+r[1]:''),d:(T[p.t]&&T[p.t].uso)||p.t,q:1,ets:ref?['traz','ref','rec','mar','hoja','quin']:['traz','mar','hoja','quin']});}));}
+  if(mod==='hormi'){for(const ed of HORMI_ED){let P=null;try{P=await descifrar(CLAVE,await bajar(R+ed.f,true));}catch(e){continue;}
+      P.el.forEach(el=>{const ets=el.fam==='Acero'?['mon']:(el.fam==='Cimentación'||el.fam==='Radier')?['mol','enf','hor']:['mol','enf','hor','des'];
+        add({mod,g:el.g,pg:el.pg,ed:ed.id,nv:ed.id+'|'+el.nv,nvn:ed.n+' · '+el.nv,grp:el.fam,lbl:el.fam+' '+el.t+(el.pt?' · '+el.pt:''),d:el.sist||el.fam,q:+el.v||0,ets});});}}
+  d.niveles=[...nv.values()].sort((a,b)=>a.n.localeCompare(b.n,'es',{numeric:true}));
+  try{const A=await descifrar(CLAVE,await bajar(R+'avance.enc',true));(A.eventos||[]).forEach(e=>{if(e.borrado||!e.g||e.k)return;if(!d.ev.has(e.g))d.ev.set(e.g,[]);d.ev.get(e.g).push(e);});d.actualizado=A.actualizado;}catch(e){d.sinAvance=true;}
+  d.cargado=true;MD[mod]=d;return d;}
+/* % de la etapa al corte (lo marcado sobre el elemento completo vale para sus paños o partes) */
+function fMod(mod,g,et,corte){const d=MD[mod];if(!d)return 0;const it=d.items.get(g);let f=0;[g,it&&it.pg].filter(Boolean).forEach(k=>(d.ev.get(k)||[]).forEach(e=>{if(e.et===et&&e.dia<=corte&&+e.f>f)f=+e.f;}));return Math.min(1,f);}
+function compMod(mod){const m=new Map();((estado.planBase&&estado.planBase.compromisos)||[]).forEach(c=>{if(c.mod)m.set(c.id,c);});(estado.compLocal||[]).forEach(c=>{if(c.mod)m.set(c.id,c);});
+  return [...m.values()].filter(c=>!c.borrado&&(!mod||c.mod===mod));}
+function estadoCM(c){if(!MD[c.mod])return{k:'pend',f:0};const f=fMod(c.mod,c.g,c.et,finSem(c.sem)),fi=fMod(c.mod,c.g,c.et,sumarDias(c.sem,-1));
+  if(f>=(c.meta||1)-1e-9)return{k:'ok',f};if(semCerrada(c.sem))return{k:'no',f};return{k:f>fi+1e-9?'curso':'pend',f};}
+function resumenCM(l){const r={n:l.length,ok:0,no:0,curso:0,pend:0,q:0,qok:0};l.forEach(c=>{const e=estadoCM(c);r[e.k]++;const it=MD[c.mod]&&MD[c.mod].items.get(c.g);const q=it?it.q:0;r.q+=q;if(e.k==='ok')r.qok+=q;});r.ppc=r.n?r.ok/r.n*100:0;return r;}
+/* ---------- tarjeta en el inicio y sección en Cumplimiento ---------- */
+function htmlModsResumen(sem,conBotones){const filas=Object.keys(MODS).map(k=>{const l=compMod(k).filter(c=>c.sem===sem);const r=resumenCM(l);const M_=MODS[k];
+    return '<div class="plan-fila" style="grid-template-columns:auto 1fr auto;align-items:center"><span style="font-size:20px">'+M_.ico+'</span><div><b>'+M_.n+'</b><br><span class="nota">'+(l.length?l.length+' compromisos · '+fmtQ(k,r.q)+' '+M_.u+(MD[k]?' · PPC '+r.ppc.toFixed(0)+'%':''):'Sin compromisos')+'</span></div>'+
+      (conBotones?'<button class="btn secundario" data-lpm="abrir" data-mod="'+k+'">Planificar</button>':'')+'</div>';}).join('');
+  return filas;}
+function tarjetaModsHTML(){const s=estado.planSem||semActual();const nc=compMod().filter(c=>c.por===estado.persona&&semCerrada(c.sem)&&MD[c.mod]&&estadoCM(c).k==='no'&&!causaDe(c)).length;
+  return '<div class="tarjeta" id="tarjetaMods"><h3>🧩 Otros módulos · semana '+etiquetaSem(s)+'</h3><p class="nota" style="margin-bottom:8px">Compromete también pavimentos, puertas y hormigón: eliges el nivel, la etapa y los paños, puertas o elementos. Se cumple cuando la etapa llega al 100 % en su módulo hasta el miércoles.</p>'+
+    (nc?'<div class="info-sello" style="margin-bottom:8px">⚠ Tienes <b>'+nc+'</b> compromiso(s) de otros módulos no cumplidos sin causa. Ábrelos en <b>Planificar</b> para justificarlos.</div>':'')+htmlModsResumen(s,true)+'</div>';}
+function seccionModsCumpl(){const s=estado.planSem;const l=compMod().filter(c=>c.sem===s);if(!l.length)return '';const r=resumenCM(l);
+  return '<div class="tarjeta" id="cumplMods"><h3>🧩 Otros módulos · PPC '+(Object.keys(MODS).every(k=>MD[k]||!l.some(c=>c.mod===k))?r.ppc.toFixed(0)+'%':'…')+'</h3>'+htmlModsResumen(s,true)+
+    '<div class="fila-btn" style="margin-top:8px"><button class="btn secundario" data-lpm="pdf">📄 PDF otros módulos</button></div></div>';}
+async function prepararModsVisibles(){const ks=[...new Set(compMod().map(c=>c.mod))].filter(k=>!MD[k]);if(!ks.length)return false;for(const k of ks){try{await cargarMod(k);}catch(e){}}return true;}
+/* ---------- hoja de planificación de un módulo ---------- */
+estado._m={sel:new Set(),abiertos:new Set()};
+async function hojaMod(mod,mantener){const M_=MODS[mod];const st=estado._m;if(st.mod!==mod){st.mod=mod;st.sel=new Set();st.abiertos=new Set();}
+  if(!MD[mod]){abrirHoja('<div class="hoja-titulo">'+M_.ico+' '+M_.n+'</div><p class="nota">Cargando el modelo y el avance…</p>');try{await cargarMod(mod);}catch(e){abrirHoja('<div class="hoja-titulo">'+M_.ico+' '+M_.n+'</div><p class="nota">No se pudo cargar: '+escapar(e.message)+'</p>');return;}}
+  const d=MD[mod];const s=estado.planSem||semActual();const cerr=semCerrada(s);
+  if(!st.nv||!d.niveles.some(n=>n.id===st.nv))st.nv=(d.niveles.find(n=>n.id===estado.lpPiso)||d.niveles.find(n=>n.id.endsWith('|'+estado.lpPiso))||d.niveles[0]||{}).id;
+  if(!st.et||!M_.et[st.et])st.et=M_.orden.find(e=>[...d.items.values()].some(it=>it.nv===st.nv&&it.ets.includes(e)))||M_.orden[0];
+  const its=[...d.items.values()].filter(it=>it.nv===st.nv&&it.ets.includes(st.et));
+  const ya=new Map(compMod(mod).filter(c=>c.sem===s&&c.et===st.et).map(c=>[c.g,c]));
+  const grupos=new Map();its.forEach(it=>{if(!grupos.has(it.grp))grupos.set(it.grp,[]);grupos.get(it.grp).push(it);});
+  const corte=hoyDia();const selQ=[...st.sel].reduce((a,g)=>a+((d.items.get(g)||{}).q||0),0);
+  let h='<div class="hoja-titulo">'+M_.ico+' '+M_.n+' · plan semanal</div><div class="hoja-sub">'+(d.sinAvance?'Aún no hay avance publicado de este módulo: todo parte en 0 %.':'Avance publicado '+(d.actualizado?fmtFecha(d.actualizado):''))+'</div>'+
+    '<div class="plan-sem"><button class="btn-icono" data-lpm="sem" data-d="-7" aria-label="Semana anterior">‹</button><b>'+etiquetaSem(s)+'<br><span class="chip '+(cerr?'':(s===semActual()?'acento':''))+'" style="margin-top:4px">'+(cerr?'cerrada':(s===semActual()?'en curso':'próxima'))+'</span></b><button class="btn-icono" data-lpm="sem" data-d="7" aria-label="Semana siguiente">›</button></div>'+
+    '<label class="etiqueta">Nivel</label><select class="campo" data-lpmnv>'+d.niveles.map(n=>'<option value="'+escAttr(n.id)+'"'+(n.id===st.nv?' selected':'')+'>'+escapar(n.n)+' · '+n.c+' '+(mod==='puerta'?'puertas':mod==='pavi'?'paños':'elementos')+'</option>').join('')+'</select>'+
+    '<label class="etiqueta">Etapa a comprometer</label><div class="chips">'+M_.orden.filter(e=>[...d.items.values()].some(it=>it.nv===st.nv&&it.ets.includes(e))).map(e=>'<button class="chip-boton'+(e===st.et?' activo':'')+'" data-lpm="et" data-et="'+e+'"><span style="display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;background:'+M_.et[e][1]+'"></span>'+M_.et[e][0]+'</button>').join('')+'</div>';
+  /* lo comprometido esta semana en el módulo */
+  const lsem=compMod(mod).filter(c=>c.sem===s);
+  if(lsem.length){const r=resumenCM(lsem);h+='<div class="tarjeta" style="margin:10px 0"><h3>Comprometido esta semana · PPC '+r.ppc.toFixed(0)+'%</h3><div class="ppc-est">'+['ok','curso','pend','no'].filter(k=>r[k]).map(k=>'<span><i style="--c:'+EST_C[k].c+'"></i>'+EST_C[k].n+' '+r[k]+'</span>').join('')+'</div>'+
+      lsem.sort((a,b)=>(a.nv+a.grp).localeCompare(b.nv+b.grp)||M_.orden.indexOf(a.et)-M_.orden.indexOf(b.et)).slice(0,250).map(c=>{const it=d.items.get(c.g)||{};const e=estadoCM(c);const ca=causaDe(c);const mio=c.por===estado.persona;
+        return '<div class="plan-fila" style="grid-template-columns:auto 1fr auto"><i class="marca" style="--c:'+EST_C[e.k].c+'"></i><div><b>'+escapar(it.lbl||c.g)+'</b> · '+M_.et[c.et][0]+' · '+Math.round(e.f*100)+'%<br><span class="nota">'+escapar(c.grp||'')+' · '+escapar((d.niveles.find(n=>n.id===c.nv)||{}).n||c.nv)+' · '+escapar(c.por||'')+'</span>'+
+          (e.k==='no'&&mio?'<div class="causa" style="margin-top:4px"><select class="campo" data-lpmca="'+c.id+'"><option value="">— ¿Por qué no se cumplió? —</option>'+CAUSAS.map(([k,t])=>'<option value="'+k+'"'+(ca&&ca.causa===k?' selected':'')+'>'+t+'</option>').join('')+'</select></div>':(ca?'<br><span class="nota">Causa: '+escapar(CAUSA_N[ca.causa]||ca.causa)+'</span>':''))+'</div>'+
+          (mio&&!cerr?'<button class="frac-btn quitar" data-lpm="quitar" data-id="'+c.id+'" title="Quitar">✕</button>':'<span></span>')+'</div>';}).join('')+'</div>';}
+  if(cerr)h+='<div class="info-sello">Esta semana ya cerró: solo se puede ver y justificar lo no cumplido. Para comprometer, avanza a la semana actual o a la próxima.</div>';
+  else{h+='<label class="etiqueta">'+(mod==='hormi'?'Familias':'Recintos')+' del nivel · '+M_.et[st.et][0]+'</label>';
+    if(st.sel.size)h+='<div class="fila-btn" style="margin:6px 0 10px"><button class="btn principal" data-lpm="comprometer">✔ Comprometer '+st.sel.size+' · '+fmtQ(mod,selQ)+' '+M_.u+'</button></div>';
+    if(!grupos.size)h+='<p class="nota">No hay '+(mod==='puerta'?'puertas':mod==='pavi'?'paños':'elementos')+' con esta etapa en el nivel.</p>';
+    [...grupos.entries()].sort((a,b)=>a[0].localeCompare(b[0],'es',{numeric:true})).forEach(([grp,l],gi)=>{const q=l.reduce((a,it)=>a+it.q,0);const hechos=l.filter(it=>fMod(mod,it.g,st.et,corte)>=1).length;const libres=l.filter(it=>fMod(mod,it.g,st.et,corte)<1&&!ya.has(it.g));
+      const nsel=l.filter(it=>st.sel.has(it.g)).length;const ab=st.abiertos.has(grp);
+      h+='<div class="plan-fila" style="grid-template-columns:auto 1fr auto;align-items:center"><input type="checkbox" data-lpmgrp="'+gi+'"'+(libres.length&&libres.every(it=>st.sel.has(it.g))?' checked':'')+(libres.length?'':' disabled')+'><div><b>'+escapar(grp)+'</b><br><span class="nota">'+l.length+' · '+fmtQ(mod,q)+' '+M_.u+' · '+hechos+' listos'+(l.length-libres.length-hechos>0?' · '+(l.length-libres.length-hechos)+' ya comprometidos':'')+(nsel?' · <b>'+nsel+' elegidos</b>':'')+'</span></div><button class="btn-icono" data-lpm="abrirg" data-gi="'+gi+'" aria-label="Ver detalle">'+(ab?'▾':'▸')+'</button></div>';
+      if(ab)h+='<div style="padding-left:26px">'+l.map(it=>{const f=fMod(mod,it.g,st.et,corte),c=ya.get(it.g);return '<label class="opcion"><input type="checkbox" data-lpmit="'+escAttr(it.g)+'"'+(st.sel.has(it.g)?' checked':'')+(f>=1||c?' disabled':'')+'> '+escapar(it.lbl)+' · '+fmtQ(mod,it.q)+' '+M_.u+' <span class="nota" style="margin-left:auto">'+(c?'comprometido':Math.round(f*100)+'%')+'</span></label>';}).join('')+'</div>';});
+    estado._m.grupos=[...grupos.entries()].sort((a,b)=>a[0].localeCompare(b[0],'es',{numeric:true})).map(x=>x[1]);
+    h+='<div class="fila-btn" style="margin-top:12px"><button class="btn principal" data-lpm="comprometer"'+(st.sel.size?'':' disabled')+'>✔ Comprometer '+st.sel.size+' · '+fmtQ(mod,selQ)+' '+M_.u+'</button>'+(st.sel.size?'<button class="btn secundario" data-lpm="limpiar">Limpiar</button>':'')+'</div>';}
+  const sc=$('#hojaContenido').scrollTop;abrirHoja(h);if(mantener)$('#hojaContenido').scrollTop=sc;}
+async function accionMod(e){const b=e.target.closest('[data-lpm]');if(!b)return;e.preventDefault&&e.preventDefault();const a=b.dataset.lpm,st=estado._m;
+  if(a==='abrir'){await hojaMod(b.dataset.mod);return;}
+  if(a==='pdf'){await pdfMods(estado.planSem||semActual());return;}
+  if(!st.mod)return;const mod=st.mod;
+  if(a==='sem'){elegirSemana(sumarDias(estado.planSem||semActual(),parseInt(b.dataset.d,10)));st.sel=new Set();await hojaMod(mod);return;}
+  if(a==='et'){st.et=b.dataset.et;st.sel=new Set();await hojaMod(mod,true);return;}
+  if(a==='abrirg'){const l=st.grupos[+b.dataset.gi];if(!l)return;const k=l[0].grp;st.abiertos.has(k)?st.abiertos.delete(k):st.abiertos.add(k);await hojaMod(mod,true);return;}
+  if(a==='limpiar'){st.sel=new Set();await hojaMod(mod,true);return;}
+  if(a==='quitar'){const c=(estado.compLocal||[]).find(x=>x.id===b.dataset.id);if(!c){toast('Solo puedes quitar lo que planificaste tú en este teléfono','error');return;}c.borrado=true;c.borradoTs=new Date().toISOString();await put('compromisos',c);await hojaMod(mod,true);refrescarLP();return;}
+  if(a==='comprometer'){const s=estado.planSem||semActual();if(semCerrada(s)){toast('La semana ya cerró','error');return;}const d=MD[mod];const ahora=new Date().toISOString();const nuevos=[];
+    st.sel.forEach(g=>{const it=d.items.get(g);if(!it)return;nuevos.push({id:uid(),mod,g,et:st.et,sem:s,nv:it.nv,grp:it.grp,ed:it.ed,meta:1,por:estado.persona,ts:ahora,dia:hoyDia(),disp:estado.dispositivo});});
+    if(!nuevos.length)return;estado.compLocal=(estado.compLocal||[]).concat(nuevos);await putMuchos('compromisos',nuevos);st.sel=new Set();
+    toast(nuevos.length+' compromiso(s) de '+MODS[mod].n+' para '+etiquetaSem(s),'ok');await hojaMod(mod,true);refrescarLP();return;}}
+async function cambioMod(e){const st=estado._m;const mod=st.mod;
+  const nv=e.target.closest('[data-lpmnv]');if(nv){st.nv=nv.value;st.sel=new Set();st.abiertos=new Set();await hojaMod(mod);return;}
+  const it=e.target.closest('[data-lpmit]');if(it){it.checked?st.sel.add(it.dataset.lpmit):st.sel.delete(it.dataset.lpmit);await hojaMod(mod,true);return;}
+  const gr=e.target.closest('[data-lpmgrp]');if(gr){const l=st.grupos[+gr.dataset.lpmgrp]||[];const s=estado.planSem||semActual();const ya=new Set(compMod(mod).filter(c=>c.sem===s&&c.et===st.et).map(c=>c.g));
+    l.forEach(x=>{if(fMod(mod,x.g,st.et,hoyDia())>=1||ya.has(x.g))return;gr.checked?st.sel.add(x.g):st.sel.delete(x.g);});await hojaMod(mod,true);return;}
+  const ca=e.target.closest('[data-lpmca]');if(ca){const c=compMod().find(x=>x.id===ca.dataset.lpmca);if(!c)return;if(c.por!==estado.persona){toast('La causa la registra quien planificó','error');return;}
+    const base={id:'ca-'+c.id,cid:c.id,mod:c.mod,sem:c.sem,g:c.g,et:c.et,nv:c.nv,por:estado.persona,ts:new Date().toISOString()};
+    await guardarCausa(ca.value?Object.assign(base,{causa:ca.value,nota:''}):Object.assign(base,{causa:'',nota:'',borrado:true}));toast('Causa guardada','ok');refrescarLP();}}
+function refrescarLP(){try{renderInicioLP();}catch(e){}try{if($('#planContenido')&&$('#planContenido').innerHTML)renderPlan();}catch(e){}}
+/* ---------- PDF de la semana: lo comprometido por módulo, nivel y recinto ---------- */
+async function pdfMods(sem){await prepararModsVisibles();const l=compMod().filter(c=>c.sem===sem);if(!l.length){toast('No hay compromisos de otros módulos en esta semana');return;}
+  const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'letter'});const W=279.4,H=215.9;let y=30;
+  const U=k=>MODS[k].u.replace('²','2').replace('³','3');const sub='Semana '+etiquetaSemLarga(sem)+(semCerrada(sem)?' · cerrada':' · al '+diaLarga(hoyDia()));
+  encabezadoPlan(doc,W,'LastPlan · otros módulos',sub,'PPC '+resumenCM(l).ppc.toFixed(0)+'%');
+  const c={doc,M:10,W:W-20,get y(){return y;},set y(v){y=v;},lim:H-14,nueva:()=>{doc.addPage();encabezadoPlan(doc,W,'LastPlan · otros módulos',sub,'continuación');y=30;}};
+  Object.keys(MODS).forEach(k=>{const lm=l.filter(x=>x.mod===k);if(!lm.length)return;const r=resumenCM(lm);const M_=MODS[k];const d=MD[k];
+    tituloSec(c,M_.n+' · '+lm.length+' compromisos · '+fmtQ(k,r.q)+' '+U(k)+' · PPC '+r.ppc.toFixed(0)+'% ('+r.ok+' cumplidos, '+r.no+' no cumplidos)');
+    tablaPDF(c,[{t:'Nivel',w:40},{t:M_.n==='HormiPlan'?'Familia':'Recinto',w:58},{t:'Elemento',w:62},{t:'Etapa',w:32},{t:U(k),w:14,r:1},{t:'%',w:12,r:1},{t:'Estado',w:22},{t:'Planificó',w:19.4}],
+      lm.sort((a,b)=>(a.nv+a.grp).localeCompare(b.nv+b.grp)).map(x=>{const it=d&&d.items.get(x.g)||{};const e=estadoCM(x);const ca=causaDe(x);
+        return [(d&&(d.niveles.find(n=>n.id===x.nv)||{}).n)||x.nv,x.grp||'',it.lbl||x.g,M_.et[x.et][0],fmtQ(k,it.q||0),String(Math.round(e.f*100)),EST_C[e.k].n+(ca?' · '+(CAUSA_N[ca.causa]||''):''),x.por||''];}));});
+  const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFontSize(7);doc.setTextColor(...PT.tenue);doc.text('LastPlan '+APP_VER+' · © 2026 '+APP_AUTOR+' · '+OBRA,10,H-5);doc.text('Hoja '+i+' de '+np,W-10,H-5,{align:'right'});}
+  await compartirArchivo(doc.output('blob'),'LastPlan_otros_modulos_'+sem+'.pdf','LastPlan · otros módulos',sub);}
+/* ---------- enganches con la app ---------- */
+const _renderInicioLP0=renderInicioLP;renderInicioLP=function(){_renderInicioLP0();const el=$('#lpInicio');if(!el||!M)return;el.insertAdjacentHTML('beforeend',tarjetaModsHTML());
+  prepararModsVisibles().then(c=>{if(c){const t=$('#tarjetaMods');if(t)t.outerHTML=tarjetaModsHTML();}});};
+const _renderPlan0=renderPlan;renderPlan=function(){_renderPlan0();const el=$('#planContenido');if(!el||!M)return;el.insertAdjacentHTML('beforeend',seccionModsCumpl()||('<div class="tarjeta" id="cumplMods"><h3>🧩 Otros módulos</h3>'+htmlModsResumen(estado.planSem,true)+'</div>'));
+  prepararModsVisibles().then(c=>{if(c){const t=$('#cumplMods');if(t)t.outerHTML=seccionModsCumpl();}});};
+document.addEventListener('click',e=>{if(e.target.closest('[data-lpm]'))accionMod(e);});
+document.addEventListener('change',e=>{if(e.target.closest('[data-lpmnv],[data-lpmit],[data-lpmgrp],[data-lpmca]'))cambioMod(e);});
 
 </script>
 </body>

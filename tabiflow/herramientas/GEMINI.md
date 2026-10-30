@@ -1,3 +1,5 @@
+> **Nota (30-10-2026):** los archivos de TabiPlan ahora pueden traer registros de **calidad** (protocolos y RDI con fotos) y los de LastPlan compromisos de **otros módulos** (pavimentos, puertas, hormigón). El procedimiento no cambia: `consolidar.py` y `consolidar_plan.py` los incluyen solos.
+
 # TabiFlow · Instrucciones para Gemini (consolidar el avance)
 
 Proyecto: **TabiFlow — Hospital de Coquimbo** (app de avance de tabiques). Autor: Renato Martínez Palominos.

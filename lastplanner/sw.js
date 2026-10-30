@@ -1,6 +1,6 @@
 /* LastPlan (antes Last Planner) — service worker propio: solo borra sus cachés (prefijo lastplanner).
    Modelo y avance se leen de ../tabiflow/; plan.enc y subclaves.json son de esta carpeta. */
-const CACHE='lastplanner-v7.2';
+const CACHE='lastplanner-v7.3';
 const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','../tabiflow/clave.json','../tabiflow/modelo.enc'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('lastplanner')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
