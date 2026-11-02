@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PilotoPlan v1.8 · Piloto UCI · Hospital de Coquimbo</title>
+<title>PilotoPlan v1.9 · Piloto UCI · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -586,7 +586,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Plan</span><span class="ver">v1.8</span></span>
+      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Plan</span><span class="ver">v1.9</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -631,7 +631,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <button class="pestana" data-v="compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg><span>Compras</span></button>
   <button class="pestana" data-v="bitacora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Bitácora</span></button>
 </nav>
-<footer id="pie"><span class="marca">PilotoPlan</span> <span class="vpie">v1.8</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PilotoPlan</span> <span class="vpie">v1.9</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2348,7 +2348,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.8',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.9',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -2661,7 +2661,7 @@ async function guardarFechas(id){const ini=$('#inFrIni').value||'',fin=$('#inFrF
    terminación (EETT), el plano de detalle del recinto, las tareas que lo afectan y su bitácora. */
 const CAT={tab:{n:'Tabiques',c:'#94A3B8'},tra:{n:'Revestimientos y trasdosados',c:'#CBD5E1'},cie:{n:'Cielo',c:'#E2E8F0'},pis:{n:'Piso',c:'#818CF8'},imp:{n:'Impermeabilización',c:'#7DD3FC'},
   rp:{n:'Porcelanato',c:'#F5F5F4'},ven:{n:'Ventanas y mamparas',c:'#67E8F9'},pue:{n:'Puertas',c:'#FCD34D'},art:{n:'Artefactos sanitarios',c:'#FFFFFF'},acc:{n:'Accesorios',c:'#FDA4AF'},
-  ins:{n:'Instalaciones y luminarias',c:'#FDE68A'},mob:{n:'Equipamiento',c:'#C4B5FD'},fac:{n:'Fachada (exterior)',c:'#E7E5E4'},est:{n:'Estructura (losas y pilares)',c:'#64748B'},ecie:{n:'Estructura de cielo (propuesta)',c:'#2563EB'},otr:{n:'Otros',c:'#D6D3D1'}};
+  ins:{n:'Instalaciones y luminarias',c:'#FDE68A'},mob:{n:'Equipamiento',c:'#C4B5FD'},eqm:{n:'Equipamiento médico',c:'#5EEAD4'},fac:{n:'Fachada (exterior)',c:'#E7E5E4'},est:{n:'Estructura (losas y pilares)',c:'#64748B'},ecie:{n:'Estructura de cielo (propuesta)',c:'#2563EB'},otr:{n:'Otros',c:'#D6D3D1'}};
 let R3=null,SC3=null,CAM3=null,CTL3=null,M3=[],pedido3=false,SEL3=null,modo3='part',ocultos=new Set(['est_sup','cie']),corte3=null;
 function pedirRender3(){if(pedido3||!R3)return;pedido3=true;requestAnimationFrame(()=>{pedido3=false;if(CTL3)CTL3.update();R3.render(SC3,CAM3);});}
 /* tareas que construyen cada elemento (lista en el modelo: el.ts = [ids]); el avance del elemento es el promedio de sus tareas */
@@ -2669,7 +2669,8 @@ function avanceElem(el){const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);
 function progElem(el){const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);if(!ts.length)return null;let s=0;ts.forEach(t=>s+=t.prog);return s/ts.length;}
 function elementosDeTarea(id){if(!PROG||!PROG.m3d)return [];const fam=new Set(hojasDe(id).map(t=>t.id).concat([id]));return PROG.m3d.el.filter(e=>(e.ts||[]).some(x=>fam.has(x)));}
 const colAv=v=>v==null?'#CBD5E1':v>=0.999?'#16A34A':v>=0.5?'#84CC16':v>0?'#F59E0B':'#F87171';
-function colorElem(el){if(modo3==='part')return el.col||(CAT[el.k]?CAT[el.k].c:'#D6D3D1');
+function colorElem(el){if(modo3==='rev')return el.k==='ven'||(el.k==='pue'&&/vidrio/i.test(el.t))?'#CFE8F3':el.k==='est'?'#E5E7EB':el.k==='pis'?'#F1F5F9':'#FFFFFF';
+  if(modo3==='part')return el.col||(CAT[el.k]?CAT[el.k].c:'#D6D3D1');
   if(modo3==='av'){if(el.k==='est')return '#94A3B8';return colAv(avanceElem(el));}
   if(modo3==='hoy'){const hoy=hoyDia(),f=sumarDias(hoy,14);const ts=(el.ts||[]).map(id=>T.get(id)).filter(Boolean);
     if(ts.some(t=>t.est==='atr'))return '#DC2626';if(ts.some(t=>t.real<1&&t.ini<=hoy&&t.fin>=hoy))return '#2563EB';if(ts.some(t=>t.real<1&&t.ini>hoy&&t.ini<=f))return '#F59E0B';if(ts.length&&ts.every(t=>t.real>=1))return '#16A34A';return '#E2E8F0';}
@@ -2683,13 +2684,36 @@ function construir3(){if(SC3)return;const M=PROG.m3d;SC3=new THREE.Scene();fondo
     const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setIndex(el.i);g.computeVertexNormals();
     const tr=transp(el);
     const mat=new THREE.MeshLambertMaterial({color:0xcccccc,flatShading:true,side:THREE.DoubleSide,transparent:tr<1,opacity:tr});
-    const m=new THREE.Mesh(g,mat);m.userData.el=el;
+    const m=new THREE.Mesh(g,mat);m.userData.el=el;m.userData.gBase=g;m.userData.mBase=mat;
     const ed=new THREE.LineSegments(new THREE.EdgesGeometry(g,30),new THREE.LineBasicMaterial({color:0x334155,transparent:true,opacity:0.35}));m.add(ed);
     SC3.add(m);M3.push(m);el.mesh=m;});
   /* contorno de los recintos (piso) */
   (M.rec||[]).forEach(r=>{const pts=[];for(let i=0;i<r.c.length;i+=2)pts.push(new THREE.Vector3(r.c[i]*0.01,r.z*0.01+0.01,-r.c[i+1]*0.01));pts.push(pts[0].clone());
     const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:0xD7001F}));SC3.add(l);});
   pintar3();}
+/* 🧱 Materiales de Revit (complemento ≥ 1.3): color, transparencia y textura de cada cara; "✏️ Revit" las apaga.
+   La textura se proyecta por caras (eje dominante de la normal) con su tamaño real en m, como el mapeo de Revit. */
+const TEX3=new Map();
+function textura3(i){if(TEX3.has(i))return TEX3.get(i);const src=(PROG.m3d.tex||[])[i];if(!src){TEX3.set(i,null);return null;}
+  const tx=new THREE.TextureLoader().load(src,()=>pedirRender3());tx.wrapS=tx.wrapT=THREE.RepeatWrapping;if(THREE.sRGBEncoding!==undefined)tx.encoding=THREE.sRGBEncoding;TEX3.set(i,tx);return tx;}
+function matThree3(mi,cs){const d=(PROG.m3d.mat||[])[mi];if(!d)return new THREE.MeshLambertMaterial({color:0xdddddd,side:THREE.DoubleSide});
+  if(!d._m){const tx=d.t!=null&&d.t>=0?textura3(d.t):null;const o=d.o!=null?d.o:1;
+    d._m=new THREE.MeshLambertMaterial({color:tx?0xffffff:d.c,map:tx||null,side:THREE.DoubleSide,transparent:o<1,opacity:o,depthWrite:o>=0.98});}
+  return d._m;}
+function materiales3(m){const el=m.userData.el;if(!PROG.m3d.mat||(!el.mg&&el.mi==null))return false;
+  if(!m.userData.gMat){const P=el.p,I=el.i,nt=I.length/3;const pos=new Float32Array(nt*9),uv=new Float32Array(nt*6);
+    const runs=el.mg||[[el.mi,nt]];const usados=[];const g=new THREE.BufferGeometry();let t0=0;
+    runs.forEach(([mi,n])=>{const d=(PROG.m3d.mat||[])[mi]||{};const sx=d.sx||1,sy=d.sy||sx;
+      for(let t=t0;t<t0+n&&t<nt;t++){const a=I[t*3]*3,b=I[t*3+1]*3,c=I[t*3+2]*3;
+        const ux=P[b]-P[a],uy=P[b+1]-P[a+1],uz=P[b+2]-P[a+2],vx=P[c]-P[a],vy=P[c+1]-P[a+1],vz=P[c+2]-P[a+2];
+        const nx=Math.abs(uy*vz-uz*vy),ny=Math.abs(uz*vx-ux*vz),nz=Math.abs(ux*vy-uy*vx);
+        [a,b,c].forEach((q,j)=>{const k=t*9+j*3;pos[k]=P[q]*0.01;pos[k+1]=P[q+2]*0.01;pos[k+2]=-P[q+1]*0.01;
+          let u,v;if(nz>=nx&&nz>=ny){u=P[q];v=P[q+1];}else if(nx>=ny){u=P[q+1];v=P[q+2];}else{u=P[q];v=P[q+2];}
+          uv[t*6+j*2]=u*0.01/sx;uv[t*6+j*2+1]=v*0.01/sy;});}
+      let k=usados.indexOf(mi);if(k<0){usados.push(mi);k=usados.length-1;}g.addGroup(t0*3,Math.min(n,nt-t0)*3,k);t0+=n;});
+    g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.computeVertexNormals();
+    m.userData.gMat=g;m.userData.mMat=usados.map(mi=>matThree3(mi));}
+  m.geometry=m.userData.gMat;m.material=m.userData.mMat;return true;}
 function fondo3(){if(SC3)SC3.background=new THREE.Color(document.documentElement.classList.contains('oscuro')?0x0F172A:0xEEF2F7);}
 function init3(){const cv=$('#v3d');if(R3){ajustar3();return;}construir3();
   try{R3=new THREE.WebGLRenderer({canvas:cv,antialias:true});}catch(e){$('#v3dWrap').innerHTML='<p class="nota" style="padding:20px">Este teléfono no puede mostrar gráficos 3D (WebGL).</p>';return;}
@@ -2712,10 +2736,11 @@ function vista3(v){if(!R3)return;const M=PROG.m3d;const b=caja3(),c=b.getCenter(
   CAM3.fov=v==='interior'?78:50;CAM3.near=0.05;CAM3.far=r*30;CAM3.updateProjectionMatrix();CTL3.update();pedirRender3();}
 function pintar3(){if(!SC3)return;const cs=corte3!=null?[new THREE.Plane(new THREE.Vector3(0,-1,0),(PROG.m3d.z0+corte3)*0.01)]:[];
   M3.forEach(m=>{const el=m.userData.el;const sup=el.k==='est'&&el.sup;m.visible=!ocultos.has(el.k)&&!(sup&&ocultos.has('est_sup'))&&!(el.k==='cie'&&ocultos.has('cie'));
-    const col=colorElem(el);m.material.color.set(SEL3===el.g?'#D7001F':col);m.material.clippingPlanes=cs;m.children.forEach(ch=>{ch.material.clippingPlanes=cs;});});
+    const conMat=modo3==='mat'&&SEL3!==el.g&&materiales3(m);if(!conMat){m.geometry=m.userData.gBase;m.material=m.userData.mBase;}
+    const col=colorElem(el);if(!conMat)m.material.color.set(SEL3===el.g?'#D7001F':col);[].concat(m.material).forEach(x=>x.clippingPlanes=cs);m.children.forEach(ch=>{ch.material.clippingPlanes=cs;ch.material.opacity=modo3==='rev'?0.95:modo3==='mat'?0.22:0.35;ch.material.color.set(modo3==='rev'?0x111827:0x334155);});});
   leyenda3();pedirRender3();}
 function leyenda3(){const L=$('#ley3');if(!L)return;if(estado.ley3==null)estado.ley3=window.innerWidth<700;L.classList.toggle('plegada',estado.ley3);const cab='<button class="ley-t" data-acc="ley3">'+(estado.ley3?'🎨 Leyenda y capas ▸':'Leyenda ▾')+'</button>';
-  if(modo3==='part'){const ks=[...new Set(PROG.m3d.el.map(e=>e.k))];L.innerHTML=cab+ks.map(k=>'<button class="lg'+(ocultos.has(k)?' off':'')+'" data-capa="'+k+'"><i style="background:'+CAT[k].c+'"></i>'+CAT[k].n+'</button>').join('');}
+  if(modo3==='part'||modo3==='rev'||modo3==='mat'){const ks=[...new Set(PROG.m3d.el.map(e=>e.k))];L.innerHTML=cab+ks.map(k=>'<button class="lg'+(ocultos.has(k)?' off':'')+'" data-capa="'+k+'"><i style="background:'+CAT[k].c+'"></i>'+CAT[k].n+'</button>').join('');}
   else if(modo3==='av')L.innerHTML=cab+'<b>Avance de las tareas que lo construyen</b><span class="lg"><i style="background:#F87171"></i>Sin iniciar</span><span class="lg"><i style="background:#F59E0B"></i>Menos de 50 %</span><span class="lg"><i style="background:#84CC16"></i>50 % o más</span><span class="lg"><i style="background:#16A34A"></i>Terminado</span>';
   else L.innerHTML=cab+'<b>Qué toca hacer</b><span class="lg"><i style="background:#DC2626"></i>Con tarea atrasada</span><span class="lg"><i style="background:#2563EB"></i>Se trabaja hoy</span><span class="lg"><i style="background:#F59E0B"></i>Próximos 14 días</span><span class="lg"><i style="background:#16A34A"></i>Terminado</span>';}
 function tocar3(cx,cy){const rc=$('#v3d').getBoundingClientRect();const v=new THREE.Vector2((cx-rc.left)/rc.width*2-1,-((cy-rc.top)/rc.height*2-1));
@@ -2773,9 +2798,9 @@ function hojaElemento(g){const el=PROG.m3d.el.find(e=>e.g===g);if(!el)return;con
    '<button class="btn secundario" data-acc="nuevabit" data-g="'+g+'" style="width:100%;justify-content:center;margin-top:8px">📷 Agregar foto o nota a este elemento</button>'+
    (bits.length?'<label class="etiqueta">Bitácora del elemento</label>'+bits.map(b=>tarjetaBit(b)).join(''):''));if(bits.some(b=>b.nf))cargarFotos();}
 function verTarea3(id){const els=elementosDeTarea(id);if(!els.length)return;modo3='hoy';cambiarVista('v3d');setTimeout(()=>{SEL3=null;const gs=new Set(els.map(e=>e.g));
-  M3.forEach(m=>{const el=m.userData.el;m.material.color.set(gs.has(el.g)?'#D7001F':'#E2E8F0');m.material.opacity=gs.has(el.g)?1:0.25;m.material.transparent=true;});pedirRender3();
+  M3.forEach(m=>{const el=m.userData.el;m.geometry=m.userData.gBase;m.material=m.userData.mBase;m.material.color.set(gs.has(el.g)?'#D7001F':'#E2E8F0');m.material.opacity=gs.has(el.g)?1:0.25;m.material.transparent=true;});pedirRender3();
   $('#ley3').innerHTML='<b>'+escapar(T.get(id).n.slice(0,60))+'</b><span class="lg"><i style="background:#D7001F"></i>'+els.length+' elementos</span><button class="lg" data-acc="todo3">Ver todo</button>';},120);}
-function render3(){if(!PROG||!PROG.m3d)return;$('#chips3').innerHTML=[['part','🎨 Partidas'],['av','📊 Avance'],['hoy','📅 Qué toca']].map(([k,n])=>'<button class="chipf'+(modo3===k?' on':'')+'" data-modo3="'+k+'">'+n+'</button>').join('')+
+function render3(){if(!PROG||!PROG.m3d)return;if(!render3._i){render3._i=1;if(PROG.m3d.mat)modo3='mat';else if(PROG.m3d.estilo==='revit')modo3='rev';}$('#chips3').innerHTML=(PROG.m3d.mat?[['mat','🧱 Materiales']]:[]).concat([['rev','✏️ Revit'],['part','🎨 Partidas'],['av','📊 Avance'],['hoy','📅 Qué toca']]).map(([k,n])=>'<button class="chipf'+(modo3===k?' on':'')+'" data-modo3="'+k+'">'+n+'</button>').join('')+
   '<span class="sep-v"></span><button class="chipf'+(ocultos.has('cie')?' on':'')+'" data-acc="cielo3">'+(ocultos.has('cie')?'Mostrar cielo':'Quitar cielo')+'</button><button class="chipf'+(ocultos.has('est_sup')?' on':'')+'" data-acc="losa3">'+(ocultos.has('est_sup')?'Mostrar losa sup.':'Quitar losa sup.')+'</button>'+
   '<span class="sep-v"></span><button class="chipf" data-vista3="iso">Isométrica</button><button class="chipf" data-vista3="interior">Interior</button><button class="chipf" data-vista3="planta">Planta</button>';
   requestAnimationFrame(()=>{init3();pintar3();});}
@@ -3040,7 +3065,7 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-ac
   if(b.dataset.resp){estado.filtroG='resp:'+b.dataset.resp;estado._gScroll=false;cambiarVista('programa');return;}
   if(b.dataset.fprog!=null){estado.filtroG=b.dataset.fprog;renderPrograma();return;}
   if(b.dataset.escala){estado.escalaG=b.dataset.escala;estado._gScroll=false;renderPrograma();return;}
-  if(b.dataset.modo3){modo3=b.dataset.modo3;M3.forEach(m=>{const tr=transp(m.userData.el);m.material.transparent=tr<1;m.material.opacity=tr;});render3();return;}
+  if(b.dataset.modo3){modo3=b.dataset.modo3;M3.forEach(m=>{const tr=transp(m.userData.el),b=m.userData.mBase||m.material;b.transparent=tr<1;b.opacity=tr;});render3();return;}
   if(b.dataset.vista3){vista3(b.dataset.vista3);return;}
   if(b.dataset.capa){const k=b.dataset.capa;if(ocultos.has(k))ocultos.delete(k);else ocultos.add(k);pintar3();return;}
   if(b.dataset.fcompras!=null){estado.fCompras=b.dataset.fcompras;renderCompras();return;}
@@ -3069,7 +3094,7 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-ac
   else if(a==='tema'&&b.dataset.tid)alternarTema(b.dataset.tid);
   else if(a==='tema'){const o=document.documentElement.classList.toggle('oscuro');try{localStorage.setItem('tf_tema',o?'oscuro':'claro');}catch(_){}fondo3();pedirRender3();renderActual();}
   else if(a==='ver3d'){cerrarHoja();verTarea3(+b.dataset.t);}
-  else if(a==='todo3'){modo3='part';M3.forEach(m=>{const tr=transp(m.userData.el);m.material.transparent=tr<1;m.material.opacity=tr;});render3();}
+  else if(a==='todo3'){modo3='part';M3.forEach(m=>{const tr=transp(m.userData.el),b=m.userData.mBase||m.material;b.transparent=tr<1;b.opacity=tr;});render3();}
   else if(a==='cielo3'){if(ocultos.has('cie'))ocultos.delete('cie');else ocultos.add('cie');render3();}
   else if(a==='losa3'){if(ocultos.has('est_sup'))ocultos.delete('est_sup');else ocultos.add('est_sup');render3();}
   else if(a==='ley3'){estado.ley3=!estado.ley3;leyenda3();}
