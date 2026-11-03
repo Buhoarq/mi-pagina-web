@@ -971,5 +971,54 @@ function bind(){
 bind();
 
 </script>
+<script>
+/* FlujoPlan · bienvenida animada (03-11-2026, pedido de Renato): fondo azul, línea de balance, barras de producción y el logo.
+   Sale una sola vez al día en este teléfono, al abrir el primer módulo o la portada (todas comparten la marca 'fp_bienvenida'
+   porque están en el mismo sitio). Tocar la pantalla la salta; con "reducir movimiento" es un fundido corto.
+   © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
+(function(){
+  var hoy=(function(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);})();
+  try{if(localStorage.getItem('fp_bienvenida')===hoy)return;localStorage.setItem('fp_bienvenida',hoy);}catch(e){return;}
+  var LOGO='<rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/><path d="M545 820H705V1112H545Z"/><path d="M725 570H895V1112H725Z"/><path d="M915 720H1065V1112H915Z" opacity=".55"/><path d="M520 1112H1090V1150H520Z"/></g>';
+  var css='#fpBv{position:fixed;inset:0;z-index:2147483000;background:radial-gradient(120% 80% at 50% 38%,#2453B8 0%,#1C4192 38%,#0A1A44 100%);overflow:hidden;display:grid;place-items:center;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}'+
+    '#fpBv .g{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 75%);mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 75%)}'+
+    '#fpBv svg.l{position:absolute;inset:0;width:100%;height:100%;animation:fpAt .6s ease 1.55s forwards}'+
+    '#fpBv .e{stroke:rgba(255,255,255,.25);stroke-width:1}'+
+    '#fpBv .ln{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:fpTr 1.15s cubic-bezier(.6,.05,.25,1) forwards}'+
+    '#fpBv .pt{opacity:0;animation:fpAp .3s ease forwards}'+
+    '#fpBv .br{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);animation:fpSu .7s cubic-bezier(.2,.9,.3,1.2) forwards}'+
+    '#fpBv .c{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;z-index:2}'+
+    '#fpBv .lg{width:112px;height:112px;opacity:0;transform:scale(.55);filter:drop-shadow(0 18px 40px rgba(225,10,44,.45));animation:fpPop .75s cubic-bezier(.2,1.4,.4,1) 1.25s forwards}'+
+    '#fpBv .h{position:absolute;top:56px;left:50%;width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);opacity:0;animation:fpOn 1s ease-out 1.45s forwards}'+
+    '#fpBv .m{font-size:34px;font-weight:800;letter-spacing:-.02em;color:#fff;opacity:0;transform:translateY(14px);animation:fpEn .55s cubic-bezier(.2,.9,.3,1) 1.75s forwards}#fpBv .m span{color:#FF3B55}'+
+    '#fpBv .t{font-size:11px;color:rgba(226,232,240,.8);letter-spacing:.06em;padding:0 22px;text-align:center;opacity:0;transform:translateY(8px);animation:fpEn .55s ease 2s forwards}'+
+    '#fpBv .k{position:absolute;left:0;right:0;bottom:22%;display:flex;justify-content:center;gap:8px;z-index:2;opacity:0;animation:fpEn .5s ease .95s forwards,fpSa .35s ease 1.6s forwards}'+
+    '#fpBv .k span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 11px;font-size:11.5px;font-weight:700;color:#fff}'+
+    '#fpBv.fin{animation:fpFu .6s ease forwards}'+
+    '@keyframes fpTr{to{stroke-dashoffset:0}}@keyframes fpAp{to{opacity:1}}@keyframes fpSu{to{transform:scaleY(1)}}@keyframes fpAt{to{opacity:.28}}'+
+    '@keyframes fpPop{to{opacity:1;transform:scale(1)}}@keyframes fpOn{0%{opacity:1;box-shadow:0 0 0 0 rgba(255,255,255,.55)}100%{opacity:0;box-shadow:0 0 0 160px rgba(255,255,255,0)}}'+
+    '@keyframes fpEn{to{opacity:1;transform:none}}@keyframes fpSa{to{opacity:0;transform:translateY(-6px)}}@keyframes fpFu{to{opacity:0;transform:scale(1.04);visibility:hidden}}'+
+    '@media (prefers-reduced-motion:reduce){#fpBv *{animation-duration:.01s!important;animation-delay:0s!important}}';
+  var x0=36,x1=330,y0=600,y1=150,pisos=7,h='',i,k;
+  for(i=0;i<=pisos;i++){var y=y0-(y0-y1)*i/pisos;h+='<line class="e" x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'"/>';}
+  var P=[['#5CC8FF',0,.52],['#FFFFFF',.08,.62],['#93C5FD',.17,.74],['#FF3B55',.26,.86],['#A5F3FC',.36,.98]];
+  for(k=0;k<P.length;k++){var xa=x0+(x1-x0)*P[k][1],xb=x0+(x1-x0)*P[k][2],pts=[],L=0;
+    for(i=0;i<=pisos;i++){var t=i/pisos;pts.push([xa+(xb-xa)*t+Math.sin(i*1.7+k)*5,y0-(y0-y1)*t]);if(i)L+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);}
+    h+='<polyline class="ln" style="--l:'+Math.ceil(L)+';stroke:'+P[k][0]+';animation-delay:'+(k*.12)+'s" points="'+pts.map(function(q){return q[0].toFixed(1)+','+q[1].toFixed(1);}).join(' ')+'"/>';
+    var e=pts[pts.length-1];h+='<circle class="pt" cx="'+e[0]+'" cy="'+e[1]+'" r="4.5" fill="'+P[k][0]+'" style="animation-delay:'+(1+k*.12)+'s"/>';}
+  for(i=0;i<14;i++){var v=.35+.6*Math.abs(Math.sin(i*.9+1)),hh=70*v;h+='<rect class="br" x="'+(x0+6+i*21)+'" y="'+(690-hh)+'" width="14" height="'+hh+'" rx="3" fill="'+(i>10?'#FF3B55':'rgba(255,255,255,.55)')+'" style="animation-delay:'+(.25+i*.04)+'s"/>';}
+  function mostrar(){
+    var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+    var d=document.createElement('div');d.id='fpBv';d.setAttribute('role','presentation');
+    d.innerHTML='<div class="g"></div><svg class="l" viewBox="0 0 356 740" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+h+'</svg>'+
+      '<div class="c"><div class="h"></div><svg class="lg" viewBox="192 208 1218 1198" aria-label="FlujoPlan">'+LOGO+'</svg><div class="m">Flujo<span>Plan</span></div><div class="t">EL AVANCE DE TU OBRA, ELEMENTO POR ELEMENTO</div></div>'+
+      '<div class="k"><span>📈 Productividad</span><span>🧱 Avance</span><span>📅 Planificación</span></div>';
+    document.body.appendChild(d);
+    var listo=false;function cerrar(){if(listo)return;listo=true;d.classList.add('fin');setTimeout(function(){d.remove();st.remove();},650);}
+    d.addEventListener('click',cerrar);setTimeout(cerrar,2900);}
+  if(document.body)mostrar();else document.addEventListener('DOMContentLoaded',mostrar);
+})();
+
+</script>
 </body>
 </html>
