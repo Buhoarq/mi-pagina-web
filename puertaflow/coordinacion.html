@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.24 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.25 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -562,7 +562,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">Coordinación v0.24 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">Coordinación v0.25 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -987,7 +987,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.24 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.25 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 let TIPOSTAB={},TABSEL=null;   /* v0.21: tipos de tabique (TF en rojo tenue) y tabique tocado */
@@ -1082,11 +1082,23 @@ async function cargar(){progreso('Abriendo la planta de coordinación…');const
   NIVELES.forEach(n=>{n.rec.forEach(r=>{r.path=new Path2D();const q=r.p;let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(let i=0;i<q.length;i+=2){i?r.path.lineTo(q[i],q[i+1]):r.path.moveTo(q[i],q[i+1]);x0=Math.min(x0,q[i]);x1=Math.max(x1,q[i]);y0=Math.min(y0,q[i+1]);y1=Math.max(y1,q[i+1]);}r.path.closePath();r.w=x1-x0;r.h=y1-y0;});
     n.pue.forEach(p=>{p.nv=n.id;p.path=new Path2D();p.p.forEach(r=>{for(let i=0;i<r.length;i+=2)i?p.path.lineTo(r[i],r[i+1]):p.path.moveTo(r[i],r[i+1]);p.path.closePath();});p.rad=Math.max(45,Math.hypot(p.bb[2]-p.bb[0],p.bb[3]-p.bb[1])/2);PUE.set(p.g,p);});});
   progreso(null);}
-async function cargarEquipo(manual){try{const b=await descifrar(KC,await bajar('coordavance.enc',true));estado.base=b;await metaSet('base',b);combinar();renderTodo();if(manual)toast('Coordinación actualizada','ok');}
+async function cargarEquipo(manual){try{const b=await descifrar(KC,await bajar('coordavance.enc',true));estado.base=b;await metaSet('base',b);try{await liberarEspacio();}catch(_){}combinar();renderTodo();if(manual)toast('Coordinación actualizada','ok');}
   catch(e){if(manual)toast(navigator.onLine?'Todavía no hay tickets consolidados':'Sin conexión: se muestra lo último guardado');}}
 /* ---------------- tickets ---------------- */
+/* v0.25 (03-11-2026, "se quedó sin memoria, no deja subir más fotos"): las fotos de los tickets ya publicados por el coordinador
+   se borran del teléfono (quedan en coordfotos.enc del equipo) y ya no se reenvían; si el teléfono se llena, se libera y se reintenta. */
+async function liberarEspacio(){const ids=new Set(((estado.base&&estado.base.tickets)||[]).map(x=>x.id));let n=0;
+  for(const t of estado.local){if(!ids.has(t.id))continue;let cambio=!t.cons;t.cons=true;
+    for(const f of t.fotos||[])if(f.d){delete f.d;cambio=true;n++;}
+    if(cambio)try{await put('tickets',t);}catch(e){}}
+  return n;}
+const lleno=e=>e&&(e.name==='QuotaExceededError'||/quota|space|storage/i.test(String(e.message||e)));
 async function crearTicket(tipo,gs,extra){const t=Object.assign({id:uid(),tipo,rol:estado.rol,por:estado.persona,disp:estado.disp,ts:new Date().toISOString(),dia:hoyDia(),g:gs},extra||{});
-  estado.local.push(t);await put('tickets',t);combinar();return t;}
+  try{await put('tickets',t);}
+  catch(e){if(!lleno(e))throw e;const n=await liberarEspacio();
+    try{await put('tickets',t);toast('Se liberó espacio ('+n+' foto(s) ya publicadas) y se guardó el ticket','ok');}
+    catch(e2){toast('El teléfono no tiene espacio para guardar el ticket con fotos: envía tus tickets al coordinador y libera espacio en el teléfono','error');throw e2;}}
+  estado.local.push(t);combinar();return t;}
 function resumenPuertas(gs){const c={};gs.forEach(g=>{const p=PUE.get(g);if(p)c[p.t]=(c[p.t]||0)+1;});return Object.entries(c).map(([k,v])=>k+(v>1?' ×'+v:'')).join(', ');}
 function textoTicket(t){const ps=t.g.map(g=>PUE.get(g)).filter(Boolean);const nvs=[...new Set(ps.map(p=>corto(p.nv)))].join(', ');
   let s=TK[t.tipo].ic+' '+TK[t.tipo].n.toUpperCase()+'\n'+nvs+' · '+ps.length+' puerta'+(ps.length===1?'':'s')+': '+resumenPuertas(t.g);
@@ -1255,10 +1267,10 @@ async function confirmarTicket(tipo){const nota=($('#tkNota').value||'').trim();
   const t=await crearTicket(tipo,estado._tkGs,ex);estado.sel.clear();estado.selModo=false;cerrarHoja();renderTodo();preguntarEnvio(t);}
 function preguntarEnvio(t){const pen=pendientesEnvio();abrirHoja('<div class="hoja-titulo">'+TK[t.tipo].ic+' Ticket guardado</div><div class="hoja-sub">Quedó guardado en este teléfono. Para que el coordinador lo publique y el resto del equipo lo vea, envíale tu paquete (archivo + informe PDF con las fotos).</div>'+
   '<button class="btn principal grande" style="width:100%;margin-top:10px" data-acc="enviar">📤 Enviar ahora al coordinador · '+pen+' ticket'+(pen===1?'':'s')+'</button><button class="btn secundario" style="width:100%;margin-top:8px" data-acc="cerrar">Seguir trabajando y enviar después</button>');}
-/* ---------------- fotos comprimidas (≈1280 px, JPEG 70 %) ---------------- */
+/* ---------------- fotos comprimidas (v0.25: ≈1024 px, JPEG 62 %, ~40 % más livianas) ---------------- */
 async function comprimirFoto(file){const url=URL.createObjectURL(file);try{const img=await new Promise((ok,mal)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=mal;i.src=url;});
-  const k=Math.min(1,1280/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
-  c.getContext('2d').drawImage(img,0,0,c.width,c.height);return c.toDataURL('image/jpeg',0.7);}finally{URL.revokeObjectURL(url);}}
+  const k=Math.min(1,1024/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height);return c.toDataURL('image/jpeg',0.62);}finally{URL.revokeObjectURL(url);}}
 let FOTOS=null;
 async function fotosEquipo(){if(FOTOS)return FOTOS;try{FOTOS=(await descifrar(KC,await bajar('coordfotos.enc',true)))||{};}catch(e){FOTOS={};}return FOTOS;}
 async function fotoDe(id){for(const t of estado.local)for(const f of t.fotos||[])if(f.id===id&&f.d)return f.d;const F=await fotosEquipo();return F[id]||null;}
@@ -1362,7 +1374,7 @@ async function pdfHistorial(g){const p=PUE.get(g);if(!p)return;const i=info(g),t
   catch(e){progreso(null);toast('No se pudo armar el PDF: '+e.message,'error');}}
 const sumarDiasISO=(d,n)=>{const x=new Date(d+'T12:00:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);};
 /* ---------------- envío al coordinador ---------------- */
-async function exportar(){const mios=estado.local.filter(t=>t.por===estado.persona&&!t.recibido);if(!mios.length){toast('Todavía no tienes tickets');return;}
+async function exportar(){const mios=estado.local.filter(t=>t.por===estado.persona&&!t.recibido&&!(t.cons&&t.enviado));if(!mios.length){toast('Todavía no tienes tickets');return;}
   const d={app:'PuertaCoordHCQ',tipo:'tickets',ver:1,por:estado.persona,rol:estado.rol,disp:estado.disp,exportado:new Date().toISOString(),tickets:mios.map(t=>{const o=Object.assign({},t);delete o.enviado;return o;})};
   const ahora=new Date();const slug=(estado.persona||'persona').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Coord_PuertaFlow_'+slug+'_'+hoyDia()+'_'+String(ahora.getHours()).padStart(2,'0')+'h'+String(ahora.getMinutes()).padStart(2,'0')+'.json';
