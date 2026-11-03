@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>FachadaPlan v0.2 β · Hospital de Coquimbo</title>
+<title>FachadaPlan v0.5 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,17 +433,17 @@ html.oscuro #leyenda,html.oscuro .etiqueta-flotante{background:rgba(30,41,59,.95
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M500 520H1100V1100H500Z" opacity=".35"/><path d="M540 560H690V700H540ZM725 560H875V700H725ZM910 560H1060V700H910ZM540 740H690V880H540ZM725 740H875V880H725ZM910 740H1060V880H910ZM540 920H690V1060H540ZM910 920H1060V1060H910Z"/><path d="M725 920H875V1100H725Z"/><path d="M460 1100H1140V1140H460Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Fachada</span><span class="np2">Plan</span><span class="ver">v0.2 β</span></span>
+      <span class="brand-name"><span class="np">Fachada</span><span class="np2">Plan</span><span class="ver">v0.5 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Fachadas</span>
     </div>
   </div>
-  <a class="btn-icono" href="../obraflow/" aria-label="Portada" style="display:grid;place-items:center;text-decoration:none;font-size:18px">⌂</a>
+  <a id="btnFlujo" class="btn-icono" href="../obraflow/" aria-label="Ir a FlujoPlan" title="Volver a la portada FlujoPlan" style="display:grid;place-items:center;font-size:19px;text-decoration:none">🏗️</a>
 </header>
 <main id="contenido">
   <section id="vista-inicio" class="vista activa"><div class="contenedor">
     <div class="saludo" id="saludo"></div>
     <div class="stats"><div class="stat"><b id="statFa">—</b><span>alzados</span></div><div class="stat"><b id="statM2">—</b><span>m² de fachada (todas las capas)</span></div><div class="stat"><b id="statEl">—</b><span>elementos del modelo</span></div></div>
-    <p class="nota" style="margin:0 2px 12px">Estudio de fachadas: cada alzado se ve desde afuera, con los niveles y los ejes del edificio. Las fachadas de patios interiores van aparte de las exteriores.</p>
+    <p class="nota" style="margin:0 2px 12px">Cada alzado se ve desde afuera sobre la elevación de Revit. En ✅ Avance de terminación toca un paño (piso × ejes) y marca sus etapas; en 🧱 Capas ves los elementos del modelo.</p>
     <div id="listaFachadas"></div>
   </div></section>
   <section id="vista-alzado" class="vista">
@@ -458,7 +458,7 @@ html.oscuro #leyenda,html.oscuro .etiqueta-flotante{background:rgba(30,41,59,.95
   <button class="pestana" data-v="alzado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h16v17M8 8h3M13 8h3M8 12h3M13 12h3M10 21v-4h4v4"/></svg><span>Alzado</span></button>
   <button class="pestana" data-v="resumen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Resumen</span></button>
 </nav>
-<footer id="pie"><span class="marca">FachadaPlan</span> <span class="vpie">v0.2 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">FachadaPlan</span> <span class="vpie">v0.5 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso"><div class="acceso-caja">
   <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M500 520H1100V1100H500Z" opacity=".35"/><path d="M540 560H690V700H540ZM725 560H875V700H725ZM910 560H1060V700H910ZM540 740H690V880H540ZM725 740H875V880H725ZM910 740H1060V880H910ZM540 920H690V1060H540ZM910 920H1060V1060H910Z"/><path d="M725 920H875V1100H725Z"/><path d="M460 1100H1140V1140H460Z"/></g></svg></div>
   <h2><span style="color:#7C2D12">Fachada</span><span style="color:var(--ambar)">Plan</span></h2>
@@ -467,7 +467,7 @@ html.oscuro #leyenda,html.oscuro .etiqueta-flotante{background:rgba(30,41,59,.95
   <label class="etiqueta">Clave de acceso</label><input id="accPass" class="campo" type="password" placeholder="Clave entregada por Oficina Técnica" autocomplete="current-password">
   <button class="btn principal grande" id="accEntrar">Entrar</button>
   <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-  <p class="nota" style="margin-top:14px;font-size:10.5px">FachadaPlan · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+  <p class="nota" style="margin-top:14px;font-size:10.5px">FachadaPlan · © 2026 FlujoPlan<br>www.flujoplan.cl · @flujoplan</p>
 </div></div>
 <div id="velo"></div>
 <div id="hoja"><div class="asa"></div><div id="hojaContenido"></div></div>
@@ -481,7 +481,7 @@ html.oscuro #leyenda,html.oscuro .etiqueta-flotante{background:rgba(30,41,59,.95
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.2 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.5 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 const fmt0=n=>Math.round(n).toLocaleString('es-CL'),fmt1=n=>(Math.round(n*10)/10).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
@@ -514,14 +514,38 @@ async function claveDeTabiFlow(){try{if(indexedDB.databases){const ls=await inde
 /* ---------------- colores por tipo de elemento ---------------- */
 const FAM=[[/^VENTANA|^V[A-Z]{1,3}-/,'Ventanas','#7DD3FC'],[/^PUERTA|^P[A-Z]{1,3}-/,'Puertas','#0EA5E9'],[/^FHPL|^FVHPL|^HPL/,'Fachada ventilada HPL','#F59E0B'],
   [/^FEE/,'EIFS (revestimiento exterior)','#F5F5F4'],[/^ATF/,'Aislación de fachada','#FDE047'],[/^TIC|^RIC/,'Tabique / trasdosado fibrocemento','#CBD5E1'],
-  [/^RPA|^Panel Acero|^FVM|^Geoclad|^LPA/,'Paneles metálicos','#64748B'],[/^FMC|^MCor|^Panel Vidrio/,'Muro cortina','#A5F3FC'],[/^ME-|^EHM/,'Muro de hormigón','#A8A29E']];
+  [/^RPA|^Panel Acero|^FVM|^Geoclad|^LPA/,'Paneles metálicos','#64748B'],[/^FMC|^MCor|^Panel Vidrio|^Muro cortina/i,'Muro cortina','#A5F3FC'],
+  [/celos/i,'Celosías','#78716C'],[/EIFS/i,'EIFS (revestimiento exterior)','#F5F5F4'],[/^T\d/,'Tabiques','#CBD5E1'],[/^ME-|^EHM|H\.A\.|hormig/i,'Muro de hormigón','#A8A29E']];
 const PALABRA=[[/blanc/i,'#FAFAF9'],[/negr/i,'#27272A'],[/gris/i,'#9CA3AF'],[/castañ|madera/i,'#92400E'],[/azul/i,'#3B82F6'],[/verde/i,'#16A34A'],[/amarill/i,'#EAB308'],[/rojo/i,'#DC2626']];
 function famDe(t){for(const [rx,n,c] of FAM)if(rx.test(t))return {n,c};return {n:'Otros',c:'#D4D4D8'};}
 function colorDe(e){const f=famDe(e.t);if(/^VENTANA|^PUERTA|^V[A-Z]{1,3}-|^P[A-Z]{1,3}-|^ATF|^TIC|^RIC/.test(e.t))return f.c;for(const [rx,c] of PALABRA)if(rx.test(e.tn))return c;return f.c;}
 /* ---------------- estado ---------------- */
 let CLAVE=null,DAT=null;const estado={persona:'',vista:'inicio',fa:null,ocultos:new Set(),sel:null};
 const V={s:1,tx:0,ty:0};let cv,ctx,dpr=1;
-async function cargar(){progreso('Abriendo las fachadas…');DAT=await descifrar(CLAVE,await bajar('fachadas.enc',true));
+/* v0.3 (31-10-2026, pedido de Renato: "la idea de ver la fachada es darle avance… básicamente terminación"): paños de terminación por piso × entre ejes
+   (f.pa: {id, r:[u0,z0,u1,z1] cm, A m² opacos, sis, piso, ej}) con etapas por sistema; se marca tocando el paño (modo ✅ Avance). Registro local en meta 'eventos';
+   📤 Enviar mi avance comparte Avance_FachadaFlow_<persona>_<fecha>.json para el coordinador. */
+const SIS_FA={eifs:{n:'EIFS',et:[['ais','Placa aislante'],['bas','Base coat y malla'],['ter','Terminación']],p:[40,35,25]},
+  est:{n:'Estuco y pintura',et:[['estu','Estuco / reparación'],['pin','Pintura']],p:[55,45]},
+  mc:{n:'Muro cortina',et:[['mce','Estructura y anclajes'],['mcv','Paneles y vidrios'],['mcs','Sellos']],p:[35,45,20]},
+  cel:{n:'Celosía',et:[['cei','Instalación']],p:[100]}};
+const COL_ET=['#F59E0B','#2563EB','#16A34A'];
+let EVF=[];
+function avPa(id){const m={};EVF.filter(e=>e.pa===id&&!e.borrado).sort((a,b)=>a.ts.localeCompare(b.ts)).forEach(e=>{m[e.et]=e.v;});return m;}
+function pctPa(p){const S=SIS_FA[p.sis]||SIS_FA.est,a=avPa(p.id);return S.et.reduce((s,[k],i)=>s+(a[k]||0)*S.p[i],0)/100;}
+function etapaPa(p){const S=SIS_FA[p.sis]||SIS_FA.est,a=avPa(p.id);let r=-1;S.et.forEach(([k],i)=>{if((a[k]||0)>=1)r=i;});return r;}
+async function marcarPa(p,et,v){const e={id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),pa:p.id,fa:estado.fa.id,et,v,dia:new Date().toISOString().slice(0,10),ts:new Date().toISOString(),por:estado.persona};EVF.push(e);await metaSet('eventos',EVF);}
+function fichaPa(p){const S=SIS_FA[p.sis]||SIS_FA.est,a=avPa(p.id);estado.selPa=p;render();
+  abrirHoja('<h2 style="font-size:19px">🧱 Paño '+escapar(p.id)+' · '+escapar(S.n)+'</h2><p class="nota">'+escapar(p.piso)+(p.ej?' · ejes '+escapar(p.ej):'')+' · <b>'+fmt1(p.A)+' m²</b> de muro (sin vanos) · avance '+Math.round(pctPa(p)*100)+'%</p>'+
+    S.et.map(([k,n],i)=>'<div class="tarjeta" style="padding:10px 12px;margin:8px 0"><b>'+(i+1)+'. '+escapar(n)+'</b> <small class="nota">'+S.p[i]+'% del paño</small><div style="display:flex;gap:6px;margin-top:6px">'+
+      [0,0.25,0.5,0.75,1].map(v=>'<button class="btn '+((a[k]||0)===v?'principal':'secundario')+'" style="flex:1;padding:8px 0;min-width:0" data-pa="'+escapar(p.id)+'" data-et="'+k+'" data-v="'+v+'">'+(v*100)+'%</button>').join('')+'</div></div>').join('')+
+    '<p class="nota" style="font-size:11px">Queda en este teléfono con tu nombre. Envíalo al coordinador con 📤 Enviar mi avance (Fachadas).</p>');
+  $$('#hojaContenido [data-pa]').forEach(b=>b.onclick=async()=>{await marcarPa(p,b.dataset.et,+b.dataset.v);fichaPa(p);});}
+async function enviarAvanceFa(){const mios=EVF.filter(e=>e.por===estado.persona);if(!mios.length){toast('Aún no marcas avance de fachadas');return;}
+  const d={app:'FachadaFlowHCQ',tipo:'avance',ver:1,por:estado.persona,exportado:new Date().toISOString(),eventos:mios};const n='Avance_FachadaFlow_'+estado.persona.replace(/\W+/g,'_')+'_'+new Date().toISOString().slice(0,10)+'.json';
+  const bl=new Blob([JSON.stringify(d)],{type:'application/json'});try{const fl=new File([bl],n,{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[fl]})){await navigator.share({files:[fl],title:'Avance de fachadas'});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+  const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000);}
+async function cargar(){progreso('Abriendo las fachadas…');DAT=await descifrar(CLAVE,await bajar('fachadas.enc',true));if(typeof FONDO!=='undefined'&&1)FONDO.cargar(CLAVE,()=>render());
   DAT.fachadas.forEach(f=>{f.A=f.el.reduce((a,e)=>a+e.A,0);f.el.forEach(e=>{e.fam=famDe(e.t).n;e.col=colorDe(e);let x0=1e12,y0=1e12,x1=-1e12,y1=-1e12;e.path=new Path2D();
     e.p.forEach(r=>{for(let i=0;i<r.length;i+=2){const x=r[i],y=f.alto-r[i+1];if(x<x0)x0=x;if(y<y0)y0=y;if(x>x1)x1=x;if(y>y1)y1=y;i?e.path.lineTo(x,y):e.path.moveTo(x,y);}e.path.closePath();});e.bb=[x0,y0,x1,y1];});});
   progreso(null);}
@@ -532,7 +556,7 @@ function renderInicio(){const nom=(estado.persona||'').trim().split(/\s+/)[0];co
   const eds=[...new Set(DAT.fachadas.map(f=>f.ed))];const tot=DAT.fachadas.reduce((a,f)=>a+f.A,0);
   $('#statFa').textContent=DAT.fachadas.length;$('#statM2').textContent=fmt0(tot);$('#statEl').textContent=fmt0(DAT.fachadas.reduce((a,f)=>a+f.el.length,0));
   $('#listaFachadas').innerHTML=eds.map(ed=>{const fs=DAT.fachadas.filter(f=>f.ed===ed);const ex=fs.filter(f=>f.tipo==='Exterior'),pa=fs.filter(f=>f.tipo!=='Exterior');
-    const fila=f=>'<button class="fa-fila" data-fa="'+f.id+'"><b>'+escapar(nombreFa(f))+'</b><small>'+fmt0(f.A)+' m² · '+fmt0(f.el.length)+' elementos · '+fmt0(f.ancho/100)+' × '+fmt0(f.alto/100)+' m</small></button>';
+    const fila=f=>'<button class="fa-fila" data-fa="'+f.id+'"><b>'+escapar(nombreFa(f))+'</b><small>'+(f.pa&&f.pa.length?'✅ '+Math.round(f.pa.reduce((s,p)=>s+p.A*pctPa(p),0)/Math.max(1,f.pa.reduce((s,p)=>s+p.A,0))*100)+'% terminación · ':'')+fmt0(f.A)+' m² · '+fmt0(f.el.length)+' elementos · '+fmt0(f.ancho/100)+' × '+fmt0(f.alto/100)+' m</small></button>';
     return '<div class="tarjeta"><h3>🏢 '+escapar(ed)+'</h3>'+(ex.length?'<p class="eyebrow">Fachadas exteriores</p>'+ex.map(fila).join(''):'')+(pa.length?'<p class="eyebrow" style="margin-top:10px">Fachadas interiores (patios)</p>'+pa.map(fila).join(''):'')+'</div>';}).join('');}
 /* ---------------- alzado ---------------- */
 function ajustarLienzo(){const w=$('#lienzoWrap');dpr=window.devicePixelRatio||1;cv.width=w.clientWidth*dpr;cv.height=w.clientHeight*dpr;cv.style.width=w.clientWidth+'px';cv.style.height=w.clientHeight+'px';}
@@ -541,6 +565,8 @@ function abrirFachada(id){estado.fa=DAT.fachadas.find(f=>f.id===id);estado.sel=n
   $('#tituloFa').textContent=estado.fa.ed+' · '+nombreFa(estado.fa);$('#subFa').textContent=fmt0(estado.fa.A)+' m² · '+fmt0(estado.fa.el.length)+' elementos · '+fmt0(estado.fa.ancho/100)+' × '+fmt0(estado.fa.alto/100)+' m';}
 function render(){const f=estado.fa;if(!f||!ctx)return;const W=cv.width,H=cv.height;const osc=document.documentElement.classList.contains('oscuro');
   ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=osc?'#0F172A':'#EEF2F7';ctx.fillRect(0,0,W,H);ctx.setTransform(V.s*dpr,0,0,V.s*dpr,V.tx*dpr,V.ty*dpr);const px=1/V.s;
+  const _f=typeof FONDO!=='undefined'&&FONDO.dibujar(ctx,f.id,-V.tx/V.s,-V.ty/V.s,-V.tx/V.s+W/dpr/V.s,-V.ty/V.s+H/dpr/V.s);   /* elevación de la lámina de Revit de fondo */
+  if(!_f){
   /* niveles */
   ctx.font='700 '+(11*px)+'px Inter,system-ui,sans-serif';ctx.textBaseline='bottom';
   f.niveles.forEach(([n,z])=>{const y=f.alto-z;ctx.strokeStyle=osc?'rgba(148,163,184,.35)':'rgba(71,85,105,.35)';ctx.lineWidth=px;ctx.setLineDash([6*px,4*px]);ctx.beginPath();ctx.moveTo(-200,y);ctx.lineTo(f.ancho+200,y);ctx.stroke();ctx.setLineDash([]);
@@ -548,18 +574,34 @@ function render(){const f=estado.fa;if(!f||!ctx)return;const W=cv.width,H=cv.hei
   /* ejes */
   ctx.textAlign='center';f.ejes.forEach(([u,n])=>{ctx.strokeStyle='rgba(220,38,38,.28)';ctx.lineWidth=px;ctx.setLineDash([10*px,6*px]);ctx.beginPath();ctx.moveTo(u,-150);ctx.lineTo(u,f.alto+60);ctx.stroke();ctx.setLineDash([]);
     const r=9*px;ctx.fillStyle=osc?'#1E293B':'#fff';ctx.strokeStyle='#DC2626';ctx.beginPath();ctx.arc(u,-150-r,r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#DC2626';ctx.textBaseline='middle';ctx.font='800 '+(9*px)+'px Inter,system-ui';ctx.fillText(n,u,-150-r);});
+  }
   /* suelo */
+  if(!_f){
   ctx.strokeStyle=osc?'#64748B':'#475569';ctx.lineWidth=2*px;ctx.beginPath();ctx.moveTo(-200,f.alto);ctx.lineTo(f.ancho+200,f.alto);ctx.stroke();
-  /* elementos (de atrás hacia adelante) */
+  }
+  /* elementos (de atrás hacia adelante); sobre la lámina, teñidos con 'multiply' para que se lean sus líneas */
   const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+W/dpr/V.s,vy1=vy0+H/dpr/V.s;
   for(const e of f.el){if(estado.ocultos.has(e.fam))continue;const b=e.bb;if(b[2]<vx0||b[0]>vx1||b[3]<vy0||b[1]>vy1)continue;
-    ctx.fillStyle=e.col;ctx.globalAlpha=/Ventanas|Muro cortina/.test(e.fam)?.85:1;ctx.fill(e.path,'evenodd');ctx.globalAlpha=1;
-    ctx.strokeStyle=osc?'rgba(15,23,42,.6)':'rgba(51,65,85,.55)';ctx.lineWidth=.7*px;ctx.stroke(e.path);}
+    ctx.fillStyle=e.col;ctx.globalAlpha=_f?.25:(/Ventanas|Muro cortina/.test(e.fam)?.85:1);ctx.fill(e.path,'evenodd');ctx.globalAlpha=1;
+    if(!_f){ctx.strokeStyle=osc?'rgba(15,23,42,.6)':'rgba(51,65,85,.55)';ctx.lineWidth=.7*px;ctx.stroke(e.path);}}
+  ctx.globalCompositeOperation='source-over';
   if(estado.sel){ctx.strokeStyle='#E11D48';ctx.lineWidth=3*px;ctx.stroke(estado.sel.path);}
+  if(estado.modoFa==='av'&&f.pa){for(const p of f.pa){const [u0,z0,u1,z1]=p.r,y0=f.alto-z1,h=z1-z0;const e=etapaPa(p),pc=pctPa(p);
+      ctx.fillStyle=pc>=1?'#16A34A':e>=0?COL_ET[Math.min(e,2)]:pc>0?'#FDE68A':'#E2E8F0';ctx.globalAlpha=pc>0?0.45:0.18;ctx.fillRect(u0,y0,u1-u0,h);}
+    ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.lineWidth=1.4*px;ctx.strokeStyle='#1C4192';ctx.setLineDash([6*px,4*px]);
+    f.pa.forEach(p=>{const [u0,z0,u1,z1]=p.r;ctx.strokeRect(u0,f.alto-z1,u1-u0,z1-z0);});ctx.setLineDash([]);
+    if(V.s*100>12){ctx.font='800 '+(11*px)+'px Inter,system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      f.pa.forEach(p=>{const [u0,z0,u1,z1]=p.r;const t=Math.round(pctPa(p)*100)+'%';const x=(u0+u1)/2,y=f.alto-(z0+z1)/2;ctx.lineWidth=3*px;ctx.strokeStyle='#fff';ctx.strokeText(t,x,y);ctx.fillStyle='#0F172A';ctx.fillText(t,x,y);});}
+    if(estado.selPa){const [u0,z0,u1,z1]=estado.selPa.r;ctx.strokeStyle='#E11D48';ctx.lineWidth=3*px;ctx.strokeRect(u0,f.alto-z1,u1-u0,z1-z0);}}
   $('#etqFlot').innerHTML='<b>'+escapar(nombreFa(f))+'</b> · 1 m = '+fmt0(V.s*100)+' px';}
-function renderLeyenda(){const f=estado.fa;const m=new Map();f.el.forEach(e=>{const o=m.get(e.fam)||{A:0,n:0,c:famDe(e.t).c};o.A+=e.A;o.n++;m.set(e.fam,o);});
+function renderLeyenda(){const f=estado.fa;if(estado.modoFa==='av'){const L=f.pa||[];const A=L.reduce((s,p)=>s+p.A,0),Ah=L.reduce((s,p)=>s+p.A*pctPa(p),0);
+    $('#leyenda').innerHTML='<button class="lg" data-modo="capas">🧱 Ver capas</button><p class="nota" style="margin:4px 2px">✅ <b>Avance de terminación</b> · '+Math.round(A?Ah/A*100:0)+'% de '+fmt0(A)+' m²</p>'+
+      [['#E2E8F0','Sin partir'],['#F59E0B','1ª etapa'],['#2563EB','2ª etapa'],['#16A34A','Terminado']].map(([c,n])=>'<span class="lg"><i style="background:'+c+'"></i>'+n+'</span>').join('')+
+      '<p class="nota" style="margin:4px 2px 0;font-size:10px">Toca un paño (piso × ejes) para marcar sus etapas.</p><button class="lg" data-env="1">📤 Enviar mi avance</button>';
+    $('#leyenda [data-modo]').onclick=()=>{estado.modoFa='capas';renderLeyenda();render();};$('#leyenda [data-env]').onclick=enviarAvanceFa;return;}const m=new Map();f.el.forEach(e=>{const o=m.get(e.fam)||{A:0,n:0,c:famDe(e.t).c};o.A+=e.A;o.n++;m.set(e.fam,o);});
   $('#leyenda').innerHTML=[...m.entries()].sort((a,b)=>b[1].A-a[1].A).map(([k,o])=>'<button class="lg'+(estado.ocultos.has(k)?' off':'')+'" data-fam="'+escapar(k)+'"><i style="background:'+o.c+'"></i>'+escapar(k)+'<small>'+fmt0(o.A)+' m²</small></button>').join('')+
-    '<p class="nota" style="margin:4px 2px 0;font-size:10px">Toca un tipo para mostrarlo u ocultarlo (ver las capas de atrás).</p>';
+    '<p class="nota" style="margin:4px 2px 0;font-size:10px">Toca un tipo para mostrarlo u ocultarlo (ver las capas de atrás).</p>'+(f.pa&&f.pa.length?'<button class="lg" data-modo="av" style="font-weight:800">✅ Avance de terminación</button>':'');
+  if($('#leyenda [data-modo]'))$('#leyenda [data-modo]').onclick=()=>{estado.modoFa='av';renderLeyenda();render();};
   $$('#leyenda [data-fam]').forEach(b=>b.onclick=()=>{const k=b.dataset.fam;estado.ocultos.has(k)?estado.ocultos.delete(k):estado.ocultos.add(k);renderLeyenda();render();});}
 function elementoEn(sx,sy){const f=estado.fa;const x=(sx-V.tx)/V.s,y=(sy-V.ty)/V.s;let best=null;
   for(let i=f.el.length-1;i>=0;i--){const e=f.el[i];if(estado.ocultos.has(e.fam))continue;const b=e.bb;if(x<b[0]||x>b[2]||y<b[1]||y>b[3])continue;if(ctx.isPointInPath(e.path,x*V.s*dpr+V.tx*dpr,y*V.s*dpr+V.ty*dpr,'evenodd')){best=e;break;}}return best;}
@@ -575,7 +617,7 @@ function initGestos(){const w=$('#lienzoWrap');const P=new Map();let g=null;
     if(g.t==='uno'){const p=xy(e);const dx=p[0]-g.p0[0],dy=p[1]-g.p0[1];if(Math.hypot(dx,dy)>4)g.mov=true;V.tx=g.tx+dx;V.ty=g.ty+dy;render();}
     else if(g.t==='dos'&&P.size===2){const [a,b]=[...P.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);const s=Math.max(.002,Math.min(3,g.s0*d/g.d0));const c=[(a[0]+b[0])/2,(a[1]+b[1])/2];
       const wx=(g.c[0]-g.tx)/g.s0,wy=(g.c[1]-g.ty)/g.s0;V.s=s;V.tx=c[0]-wx*s;V.ty=c[1]-wy*s;render();}});
-  const fin=e=>{if(g&&g.t==='uno'&&!g.mov&&P.size===1){const p=xy(e);const el=elementoEn(p[0],p[1]);if(el)ficha(el);else{estado.sel=null;render();}}P.delete(e.pointerId);if(P.size===0)g=null;};
+  const fin=e=>{if(g&&g.t==='uno'&&!g.mov&&P.size===1){const p=xy(e);if(estado.modoFa==='av'&&estado.fa&&estado.fa.pa){const x=(p[0]-V.tx)/V.s,z=estado.fa.alto-(p[1]-V.ty)/V.s;const pa=estado.fa.pa.find(q=>x>=q.r[0]&&x<=q.r[2]&&z>=q.r[1]&&z<=q.r[3]);if(pa)fichaPa(pa);}else{const el=elementoEn(p[0],p[1]);if(el)ficha(el);else{estado.sel=null;render();}}}P.delete(e.pointerId);if(P.size===0)g=null;};
   w.addEventListener('pointerup',fin);w.addEventListener('pointercancel',e=>{P.delete(e.pointerId);g=null;});
   w.addEventListener('wheel',e=>{e.preventDefault();const p=xy(e);const s=Math.max(.002,Math.min(3,V.s*(e.deltaY<0?1.15:1/1.15)));const wx=(p[0]-V.tx)/V.s,wy=(p[1]-V.ty)/V.s;V.s=s;V.tx=p[0]-wx*s;V.ty=p[1]-wy*s;render();},{passive:false});}
 function zoom(k){const w=$('#lienzoWrap');const p=[w.clientWidth/2,w.clientHeight/2];const s=Math.max(.002,Math.min(3,V.s*k));const wx=(p[0]-V.tx)/V.s,wy=(p[1]-V.ty)/V.s;V.s=s;V.tx=p[0]-wx*s;V.ty=p[1]-wy*s;render();}
@@ -587,7 +629,7 @@ function renderResumen(){const m=new Map();DAT.fachadas.forEach(f=>f.el.forEach(
     '<p class="nota" style="margin-top:8px">m² medidos en el alzado (silueta de cada elemento vista de frente). Las capas se superponen: tabique, aislación y revestimiento de un mismo paño suman cada uno su superficie.</p>';}
 /* ---------------- vistas y arranque ---------------- */
 function cambiarVista(v){estado.vista=v;$$('.vista').forEach(s=>s.classList.toggle('activa',s.id==='vista-'+v));$$('.pestana').forEach(b=>b.classList.toggle('activa',b.dataset.v===v));
-  if(v==='alzado'&&!estado.fa&&DAT)abrirFachada(DAT.fachadas.find(f=>f.ed==='Edificio principal'&&f.tipo==='Exterior').id);
+  if(v==='alzado'&&!estado.fa&&DAT)abrirFachada((DAT.fachadas.find(f=>f.ed==='Edificio principal'&&f.tipo==='Exterior')||DAT.fachadas[0]).id);
   if(v==='alzado')requestAnimationFrame(()=>{ajustarLienzo();render();});if(v==='resumen')renderResumen();}
 function mostrarAcceso(){$('#acceso').classList.add('visible');return new Promise(res=>{const go=async()=>{const pass=$('#accPass').value,nom=$('#accNombre').value.trim();
   if(nom.length<2){$('#accesoEstado').textContent='Escribe tu nombre';return;}$('#accesoEstado').textContent='Verificando…';
@@ -601,6 +643,7 @@ async function iniciar(){try{if(localStorage.getItem('tf_tema')==='oscuro')docum
   if(!key||!estado.persona){if(estado.persona)$('#accNombre').value=estado.persona;key=await mostrarAcceso();}
   CLAVE=key;try{localStorage.setItem('obraflow_nombre',estado.persona);}catch(_){}
   try{await cargar();}catch(e){progreso(null);toast('No se pudo abrir el modelo: '+e.message,'error');return;}
+  EVF=(await metaGet('eventos'))||[];if(DAT.fachadas.some(f=>f.pa&&f.pa.length))estado.modoFa='av';
   $('#subMarca').textContent=OBRA+' · '+estado.persona;renderInicio();}
 window.addEventListener('DOMContentLoaded',()=>{cv=$('#lienzo');ctx=cv.getContext('2d');initGestos();
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#velo').onclick=cerrarHoja;

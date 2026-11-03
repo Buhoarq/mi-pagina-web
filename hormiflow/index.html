@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>HormiPlan v0.13 β · Hospital de Coquimbo</title>
+<title>HormiPlan v0.15 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -537,11 +537,12 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M801 560L1010 680L801 800L592 680Z" opacity=".35"/><path d="M592 680L801 800V1040L592 920Z"/><path d="M1010 680L801 800V1040L1010 920Z" opacity=".7"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Plan</span><span class="ver">v0.13 β</span></span>
+      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Plan</span><span class="ver">v0.15 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
   <button id="chipJornada" class="chip boton acento">📅 —</button>
+  <a id="btnFlujo" class="btn-icono" href="../obraflow/" aria-label="Ir a FlujoPlan" title="Volver a la portada FlujoPlan" style="display:grid;place-items:center;font-size:19px;text-decoration:none">🏗️</a>
   <button id="btnMenu" class="btn-icono" aria-label="Menú"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>
 </header>
 <main id="contenido">
@@ -551,7 +552,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#475569"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
-          <div><span class="eyebrow">HormiPlan v0.13 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
+          <div><span class="eyebrow">HormiPlan v0.15 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
         </div>
       </div>
       <div class="tarjeta"><h3 style="margin-bottom:8px">🏢 Edificio</h3><div class="barra-chips" id="chipsEdifIni" style="flex-wrap:wrap"></div></div>
@@ -606,7 +607,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">HormiPlan</span> <span class="vpie">v0.13 β</span> · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b> · Todos los derechos reservados · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">HormiPlan</span> <span class="vpie">v0.15 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M801 560L1010 680L801 800L592 680Z" opacity=".35"/><path d="M592 680L801 800V1040L592 920Z"/><path d="M1010 680L801 800V1040L1010 920Z" opacity=".7"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -618,7 +619,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
     <input id="accPass" class="campo" type="password" placeholder="Clave entregada por Oficina Técnica" autocomplete="current-password">
     <button class="btn principal grande" id="accEntrar">Entrar</button>
     <p class="nota" id="accesoEstado" style="margin-top:10px;min-height:18px;color:var(--peligro-osc);font-weight:700"></p>
-    <p class="nota" style="margin-top:14px;font-size:10.5px">HormiPlan · FlujoPlan · © 2026 <b>Renato Martínez Palominos</b><br>Todos los derechos reservados</p>
+    <p class="nota" style="margin-top:14px;font-size:10.5px">HormiPlan · © 2026 FlujoPlan<br>www.flujoplan.cl · @flujoplan</p>
   </div>
 </div>
 <div id="velo"></div>
@@ -2323,7 +2324,7 @@ THREE.OrbitControls=OrbitControls;
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.13 β',MODELO_REV=6;let OBRA='Hospital de Coquimbo';
+const APP_VER='v0.15 β',MODELO_REV=6;let OBRA='Hospital de Coquimbo';
 /* v0.5: un archivo cifrado por edificio; el elegido se recuerda en el teléfono (cambiar = recargar) */
 /* v0.10: selección múltiple como en TabiPlan (☑ Varios: tocar o arrastrar un dedo agrega elementos; dos dedos mueven y hacen zoom) */
 /* v0.9: avance por planta (cimientos, radier, losas, muros) y por elevación de ejes además del 3D; protocolos de calidad con fotos comprimidas e informe PDF */
@@ -2715,7 +2716,7 @@ function renderCoord(){if(!MOD)return;const C=$('#coordCont');if(!C)return;
 const PW=297,PH=210,PM=12;
 function pdfBase(){const {jsPDF}=window.jspdf;return new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});}
 function pdfCab(doc,tit,sub){doc.setFillColor(71,85,105);doc.rect(0,0,PW,16,'F');doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(14);doc.text(tit,PM,10.5);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text(sub,PW-PM,10.5,{align:'right'});doc.setTextColor(30,41,59);}
-function pdfPie(doc){const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(100,116,139);doc.text('HormiPlan '+APP_VER+' · FlujoPlan · © 2026 Renato Martínez Palominos · Todos los derechos reservados · '+OBRA,PM,PH-6);doc.text('Pág. '+i+' de '+n,PW-PM,PH-6,{align:'right'});}}
+function pdfPie(doc){const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(100,116,139);doc.text('HormiPlan '+APP_VER+' · © 2026 FlujoPlan · www.flujoplan.cl · @flujoplan · '+OBRA,PM,PH-6);doc.text('Pág. '+i+' de '+n,PW-PM,PH-6,{align:'right'});}}
 const rgb=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
 function pdfTit(doc,y,t){doc.setFont('helvetica','bold');doc.setFontSize(11.5);doc.setTextColor(30,41,59);doc.text(t,PM,y);return y+5;}
 function pdfNota(doc,y,t){doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(100,116,139);doc.text(t,PM,y);doc.setTextColor(30,41,59);return y+4.5;}
@@ -2824,9 +2825,12 @@ function tituloVista(){if(estado.vVista==='planta'){const p=PRESETS.find(x=>x.id
   if(estado.vVista==='elev'&&estado.elev)return '<b style="color:var(--primario-osc)">📐 Elevación · '+escapar(estado.elev.t)+'</b><br>';return '';}
 /* giro de la planta: los ejes quedan horizontales y verticales en la pantalla */
 function giroPlanta(){const E=MOD.ejes||[];if(!E.length)return 0;const v=E.map(e=>{let a=Math.atan2(e.p[1][1]-e.p[0][1],e.p[1][0]-e.p[0][0]);a=((a%(Math.PI/2))+Math.PI/2)%(Math.PI/2);if(a>Math.PI/4)a-=Math.PI/2;return a;}).sort((x,y)=>x-y);return v[Math.floor(v.length/2)];}
+/* Vista 4D (Melody): el botón aparece si la obra tiene programa de obra gruesa en Melody */
+try{fetch('../melodyflow/programa.enc',{method:'HEAD',cache:'no-store'}).then(r=>{if(r.ok){window.HAY_4D=true;try{chipsVista();}catch(e){}}}).catch(()=>{});}catch(e){}
 function fijarElev(L){estado.elev=L;ELEV_SET=new Set(MOD.el.filter(e=>enLinea(e,L)).map(e=>e.g));}
 function chipsVista(){const V=$('#chipsVista'),S=$('#chipsSub');if(!V||!MOD)return;const vv=estado.vVista;
   V.innerHTML=[['3d','🧊 3D'],['planta','🗺 Planta'],['elev','📐 Elevación']].map(([k,n])=>'<button class="chipf'+(vv===k?' on':'')+'" data-vv="'+k+'">'+n+'</button>').join('')+
+    (window.HAY_4D?'<a class="chipf" href="../melodyflow/?4d" title="Simulación 4D de la obra gruesa con el programa de Melody" style="text-decoration:none;background:#D7001F;border-color:#D7001F;color:#fff">🎬 Vista 4D</a>':'')+
     (vv==='elev'?'<span class="sep-v"></span><button class="chipf" data-lado="1">⇄ Ver del otro lado</button>':'');
   if(vv==='planta')S.innerHTML=PRESETS.map(p=>'<button class="chipf'+(estado.planta===p.id?' on':'')+'" data-pl="'+p.id+'">'+escapar(p.n)+'</button>').join('');
   else if(vv==='elev'){const E=ejesOrd();S.innerHTML=(E.length?E.map(({e,i})=>'<button class="chipf'+(estado.elev&&estado.elev.i===i?' on':'')+'" data-ej="'+i+'">Eje '+escapar(e.t)+'</button>').join(''):'<span class="nota">Este edificio no trae ejes: elige un muro en 3D y toca 📐</span>')+
@@ -3013,7 +3017,7 @@ function hojaBorrar(){const n=estado.local.filter(e=>!e.borrado).length,p=pendie
   $('#btnBorrarOk').onclick=async()=>{await vaciarLocal();cerrarHoja();toast('Avances de este teléfono borrados','ok');};}
 function chipsEdificio(){return EDIFICIOS.map(x=>'<button class="chipf'+(x.id===ED.id?' on':'')+'" data-edif="'+x.id+'">🏢 '+escapar(x.n)+'</button>').join('');}
 function cambiarEdificio(id){if(id===ED.id)return;try{localStorage.setItem('hf_edificio',id);}catch(e){}const x=EDIFICIOS.find(e=>e.id===id);toast('Abriendo '+(x?x.n:id)+'…');setTimeout(()=>location.reload(),300);}
-function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">HormiPlan '+APP_VER+' · '+OBRA+' · por Renato Martínez Palominos</p>'+
+function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">HormiPlan '+APP_VER+' · '+OBRA+' · www.flujoplan.cl · @flujoplan</p>'+
   '<p class="nota" style="margin:2px 0 4px">Edificio</p><div class="barra-chips" style="flex-wrap:wrap;margin-bottom:8px">'+chipsEdificio()+'</div>'+
   '<button class="menu-item" data-acc="enviar">📤 Enviar mi avance al coordinador</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
   '<button class="menu-item" data-inf="1">📄 Informe Last Planner (PDF)</button><button class="menu-item" data-pinf="1">🧾 Informe de protocolos de calidad (PDF)</button><button class="menu-item" data-ver="1">👁 Transparencia del modelo</button>'+
