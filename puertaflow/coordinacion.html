@@ -510,7 +510,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.29 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.30 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -562,7 +562,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">Coordinación v0.29 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">Coordinación v0.30 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -987,7 +987,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.29 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.30 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 let TIPOSTAB={},TABSEL=null;   /* v0.21: tipos de tabique (TF en rojo tenue) y tabique tocado */
@@ -1003,13 +1003,13 @@ const RANGO={sin:0,prog:1,tr1:2,des:3,pic:4,lib:5,inst:6,obs:6,ok:7};
 const COND={pic:'Solo picar sobrelosa',pyd:'Picar sobrelosa y desarmar tabique'};
 const TK={prog:{n:'Solicitar trazado',c:'Solicitar',ic:'📍'},tr1:{n:'Trazo inicial hecho (pedir picado)',c:'Trazo inicial',ic:'📐'},des:{n:'Tabique desarmado (pedir picado)',c:'Desarmado',ic:'🧱'},cond:{n:'Condición del frente',c:'Condición',ic:'🏷'},
   pic:{n:'Picado listo (pedir retrazado)',c:'Picado listo',ic:'🔨'},lib:{n:'Frente liberado (retrazo listo)',c:'Liberar frente',ic:'✅'},inst:{n:'Refuerzo instalado (pedir recepción)',c:'Instalado',ic:'🔩'},
-  ok:{n:'Refuerzo recibido conforme',c:'Recibir',ic:'✔'},obs:{n:'Refuerzo observado',c:'Observar',ic:'⚠'},prob:{n:'Problema en el frente',c:'Problema',ic:'🚧'},rdi:{n:'Interferencia para RDI',c:'Interferencia',ic:'📸'},sin:{n:'Volver a «sin programar»',c:'Reiniciar',ic:'↩'}};
+  ok:{n:'Refuerzo recibido conforme',c:'Recibir',ic:'✔'},obs:{n:'Refuerzo observado',c:'Observar',ic:'⚠'},prob:{n:'Problema en el frente',c:'Problema',ic:'🚧'},rdi:{n:'Interferencia para RDI',c:'Interferencia',ic:'📸'},sin:{n:'Volver a «sin programar»',c:'Reiniciar',ic:'↩'},res:{n:'Problema resuelto',c:'Resuelto',ic:'🟢'}};
 const CATS=['Instalaciones sanitarias','Instalaciones eléctricas','Clima / HVAC','Corrientes débiles','Gases clínicos','Red húmeda / incendio','Estructura (hormigón / acero)','Arquitectura / tabiquería','Otra'];
 /* flujo de cada puerta: refuerzos o jefe piden trazar → trazador hace el trazo inicial y pide picar → jefe pica (y desarma tabique si corresponde) y pide retrazar →
    trazador retraza y libera → refuerzos instala y pide recepción → jefe o trazador reciben (basta uno). obra puede todo. */
 /* v0.20 (27-10-2026, pedido de Renato): cualquier rol puede registrar cualquier paso (si el jefe de terreno no usa la app, el trazador marca el picado, etc.).
    «mios» sigue indicando qué le toca a cada rol para su lista de pendientes. */
-const TODOS_TK=['prog','tr1','cond','des','pic','lib','inst','ok','obs','prob','rdi','sin'];
+const TODOS_TK=['prog','tr1','cond','des','pic','lib','inst','ok','obs','prob','res','rdi','sin'];
 const ROL={obra:{n:'Oficina Técnica / obra',tk:TODOS_TK,mios:['prog','tr1','des','pic','lib','inst','obs']},
   jefe:{n:'Jefe de terreno',tk:TODOS_TK,mios:['tr1','des','inst']},
   trazador:{n:'Trazador',tk:TODOS_TK,mios:['prog','pic','inst']},
@@ -1075,10 +1075,10 @@ async function claveObraGuardada(){let hay=null;try{if(indexedDB.databases)hay=n
 /* ---------------- estado ---------------- */
 const estado={persona:'',disp:'',rol:null,local:[],base:null,vista:'tablero',nivel:null,sel:new Set(),selModo:false,fNivel:'',fEst:''};
 let KC=null,NIVELES=[],PUE=new Map(),TIPOS={},ESTADO=new Map(),FICHA=null,DIF={};
-const ticketsTodos=()=>{const m=new Map();((estado.base&&estado.base.tickets)||[]).forEach(t=>m.set(t.id,t));estado.local.forEach(t=>{const o=m.get(t.id);if(!o||t.borrado||!o.borrado)m.set(t.id,t);});return [...m.values()];};
+const ticketsTodos=()=>{const m=new Map();((estado.base&&estado.base.tickets)||[]).forEach(t=>m.set(t.id,t));estado.local.forEach(t=>{const o=m.get(t.id);if(!o||(t.borrado&&!o.borrado))m.set(t.id,t);}); /* v0.30: si el coordinador ya lo publicó, manda su versión */return [...m.values()];};
 function combinar(){ESTADO=new Map();const ts=ticketsTodos().filter(t=>!t.borrado).sort((a,b)=>a.ts.localeCompare(b.ts));
   for(const t of ts)for(const g of t.g){if(!PUE.has(g))continue;let s=ESTADO.get(g);if(!s){s={est:'sin',hist:[],prob:null,prog:null,rdi:[]};ESTADO.set(g,s);}s.hist.push(t);
-    if(t.tipo==='rdi'){s.rdi.push(t);continue;}if(t.tipo==='prob'){s.prob=t;continue;}if(t.tipo==='cond'){s.cond=t;continue;}s.est=t.tipo;s.ult=t;s.prob=null;if(t.tipo==='prog')s.prog=t;}}
+    if(t.tipo==='rdi'){s.rdi.push(t);continue;}if(t.tipo==='prob'){s.prob=t;continue;}if(t.tipo==='res'){s.prob=null;continue;}if(t.tipo==='cond'){s.cond=t;continue;}s.est=t.tipo;s.ult=t; /* v0.30: el problema sigue abierto hasta «Problema resuelto» */if(t.tipo==='prog')s.prog=t;}}
 const est=g=>(ESTADO.get(g)||{est:'sin'}).est;
 const info=g=>ESTADO.get(g)||{est:'sin',hist:[],prob:null,rdi:[]};
 const paraMi=p=>{const r=ROL[estado.rol];if(estado.rol==='obra'||estado.rol==='jefe')return r.mios.includes(est(p.g))||!!info(p.g).prob;return r.mios.includes(est(p.g));};
@@ -1239,7 +1239,7 @@ function abrirFicha(p){const i=info(p.g),t=TIPOS[p.t]||{};const R=ROL[estado.rol
     (t.vano?'<div class="ficha"><div class="meta-item"><span>Vano en obra</span><b>'+escapar(t.vano)+'</b></div><div class="meta-item"><span>Paso libre</span><b>'+escapar(t.paso)+'</b></div><div class="meta-item"><span>Resistencia</span><b>'+escapar(t.rf)+'</b></div></div><p class="nota" style="margin:-4px 0 8px">Medidas en mm según ficha oficial de puertas cortafuego (rev. '+escapar(FICHA?FICHA.rev:'0')+', '+escapar(FICHA?FICHA.fecha:'')+').</p>':'')+
     (FICHA?'<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin-bottom:8px"><button class="btn secundario" style="flex:1 1 45%" data-det="tipo:'+escapar(p.t)+'">📐 Detalle '+escapar(p.t)+'</button><button class="btn secundario" style="flex:1 1 45%" data-det="refuerzo">🔩 Detalle refuerzo</button><button class="btn secundario" style="flex:1 1 45%" data-det="marcos">🧱 Marcos en tabique</button><button class="btn secundario" style="flex:1 1 45%" data-det="ficha">📄 Ficha completa</button></div>':'')+
     '<div class="info-sello" style="background:#fff;border-color:'+EST[i.est].color+';color:var(--texto)"><b style="color:'+EST[i.est].color+'">● '+EST[i.est].n+'</b>'+(i.prog&&i.prog.fecha&&i.est==='prog'?'<br>📅 Se necesita para el '+diaCorta(i.prog.fecha):'')+((i.cond&&(i.est==='sin'||i.est==='prog'||i.est==='tr1'))?'<br>🏷 <b>Condición del frente:</b> '+COND[i.cond.cond]:'')+(i.prob?'<br>🚧 <b>Problema:</b> '+escapar(i.prob.nota||'')+' ('+escapar(i.prob.por)+')':'')+(i.rdi&&i.rdi.length?'<br>📸 <b>'+i.rdi.length+' interferencia'+(i.rdi.length===1?'':'s')+' para RDI</b> (ver historial)':'')+'</div>'+
-    '<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin:10px 0">'+R.tk.map(k=>'<button class="btn '+(k==='prob'?'secundario':'principal')+'" style="flex:1 1 45%" data-tk1="'+k+'" data-g="'+p.g+'">'+TK[k].ic+' '+TK[k].n+'</button>').join('')+'</div>'+
+    '<div class="fila-btn" style="flex-wrap:wrap;gap:6px;margin:10px 0">'+R.tk.filter(k=>k!=='res'||i.prob).map(k=>'<button class="btn '+(k==='prob'||k==='res'?'secundario':'principal')+'" style="flex:1 1 45%" data-tk1="'+k+'" data-g="'+p.g+'">'+TK[k].ic+' '+TK[k].n+'</button>').join('')+'</div>'+
     '<button class="btn secundario" style="width:100%" data-ir="'+p.g+'">📍 Ver en la planta</button>'+(hist?'<button class="btn secundario" style="width:100%;margin-top:6px" data-histpdf="'+p.g+'">📄 Descargar historial de esta puerta (PDF con fotos)</button>':'')+
     (hist?'<label class="etiqueta" style="margin-top:12px">Historial de tickets</label><ul class="log">'+hist+'</ul>':'<p class="nota" style="margin-top:10px">Sin tickets todavía.</p>')+
     '<p class="nota" style="margin-top:10px;font-size:11px;word-break:break-all">ID Revit '+escapar(p.id||'—')+' · GUID '+escapar(p.g)+'</p>');pintarFotos();}
@@ -1248,18 +1248,18 @@ function abrirFichaTicket(t){abrirHoja('<div class="hoja-titulo">'+TK[t.tipo].ic
   '<div class="lista-busca">'+t.g.map(g=>{const p=PUE.get(g);return p?filaPuerta(p):'';}).join('')+'</div>');pintarFotos();}
 /* v0.28 (pedido de Renato): todos pueden cambiar el estado o retroceder a uno anterior si así lo marcan en terreno; solo queda fuera la puerta que ya está en ese mismo estado. */
 const ES_ESTADO=t=>t in RANGO;
-function validar(tipo,gs){const malos=[];if(ES_ESTADO(tipo)&&tipo!=='obs')gs.forEach(g=>{if(est(g)===tipo)malos.push(g);});return malos;}
+function validar(tipo,gs){const malos=[];if(tipo==='res')gs.forEach(g=>{if(!info(g).prob)malos.push(g);});if(ES_ESTADO(tipo)&&tipo!=='obs')gs.forEach(g=>{if(est(g)===tipo)malos.push(g);});return malos;}
 const retroceden=(tipo,gs)=>ES_ESTADO(tipo)?gs.filter(g=>RANGO[tipo]<RANGO[est(g)]):[];
 function abrirTicket(tipo,gs){gs=[...gs].filter(g=>PUE.has(g));if(!gs.length){toast('Selecciona al menos una puerta');return;}
   const malos=validar(tipo,gs);const ok=gs.filter(g=>!malos.includes(g));
-  const msg='Ya están en ese estado.';const atras=retroceden(tipo,ok);
+  const msg=tipo==='res'?'No tienen un problema abierto.':'Ya están en ese estado.';const atras=retroceden(tipo,ok);
   abrirHoja('<div class="hoja-titulo">'+TK[tipo].ic+' '+escapar(TK[tipo].n)+'</div><div class="hoja-sub">'+ok.length+' puerta'+(ok.length===1?'':'s')+': '+escapar(resumenPuertas(ok))+'</div>'+
     (malos.length?'<div class="info-sello" style="margin-bottom:8px">⚠ '+malos.length+' puerta(s) quedan fuera. '+msg+'</div>':'')+(atras.length?'<div class="info-sello" style="margin-bottom:8px">↩ '+atras.length+' puerta(s) vuelven a un estado anterior ('+[...new Set(atras.map(g=>EST[est(g)].c))].join(', ')+' → '+EST[tipo].c+'). Explica en la nota qué pasó en terreno.</div>':'')+
     (tipo==='prog'?'<label class="etiqueta">¿Para cuándo se necesita el trazado y el frente liberado?</label><input type="date" id="tkFecha" class="campo" value="'+hoyDia()+'">':'')+
     (tipo==='cond'?'<label class="etiqueta">¿Qué hay que hacer en el frente?</label><select id="tkCond" class="campo"><option value="pic">'+COND.pic+'</option><option value="pyd">'+COND.pyd+'</option></select>':'')+
     (tipo==='pic'?'<label class="toggle-mini" style="margin:6px 0"><input type="checkbox" id="tkDesarme"'+(ok.some(g=>est(g)==='des'||(info(g).cond&&info(g).cond.cond==='pyd'))?' checked':'')+'> 🔨 También se desarmó el tabique</label>'+(ok.some(g=>info(g).cond)?'<p class="nota">🏷 Condición indicada: '+[...new Set(ok.filter(g=>info(g).cond).map(g=>COND[info(g).cond.cond]))].join(' / ')+'</p>':''):'')+
     (tipo==='rdi'?'<label class="etiqueta">Especialidad que interfiere</label><select id="tkCat" class="campo">'+CATS.map(c=>'<option>'+c+'</option>').join('')+'</select>':'')+
-    '<label class="etiqueta">'+(tipo==='rdi'?'Describe la interferencia (obligatoria)':'Nota '+(tipo==='obs'||tipo==='prob'?'(obligatoria)':'(opcional)'))+'</label><textarea id="tkNota" class="campo" rows="3" placeholder="'+({prob:'Ej: falta retirar andamio, no hay energía, vano mal trazado…',obs:'Qué hay que corregir',tr1:'Ej: eje trazado, ojo con cañería en la sobrelosa',des:'Ej: tabique desarmado hasta el vano, placas retiradas',sin:'Ej: se anuló el trazado, hay que volver a programar',pic:'Ej: picado hasta losa, escombro retirado',lib:'Ej: retrazo a 1 m NPT, ojo con cañería',inst:'Ej: anclajes químicos OK, listo para recibir',ok:'Ej: recibido junto al trazador (nombre)',rdi:'Ej: bandeja eléctrica cruza el vano a 2,10 m; impide el dintel del refuerzo'}[tipo]||'')+'"></textarea>'+
+    '<label class="etiqueta">'+(tipo==='rdi'?'Describe la interferencia (obligatoria)':'Nota '+(tipo==='obs'||tipo==='prob'?'(obligatoria)':'(opcional)'))+'</label><textarea id="tkNota" class="campo" rows="3" placeholder="'+({prob:'Ej: falta retirar andamio, no hay energía, vano mal trazado…',obs:'Qué hay que corregir',tr1:'Ej: eje trazado, ojo con cañería en la sobrelosa',des:'Ej: tabique desarmado hasta el vano, placas retiradas',sin:'Ej: se anuló el trazado, hay que volver a programar',res:'Ej: se retiró el andamio, frente despejado',pic:'Ej: picado hasta losa, escombro retirado',lib:'Ej: retrazo a 1 m NPT, ojo con cañería',inst:'Ej: anclajes químicos OK, listo para recibir',ok:'Ej: recibido junto al trazador (nombre)',rdi:'Ej: bandeja eléctrica cruza el vano a 2,10 m; impide el dintel del refuerzo'}[tipo]||'')+'"></textarea>'+
     '<label class="etiqueta">📷 Fotos '+(tipo==='rdi'?'(recomendado)':'(opcional)')+' · se comprimen solas</label><div class="fotos-mini" id="tkFotos"></div><label class="btn secundario" style="display:block;text-align:center;margin:4px 0">📷 Tomar o agregar foto<input type="file" accept="image/*" capture="environment" id="tkFotoIn" multiple hidden></label>'+
     '<div class="lista-busca" style="max-height:28dvh">'+ok.map(g=>filaPuerta(PUE.get(g))).join('')+'</div>'+
     (ok.length?'<button class="btn principal grande" style="width:100%;margin-top:10px" data-crear="'+tipo+'">Guardar ticket</button>':''));
@@ -1277,7 +1277,10 @@ async function comprimirFoto(file){const url=URL.createObjectURL(file);try{const
 let FOTOS=null;
 async function fotosEquipo(){if(FOTOS)return FOTOS;try{FOTOS=(await descifrar(KC,await bajar('coordfotos.enc',true)))||{};}catch(e){FOTOS={};}return FOTOS;}
 async function fotoDe(id){for(const t of estado.local)for(const f of t.fotos||[])if(f.id===id&&f.d)return f.d;const F=await fotosEquipo();return F[id]||null;}
-function pintarFotos(){$$('img[data-foto]').forEach(async im=>{if(im.dataset.ok)return;im.dataset.ok=1;const d=await fotoDe(im.dataset.foto);if(d)im.src=d;else{im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto todavía no publicada por el coordinador'}));}});}
+/* v0.30: si la copia del teléfono está dañada, se carga la del equipo (coordfotos.enc) */
+function pintarFotos(){$$('img[data-foto]').forEach(async im=>{if(im.dataset.ok)return;im.dataset.ok=1;const id=im.dataset.foto;const d=await fotoDe(id);
+  im.onerror=async()=>{im.onerror=null;const F=await fotosEquipo();if(F[id]&&F[id]!==im.getAttribute('src'))im.src=F[id];else im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto dañada en este teléfono · pídela al coordinador'}));};
+  if(d)im.src=d;else{im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto todavía no publicada por el coordinador'}));}});}
 function verFoto(src){const v=$('#visor');$('#visorTitulo').textContent='Foto';$('#visorSub').textContent='Toca ＋ para acercar';const img=$('#visorImg');img.style.width='100%';img.dataset.z='1';img.src=src;v.classList.add('visible');}
 const htmlFotos=fs=>(fs&&fs.length)?'<div class="fotos-mini">'+fs.map(f=>'<img data-foto="'+f.id+'" alt="foto">').join('')+'</div>':'';
 /* ---------------- informe de interferencias para RDI (imprimible / PDF) ---------------- */
