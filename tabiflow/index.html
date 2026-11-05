@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>TabiPlan v7.5 · Hospital de Coquimbo</title>
+<title>TabiPlan v7.6 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,6 +396,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
+/* EETT en la ficha (TabiPlan v7.6) */
+.eett{font-size:12.8px;line-height:1.55;color:var(--cuerpo);background:var(--panel2);border-radius:12px;padding:10px 12px}.eett p{margin:0 0 8px}.eett .eett-sub{font-weight:800;color:var(--texto);margin-top:10px}
+.eett-gen{margin-top:10px}.eett-gen summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--primario);padding:6px 0}
+
 /* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
@@ -459,7 +463,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M520 1080H1080V1130H520Z"/><path d="M560 760H700V1060H560Z"/><path d="M730 640H870V1060H730Z" opacity=".75"/><path d="M900 520H1040V1060H900Z" opacity=".5"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Plan</span><span class="ver" id="verBadge">v7.5</span></span>
+      <span class="brand-name"><span class="np">Tabi</span><span class="np2">Plan</span><span class="ver" id="verBadge">v7.6</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Edificio Principal</span>
     </div>
   </div>
@@ -477,7 +481,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
         <div class="heroe-top">
           <div class="heroe-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="square"><path d="M3 6h18M12 6v13M3 19h9"/></svg></div>
           <div>
-            <span class="eyebrow">TabiPlan v7.5 · Avance de tabiques desde el modelo BIM</span>
+            <span class="eyebrow">TabiPlan v7.6 · Avance de tabiques desde el modelo BIM</span>
             <h2>Toca un tabique y queda pintado con su etapa</h2>
           </div>
         </div>
@@ -619,7 +623,7 @@ html.oscuro .btn-flot{background:var(--panel);color:var(--texto)}
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
   <button class="pestana" data-v="informe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg><span>Informe</span></button>
 </nav>
-<footer id="pie"><span class="marca">TabiPlan</span> <span class="vpie">v7.5</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">TabiPlan</span> <span class="vpie">v7.6</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 
 <div id="acceso">
   <div class="acceso-caja">
@@ -1052,7 +1056,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Prohibida su copia, modificación o distribución sin autorización escrita del autor.
    Coordenadas del modelo en centímetros, eje Y hacia abajo (pantalla).
    ===================================================================== */
-const APP_NOMBRE='TabiPlan',APP_VER='v7.5',APP_AUTOR='FlujoPlan · www.flujoplan.cl',OBRA='Hospital de Coquimbo';
+const APP_NOMBRE='TabiPlan',APP_VER='v7.6',APP_AUTOR='FlujoPlan · www.flujoplan.cl',OBRA='Hospital de Coquimbo';
 /* Etapas en orden constructivo. Cada tipo de tabique usa solo las que le corresponden
    según su composición (placas por cara y plomo): ver seqDe(). */
 const ETAPAS=[
@@ -1631,12 +1635,23 @@ async function fijarVarios(et,f){
   toast(p.join(' · '),noBaja&&!sube&&!baja?'error':'ok');}
 
 /* ---------------- ficha de tabique ---------------- */
+/* EETT de la tabiquería (05-11-2026, pedido de Renato): en la ficha del tabique, la sección de las especificaciones técnicas de su tipo
+   (descripción, alcance, composición, ejecución, medición) y las generalidades de tabiquería. Solo tabiquería, sin terminaciones. eett.enc cifrado. */
+let EETT=null;
+async function cargarEETT(key){try{EETT=await descifrar(key,await bajar('eett.enc',false));}catch(e){EETT=null;}}
+const parrafosEETT=t=>escapar(t).split(/\n{2,}/).map(p=>/^[a-z]\) /.test(p)?'<p class="eett-sub">'+p+'</p>':'<p>'+p.replace(/\n/g,' ')+'</p>').join('');
+function hojaEETT(t){const E=EETT&&EETT.cod[t.t];if(!E)return;const G=E.gen&&EETT.gen[E.gen];
+  abrirHoja('<button class="btn secundario" data-tf="eettvolver" style="margin-bottom:8px">← Volver al tabique</button>'+
+    '<div class="hoja-titulo">📘 '+escapar(t.t)+' · EETT</div><div class="hoja-sub">'+escapar(E.tit)+'<br>Sección '+escapar(E.sec)+(EETT.doc?' · '+escapar(EETT.doc):'')+'</div>'+
+    '<div class="eett">'+parrafosEETT(E.txt)+'</div>'+
+    (G?'<details class="eett-gen"><summary>Generalidades · '+escapar(E.gen)+' '+escapar(G.tit)+'</summary><div class="eett">'+parrafosEETT(G.txt)+'</div></details>':'')+
+    '<p class="nota" style="margin-top:8px">Solo la especificación de la tabiquería. Las terminaciones (pintura, revestimientos) están en sus propias secciones de las EETT.</p>');}
 function abrirTabique(g){
   const t=TAB[g];if(!t)return;const s=ESTADO_G.get(g)||{};const cer=jornadaCerrada(estado.diaActivo);
   const tipoDesc=(M.tipos&&M.tipos[t.t])||'';
   const hist=(EV_POR_G.get(g)||[]).filter(e=>!e.borrado).sort((a,b)=>a.ts.localeCompare(b.ts));
   let h='<div class="hoja-titulo">🧱 Tabique '+escapar(t.t)+(t.tr?' · tramo '+t.tr+' de '+t.ntr:'')+'</div><div class="hoja-sub">'+escapar(tipoDesc)+'<br><b>'+composicion(t)+'</b>'+(t.tr?' · tabique de '+fmt1(t.L*t.ntr)+' m dividido en '+t.ntr+' tramos para registrar avance':'')+'<br>'+(t.r.length?'Recintos: <b>'+t.r.map(escapar).join(' · ')+'</b>':'')+'</div>'+
-    '<div class="ficha"><div class="meta-item"><span>Largo</span><b>'+fmt1(t.L)+' m</b></div><div class="meta-item"><span>Alto</span><b>'+fmt1(t.H)+' m</b></div><div class="meta-item"><span>Superficie</span><b>'+fmt1(t.A)+' m²</b></div></div>'+
+    '<div class="ficha"><div class="meta-item"><span>Largo</span><b>'+fmt1(t.L)+' m</b></div><div class="meta-item"><span>Alto</span><b>'+fmt1(t.H)+' m</b></div><div class="meta-item"><span>Superficie</span><b>'+fmt1(t.A)+' m²</b></div></div>'+(EETT&&EETT.cod[t.t]?'<button class="btn secundario" style="width:100%;margin:8px 0 2px" data-tf="eett">📘 Ver EETT del tabique '+escapar(t.t)+'</button>':'')+
     '<label class="etiqueta">Etapas · jornada activa '+diaCorta(estado.diaActivo)+(cer?' 🔒':'')+'</label>';
   t.seq.forEach(id=>{const e=ET[id];const o=s[e.id];const f=o?o.f:0;
     h+='<div class="etapa-fila">'+icono(e,true)+'<div class="info"><b>'+e.nombre+'</b>'+(o?(Math.round(f*100)+'% · '+diaLarga(o.dia)+(o.ev&&o.ev.por?' · '+escapar(o.ev.por):'')+(o.ev&&o.ev.cuad?' · '+escapar(o.ev.cuad):'')):'Pendiente')+'</div><div class="acc">';
@@ -1671,6 +1686,8 @@ async function accionFicha(e){
   if(b.dataset.tf==='adjnotaok'){const v=($('#adjNotaTxt').value||'').trim();if(!v){toast('Escribe la observación');return;}await guardarAdjunto(t,v,null);toast('Nota guardada','ok');abrirTabique(t.g);}
   if(b.dataset.tf==='adjborrar'){await borrarAdjunto(b.dataset.id);abrirTabique(t.g);}
   if(b.dataset.tf==='verfoto')verFoto(b.dataset.id);
+  if(b.dataset.tf==='eett')hojaEETT(t);
+  if(b.dataset.tf==='eettvolver')abrirTabique(t.g);
 }
 
 /* ---------------- UI del plano ---------------- */
@@ -2196,7 +2213,7 @@ async function intentarDesbloqueo(pass){
   return key;}
 async function abrirModelo(key){
   setAcceso('Abriendo el modelo del hospital…');
-  const buf=await bajar('modelo.enc',false);cargarModelo(await descifrar(key,buf));if(typeof FONDO!=='undefined'&&1)FONDO.cargar(key,()=>{if(estado.nivel)render();});}
+  const buf=await bajar('modelo.enc',false);cargarModelo(await descifrar(key,buf));cargarEETT(key);if(typeof FONDO!=='undefined'&&1)FONDO.cargar(key,()=>{if(estado.nivel)render();});}
 /* Avance consolidado del equipo (avance.enc, lo publica Renato una vez al día) */
 let CLAVE=null;
 async function cargarBase(manual){
