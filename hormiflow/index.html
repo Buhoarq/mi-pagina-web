@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>HormiPlan v0.16 β · Hospital de Coquimbo</title>
+<title>HormiPlan v0.17 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,6 +396,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
+/* EETT en la ficha (TabiPlan v7.6) */
+.eett{font-size:12.8px;line-height:1.55;color:var(--cuerpo);background:var(--panel2);border-radius:12px;padding:10px 12px}.eett p{margin:0 0 8px}.eett .eett-sub{font-weight:800;color:var(--texto);margin-top:10px}
+.eett-gen{margin-top:10px}.eett-gen summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--primario);padding:6px 0}
+
 /* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
@@ -537,7 +541,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M801 560L1010 680L801 800L592 680Z" opacity=".35"/><path d="M592 680L801 800V1040L592 920Z"/><path d="M1010 680L801 800V1040L1010 920Z" opacity=".7"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Plan</span><span class="ver">v0.16 β</span></span>
+      <span class="brand-name"><span class="np">Hormi</span><span class="np2">Plan</span><span class="ver">v0.17 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -552,7 +556,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#475569"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
-          <div><span class="eyebrow">HormiPlan v0.16 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
+          <div><span class="eyebrow">HormiPlan v0.17 β · Obra gruesa de FlujoPlan</span><h2>Mira la estructura en 3D, marca lo hecho y compromete la semana</h2></div>
         </div>
       </div>
       <div class="tarjeta"><h3 style="margin-bottom:8px">🏢 Edificio</h3><div class="barra-chips" id="chipsEdifIni" style="flex-wrap:wrap"></div></div>
@@ -607,7 +611,7 @@ html.oscuro .fila-acc button,html.oscuro .et-btn{background:var(--panel2);color:
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 <button class="pestana" data-v="coord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/><path d="M18 4l2 2-2 2"/></svg><span>Coordinador</span></button>
 </nav>
-<footer id="pie"><span class="marca">HormiPlan</span> <span class="vpie">v0.16 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">HormiPlan</span> <span class="vpie">v0.17 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M801 560L1010 680L801 800L592 680Z" opacity=".35"/><path d="M592 680L801 800V1040L592 920Z"/><path d="M1010 680L801 800V1040L1010 920Z" opacity=".7"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2324,7 +2328,7 @@ THREE.OrbitControls=OrbitControls;
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.16 β',MODELO_REV=6;let OBRA='Hospital de Coquimbo';
+const APP_VER='v0.17 β',MODELO_REV=6;let OBRA='Hospital de Coquimbo';
 /* v0.5: un archivo cifrado por edificio; el elegido se recuerda en el teléfono (cambiar = recargar) */
 /* v0.10: selección múltiple como en TabiPlan (☑ Varios: tocar o arrastrar un dedo agrega elementos; dos dedos mueven y hacen zoom) */
 /* v0.9: avance por planta (cimientos, radier, losas, muros) y por elevación de ejes además del 3D; protocolos de calidad con fotos comprimidas e informe PDF */
@@ -2380,7 +2384,7 @@ async function metaSet(k,v){await put('meta',{id:k,v});}
 /* ---------------- cifrado (igual que TabiPlan, misma clave de obra) ---------------- */
 async function derivarClave(pass,saltB64,iter){const salt=Uint8Array.from(atob(saltB64),c=>c.charCodeAt(0));
   const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']);
-  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);}
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt','encrypt']);}
 async function descifrar(key,buf){const u=new Uint8Array(buf);if(u.length<29)throw new Error('archivo vacío');
   const plano=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(0,12)},key,u.slice(12));
   const ds=new Blob([plano]).stream().pipeThrough(new DecompressionStream('gzip'));return JSON.parse(await new Response(ds).text());}
@@ -2887,9 +2891,9 @@ let FOTOS_EQ=null;
 async function fotoGuardar(id,d){if(!DB){mem.fotos[id]={id,d};return;}await tx('fotos','readwrite',s=>s.put({id,d}));}
 async function fotoLeer(id){if(!DB){const x=mem.fotos[id];if(x)return x.d;}else{const x=await tx('fotos','readonly',s=>s.get(id));if(x&&x.d)return x.d;}
   if(!FOTOS_EQ){try{FOTOS_EQ=await descifrar(CLAVE,await bajar('fotos.enc',true));}catch(e){FOTOS_EQ={};}}return FOTOS_EQ[id]||null;}
-/* comprime la foto en el teléfono: lado mayor 1280 px, JPEG calidad 0,6 (≈ 100–250 KB) */
-function comprimir(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const M=1280,k=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
-  c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.6));};im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('imagen no válida'));};im.src=u;});}
+/* comprime la foto en el teléfono: lado mayor 800 px, JPEG calidad 0,5 (≈ 40–70 KB; v0.17) */
+function comprimir(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const M=800,k=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.5));};im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('imagen no válida'));};im.src=u;});}
 const protsDe=g=>PROTS.filter(p=>p.gs.includes(g)).sort((a,b)=>b.ts.localeCompare(a.ts));
 const etqProt=p=>'N° '+escapar(p.num||'s/n');
 function protsHtml(g){const L=protsDe(g);if(!L.length)return '';
@@ -2912,8 +2916,8 @@ function hojaProtocolo(){const els=[...estado.sel].map(g=>EL.get(g)).filter(Bool
    '<button class="btn principal grande" id="prOk" style="width:100%;margin-top:12px">Guardar protocolo</button>');
   window._prEt=def;$$('#prEt [data-pet]').forEach(b=>b.onclick=()=>{window._prEt=b.dataset.pet;$$('#prEt button').forEach(x=>x.classList.toggle('prim',x===b));});
   const pinta=()=>{$('#prFotos').innerHTML=FOTOS_TMP.map((d,i)=>'<div class="fg"><img src="'+d+'" alt="foto"><button data-qf="'+i+'">✕</button></div>').join('');$$('#prFotos [data-qf]').forEach(b=>b.onclick=()=>{FOTOS_TMP.splice(+b.dataset.qf,1);pinta();});};
-  $('#prFotoBtn').onclick=()=>$('#prFotoIn').click();
-  $('#prFotoIn').onchange=async e=>{const fs=[...e.target.files];e.target.value='';for(const fl of fs){try{FOTOS_TMP.push(await comprimir(fl));}catch(x){toast('Una foto no se pudo leer','error');}}pinta();};
+  $('#prFotoBtn').onclick=()=>{if(FOTOS_TMP.length>=2){toast('Máximo 2 fotos por protocolo o comentario');return;}$('#prFotoIn').click();};
+  $('#prFotoIn').onchange=async e=>{const fs=[...e.target.files].slice(0,Math.max(0,2-FOTOS_TMP.length));if(e.target.files.length>fs.length)toast('Máximo 2 fotos por protocolo o comentario');e.target.value='';for(const fl of fs){try{FOTOS_TMP.push(await comprimir(fl));}catch(x){toast('Una foto no se pudo leer','error');}}pinta();};
   $('#prOk').onclick=async()=>{const num=$('#prNum').value.trim();if(!num){toast('Escribe el N° de protocolo','error');$('#prNum').focus();return;}
     const et=window._prEt,gs=els.filter(e=>etapasDe(e).includes(et)).map(e=>e.g);if(!gs.length){toast('Ninguno de los elementos tiene esa etapa','error');return;}
     $('#prOk').disabled=true;const id=uid(),lote=[];
@@ -3000,8 +3004,30 @@ async function exportar(){const mios=estado.local.filter(e=>e.por===estado.perso
   {const ps=mios.filter(e=>e.k==='prot'&&!e.borrado),pend=ps.filter(e=>!e.enviado),usar=pend.length?pend:ps;const fo={};for(const p of usar)for(const fid of p.fotos||[]){const x=await fotoLeer(fid);if(x)fo[fid]=x;}if(Object.keys(fo).length)d.fotos=fo;}
   const archivos=[{blob:new Blob([JSON.stringify(d)],{type:'application/json'}),nombre:'Avance_HormiFlow'+base+'.json'}];
   try{const nuevos=estado.local.filter(e=>!e.enviado&&!e.borrado);archivos.push({blob:pdfEnvio(nuevos),nombre:'Resumen_HormiPlan'+base+'.pdf'});}catch(e){}
-  const ok=await compartirArchivos(archivos,'Avance HormiPlan',texto);
+  const sube=subirBuzon();const ok=await compartirArchivos(archivos,'Avance HormiPlan',texto);await sube;
   if(ok){for(const e of estado.local){if(!e.enviado){e.enviado=true;await put('eventos',e);}}toast('📤 Avance listo para el coordinador','ok');}renderInicio();}
+/* ================= buzón en la nube (06-11-2026, pedido de Renato) =================
+   Al tocar «Enviar mi avance» y con internet, el avance de este teléfono se sube solo, cifrado con la clave de obra, a un buzón (Google Drive vía Apps Script). Una IA
+   lo recoge y lo consolida (herramientas/buzon_consolidar.py). La URL del buzón va cifrada en tabiflow/buzon.enc; sin ella no se hace nada.
+   Marca propia 'buz' en cada registro (distinta de 'enviado', que es del botón Enviar). Es idempotente: reenviar no duplica. */
+let BUZON=null,BUZ_OCUPADO=false;
+async function cargarBuzon(){try{BUZON=await descifrar(CLAVE,await bajar(RUTA_TABI+'buzon.enc',false));}catch(e){BUZON=null;}}
+async function cifrarBuzon(obj){const gz=await new Response(new Blob([JSON.stringify(obj)]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer();
+  const iv=crypto.getRandomValues(new Uint8Array(12)),ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},CLAVE,gz));const o=new Uint8Array(12+ct.length);o.set(iv);o.set(ct,12);return o;}
+const aB64=u=>{let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(s);};
+const pendBuzon=()=>estado.local.filter(e=>(e.por===estado.persona||e.k==='comp')&&!e.buz);
+async function subirBuzon(){if(!BUZON||!BUZON.url||BUZ_OCUPADO||!navigator.onLine||typeof CompressionStream==='undefined'||!(CLAVE.usages||[]).includes('encrypt'))return false;
+  const pend=pendBuzon();if(!pend.length)return false;BUZ_OCUPADO=true;
+  try{const mios=estado.local.filter(e=>e.por===estado.persona||e.k==='comp');
+    const d={app:'HormiFlowHCQ',modulo:'hormi',tipo:'avance',ver:2,por:estado.persona,disp:estado.disp,exportado:new Date().toISOString(),via:'buzon',eventos:mios.map(e=>{const o=Object.assign({},e);delete o.enviado;delete o.buz;return o;})};
+    const fo={};for(const p of mios.filter(e=>e.k==='prot'&&!e.borrado&&!e.buz))for(const fid of p.fotos||[]){const x=await fotoLeer(fid);if(x)fo[fid]=x;}if(Object.keys(fo).length)d.fotos=fo;
+    const blob=await cifrarBuzon(d);if(blob.length>20e6)return false;
+    const r=await fetch(BUZON.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({app:d.app,por:estado.persona,n:pend.length,id:uid(),datos:aB64(blob)}),redirect:'follow'});
+    const j=await r.json().catch(()=>null);if(!j||!j.ok)return false;
+    for(const e of pend){e.buz=new Date().toISOString();await put('eventos',e);}
+    toast('☁️ Avance enviado solo al coordinador ('+pend.length+' registro'+(pend.length>1?'s':'')+')','ok');return true;
+  }catch(e){return false;}finally{BUZ_OCUPADO=false;}}
+function iniciarBuzon(){cargarBuzon();}   /* solo se sube cuando la persona toca «Enviar mi avance» (ver exportar) */
 async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.app!=='HormiFlowHCQ')throw new Error('no es un archivo de HormiPlan');let n=0;
   for(const e of d.eventos||[]){if(estado.local.some(x=>x.id===e.id))continue;e.enviado=true;estado.local.push(e);await put('eventos',e);n++;}combinar();renderTodo();toast(n+' registros restaurados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
@@ -3019,6 +3045,7 @@ function chipsEdificio(){return EDIFICIOS.map(x=>'<button class="chipf'+(x.id===
 function cambiarEdificio(id){if(id===ED.id)return;try{localStorage.setItem('hf_edificio',id);}catch(e){}const x=EDIFICIOS.find(e=>e.id===id);toast('Abriendo '+(x?x.n:id)+'…');setTimeout(()=>location.reload(),300);}
 function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">HormiPlan '+APP_VER+' · '+OBRA+' · www.flujoplan.cl · @flujoplan</p>'+
   '<p class="nota" style="margin:2px 0 4px">Edificio</p><div class="barra-chips" style="flex-wrap:wrap;margin-bottom:8px">'+chipsEdificio()+'</div>'+
+  (BUZON&&BUZON.url?'<p class="nota" style="margin:2px 0 6px">☁️ Al tocar «Enviar mi avance» también se sube solo al coordinador (con internet) · '+pendBuzon().length+' registro(s) por enviar</p>':'')+
   '<button class="menu-item" data-acc="enviar">📤 Enviar mi avance al coordinador</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
   '<button class="menu-item" data-inf="1">📄 Informe Last Planner (PDF)</button><button class="menu-item" data-pinf="1">🧾 Informe de protocolos de calidad (PDF)</button><button class="menu-item" data-ver="1">👁 Transparencia del modelo</button>'+
   '<button class="menu-item" data-acc="restaurar">⬇️ Restaurar mi avance desde un archivo</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
@@ -3073,7 +3100,7 @@ document.addEventListener('click',async e=>{const t=e.target;
 /* ---------------- acceso ---------------- */
 /* v-equipo (27-10-2026): claves personales del equipo (tabiflow/equipo_acceso.json guarda la clave de obra cifrada con cada una); abren todos los módulos */
 async function passEquipo(pass,ruta){try{const acc=await (await fetch(ruta+'equipo_acceso.json?t='+Date.now(),{cache:'no-store'})).json();
-  for(const x of (acc&&acc.alt)||[]){try{const ka=await crypto.subtle.deriveKey({name:'PBKDF2',salt:Uint8Array.from(atob(x.salt),c=>c.charCodeAt(0)),iterations:x.iter,hash:'SHA-256'},await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']),{name:'AES-GCM',length:256},false,['decrypt']);
+  for(const x of (acc&&acc.alt)||[]){try{const ka=await crypto.subtle.deriveKey({name:'PBKDF2',salt:Uint8Array.from(atob(x.salt),c=>c.charCodeAt(0)),iterations:x.iter,hash:'SHA-256'},await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.normalize('NFC')),'PBKDF2',false,['deriveKey']),{name:'AES-GCM',length:256},false,['decrypt','encrypt']);
     const u=Uint8Array.from(atob(x.w),c=>c.charCodeAt(0));const pl=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(0,12)},ka,u.slice(12));
     const o=JSON.parse(await new Response(new Blob([pl]).stream().pipeThrough(new DecompressionStream('gzip'))).text());if(o&&o.pass)return o.pass;}catch(e){}}}catch(e){}return null;}
 function mostrarAcceso(){$('#acceso').classList.add('visible');return new Promise(res=>{const go=async()=>{const pass=$('#accPass').value,nom=$('#accNombre').value.trim();
@@ -3097,7 +3124,7 @@ async function iniciar(){
   CLAVE=key;try{localStorage.setItem('obraflow_nombre',estado.persona);}catch(_){}
   try{await cargarModelo();}catch(e){progreso(null);toast('No se pudo abrir el modelo: '+e.message,'error');return;}
   combinar();$('#subMarca').textContent=OBRA+' · '+estado.persona;$('#chipJornada').textContent='📅 '+diaCorta(hoyDia());
-  renderInicio();cargarEquipo(false);}
+  renderInicio();cargarEquipo(false);iniciarBuzon();}
 window.addEventListener('DOMContentLoaded',()=>{
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#btnIrVisor').onclick=()=>cambiarVista('visor');$('#btnIrSemana').onclick=()=>cambiarVista('semana');$('#btnIrAvance').onclick=()=>cambiarVista('avance');
   $('#btnMenu').onclick=abrirMenu;$('#velo').onclick=cerrarHoja;$('#btnEncuadrar').onclick=()=>encuadrar(MESH.filter(m=>m.visible));
