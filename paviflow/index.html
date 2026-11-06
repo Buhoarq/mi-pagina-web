@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PaviPlan v1.17 · Hospital de Coquimbo</title>
+<title>PaviPlan v1.18 · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -478,7 +478,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Pavi</span><span class="np2">Plan</span><span class="ver">v1.17</span></span>
+      <span class="brand-name"><span class="np">Pavi</span><span class="np2">Plan</span><span class="ver">v1.18</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Pavimentos</span>
     </div>
   </div>
@@ -493,7 +493,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#B45309"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M3 15l9-5 9 5-9 5z"/><path d="M3 10l9-5 9 5"/></svg></div>
-          <div><span class="eyebrow">PaviPlan v1.17 · Módulo de pavimentos de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
+          <div><span class="eyebrow">PaviPlan v1.18 · Módulo de pavimentos de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
         </div>
         <p>Los pavimentos del modelo de interiores ya están cargados por nivel, recinto y paño de obra (cortados por ejes, de 6 m como máximo), con su tipo y superficie. Elige el nivel, la etapa y toca los paños: los m² y el % se calculan solos. Se usa igual que TabiPlan y con la misma clave de obra.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#0891B2"></span>Sobrelosa</span><span class="ley"><span class="ic g" style="background:#DC2626"></span>Base / nivelación</span><span class="ley"><span class="ic g" style="background:#F59E0B"></span>Instalación</span><span class="ley"><span class="ic g" style="background:#16A34A"></span>Terminación</span></div>
@@ -518,10 +518,11 @@ html.oscuro .brand-name .np{color:#F59E0B}
       <div class="visor-titulo"><strong id="tituloNivel">—</strong><span id="subNivel">—</span></div>
     </div>
     <div class="niveles-strip"><button id="btnNivelAntes" class="nav" aria-label="Nivel inferior">‹</button><div id="nivelChips"></div><button id="btnNivelDespues" class="nav" aria-label="Nivel superior">›</button></div>
-    <div class="visor-modos"><div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button></div><div class="segmentado mini"><button id="segColAv" class="activo">Color: avance</button><button id="segColTipo">Color: tipo de piso</button></div></div>
+    <div class="visor-modos"><div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button><button id="segMulti">☑ Varios</button></div><div class="segmentado mini"><button id="segColAv" class="activo">Color: avance</button><button id="segColTipo">Color: tipo de piso</button></div></div>
     <div class="barra-chips oculto" id="leyTipos"></div>
     <div class="paleta oculto" id="paleta">
       <div class="paleta-tipos" id="paletaTipos"></div>
+      <div class="oculto" id="barraMulti" style="margin:6px 0"><div id="multiInfo" class="nota" style="font-weight:700;margin-bottom:5px"></div><div class="fila-herr"><span id="multiPct" style="display:flex;gap:5px"><button class="herr-btn" data-f="0.25">25%</button><button class="herr-btn" data-f="0.5">50%</button><button class="herr-btn" data-f="0.75">75%</button><button class="herr-btn activo" data-f="1">100%</button></span><button class="herr-btn" id="btnMultiLimpiar">Limpiar</button><button class="herr-btn activo" id="btnMultiAplicar">✔ Aplicar</button></div></div>
       <div class="fila-herr"><label class="toggle-mini"><input type="checkbox" id="chkPrevias" checked> Completar etapas previas</label><button class="herr-btn" id="btnDeshacer">↩ Deshacer</button></div>
     </div>
     <div id="avisoPlano" class="aviso oculto"><span id="avisoTexto"></span><button id="btnCerrarAviso">OK</button></div>
@@ -548,7 +549,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">PaviPlan</span> <span class="vpie">v1.17</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PaviPlan</span> <span class="vpie">v1.18</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M560 900L700 820L840 900L700 980Z"/><path d="M760 785L900 705L1040 785L900 865Z"/><path d="M760 1015L900 935L1040 1015L900 1095Z"/><path d="M960 900L1100 820L1240 900L1100 980Z" opacity=".55"/><path d="M360 1015L500 935L640 1015L500 1095Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -573,7 +574,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.17',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.18',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas por sistema de pavimento ---------------- */
@@ -695,7 +696,7 @@ function renderTodo(){if(estado.vista==='inicio')renderInicio();if(estado.vista=
 const V={s:0.05,tx:0,ty:0};let cv,ctx,dpr=1;
 function ajustarLienzo(){const w=$('#lienzoWrap');dpr=window.devicePixelRatio||1;cv.width=w.clientWidth*dpr;cv.height=w.clientHeight*dpr;cv.style.width=w.clientWidth+'px';cv.style.height=w.clientHeight+'px';}
 function encuadrar(){const n=estado.nivel,w=$('#lienzoWrap');const b=n.bbox||[0,0,20000,15000];const s=Math.min(w.clientWidth/(b[2]-b[0]),w.clientHeight/(b[3]-b[1]))*0.94;V.s=s;V.tx=(w.clientWidth-(b[2]-b[0])*s)/2-b[0]*s;V.ty=(w.clientHeight-(b[3]-b[1])*s)/2-b[1]*s;}
-function abrirNivel(id,sinVista){estado.nivel=NIVELES.find(n=>n.id===id);estado.sel=null;estado.fT=null;if(!sinVista&&estado.vista!=='plano'){cambiarVista('plano');}ajustarLienzo();encuadrar();renderNiveles();renderPaleta();renderLeyTipos();render();}
+function abrirNivel(id,sinVista){estado.nivel=NIVELES.find(n=>n.id===id);estado.sel=null;MULTI.clear();if(estado.modo==='multi')actualizaMulti();estado.fT=null;if(!sinVista&&estado.vista!=='plano'){cambiarVista('plano');}ajustarLienzo();encuadrar();renderNiveles();renderPaleta();renderLeyTipos();render();}
 function renderNiveles(){$('#nivelChips').innerHTML=NIVELES.map(n=>{const r=resumen(p=>p.nv===n.id);return '<button class="nivel-chip'+(n===estado.nivel?' activo':'')+'" data-nv="'+n.id+'">'+corto(n.id)+'<span class="cnt" style="background:#FDECD2;color:#92400E">'+fmt0(pct(r.eq,r.A))+'%</span></button>';}).join('');
   $$('#nivelChips [data-nv]').forEach(b=>b.onclick=()=>abrirNivel(b.dataset.nv));const n=estado.nivel;if(!n)return;const r=resumen(p=>p.nv===n.id);
   $('#tituloNivel').textContent='Nivel '+corto(n.id).slice(1)+' · '+n.id;$('#subNivel').textContent=n.pis.length+' paños · '+fmt0(r.A)+' m² · '+fmt1(pct(r.eq,r.A))+'% pond.';}
@@ -757,6 +758,7 @@ function render(){if(!ctx||!estado.nivel)return;const n=estado.nivel;const W=cv.
   if(!_f&&V.s>0.02){ctx.strokeStyle='rgba(215,0,31,.35)';ctx.lineWidth=1*px;ctx.setLineDash([6*px,4*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);ctx.lineTo(e.p[2],e.p[3]);ctx.stroke();});ctx.setLineDash([]);}
   const conEv=new Set(estado.local.filter(e=>!e.borrado&&e.dia===hoyDia()&&e.por===estado.persona).map(e=>e.g));
   ctx.strokeStyle='#0F172A';ctx.lineWidth=2.2*px;for(const p of n.pis){if(conEv.has(p.g)&&vis(p.bb))ctx.stroke(p.path);}
+  if(MULTI.size){ctx.strokeStyle='#1C4192';ctx.fillStyle='rgba(28,65,146,.28)';ctx.lineWidth=3.2*px;for(const g of MULTI){const p=PIS.get(g);if(p&&p.nv===n.id){ctx.fill(p.path);ctx.stroke(p.path);}}}
   if(estado.sel){const p=PIS.get(estado.sel);if(p&&p.nv===n.id){ctx.strokeStyle='#1C4192';ctx.lineWidth=3.5*px;ctx.setLineDash([8*px,5*px]);ctx.stroke(p.path);ctx.setLineDash([]);}}
   if(!_f&&V.s>0.045){ctx.fillStyle='#334155';ctx.textAlign='center';ctx.textBaseline='middle';const fs=10*px;ctx.font='600 '+fs+'px Inter,system-ui,sans-serif';
     for(const p of n.pis){if(!vis(p.bb)||!p.r||!p.etq)continue;const w=(p.bb[2]-p.bb[0]);if(w<fs*5)continue;let t=p.r;const max=Math.floor(w/(fs*.55));if(t.length>max)t=t.slice(0,Math.max(4,max-1))+'…';ctx.fillText(t,p.cx,p.cy);}}
@@ -781,6 +783,7 @@ function initGestos(){const w=$('#lienzoWrap');
     if(estado.modo==='pincel'&&gesto.t==='uno'){pintarEn(...p);return;}
     if(gesto.mov){V.tx=gesto.tx+p[0]-gesto.x0[0];V.ty=gesto.ty+p[1]-gesto.x0[1];render();}});
   const fin=e=>{ptrs.delete(e.pointerId);if(!gesto)return;
+    if(gesto.t==='uno'&&estado.modo==='multi'&&!gesto.mov){const p=pisoEn(...gesto.x0);if(p){if(MULTI.has(p.g))MULTI.delete(p.g);else MULTI.add(p.g);actualizaMulti();render();}}
     if(gesto.t==='uno'&&estado.modo==='ver'&&!gesto.mov){const p=pisoEn(...gesto.x0);estado.sel=p?p.g:null;render();if(p)abrirFicha(p);}
     if(gesto.t==='uno'&&estado.modo==='pincel'&&loteActual&&loteActual.length){estado.deshacer.push(loteActual);renderNiveles();renderPaleta();}
     if(ptrs.size===0){gesto=null;loteActual=null;}};
@@ -788,8 +791,19 @@ function initGestos(){const w=$('#lienzoWrap');
   w.addEventListener('wheel',e=>{e.preventDefault();const [x,y]=xy(e);const f=Math.exp(-e.deltaY*0.0015);const s=Math.max(.004,Math.min(1.2,V.s*f));const wx=(x-V.tx)/V.s,wy=(y-V.ty)/V.s;V.s=s;V.tx=x-wx*s;V.ty=y-wy*s;render();},{passive:false});}
 function zoom(f){const w=$('#lienzoWrap');const x=w.clientWidth/2,y=w.clientHeight/2;const s=Math.max(.004,Math.min(1.2,V.s*f));const wx=(x-V.tx)/V.s,wy=(y-V.ty)/V.s;V.s=s;V.tx=x-wx*s;V.ty=y-wy*s;render();}
 function aviso(t){$('#avisoTexto').textContent=t;$('#avisoPlano').classList.remove('oculto');}
-function setModo(m){if(m==='pincel'&&estado.color==='tipo')setColor('av');estado.modo=m;$('#segVer').classList.toggle('activo',m==='ver');$('#segPincel').classList.toggle('activo',m==='pincel');$('#segPincel').classList.toggle('marcando',m==='pincel');
-  $('#paleta').classList.toggle('oculto',m!=='pincel');$('#lienzoWrap').classList.toggle('pincel',m==='pincel');if(m==='pincel'){aviso('Toca o arrastra un dedo sobre los paños para pintarlos con la etapa elegida. Con dos dedos mueves y haces zoom.');}
+const MULTI=new Set();let MULTI_F=1;
+function actualizaMulti(){const n=MULTI.size;let A=0;MULTI.forEach(g=>{const p=PIS.get(g);if(p)A+=p.A;});$('#multiInfo').textContent=n?n+' paño'+(n>1?'s':'')+' · '+fmt0(A)+' m²':'Toca los paños que quieras marcar';
+  $('#btnMultiAplicar').disabled=!n;$('#btnMultiLimpiar').disabled=!n;document.querySelectorAll('#multiPct button').forEach(b=>b.classList.toggle('activo',+b.dataset.f===MULTI_F));}
+async function aplicarMulti(){if(!MULTI.size)return;const et=estado.etapa,lote=[];let ok=0,no=0;
+  for(const g of [...MULTI]){const p=PIS.get(g);if(!p)continue;if(!etapasDe(p).includes(et)){no++;continue;}if(await aplicar(p,et,MULTI_F,lote))ok++;}
+  if(lote.length)estado.deshacer.push(lote);MULTI.clear();actualizaMulti();render();renderNiveles();renderPaleta();
+  toast(ok+' paño'+(ok===1?'':'s')+' al '+Math.round(MULTI_F*100)+'% en '+ETAPAS[et].c.toLowerCase()+(no?' · '+no+' no llevan esa etapa':''));}
+function setModo(m){if(m==='pincel'&&estado.color==='tipo')setColor('av');if(m==='multi'&&estado.color==='tipo')setColor('av');if(estado.modo==='multi'&&m!=='multi'){MULTI.clear();}estado.modo=m;
+  ['Ver:ver','Pincel:pincel','Multi:multi'].forEach(s=>{const [k,v]=s.split(':');$('#seg'+k).classList.toggle('activo',m===v);});$('#segPincel').classList.toggle('marcando',m==='pincel');
+  $('#paleta').classList.toggle('oculto',m==='ver');$('#barraMulti').classList.toggle('oculto',m!=='multi');
+  $('#lienzoWrap').classList.toggle('pincel',m==='pincel');
+  if(m==='pincel'){aviso('Toca o arrastra un dedo sobre los paños para pintarlos con la etapa elegida. Con dos dedos mueves y haces zoom.');}
+  if(m==='multi'){actualizaMulti();aviso('Toca varios paños para elegirlos, escoge la etapa y el porcentaje, y pulsa Aplicar.');}
   requestAnimationFrame(()=>{ajustarLienzo();render();});}
 /* ---------------- ficha ---------------- */
 function abrirFicha(p){const w=pesosDe(p);const hist=[];const m=new Map();((estado.base&&estado.base.eventos)||[]).concat(estado.local).forEach(e=>{if(e.g===p.g||(p.pg&&e.g===p.pg))m.set(e.id,e);});
@@ -865,7 +879,7 @@ async function iniciar(){
   renderInicio();cargarEquipo(false);}
 window.addEventListener('DOMContentLoaded',()=>{cv=$('#lienzo');ctx=cv.getContext('2d');ctxHit=document.createElement('canvas').getContext('2d');initGestos();
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');
-  $('#segColAv').onclick=()=>setColor('av');$('#segColTipo').onclick=()=>setColor('tipo');try{if(localStorage.getItem('paviflow-color')==='tipo'){estado.color='tipo';$('#segColAv').classList.remove('activo');$('#segColTipo').classList.add('activo');}}catch(_){}$('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#btnDeshacer').onclick=deshacer;$('#chkPrevias').onchange=e=>estado.previas=e.target.checked;
+  $('#segColAv').onclick=()=>setColor('av');$('#segColTipo').onclick=()=>setColor('tipo');try{if(localStorage.getItem('paviflow-color')==='tipo'){estado.color='tipo';$('#segColAv').classList.remove('activo');$('#segColTipo').classList.add('activo');}}catch(_){}$('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#segMulti').onclick=()=>setModo('multi');$('#btnMultiAplicar').onclick=aplicarMulti;$('#btnMultiLimpiar').onclick=()=>{MULTI.clear();actualizaMulti();render();};document.querySelectorAll('#multiPct button').forEach(b=>b.onclick=()=>{MULTI_F=+b.dataset.f;actualizaMulti();});$('#btnDeshacer').onclick=deshacer;$('#chkPrevias').onchange=e=>estado.previas=e.target.checked;
   $('#btnZoomMas').onclick=()=>zoom(1.5);$('#btnZoomMenos').onclick=()=>zoom(1/1.5);$('#btnAjustar').onclick=()=>{encuadrar();render();};$('#btnCerrarAviso').onclick=()=>$('#avisoPlano').classList.add('oculto');
   $('#btnVolverPlano').onclick=()=>cambiarVista('inicio');$('#btnMenu').onclick=abrirMenu;$('#velo').onclick=cerrarHoja;
   $('#btnNivelAntes').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i>0)abrirNivel(NIVELES[i-1].id);};$('#btnNivelDespues').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i<NIVELES.length-1)abrirNivel(NIVELES[i+1].id);};
