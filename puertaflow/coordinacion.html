@@ -514,7 +514,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.32 β</span></span>
+      <span class="brand-name"><span class="np">Puerta</span><span class="np2">Plan</span><span class="ver">v0.33 β</span></span>
       <span class="brand-sub" id="subMarca">Coordinación de refuerzos</span>
     </div>
   </div>
@@ -566,7 +566,7 @@ textarea.campo{resize:vertical;min-height:70px;font-family:inherit}
   <button class="pestana activa" data-v="tablero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg><span>Tablero</span></button>
   <button class="pestana" data-v="planta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
 </nav>
-<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">Coordinación v0.32 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PuertaPlan</span> <span class="vpie">Coordinación v0.33 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M640 640H960V1120H640Z" opacity=".35"/><path d="M640 640H900L960 670V1120L900 1150H640Z"/><circle cx="860" cy="890" r="26" fill="#DC0428"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -991,7 +991,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.32 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.33 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 let TIPOSTAB={},TABSEL=null;   /* v0.21: tipos de tabique (TF en rojo tenue) y tabique tocado */
@@ -1285,14 +1285,18 @@ function preguntarEnvio(t){const pen=pendientesEnvio();abrirHoja('<div class="ho
   '<button class="btn principal grande" style="width:100%;margin-top:10px" data-acc="enviar">📤 Enviar ahora al coordinador · '+pen+' ticket'+(pen===1?'':'s')+'</button><button class="btn secundario" style="width:100%;margin-top:8px" data-acc="cerrar">Seguir trabajando y enviar después</button>');}
 /* ---------------- fotos comprimidas (v0.25: ≈1024 px, JPEG 62 %, ~40 % más livianas) ---------------- */
 async function comprimirFoto(file){const url=URL.createObjectURL(file);try{const img=await new Promise((ok,mal)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=mal;i.src=url;});
-  const k=Math.min(1,1024/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
-  c.getContext('2d').drawImage(img,0,0,c.width,c.height);return c.toDataURL('image/jpeg',0.62);}finally{URL.revokeObjectURL(url);}}
-let FOTOS=null;
-async function fotosEquipo(){if(FOTOS)return FOTOS;try{FOTOS=(await descifrar(KC,await bajar('coordfotos.enc',true)))||{};}catch(e){FOTOS={};}return FOTOS;}
-async function fotoDe(id){for(const t of estado.local)for(const f of t.fotos||[])if(f.id===id&&f.d)return f.d;const F=await fotosEquipo();return F[id]||null;}
+  const k=Math.min(1,800/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height);return c.toDataURL('image/jpeg',0.5);}finally{URL.revokeObjectURL(url);}}
+
+/* v0.33 (07-11-2026, Renato: "que las fotos pesen lo mínimo y carguen más rápido"): fotos de ≤ 800 px al 50 % (~35 KB) y las del
+   equipo repartidas en 16 archivos (coordfotos_00…15.enc, ~1 MB): se baja solo el que tiene la foto que se mira. */
+const NFOT=16,FOTOS={};
+const grupoFoto=id=>{let h=0;for(const ch of id)h=(h*31+ch.charCodeAt(0))>>>0;return h%NFOT;};
+function fotosEquipo(id){const k=grupoFoto(id);if(!FOTOS[k])FOTOS[k]=bajar('coordfotos_'+String(k).padStart(2,'0')+'.enc',true).then(b=>descifrar(KC,b)).then(d=>d||{}).catch(()=>{delete FOTOS[k];return {};});return FOTOS[k];}
+async function fotoDe(id){for(const t of estado.local)for(const f of t.fotos||[])if(f.id===id&&f.d)return f.d;const F=await fotosEquipo(id);return F[id]||null;}
 /* v0.30: si la copia del teléfono está dañada, se carga la del equipo (coordfotos.enc) */
 function pintarFotos(){$$('img[data-foto]').forEach(async im=>{if(im.dataset.ok)return;im.dataset.ok=1;const id=im.dataset.foto;const d=await fotoDe(id);
-  im.onerror=async()=>{im.onerror=null;const F=await fotosEquipo();if(F[id]&&F[id]!==im.getAttribute('src'))im.src=F[id];else im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto dañada en este teléfono · pídela al coordinador'}));};
+  im.onerror=async()=>{im.onerror=null;const F=await fotosEquipo(id);if(F[id]&&F[id]!==im.getAttribute('src'))im.src=F[id];else im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto dañada en este teléfono · pídela al coordinador'}));};
   if(d)im.src=d;else{im.replaceWith(Object.assign(document.createElement('span'),{className:'nota',textContent:'📷 foto todavía no publicada por el coordinador'}));}});}
 function verFoto(src){const v=$('#visor');$('#visorTitulo').textContent='Foto';$('#visorSub').textContent='Toca ＋ para acercar';const img=$('#visorImg');img.style.width='100%';img.dataset.z='1';img.src=src;v.classList.add('visible');}
 const htmlFotos=fs=>(fs&&fs.length)?'<div class="fotos-mini">'+fs.map(f=>'<img data-foto="'+f.id+'" alt="foto">').join('')+'</div>':'';

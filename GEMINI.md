@@ -118,9 +118,9 @@ git push
 ```
 Usa la misma `TABIFLOW_CLAVE`. `puertaflow/coordavance.enc` se suma a los archivos que puedes modificar; no toques `coord.enc` ni `coord_acceso.json` (los mantiene Claude).
 
-Desde el 19-10-2026 el mismo comando también guarda las fotos de los tickets (interferencias para RDI) en `puertaflow/coordfotos.enc`. Súbelo junto a `coordavance.enc`:
+Desde el 19-10-2026 el mismo comando también guarda las fotos de los tickets (interferencias para RDI) en `puertaflow/coordfotos_00.enc` … `coordfotos_15.enc` (desde el 07-11-2026: 16 archivos livianos, fotos de 800 px; el antiguo `coordfotos.enc` se elimina solo). Súbelos junto a `coordavance.enc` con `git add -A` (así también queda registrada la eliminación del archivo antiguo):
 ```bash
-git add puertaflow/coordavance.enc puertaflow/coordfotos.enc
+git add -A puertaflow/coordavance.enc 'puertaflow/coordfotos*.enc'
 ```
 
 ## HormiFlow (hormigón armado) · desde el 20-10-2026
@@ -145,7 +145,7 @@ Después de cada `git push` en `mi-pagina-web`, copia **los mismos archivos de a
 # una vez: git clone https://github.com/Buhoarq/flujoplan.git ../flujoplan   (al lado de mi-pagina-web)
 cd ../flujoplan && git pull --rebase
 for f in tabiflow/avance.enc tabiflow/adjuntos.enc paviflow/avance.enc hormiflow/avance.enc lastplanner/plan.enc \
-         puertaflow/avance.enc puertaflow/coordavance.enc puertaflow/coordfotos.enc ventanaintflow/avance.enc ventanaintflow/fotos.enc imperflow/avance.enc; do
+         puertaflow/avance.enc puertaflow/coordavance.enc puertaflow/coordfotos_*.enc ventanaintflow/avance.enc ventanaintflow/fotos.enc imperflow/avance.enc; do
   [ -f ../mi-pagina-web/$f ] && cp ../mi-pagina-web/$f publicar/hcq/$f
 done
 git add publicar/hcq/*/avance.enc publicar/hcq/tabiflow/adjuntos.enc publicar/hcq/lastplanner/plan.enc publicar/hcq/puertaflow/coord*.enc publicar/hcq/ventanaintflow/fotos.enc
