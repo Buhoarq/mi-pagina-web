@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PilotoPlan v1.12 · Piloto UCI · Hospital de Coquimbo</title>
+<title>PilotoPlan v1.13 · Piloto UCI · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,6 +396,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
+/* EETT en la ficha (TabiPlan v7.6) */
+.eett{font-size:12.8px;line-height:1.55;color:var(--cuerpo);background:var(--panel2);border-radius:12px;padding:10px 12px}.eett p{margin:0 0 8px}.eett .eett-sub{font-weight:800;color:var(--texto);margin-top:10px}
+.eett-gen{margin-top:10px}.eett-gen summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--primario);padding:6px 0}
+
 /* ================= PilotoPlan ================= */
 .brand-name .np{color:var(--primario)}
 .contenedor{max-width:980px;margin:0 auto}
@@ -404,6 +408,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .barra-chips::-webkit-scrollbar{display:none}
 .barra-chips.pegada{margin:0 -16px 10px;padding:7px 16px;position:sticky;top:-18px;z-index:4}
 html.oscuro .barra-chips{background:var(--panel)}
+#arUI{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;font-family:inherit;color:#fff}#arUI[hidden]{display:none}
+#arUI button,#arUI input,#arUI label{pointer-events:auto}.ar-top{display:flex;gap:8px;align-items:flex-start;padding:10px}.ar-msg{flex:1;background:rgba(11,18,32,.82);padding:10px 12px;border-radius:12px;font-size:14px;line-height:1.35}.ar-msg small{opacity:.8}
+.ar-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:6px 10px calc(14px + env(safe-area-inset-bottom))}.arb{border:0;border-radius:99px;padding:12px 16px;font-weight:800;font-size:14px;background:rgba(11,18,32,.85);color:#fff}.arb.pri{background:#2563EB;font-size:16px;padding:14px 22px}.arb.pri[disabled]{opacity:.45}.arb.sal{background:#D7001F;padding:10px 12px}
+.ar-fino{background:rgba(11,18,32,.82);margin:0 10px;padding:8px;border-radius:12px;display:flex;flex-direction:column;gap:6px}.ar-f1{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.ar-f1 button{border:0;border-radius:8px;min-width:40px;height:38px;font-size:17px;background:#334155;color:#fff;font-weight:800}.ar-f1 span{font-size:11px;opacity:.8;margin-right:8px}.ar-f1 label{font-size:12px;display:flex;gap:8px;align-items:center}.ar-caps{display:flex;gap:5px;flex-wrap:wrap}.ar-caps button{border:1px solid #64748B;border-radius:99px;padding:5px 9px;font-size:11px;font-weight:800;background:transparent;color:#cbd5e1}.ar-caps button.on{background:#2563EB;border-color:#2563EB;color:#fff}
 .chipf{flex:none;padding:6px 11px;border-radius:99px;border:1px solid var(--linea);background:#fff;font-size:12px;font-weight:800;color:var(--cuerpo);white-space:nowrap}
 .chipf.on{background:var(--primario-osc);border-color:var(--primario-osc);color:#fff}
 .chipf .pt{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px}
@@ -586,7 +594,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Plan</span><span class="ver">v1.12</span></span>
+      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Plan</span><span class="ver">v1.13</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -632,7 +640,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <button class="pestana" data-v="compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg><span>Compras</span></button>
   <button class="pestana" data-v="bitacora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Bitácora</span></button>
 </nav>
-<footer id="pie"><span class="marca">PilotoPlan</span> <span class="vpie">v1.12</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PilotoPlan</span> <span class="vpie">v1.13</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2349,7 +2357,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.12',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.13',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -2803,8 +2811,125 @@ function verTarea3(id){const els=elementosDeTarea(id);if(!els.length)return;modo
   $('#ley3').innerHTML='<b>'+escapar(T.get(id).n.slice(0,60))+'</b><span class="lg"><i style="background:#D7001F"></i>'+els.length+' elementos</span><button class="lg" data-acc="todo3">Ver todo</button>';},120);}
 function render3(){if(!PROG||!PROG.m3d)return;if(!render3._i){render3._i=1;if(PROG.m3d.mat)modo3='mat';else if(PROG.m3d.estilo==='revit')modo3='rev';}$('#chips3').innerHTML=(PROG.m3d.mat?[['mat','🧱 Materiales']]:[]).concat([['rev','✏️ Revit'],['part','🎨 Partidas'],['av','📊 Avance'],['hoy','📅 Qué toca']]).map(([k,n])=>'<button class="chipf'+(modo3===k?' on':'')+'" data-modo3="'+k+'">'+n+'</button>').join('')+
   '<span class="sep-v"></span><button class="chipf'+(ocultos.has('cie')?' on':'')+'" data-acc="cielo3">'+(ocultos.has('cie')?'Mostrar cielo':'Quitar cielo')+'</button><button class="chipf'+(ocultos.has('est_sup')?' on':'')+'" data-acc="losa3">'+(ocultos.has('est_sup')?'Mostrar losa sup.':'Quitar losa sup.')+'</button>'+
-  '<span class="sep-v"></span><button class="chipf" data-vista3="iso">Isométrica</button><button class="chipf" data-vista3="interior">Interior</button><button class="chipf" data-vista3="planta">Planta</button>';
+  '<span class="sep-v"></span><button class="chipf" data-acc="ar">👓 Realidad aumentada</button><button class="chipf" data-vista3="iso">Isométrica</button><button class="chipf" data-vista3="interior">Interior</button><button class="chipf" data-vista3="planta">Planta</button>';
   requestAnimationFrame(()=>{init3();pintar3();});}
+
+/* ================= REALIDAD AUMENTADA (PROTOTIPO) · PilotoPlan =================
+   Pone el modelo del piloto sobre la cámara del celular (WebXR, Chrome en Android con ARCore).
+   Alineación sin QR: se marcan en el piso, al pie de un muro real, su esquina izquierda y otro punto del mismo muro
+   (el muro «hacia el baño» del cubículo UCI). Opcional: 2 puntos al pie de un segundo muro (lateral) para afinar.
+   Todo se calcula con la geometría del modelo; nada se inventa: si algo no calza, se muestra la diferencia medida.
+   © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
+const AR={cfg:{m1:'TIY-02A',m2:'TIY-01A'},s:null,rd:null,sc:null,cam:null,G:null,ret:null,hit:null,hs:null,rs:null,paso:0,pts:[],P:null,vis:null,op:0.6,fin:1,W:null};
+/* ---- geometría pura (cm del modelo → m de three: x=X, y=Z, z=-Y) ---- */
+const arT=(x,y)=>[x/100,-y/100];
+function arMuroDe(cod,rec){const el=PROG.m3d.el.find(e=>e.k==='tab'&&e.t&&new RegExp('^'+cod+'\\b').test(e.t));if(!el)return null;
+  const P=el.p,n=P.length/3;let mx=0,my=0;for(let i=0;i<n;i++){mx+=P[i*3];my+=P[i*3+1];}mx/=n;my/=n;let sxx=0,sxy=0,syy=0;
+  for(let i=0;i<n;i++){const a=P[i*3]-mx,b=P[i*3+1]-my;sxx+=a*a;sxy+=a*b;syy+=b*b;}
+  const ang=0.5*Math.atan2(2*sxy,sxx-syy);let ux=Math.cos(ang),uy=Math.sin(ang);let nx=-uy,ny=ux;
+  /* cara del lado del recinto (la del piloto) */
+  const dc=(rec.cx-mx)*nx+(rec.cy-my)*ny;if(dc<0){nx=-nx;ny=-ny;}
+  let nmax=-1e9;for(let i=0;i<n;i++)nmax=Math.max(nmax,(P[i*3]-mx)*nx+(P[i*3+1]-my)*ny);
+  /* vértices de esa cara (a ≤ 1,5 cm); sus extremos a lo largo del muro son el largo útil de la cara */
+  let s0=1e9,s1=-1e9;for(let i=0;i<n;i++){const d=(P[i*3]-mx)*nx+(P[i*3+1]-my)*ny;if(d>nmax-1.5){const s=(P[i*3]-mx)*ux+(P[i*3+1]-my)*uy;s0=Math.min(s0,s);s1=Math.max(s1,s);}}
+  const base={x:mx+nx*nmax,y:my+ny*nmax};
+  const A=[base.x+ux*s0,base.y+uy*s0],B=[base.x+ux*s1,base.y+uy*s1];
+  /* izquierda/derecha vistas desde el recinto mirando al muro: izquierda = (fz,-fx) en coordenadas de three, con f = -normal */
+  const nt=[nx,-ny],f=[-nt[0],-nt[1]],izq=[f[1],-f[0]];const ta=arT(A[0],A[1]),tb=arT(B[0],B[1]);
+  const L=(ta[0]*izq[0]+ta[1]*izq[1])>=(tb[0]*izq[0]+tb[1]*izq[1])?ta:tb,R=L===ta?tb:ta;
+  const dx=R[0]-L[0],dz=R[1]-L[1],len=Math.hypot(dx,dz);
+  return{el,L,R,u:[dx/len,dz/len],n:nt,len,izq,mid:[(L[0]+R[0])/2,(L[1]+R[1])/2]};}
+/* alineación: giro θ (alrededor de Y) y traslación t (x,z) que llevan la esquina izquierda L del modelo a A y la dirección L→R a la dirección A→B */
+function arAlinear(m,A,B){const dM=m.u,dx=B[0]-A[0],dz=B[1]-A[1],l=Math.hypot(dx,dz);if(l<0.3)return null;const dA=[dx/l,dz/l];
+  const th=Math.atan2(dM[1],dM[0])-Math.atan2(dA[1],dA[0]);const c=Math.cos(th),s=Math.sin(th);
+  const rot=p=>[p[0]*c+p[1]*s,-p[0]*s+p[1]*c];const rL=rot(m.L);return{th,t:[A[0]-rL[0],A[1]-rL[1]],largo:l};}
+const arRot=(th,p)=>{const c=Math.cos(th),s=Math.sin(th);return[p[0]*c+p[1]*s,-p[0]*s+p[1]*c];};
+/* afinado con un segundo muro: se desplaza el modelo a lo largo del primer muro hasta que el plano del segundo muro pase por el punto medio de C–D */
+function arAfinar(m2,P,C,D,dirA){const nA=arRot(P.th,m2.n),p2=arRot(P.th,m2.mid);const p2a=[p2[0]+P.t[0],p2[1]+P.t[1]];
+  const M=[(C[0]+D[0])/2,(C[1]+D[1])/2];const d=nA[0]*(M[0]-p2a[0])+nA[1]*(M[1]-p2a[1]);const k=nA[0]*dirA[0]+nA[1]*dirA[1];if(Math.abs(k)<0.5)return null;
+  const lam=d/k;const uA=arRot(P.th,m2.u),cd=[D[0]-C[0],D[1]-C[1]],lc=Math.hypot(cd[0],cd[1])||1;
+  const desv=Math.acos(Math.min(1,Math.abs((uA[0]*cd[0]+uA[1]*cd[1])/lc)))*180/Math.PI;return{lam,desv,d};}
+/* ---- sesión WebXR ---- */
+const arHTML={
+  esc:'<b>1 · Escanea el piso</b><br>Mueve el celular apuntando al piso hasta que aparezca el aro azul.',
+  p1:()=>'<b>2 · Esquina izquierda</b><br>Mira el muro del cubículo que da al baño. Apunta el aro al <b>piso, en la esquina izquierda</b> del muro (donde se junta con el muro lateral) y pulsa «Marcar».',
+  p2:()=>'<b>3 · Otro punto del mismo muro</b><br>Apunta el aro al piso, <b>al pie del mismo muro</b>, más a la derecha (si puedes, a más de 2 m) y pulsa «Marcar».',
+  ok:'<b>Modelo alineado</b><br>Camina con calma. Si ves un corrimiento, usa el ajuste fino o «Afinar con otro muro».',
+  q1:()=>'<b>Afinar con el '+(AR.W?AR.W.nom:'muro lateral')+'</b><br>Apunta el aro al piso, al pie de ese muro, y marca <b>2 puntos</b> (uno en cada extremo, lo más separados que puedas).'};
+function arIniciar(){
+  if(!(PROG&&PROG.m3d)){toast('Este piloto no tiene modelo 3D','error');return;}
+  if(!navigator.xr||!navigator.xr.isSessionSupported){arNoSoporta();return;}
+  const rec=(PROG.m3d.rec||[]).find(r=>r.pl==='uci')||(PROG.m3d.rec||[])[0];const m1=rec&&arMuroDe(AR.cfg.m1,rec);
+  if(!m1){toast('El muro de alineación no está en este modelo','error');return;}
+  navigator.xr.isSessionSupported('immersive-ar').then(ok=>{if(!ok){arNoSoporta();return;}arSesion(rec,m1);}).catch(arNoSoporta);}
+function arNoSoporta(){abrirHoja('<div class="hoja-titulo">👓 Realidad aumentada</div><p class="nota" style="font-size:13px;line-height:1.5">Este teléfono o navegador no permite realidad aumentada en la web. Funciona con <b>Chrome en Android</b> (teléfonos compatibles con ARCore). En iPhone todavía no está disponible.</p>');}
+async function arSesion(rec,m1){
+  AR.rec=rec;AR.m1=m1;const m2=arMuroDe(AR.cfg.m2,rec);AR.m2=m2;
+  if(m2){const izq=((m2.mid[0]-m1.mid[0])*m1.izq[0]+(m2.mid[1]-m1.mid[1])*m1.izq[1])>0;AR.W={m:m2,nom:izq?'muro lateral de la izquierda':'muro lateral de la derecha'};}else AR.W=null;
+  const ui=$('#arUI');ui.hidden=false;
+  try{
+    if(!AR.rd){AR.rd=new THREE.WebGLRenderer({alpha:true,antialias:true});AR.rd.setPixelRatio(Math.min(window.devicePixelRatio||1,2));AR.rd.xr.enabled=true;AR.rd.domElement.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none';document.body.appendChild(AR.rd.domElement);}
+    AR.rd.xr.setReferenceSpaceType('local');
+    const ses=await navigator.xr.requestSession('immersive-ar',{requiredFeatures:['hit-test','dom-overlay'],domOverlay:{root:ui}});
+    AR.s=ses;await AR.rd.xr.setSession(ses);
+    AR.rs=await ses.requestReferenceSpace('local');const vs=await ses.requestReferenceSpace('viewer');AR.hs=await ses.requestHitTestSource({space:vs});
+  }catch(e){console.warn('AR',e);toast('No se pudo iniciar la realidad aumentada: '+(e&&e.name?e.name:'error'),'error');ui.hidden=true;try{AR.s&&AR.s.end();}catch(_){}AR.s=null;return;}
+  arEscena();AR.paso=1;AR.pts=[];AR.P=null;AR.hit=null;AR.info='';arUI();
+  ses.addEventListener('end',()=>{AR.rd.setAnimationLoop(null);ui.hidden=true;AR.s=null;AR.hs=null;AR.rs=null;pedirRender3();});
+  AR.rd.setAnimationLoop(arFrame);}
+function arEscena(){
+  AR.sc=new THREE.Scene();AR.cam=new THREE.PerspectiveCamera();
+  AR.sc.add(new THREE.HemisphereLight(0xffffff,0x8892a6,1.0));const dl=new THREE.DirectionalLight(0xffffff,0.6);dl.position.set(2,6,3);AR.sc.add(dl);
+  AR.G=new THREE.Group();AR.G.visible=false;AR.sc.add(AR.G);
+  if(!AR.vis)AR.vis=new Set(['tab','pue','ven','art','acc','pis','rp','tra','mob','eqm','ins']);
+  AR.mats=[];PROG.m3d.el.forEach(el=>{if(!el.mesh)return;const mt=new THREE.MeshLambertMaterial({color:colorElem(el),side:THREE.DoubleSide,transparent:true,opacity:AR.op,depthWrite:false});
+    const m=new THREE.Mesh(el.mesh.userData.gBase,mt);m.userData.k=el.k;const ed=new THREE.LineSegments(new THREE.EdgesGeometry(el.mesh.userData.gBase,30),new THREE.LineBasicMaterial({color:0x0B1220,transparent:true,opacity:0.5}));m.add(ed);AR.G.add(m);AR.mats.push(m);});
+  const ring=new THREE.Mesh(new THREE.RingGeometry(0.035,0.05,32).rotateX(-Math.PI/2),new THREE.MeshBasicMaterial({color:0x2563EB,side:THREE.DoubleSide}));ring.matrixAutoUpdate=false;ring.visible=false;AR.sc.add(ring);AR.ret=ring;
+  const dot=new THREE.Mesh(new THREE.SphereGeometry(0.02,12,12),new THREE.MeshBasicMaterial({color:0xD7001F}));AR.dots=[0,1,2,3].map(()=>{const d=dot.clone();d.visible=false;AR.sc.add(d);return d;});
+  arCapas();}
+function arCapas(){AR.mats.forEach(m=>{m.visible=AR.vis.has(m.userData.k);m.material.opacity=AR.op;});}
+function arFrame(t,fr){if(!fr||!AR.hs)return;const h=fr.getHitTestResults(AR.hs);
+  if(h.length){const p=h[0].getPose(AR.rs);if(p){AR.hit=p.transform;AR.ret.visible=true;AR.ret.matrix.fromArray(p.transform.matrix);}}else{AR.hit=null;AR.ret.visible=false;}
+  const rdy=!!AR.hit;if(rdy!==AR._rdy){AR._rdy=rdy;arUI();}
+  AR.rd.render(AR.sc,AR.cam);}
+/* ---- interfaz sobre la cámara ---- */
+function arUI(){const ui=$('#arUI');if(!ui)return;const p=AR.paso;let msg,btns='';
+  if(p===1||p===2||p===4||p===5){msg=p===1?(AR.hit||AR.pts.length?arHTML.p1():arHTML.esc):p===2?arHTML.p2():arHTML.q1();
+    btns='<button class="arb pri" data-ar="marcar"'+(AR.hit?'':' disabled')+'>📍 Marcar aquí</button>';}
+  else msg=arHTML.ok;
+  const fin=p===3?'<div class="ar-fino"><div class="ar-f1"><button data-ar="m" data-d="-1,0">◀</button><button data-ar="m" data-d="1,0">▶</button><span>izq · der</span><button data-ar="m" data-d="0,-1">▲</button><button data-ar="m" data-d="0,1">▼</button><span>muro · tú</span></div>'+
+    '<div class="ar-f1"><button data-ar="r" data-d="-1">↺</button><button data-ar="r" data-d="1">↻</button><span>girar</span><button data-ar="h" data-d="1">⤒</button><button data-ar="h" data-d="-1">⤓</button><span>altura</span><button data-ar="paso">'+(AR.fin===1?'paso 1 cm':'paso 5 cm')+'</button></div>'+
+    '<div class="ar-f1"><label>Opacidad <input type="range" min="15" max="100" value="'+Math.round(AR.op*100)+'" data-ar="op"></label></div>'+
+    '<div class="ar-caps">'+[['tab','Tabiques'],['pue','Puertas'],['ven','Ventanas'],['art','Artefactos'],['pis','Piso'],['cie','Cielo'],['ecie','Estr. cielo'],['ins','Instalaciones'],['mob','Equipos'],['est','Estructura']].map(([k,n])=>'<button class="'+(AR.vis.has(k)?'on':'')+'" data-ar="capa" data-k="'+k+'">'+n+'</button>').join('')+'</div></div>':'';
+  ui.innerHTML='<div class="ar-top"><div class="ar-msg">'+msg+(AR.info?'<br><small>'+AR.info+'</small>':'')+'</div><button class="arb sal" data-ar="salir">✕ Salir</button></div><div class="ar-bot">'+btns+
+    (p===3?(AR.W?'<button class="arb" data-ar="afinar">🧱 Afinar con otro muro</button>':'')+'<button class="arb" data-ar="reiniciar">↺ Reiniciar</button><button class="arb" data-ar="ocultar">👁 Modelo</button>':'<button class="arb" data-ar="reiniciar">↺ Reiniciar</button>')+'</div>'+fin;}
+function arMarcar(){if(!AR.hit)return;const q=AR.hit.position,pt=[q.x,q.z,q.y];const i=AR.pts.length;AR.pts.push(pt);if(AR.dots[i%4]){AR.dots[i%4].position.set(q.x,q.y,q.z);AR.dots[i%4].visible=true;}
+  if(AR.paso===1){AR.paso=2;AR.info='';}
+  else if(AR.paso===2){const A=AR.pts[0],B=AR.pts[1];const r=arAlinear(AR.m1,A,B);
+    if(!r){AR.pts=[];AR.paso=1;AR.info='Los dos puntos quedaron muy juntos: marca el segundo a más de 30 cm.';arUI();return;}
+    AR.P={th:r.th,t:r.t,y:(A[2]+B[2])/2};AR.dA=[(B[0]-A[0])/r.largo,(B[1]-A[1])/r.largo];AR.A0=[A[0],A[1]];arAplicar();AR.paso=3;
+    AR.info='Largo marcado '+r.largo.toFixed(2).replace('.',',')+' m · el muro del modelo mide '+AR.m1.len.toFixed(2).replace('.',',')+' m (solo se compara si marcaste el extremo derecho)';}
+  else if(AR.paso===4){AR.paso=5;AR.info='';}
+  else if(AR.paso===5){const C=AR.pts[AR.pts.length-2],D=AR.pts[AR.pts.length-1];const r=arAfinar(AR.W.m,AR.P,C,D,AR.dA);
+    if(!r){AR.info='Ese muro es casi paralelo al primero: no sirve para afinar.';}
+    else{AR.P.t=[AR.P.t[0]+r.lam*AR.dA[0],AR.P.t[1]+r.lam*AR.dA[1]];arAplicar();AR.info='Afinado: se corrió '+(r.lam*100).toFixed(0)+' cm a lo largo del muro · desvío del ángulo '+r.desv.toFixed(1).replace('.',',')+'°';}
+    AR.paso=3;}
+  arUI();}
+function arAplicar(){const P=AR.P;AR.G.rotation.set(0,P.th,0);AR.G.position.set(P.t[0],P.y,P.t[1]);AR.G.visible=true;AR.dots.forEach(d=>d.visible=false);}
+function arAccion(b){const a=b.dataset.ar,P=AR.P;
+  if(a==='salir'){try{AR.s&&AR.s.end();}catch(_){}}
+  else if(a==='marcar')arMarcar();
+  else if(a==='reiniciar'){AR.paso=1;AR.pts=[];AR.P=null;AR.G.visible=false;AR.info='';arUI();}
+  else if(a==='ocultar'){AR.G.visible=!AR.G.visible;}
+  else if(a==='afinar'){AR.paso=4;AR.info='';arUI();}
+  else if(a==='capa'){const k=b.dataset.k;if(AR.vis.has(k))AR.vis.delete(k);else AR.vis.add(k);arCapas();arUI();}
+  else if(a==='paso'){AR.fin=AR.fin===1?5:1;arUI();}
+  else if(P&&a==='m'){const[d1,d2]=b.dataset.d.split(',').map(Number),st=0.01*AR.fin,dA=AR.dA,nA=[-dA[1],dA[0]];P.t=[P.t[0]+(d1*dA[0]+d2*nA[0])*st,P.t[1]+(d1*dA[1]+d2*nA[1])*st];arAplicar();}
+  else if(P&&a==='r'){const dl=(+b.dataset.d)*0.5*AR.fin*Math.PI/180,A=AR.A0;const rel=[P.t[0]-A[0],P.t[1]-A[1]],rr=arRot(dl,rel);P.th+=dl;P.t=[A[0]+rr[0],A[1]+rr[1]];arAplicar();}
+  else if(P&&a==='h'){P.y+=(+b.dataset.d)*0.01*AR.fin;arAplicar();}}
+document.addEventListener('click',ev=>{const b=ev.target.closest&&ev.target.closest('[data-ar]');if(!b||!AR.s)return;ev.preventDefault();arAccion(b);});
+document.addEventListener('input',ev=>{const b=ev.target;if(b&&b.dataset&&b.dataset.ar==='op'&&AR.s){AR.op=+b.value/100;arCapas();}});
+document.addEventListener('beforexrselect',ev=>{ev.preventDefault();});
 
 /* ================= COMPRAS: paquetes de adquisición y solicitud de materiales ================= */
 const MAT_EST={pend:{n:'Pendiente',c:'#94A3B8',i:'○'},cot:{n:'Cotizado',c:'#F59E0B',i:'◐'},oc:{n:'Con OC',c:'#2563EB',i:'◑'},obra:{n:'En obra',c:'#16A34A',i:'●'}};
@@ -3096,6 +3221,7 @@ document.addEventListener('click',async ev=>{const b=ev.target.closest('[data-ac
   else if(a==='tema'){const o=document.documentElement.classList.toggle('oscuro');try{localStorage.setItem('tf_tema',o?'oscuro':'claro');}catch(_){}fondo3();pedirRender3();renderActual();}
   else if(a==='ver3d'){cerrarHoja();verTarea3(+b.dataset.t);}
   else if(a==='todo3'){modo3='part';M3.forEach(m=>{const tr=transp(m.userData.el),b=m.userData.mBase||m.material;b.transparent=tr<1;b.opacity=tr;});render3();}
+  else if(a==='ar')arIniciar();
   else if(a==='cielo3'){if(ocultos.has('cie'))ocultos.delete('cie');else ocultos.add('cie');render3();}
   else if(a==='losa3'){if(ocultos.has('est_sup'))ocultos.delete('est_sup');else ocultos.add('est_sup');render3();}
   else if(a==='ley3'){estado.ley3=!estado.ley3;leyenda3();}
@@ -3155,6 +3281,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   iniciar();});
 
 </script>
+<div id="arUI" hidden></div>
 <script>
 /* FlujoPlan · bienvenida animada (03-11-2026, pedido de Renato): fondo azul, línea de balance, barras de producción y el logo.
    Sale una sola vez al día en este teléfono, al abrir el primer módulo o la portada (todas comparten la marca 'fp_bienvenida'
