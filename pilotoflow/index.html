@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PilotoPlan v1.14 · Piloto UCI · Hospital de Coquimbo</title>
+<title>PilotoPlan v1.15 · Piloto UCI · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -408,7 +408,7 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .barra-chips::-webkit-scrollbar{display:none}
 .barra-chips.pegada{margin:0 -16px 10px;padding:7px 16px;position:sticky;top:-18px;z-index:4}
 html.oscuro .barra-chips{background:var(--panel)}
-#arUI{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;font-family:inherit;color:#fff}#arUI[hidden]{display:none}
+#arUI{position:fixed;inset:0;pointer-events:none;font-family:inherit;color:#fff}#arUI[hidden]{display:none}#arTouch{position:absolute;inset:0;touch-action:none;pointer-events:none}#arPanel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
 #arUI button,#arUI input,#arUI label{pointer-events:auto}.ar-top{display:flex;gap:8px;align-items:flex-start;padding:10px}.ar-msg{flex:1;background:rgba(11,18,32,.82);padding:10px 12px;border-radius:12px;font-size:14px;line-height:1.35}.ar-msg small{opacity:.8}
 .ar-bot{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:6px 10px calc(14px + env(safe-area-inset-bottom))}.arb{border:0;border-radius:99px;padding:12px 16px;font-weight:800;font-size:14px;background:rgba(11,18,32,.85);color:#fff}.arb.pri{background:#2563EB;font-size:16px;padding:14px 22px}.arb.pri[disabled]{opacity:.45}.arb.sal{background:#D7001F;padding:10px 12px}
 .ar-fino{background:rgba(11,18,32,.82);margin:0 10px;padding:8px;border-radius:12px;display:flex;flex-direction:column;gap:6px}.ar-f1{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.ar-f1 button{border:0;border-radius:8px;min-width:40px;height:38px;font-size:17px;background:#334155;color:#fff;font-weight:800}.ar-f1 span{font-size:11px;opacity:.8;margin-right:8px}.ar-f1 label{font-size:12px;display:flex;gap:8px;align-items:center}.ar-caps{display:flex;gap:5px;flex-wrap:wrap}.ar-caps button{border:1px solid #64748B;border-radius:99px;padding:5px 9px;font-size:11px;font-weight:800;background:transparent;color:#cbd5e1}.ar-caps button.on{background:#2563EB;border-color:#2563EB;color:#fff}
@@ -594,7 +594,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <div class="brand">
     <div class="brand-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Plan</span><span class="ver">v1.14</span></span>
+      <span class="brand-name"><span class="np">Piloto</span><span class="np2">Plan</span><span class="ver">v1.15</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo</span>
     </div>
   </div>
@@ -640,7 +640,7 @@ hr.sep{border:none;border-top:1px solid var(--linea);margin:12px 0}
   <button class="pestana" data-v="compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg><span>Compras</span></button>
   <button class="pestana" data-v="bitacora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Bitácora</span></button>
 </nav>
-<footer id="pie"><span class="marca">PilotoPlan</span> <span class="vpie">v1.14</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">PilotoPlan</span> <span class="vpie">v1.15</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg fill="none" viewBox="192 208 1218 1198" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 560L1030 680L800 800L570 680Z" opacity=".55"/><path d="M570 680L800 800V1060L570 940Z"/><path d="M800 800L1030 680V940L800 1060Z" opacity=".78"/><path d="M640 820L700 850V960L640 930Z" fill="#DC0428" opacity=".9"/><path d="M860 870L960 820V880L860 930Z" fill="#DC0428" opacity=".55"/><path d="M790 560V430H812V560Z"/><path d="M812 432L930 470L812 508Z"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -2357,7 +2357,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Módulo de FlujoPlan · Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v1.14',OBRA='Hospital de Coquimbo';
+const APP_VER='v1.15',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- utilidades ---------------- */
@@ -2874,7 +2874,7 @@ async function arSesion(rec,m1){
     AR.s=ses;await AR.rd.xr.setSession(ses);
     AR.rs=await ses.requestReferenceSpace('local');const vs=await ses.requestReferenceSpace('viewer');AR.hs=await ses.requestHitTestSource({space:vs});
   }catch(e){console.warn('AR',e);toast('No se pudo iniciar la realidad aumentada: '+(e&&e.name?e.name:'error'),'error');ui.hidden=true;try{AR.s&&AR.s.end();}catch(_){}AR.s=null;return;}
-  arEscena();AR.paso=1;AR.pts=[];AR.P=null;AR.hit=null;AR.info='';arUI();
+  arEscena();AR.paso=10;AR.pts=[];AR.P=null;AR.hit=null;AR.info='';arTouchInit();arUI();
   ses.addEventListener('end',()=>{AR.rd.setAnimationLoop(null);ui.hidden=true;AR.s=null;AR.hs=null;AR.rs=null;pedirRender3();});
   AR.rd.setAnimationLoop(arFrame);}
 function arEscena(){
@@ -2888,12 +2888,40 @@ function arEscena(){
   const dot=new THREE.Mesh(new THREE.SphereGeometry(0.02,12,12),new THREE.MeshBasicMaterial({color:0xD7001F}));AR.dots=[0,1,2,3].map(()=>{const d=dot.clone();d.visible=false;AR.sc.add(d);return d;});
   arCapas();}
 function arCapas(){AR.mats.forEach(m=>{m.visible=AR.vis.has(m.userData.k);m.material.opacity=AR.op;});}
-function arFrame(t,fr){if(!fr||!AR.hs)return;try{const vp=fr.getViewerPose(AR.rs);AR.vp=vp?vp.transform.position:null;AR.trk=!!(vp&&!vp.emulatedPosition);}catch(_){AR.vp=null;}const h=fr.getHitTestResults(AR.hs);
+function arFrame(t,fr){if(!fr||!AR.hs)return;try{const vp=fr.getViewerPose(AR.rs);AR.vp=vp?vp.transform.position:null;AR.vq=vp?vp.transform.orientation:null;AR.trk=!!(vp&&!vp.emulatedPosition);}catch(_){AR.vp=null;}const h=fr.getHitTestResults(AR.hs);
   if(h.length){const p=h[0].getPose(AR.rs);if(p){AR.hit=p.transform;AR.ret.visible=true;AR.ret.matrix.fromArray(p.transform.matrix);}}else{AR.hit=null;AR.ret.visible=false;}
   const rdy=(AR.hit?1:0)+(AR.trk?2:0);if(rdy!==AR._rdy){AR._rdy=rdy;arUI();}
   AR.rd.render(AR.sc,AR.cam);}
 /* ---- interfaz sobre la cámara ---- */
-function arUI(){const ui=$('#arUI');if(!ui)return;const p=AR.paso;let msg,btns='';
+function arFwd(){/* dirección horizontal hacia donde mira el celular (si mira al piso, hacia donde apunta su parte superior) */
+  if(!AR.vq)return AR.fw||[0,-1];const q=new THREE.Quaternion(AR.vq.x,AR.vq.y,AR.vq.z,AR.vq.w);let v=new THREE.Vector3(0,0,-1).applyQuaternion(q);
+  let h=Math.hypot(v.x,v.z);if(h<0.25){v=new THREE.Vector3(0,1,0).applyQuaternion(q);h=Math.hypot(v.x,v.z);}
+  if(h<0.05)return AR.fw||[0,-1];AR.fw=[v.x/h,v.z/h];return AR.fw;}
+/* modo simple: el modelo aparece 2 m delante con su muro de referencia de cara al celular; se arrastra (1 dedo), se gira (2 dedos) y se fija */
+function arColocar(){if(!AR.vp)return;const f=arFwd(),m=AR.m1,n=m.n;
+  const th=Math.atan2(n[1],n[0])-Math.atan2(-f[1],-f[0]);const r=arRot(th,m.mid);const W=[AR.vp.x+f[0]*2,AR.vp.z+f[1]*2];
+  const y=AR.hit?AR.hit.position.y:AR.vp.y-1.3;AR.P={th,t:[W[0]-r[0],W[1]-r[1]],y};arAplicar();AR.paso=11;AR.info=AR.hit?'':'La altura del piso es una estimación: si el modelo flota o se hunde, usa ⤒ ⤓.';arUI();}
+function arArrastrar(dx,dy){const P=AR.P;if(!P||!AR.vp)return;const f=arFwd(),rt=[-f[1],f[0]];const pw=arRot(P.th,AR.m1.mid);const px=pw[0]+P.t[0],pz=pw[1]+P.t[1];
+  const dist=Math.min(6,Math.max(0.8,Math.hypot(px-AR.vp.x,pz-AR.vp.z))),k=dist*0.00145;
+  P.t=[P.t[0]+rt[0]*dx*k+f[0]*(-dy*k),P.t[1]+rt[1]*dx*k+f[1]*(-dy*k)];arAplicar();}
+function arGirar(d){const P=AR.P;if(!P)return;const m=AR.m1.mid;const w0=arRot(P.th,m),px=w0[0]+P.t[0],pz=w0[1]+P.t[1];P.th+=d;const w1=arRot(P.th,m);P.t=[px-w1[0],pz-w1[1]];arAplicar();}
+function arFijar(){const P=AR.P;if(!P)return;AR.dA=arRot(P.th,AR.m1.u);const l=arRot(P.th,AR.m1.L);AR.A0=[l[0]+P.t[0],l[1]+P.t[1]];AR.paso=3;AR.info='Modelo fijado. Camina con calma; si se corre, usa el ajuste fino.';arUI();}
+const arPt=new Map();
+function arTouchInit(){const t=$('#arTouch');if(!t||t._i)return;t._i=1;
+  t.addEventListener('pointerdown',e=>{if(AR.paso!==11)return;try{t.setPointerCapture(e.pointerId);}catch(_){}arPt.set(e.pointerId,{x:e.clientX,y:e.clientY});e.preventDefault();});
+  t.addEventListener('pointermove',e=>{if(AR.paso!==11||!arPt.has(e.pointerId))return;const o=arPt.get(e.pointerId),n={x:e.clientX,y:e.clientY};
+    if(arPt.size===1)arArrastrar(n.x-o.x,n.y-o.y);
+    else if(arPt.size===2){const ot=[...arPt.entries()].find(([id])=>id!==e.pointerId)[1];let d=Math.atan2(n.y-ot.y,n.x-ot.x)-Math.atan2(o.y-ot.y,o.x-ot.x);if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;arGirar(-d);}
+    arPt.set(e.pointerId,n);e.preventDefault();});
+  ['pointerup','pointercancel'].forEach(k=>t.addEventListener(k,e=>{arPt.delete(e.pointerId);}));}
+function arUI(){const ui=$('#arPanel');if(!ui)return;const p=AR.paso;let msg,btns='';
+  $('#arTouch').style.pointerEvents=p===11?'auto':'none';
+  if(p===10||p===11){const diag='<br><small>Seguimiento: '+(AR.trk?'✔ activo':'… buscando')+'</small>';
+    msg=p===10?'<b>Colocar el modelo</b><br>Párate dentro del cubículo, mirando el muro que da al baño, y pulsa «Colocar modelo».'+diag:
+      '<b>Calza el muro</b><br>Arrastra con <b>1 dedo</b> para mover el modelo y con <b>2 dedos</b> para girarlo, hasta que su muro coincida con el muro real. Luego pulsa «Fijar».'+(AR.info?'<br><small>'+AR.info+'</small>':'');
+    btns=p===10?'<button class="arb pri" data-ar="colocar"'+(AR.trk?'':' disabled')+'>🧊 Colocar modelo</button><button class="arb" data-ar="preciso">📍 Alineación precisa (2 puntos)</button>':
+      '<button class="arb pri" data-ar="fijar">✔ Fijar</button><button class="arb" data-ar="h" data-d="1">⤒ Subir</button><button class="arb" data-ar="h" data-d="-1">⤓ Bajar</button><button class="arb" data-ar="colocar">↺ Colocar de nuevo</button>';
+    ui.innerHTML='<div class="ar-top"><div class="ar-msg">'+msg+'</div><button class="arb sal" data-ar="salir">✕ Salir</button></div><div class="ar-bot">'+btns+'</div>';return;}
   if(p===1||p===2||p===4||p===5){msg=(p===1?(AR.hit||AR.pts.length?arHTML.p1():arHTML.esc):p===2?arHTML.p2():arHTML.q1())+'<br><small>Seguimiento: '+(AR.trk?'✔ activo':'… buscando')+' · Piso: '+(AR.hit?'✔ detectado':'sin detectar')+'</small>'+(!AR.hit?'<br><small>¿No sale el aro? Usa «Marcar con el celular»: apoya la parte de atrás del celular contra el muro, su borde inferior en el piso (en la esquina para el 1.er punto), y pulsa el botón.</small>':'');
     btns='<button class="arb pri" data-ar="marcar"'+(AR.hit?'':' disabled')+'>📍 Marcar aquí</button><button class="arb" data-ar="marcarcel"'+(AR.trk?'':' disabled')+'>📱 Marcar con el celular</button>';}
   else msg=arHTML.ok;
@@ -2920,14 +2948,17 @@ function arAccion(b){const a=b.dataset.ar,P=AR.P;
   if(a==='salir'){try{AR.s&&AR.s.end();}catch(_){}}
   else if(a==='marcar')arMarcar();
   else if(a==='marcarcel')arMarcar(true);
-  else if(a==='reiniciar'){AR.paso=1;AR.pts=[];AR.P=null;AR.G.visible=false;AR.info='';arUI();}
+  else if(a==='colocar')arColocar();
+  else if(a==='fijar')arFijar();
+  else if(a==='preciso'){AR.paso=1;AR.info='';arUI();}
+  else if(a==='reiniciar'){AR.paso=10;AR.pts=[];AR.P=null;AR.G.visible=false;AR.info='';arUI();}
   else if(a==='ocultar'){AR.G.visible=!AR.G.visible;}
   else if(a==='afinar'){AR.paso=4;AR.info='';arUI();}
   else if(a==='capa'){const k=b.dataset.k;if(AR.vis.has(k))AR.vis.delete(k);else AR.vis.add(k);arCapas();arUI();}
   else if(a==='paso'){AR.fin=AR.fin===1?5:1;arUI();}
   else if(P&&a==='m'){const[d1,d2]=b.dataset.d.split(',').map(Number),st=0.01*AR.fin,dA=AR.dA,nA=[-dA[1],dA[0]];P.t=[P.t[0]+(d1*dA[0]+d2*nA[0])*st,P.t[1]+(d1*dA[1]+d2*nA[1])*st];arAplicar();}
   else if(P&&a==='r'){const dl=(+b.dataset.d)*0.5*AR.fin*Math.PI/180,A=AR.A0;const rel=[P.t[0]-A[0],P.t[1]-A[1]],rr=arRot(dl,rel);P.th+=dl;P.t=[A[0]+rr[0],A[1]+rr[1]];arAplicar();}
-  else if(P&&a==='h'){P.y+=(+b.dataset.d)*0.01*AR.fin;arAplicar();}}
+  else if(P&&a==='h'){P.y+=(+b.dataset.d)*(AR.paso===11?0.05:0.01*AR.fin);arAplicar();}}
 document.addEventListener('click',ev=>{const b=ev.target.closest&&ev.target.closest('[data-ar]');if(!b||!AR.s)return;ev.preventDefault();arAccion(b);});
 document.addEventListener('input',ev=>{const b=ev.target;if(b&&b.dataset&&b.dataset.ar==='op'&&AR.s){AR.op=+b.value/100;arCapas();}});
 document.addEventListener('beforexrselect',ev=>{ev.preventDefault();});
@@ -3282,7 +3313,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   iniciar();});
 
 </script>
-<div id="arUI" hidden></div>
+<div id="arUI" hidden><div id="arTouch"></div><div id="arPanel"></div></div>
 <script>
 /* FlujoPlan · bienvenida animada (03-11-2026, pedido de Renato): fondo azul, línea de balance, barras de producción y el logo.
    Sale una sola vez al día en este teléfono, al abrir el primer módulo o la portada (todas comparten la marca 'fp_bienvenida'
