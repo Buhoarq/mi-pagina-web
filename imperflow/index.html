@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>ImperPlan v0.10 β · Hospital de Coquimbo</title>
+<title>ImperPlan v0.11 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,6 +396,10 @@ body.contraste .mk.hoy{box-shadow:0 0 0 2.2px #fff,0 0 0 5px #000}
 .saludo{position:relative;font-family:var(--display);font-size:20px;font-weight:800;color:var(--texto);letter-spacing:-.02em;margin-bottom:10px}
 .saludo small{display:block;font-family:var(--fuente);font-size:12px;font-weight:600;color:var(--tenue);letter-spacing:0;margin-top:2px}
 
+/* EETT en la ficha (TabiPlan v7.6) */
+.eett{font-size:12.8px;line-height:1.55;color:var(--cuerpo);background:var(--panel2);border-radius:12px;padding:10px 12px}.eett p{margin:0 0 8px}.eett .eett-sub{font-weight:800;color:var(--texto);margin-top:10px}
+.eett-gen{margin-top:10px}.eett-gen summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--primario);padding:6px 0}
+
 /* ================= TabiPlan ================= */
 .brand-name .np2{color:var(--ambar-osc);margin-left:-7px}
 #vista-plano.vista.activa{display:flex;flex-direction:column;height:100%;padding:0}
@@ -459,13 +463,181 @@ html.oscuro .brand-name .np{color:#F59E0B}
 .paleta-tipos{grid-template-columns:repeat(4,1fr)!important}
 .ic.g{display:inline-block;width:15px;height:15px;border-radius:4px}
 </style>
+<script>
+/* FlujoPlan · lámina de Revit como fondo del plano (fondo.enc, opcional; la arma herramientas/bfpa_fondo.py desde el .bfpa).
+   fondo.enc = {niveles:{<id>:{lamina,nombre,vista,esc,x0,y0,k,w,h,t:[[x,y,w,h,dataURL],…]}}}: teselas en px de la lámina; k = px por cm del plano.
+   Cada módulo llama FONDO.cargar(clave,redibujar) al abrir y FONDO.dibujar(ctx,nivel,vx0,vy0,vx1,vy1) en su render (contexto en cm del plano).
+   Si hay lámina, el módulo no dibuja su esquema (recintos, muros, ejes) y tiñe sus elementos encima con 'multiply' para que se lean las líneas.
+   © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
+const FONDO={d:null,img:new Map(),redib:null,on:true,
+  async cargar(key,redib){this.redib=redib;try{this.d=await descifrar(key,await bajar('fondo.enc'));}catch(e){this.d=null;}
+    try{const v=localStorage.getItem('fp_fondo');if(v==='0')this.on=false;}catch(e){}if(this.d&&redib)redib();this.boton();},
+  hay(id){return !!(this.on&&this.d&&this.d.niveles&&this.d.niveles[id]);},
+  existe(id){return !!(this.d&&this.d.niveles&&this.d.niveles[id]);},
+  dibujar(ctx,id,vx0,vy0,vx1,vy1){if(typeof MEDIR!=='undefined'){MEDIR.iniciar();MEDIR.nivel(id);}if(!this.hay(id))return false;const f=this.d.niveles[id];if(f.tipo==='vec')return this.vec(ctx,id,f,vx0,vy0,vx1,vy1);const k=f.k;let falta=false;
+    ctx.save();ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.fillStyle='#FFFFFF';ctx.fillRect(f.x0,f.y0,f.w/k,f.h/k);
+    for(const t of f.t){const x=f.x0+t[0]/k,y=f.y0+t[1]/k,w=t[2]/k,h=t[3]/k;if(x>vx1||y>vy1||x+w<vx0||y+h<vy0)continue;
+      const c=id+'|'+t[0]+'|'+t[1];let im=this.img.get(c);
+      if(!im){im=new Image();im.onload=()=>{if(this.redib)this.redib();};im.src=t[4];this.img.set(c,im);}
+      if(im.complete&&im.naturalWidth)ctx.drawImage(im,x,y,w+.5/k,h+.5/k);else falta=true;}
+    ctx.restore();return true;},
+  /* lámina vectorial (líneas y textos del PDF de Revit, por celdas): de lejos una vista general liviana, de cerca solo los vectores visibles */
+  vec(ctx,id,f,vx0,vy0,vx1,vy1){const s=V.s,px=1/s;ctx.save();ctx.fillStyle='#FFFFFF';ctx.fillRect(f.x0,f.y0,f.x1-f.x0,f.y1-f.y0);
+    if(f.g&&s*100<20&&!this._forzar){const g=f.g;let im=this.img.get(id+'|g');if(!im){im=new Image();im.onload=()=>{if(this.redib)this.redib();};im.src=g.d;this.img.set(id+'|g',im);}
+      if(im.complete&&im.naturalWidth){ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(im,g.x0,g.y0,g.w/g.k,g.h/g.k);ctx.restore();return true;}}
+    if(!f._c){f._c=f.c.map(c=>({bb:c[2],L:c[3],P:null}));}
+    const m=2*px;ctx.lineCap='round';ctx.lineJoin='round';
+    const vis=f._c.filter(c=>!(c.bb[2]<vx0-m||c.bb[0]>vx1+m||c.bb[3]<vy0-m||c.bb[1]>vy1+m));
+    const por=new Map();
+    for(const c of vis){if(!c.P)c.P=c.L.map(([si,L])=>{const p=new Path2D();for(const q of L){let x=q[0],y=q[1];p.moveTo(x,y);for(let i=2;i<q.length;i+=2){x+=q[i];y+=q[i+1];p.lineTo(x,y);}}return[si,p];});
+      for(const [si,p] of c.P){let a=por.get(si);if(!a)por.set(si,a=[]);a.push(p);}}
+    for(const [si,ps] of por){const st=f.st[si];if(st[2]){ctx.fillStyle=st[1];ps.forEach(p=>ctx.fill(p));continue;}
+      ctx.strokeStyle=st[1];ctx.lineWidth=Math.max(st[0],0.6*px);ps.forEach(p=>ctx.stroke(p));}
+    /* textos: solo los que se alcanzan a leer (≥ 3,5 px) */
+    ctx.textBaseline='alphabetic';ctx.textAlign='left';
+    for(const t of f.tx){if(t[3]*s<3.5)continue;const x=t[1],y=t[2],r=t[3]*t[0].length;if(x+r<vx0||x-r>vx1||y+r<vy0||y-r>vy1)continue;
+      ctx.fillStyle=t[5];ctx.font=(t[6]?'700 ':'400 ')+t[3]+'px Arial,Helvetica,sans-serif';
+      if(t[4]){ctx.save();ctx.translate(x,y);ctx.rotate(t[4]*Math.PI/180);ctx.fillText(t[0],0,0);ctx.restore();}else ctx.fillText(t[0],x,y);}
+    ctx.restore();return true;},
+  /* imagen de la lámina (vectorial) de una zona del plano, para informes PDF: bb en cm del plano; extra(ctx,k) dibuja encima */
+  imagen(id,bb,wpx,hpx,extra){if(!this.existe(id))return null;const f=this.d.niveles[id];if(f.tipo!=='vec')return null;
+    const c=document.createElement('canvas');c.width=wpx;c.height=hpx;const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,wpx,hpx);
+    const k=Math.min(wpx/(bb[2]-bb[0]),hpx/(bb[3]-bb[1]));const tx=(wpx-(bb[2]-bb[0])*k)/2-bb[0]*k,ty=(hpx-(bb[3]-bb[1])*k)/2-bb[1]*k;
+    const v0={s:V.s,tx:V.tx,ty:V.ty};V.s=k;V.tx=tx;V.ty=ty;this._forzar=true;
+    try{ctx.setTransform(k,0,0,k,tx,ty);this.vec(ctx,id,f,-tx/k,-ty/k,(wpx-tx)/k,(hpx-ty)/k);if(extra)extra(ctx,k);}finally{this._forzar=false;V.s=v0.s;V.tx=v0.tx;V.ty=v0.ty;}
+    return {url:c.toDataURL('image/jpeg',0.88),k,tx,ty,lamina:f.lamina,nombre:f.nombre};},
+  /* botón flotante para alternar lámina de Revit / esquema (se recuerda por navegador) */
+  boton(){if(!this.d||document.getElementById('btnFondo'))return;const b=document.createElement('button');b.id='btnFondo';b.type='button';
+    b.style.cssText='position:absolute;right:74px;bottom:14px;z-index:5;border:1px solid #CBD5E1;background:#fff;color:#1C4192;border-radius:999px;padding:7px 12px;font:700 12px Inter,system-ui,sans-serif;box-shadow:0 2px 8px rgba(15,23,42,.15);cursor:pointer';
+    const pon=()=>{b.textContent=this.on?'🗺 Lámina Revit':'✏️ Esquema';b.title=this.on?'Se ve la lámina de Revit · tocar para ver el esquema':'Se ve el esquema · tocar para ver la lámina de Revit';};pon();
+    ['pointerdown','touchstart','mousedown'].forEach(ev=>b.addEventListener(ev,e=>e.stopPropagation()));
+    b.onclick=e=>{e.stopPropagation();this.on=!this.on;try{localStorage.setItem('fp_fondo',this.on?'1':'0');}catch(_){}pon();if(this.redib)this.redib();};
+    const cv=document.getElementById('lienzo');const cont=cv&&cv.parentElement;if(!cont)return;if(getComputedStyle(cont).position==='static')cont.style.position='relative';cont.appendChild(b);}};
+/* Medir sobre el plano (31-10-2026, pedido de Renato): tocar dos o más puntos → largo de cada tramo y total en metros.
+   Mientras se mide, un dedo arrastra el plano, dos dedos o la rueda hacen zoom y un toque corto agrega un punto (usa V de cada módulo).
+   v2 (31-10 tarde, Renato: "un imán para medir más exacto… nunca pude hacer los 1,5 m de una cota"):
+   · 🧲 imán sobre las líneas de la lámina de Revit: extremo / esquina (cruce de líneas) › perpendicular desde el punto anterior
+     (cara a cara de tabiques) › sobre la línea › ortogonal (horizontal o vertical respecto del punto anterior, ±4°).
+   · Mantener apretado (o tocar cerca de un punto ya puesto) abre una lupa ×4 sobre el dedo: se desliza y al soltar queda el punto.
+   · Cada tramo muestra largo y, si es ortogonal o perpendicular, se marca. */
+const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:null,
+  iniciar(){const cv=document.getElementById('lienzo');const cont=cv&&cv.parentElement;if(!cont||document.getElementById('btnMedir'))return;
+    if(getComputedStyle(cont).position==='static')cont.style.position='relative';
+    try{this.iman=localStorage.getItem('fp_iman')!=='0';}catch(e){}
+    const b=document.createElement('button');b.id='btnMedir';b.type='button';b.textContent='📏 Medir';
+    b.style.cssText='position:absolute;right:74px;bottom:56px;z-index:6;border:1px solid #CBD5E1;background:#fff;color:#1C4192;border-radius:999px;padding:7px 12px;font:700 12px Inter,system-ui,sans-serif;box-shadow:0 2px 8px rgba(15,23,42,.15);cursor:pointer';
+    ['pointerdown','touchstart','mousedown'].forEach(ev=>b.addEventListener(ev,e=>e.stopPropagation()));
+    b.onclick=e=>{e.stopPropagation();this.activar(!this.on);};cont.appendChild(b);this.btn=b;
+    const o=document.createElement('canvas');o.id='capaMedir';o.style.cssText='position:absolute;left:0;top:0;width:100%;height:100%;z-index:4;pointer-events:none;touch-action:none';
+    cont.insertBefore(o,b);this.cv=o;this.base=cv;
+    const br=document.createElement('div');br.style.cssText='position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:6;display:none;gap:6px;align-items:center;background:#0F172A;color:#fff;border-radius:999px;padding:6px 8px 6px 14px;font:700 13px Inter,system-ui,sans-serif;box-shadow:0 4px 14px rgba(15,23,42,.3);white-space:nowrap;max-width:96%';
+    ['pointerdown','touchstart','mousedown'].forEach(ev=>br.addEventListener(ev,e=>e.stopPropagation()));
+    cont.appendChild(br);this.barra=br;this.eventos(o);},
+  activar(v){this.on=v;this.btn.style.background=v?'#1C4192':'#fff';this.btn.style.color=v?'#fff':'#1C4192';this.btn.textContent=v?'✓ Listo':'📏 Medir';
+    this.cv.style.pointerEvents=v?'auto':'none';if(v&&!this.pts.length&&typeof toast==='function')toast('Toca los puntos · mantén apretado para la lupa · 🧲 el imán se pega a las líneas');this.pintar();},
+  redib(){if(typeof render==='function')render();else if(typeof dibujar==='function')dibujar();},
+  modelo(sx,sy){return[(sx-V.tx)/V.s,(sy-V.ty)/V.s];},
+  /* segmentos de la lámina vectorial cerca de (x,y) en cm, radio r */
+  segs(x,y,r){const F=typeof FONDO!=='undefined'?FONDO:null;if(!F||!F.hay(this.nv))return[];const f=F.d.niveles[this.nv];if(f.tipo!=='vec')return[];
+    if(!f._c)f._c=f.c.map(c=>({bb:c[2],L:c[3],P:null}));const out=[];
+    for(const c of f._c){if(c.bb[2]<x-r||c.bb[0]>x+r||c.bb[3]<y-r||c.bb[1]>y+r)continue;
+      if(!c.S){const a=[];for(const[,L]of c.L)for(const q of L){let px=q[0],py=q[1];for(let i=2;i<q.length;i+=2){const nx=px+q[i],ny=py+q[i+1];if(nx!==px||ny!==py)a.push(px,py,nx,ny);px=nx;py=ny;}}c.S=Float64Array.from(a);}
+      const S=c.S;for(let i=0;i<S.length;i+=4){const x0=S[i],y0=S[i+1],x1=S[i+2],y1=S[i+3];
+        if(Math.max(x0,x1)<x-r||Math.min(x0,x1)>x+r||Math.max(y0,y1)<y-r||Math.min(y0,y1)>y+r)continue;out.push([x0,y0,x1,y1]);if(out.length>400)return out;}}
+    return out;},
+  /* punto con imán: p en cm, prev = punto anterior (o null) */
+  ajustar(p,prev){const r=16/V.s;const res={p:p,k:''};
+    const orto=q=>{if(!prev)return null;const dx=q[0]-prev[0],dy=q[1]-prev[1],L=Math.hypot(dx,dy);if(L<1)return null;const a=Math.abs(Math.atan2(dy,dx)*180/Math.PI);
+      if(a<4||a>176)return[q[0],prev[1],'h'];if(Math.abs(a-90)<4)return[prev[0],q[1],'v'];return null;};
+    if(!this.iman){const o=orto(p);if(o){res.p=[o[0],o[1]];res.k='orto';}return res;}
+    const S=this.segs(p[0],p[1],r*1.5);const d=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+    let best=null,bd=r;const prueba=(q,k,lim)=>{const dd=d(q,p);if(dd<(lim||bd)&&(!best||dd<bd)){best={p:q,k};bd=dd;}};
+    /* 1) extremos y cruces */
+    for(const s of S){prueba([s[0],s[1]],'extremo');prueba([s[2],s[3]],'extremo');}
+    if(!best&&S.length<160){for(let i=0;i<S.length;i++)for(let j=i+1;j<S.length;j++){const a=S[i],b=S[j];const d1x=a[2]-a[0],d1y=a[3]-a[1],d2x=b[2]-b[0],d2y=b[3]-b[1];const den=d1x*d2y-d1y*d2x;
+      if(Math.abs(den)<1e-6*Math.hypot(d1x,d1y)*Math.hypot(d2x,d2y))continue;const t=((b[0]-a[0])*d2y-(b[1]-a[1])*d2x)/den,u=((b[0]-a[0])*d1y-(b[1]-a[1])*d1x)/den;
+      if(t<-.02||t>1.02||u<-.02||u>1.02)continue;prueba([a[0]+t*d1x,a[1]+t*d1y],'esquina');}}
+    if(best){res.p=best.p;res.k=best.k;return res;}
+    /* 2) perpendicular desde el punto anterior (cara a cara) */
+    const pie=(s,q)=>{const dx=s[2]-s[0],dy=s[3]-s[1],L2=dx*dx+dy*dy;if(!L2)return null;const t=((q[0]-s[0])*dx+(q[1]-s[1])*dy)/L2;return[s[0]+t*dx,s[1]+t*dy,t];};
+    if(prev)for(const s of S){const f=pie(s,prev);if(!f||f[2]<-.05||f[2]>1.05)continue;prueba([f[0],f[1]],'perpendicular',r*.9);}
+    if(best){res.p=best.p;res.k=best.k;return res;}
+    /* 3) sobre la línea más cercana, combinada con ortogonal si corresponde */
+    let ln=null,ld=r;for(const s of S){const f=pie(s,p);if(!f||f[2]<0||f[2]>1)continue;const dd=d(f,p);if(dd<ld){ld=dd;ln={s,f};}}
+    const o=orto(p);
+    if(ln&&o){const s=ln.s,dx=s[2]-s[0],dy=s[3]-s[1];let q=null;
+      if(o[2]==='h'&&Math.abs(dy)>1e-6){const t=(prev[1]-s[1])/dy;if(t>=-.02&&t<=1.02)q=[s[0]+t*dx,prev[1]];}
+      if(o[2]==='v'&&Math.abs(dx)>1e-6){const t=(prev[0]-s[0])/dx;if(t>=-.02&&t<=1.02)q=[prev[0],s[1]+t*dy];}
+      if(q&&d(q,p)<r){res.p=q;res.k='orto + línea';return res;}}
+    if(ln){res.p=[ln.f[0],ln.f[1]];res.k='línea';return res;}
+    if(o){res.p=[o[0],o[1]];res.k='orto';}
+    return res;},
+  eventos(o){const P=new Map();let t0=0,mov=0,pin=null,tim=null,lupa=null;
+    ['pointerdown','pointermove','pointerup','pointercancel','click','dblclick','touchstart','touchmove','touchend','mousedown','mousemove','mouseup','contextmenu'].forEach(ev=>o.addEventListener(ev,e=>{e.stopPropagation();if(ev.startsWith('touch')||ev==='contextmenu')e.preventDefault();},{passive:false}));
+    const cerca=(sx,sy)=>{let k=-1,dm=22;this.pts.forEach((q,i)=>{const dd=Math.hypot(q[0]*V.s+V.tx-sx,q[1]*V.s+V.ty-sy);if(dd<dm){dm=dd;k=i;}});return k;};
+    const prevDe=i=>i>0?this.pts[i-1]:(i===0&&this.pts.length>1?this.pts[1]:null);
+    const mover=(sx,sy)=>{const i=lupa.i;const prev=i===-1?(this.pts.length?this.pts[this.pts.length-1]:null):prevDe(i);
+      const a=this.ajustar(this.modelo(sx,sy),prev);lupa.sx=sx;lupa.sy=sy;this.cur=a;if(i>=0)this.pts[i]=a.p;this.pintar();};
+    o.addEventListener('pointerdown',e=>{o.setPointerCapture(e.pointerId);P.set(e.pointerId,[e.offsetX,e.offsetY]);clearTimeout(tim);
+      if(P.size===1){t0=Date.now();mov=0;const k=cerca(e.offsetX,e.offsetY);
+        if(k>=0){lupa={i:k};mover(e.offsetX,e.offsetY);}            // tocar un punto ya puesto: se arrastra con lupa
+        else{const x=e.offsetX,y=e.offsetY;tim=setTimeout(()=>{if(P.size===1&&mov<=6){lupa={i:-1};mover(x,y);if(navigator.vibrate)try{navigator.vibrate(15);}catch(_){}}},320);}}
+      if(P.size===2){clearTimeout(tim);lupa=null;this.cur=null;const[a,b]=[...P.values()];pin={d:Math.hypot(a[0]-b[0],a[1]-b[1]),s:V.s,c:[(a[0]+b[0])/2,(a[1]+b[1])/2]};mov=99;}});
+    o.addEventListener('pointermove',e=>{if(!P.has(e.pointerId))return;const q=P.get(e.pointerId),dx=e.offsetX-q[0],dy=e.offsetY-q[1];P.set(e.pointerId,[e.offsetX,e.offsetY]);
+      if(P.size===1&&lupa){mover(e.offsetX,e.offsetY);return;}
+      if(P.size===1){mov+=Math.abs(dx)+Math.abs(dy);if(mov>6){clearTimeout(tim);V.tx+=dx;V.ty+=dy;this.redib();}}
+      else if(P.size===2&&pin){const[a,b]=[...P.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);const c=[(a[0]+b[0])/2,(a[1]+b[1])/2];
+        const ns=Math.max(0.005,Math.min(4,pin.s*d/pin.d));const m=this.modelo(pin.c[0],pin.c[1]);V.s=ns;V.tx=c[0]-m[0]*ns;V.ty=c[1]-m[1]*ns;pin.c=c;pin.s=ns;pin.d=d;this.redib();}});
+    const fin=e=>{if(!P.has(e.pointerId))return;P.delete(e.pointerId);clearTimeout(tim);if(P.size<2)pin=null;
+      if(P.size===0&&lupa){if(lupa.i===-1&&this.cur){this.pts.push(this.cur.p);this.ult=this.cur.k;}else if(this.cur)this.ult=this.cur.k;lupa=null;this.cur=null;this.pintar();return;}
+      if(P.size===0&&mov<=6&&Date.now()-t0<600){const a=this.ajustar(this.modelo(e.offsetX,e.offsetY),this.pts.length?this.pts[this.pts.length-1]:null);this.pts.push(a.p);this.ult=a.k;this.pintar();}};
+    o.addEventListener('pointerup',fin);o.addEventListener('pointercancel',e=>{P.delete(e.pointerId);pin=null;clearTimeout(tim);lupa=null;this.cur=null;this.pintar();});
+    o.addEventListener('wheel',e=>{e.preventDefault();e.stopPropagation();const f=Math.exp(-e.deltaY*0.0015),m=this.modelo(e.offsetX,e.offsetY);V.s=Math.max(0.005,Math.min(4,V.s*f));V.tx=e.offsetX-m[0]*V.s;V.ty=e.offsetY-m[1]*V.s;this.redib();},{passive:false});
+    this._lupa=()=>lupa;},
+  nivel(id){if(this.nv!==id){this.nv=id;this.pts=[];}requestAnimationFrame(()=>this.pintar());},
+  fm(v){return v.toLocaleString('es-CL',{minimumFractionDigits:2,maximumFractionDigits:2});},
+  marca(c,x,y,k,col){c.save();c.strokeStyle=col;c.fillStyle=col;c.lineWidth=2;
+    if(k==='extremo'){c.strokeRect(x-6,y-6,12,12);}else if(k==='esquina'){c.beginPath();c.moveTo(x-7,y-7);c.lineTo(x+7,y+7);c.moveTo(x+7,y-7);c.lineTo(x-7,y+7);c.stroke();}
+    else if(k==='perpendicular'){c.beginPath();c.moveTo(x-7,y+6);c.lineTo(x+7,y+6);c.moveTo(x,y+6);c.lineTo(x,y-8);c.stroke();}
+    else if(k&&k.indexOf('línea')>=0){c.beginPath();c.moveTo(x,y-7);c.lineTo(x+7,y);c.lineTo(x,y+7);c.lineTo(x-7,y);c.closePath();c.stroke();}
+    c.restore();},
+  pintar(){const o=this.cv;if(!o)return;const w=o.clientWidth,h=o.clientHeight,dpr=window.devicePixelRatio||1;
+    if(o.width!==Math.round(w*dpr)||o.height!==Math.round(h*dpr)){o.width=Math.round(w*dpr);o.height=Math.round(h*dpr);}
+    const c=o.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,o.width,o.height);c.setTransform(dpr,0,0,dpr,0,0);
+    const S=p=>[p[0]*V.s+V.tx,p[1]*V.s+V.ty];let tot=0;const lu=this._lupa&&this._lupa();
+    const L=this.pts.slice();if(lu&&lu.i===-1&&this.cur)L.push(this.cur.p);const ps=L.map(S);
+    if(ps.length){c.lineJoin='round';c.lineCap='round';c.strokeStyle='#fff';c.lineWidth=5;c.beginPath();ps.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.stroke();
+      c.strokeStyle='#E11D48';c.lineWidth=2.5;c.setLineDash([8,5]);c.stroke();c.setLineDash([]);
+      ps.forEach(p=>{c.beginPath();c.arc(p[0],p[1],4.5,0,Math.PI*2);c.fillStyle='#E11D48';c.fill();c.strokeStyle='#fff';c.lineWidth=2;c.stroke();});
+      c.font='800 12px Inter,system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';
+      for(let i=1;i<L.length;i++){const a=L[i-1],b=L[i],d=Math.hypot(b[0]-a[0],b[1]-a[1])/100;tot+=d;const m=[(ps[i-1][0]+ps[i][0])/2,(ps[i-1][1]+ps[i][1])/2];
+        const t=this.fm(d)+' m';const tw=c.measureText(t).width+12;c.fillStyle='#fff';c.strokeStyle='#E11D48';c.lineWidth=1.5;c.beginPath();c.roundRect(m[0]-tw/2,m[1]-11,tw,22,11);c.fill();c.stroke();c.fillStyle='#9F1239';c.fillText(t,m[0],m[1]+.5);}}
+    /* lupa ×4 sobre el dedo, con la lámina y el punto con imán */
+    if(lu&&lu.sx!=null&&this.base){const R=62,Z=4,cx=Math.min(Math.max(lu.sx,R+6),w-R-6),cy=lu.sy-R-46<R+4?lu.sy+R+46:lu.sy-R-46;
+      c.save();c.beginPath();c.arc(cx,cy,R,0,Math.PI*2);c.closePath();c.fillStyle='#fff';c.fill();c.clip();
+      const bw=R*2/Z;try{c.drawImage(this.base,(lu.sx-bw/2)*dpr,(lu.sy-bw/2)*dpr,bw*dpr,bw*dpr,cx-R,cy-R,R*2,R*2);}catch(_){}
+      try{c.drawImage(o,(lu.sx-bw/2)*dpr,(lu.sy-bw/2)*dpr,bw*dpr,bw*dpr,cx-R,cy-R,R*2,R*2);}catch(_){}
+      if(this.cur){const q=S(this.cur.p);const lx=cx+(q[0]-lu.sx)*Z,ly=cy+(q[1]-lu.sy)*Z;
+        c.strokeStyle='rgba(225,29,72,.55)';c.lineWidth=1;c.beginPath();c.moveTo(lx-R,ly);c.lineTo(lx+R,ly);c.moveTo(lx,ly-R);c.lineTo(lx,ly+R);c.stroke();
+        this.marca(c,lx,ly,this.cur.k,'#16A34A');c.beginPath();c.arc(lx,ly,2.5,0,Math.PI*2);c.fillStyle='#E11D48';c.fill();}
+      c.restore();c.beginPath();c.arc(cx,cy,R,0,Math.PI*2);c.lineWidth=3;c.strokeStyle='#1C4192';c.stroke();
+      if(this.cur&&this.cur.k){c.font='800 11px Inter,system-ui,sans-serif';c.textAlign='center';const t='🧲 '+this.cur.k;const tw=c.measureText(t).width+12;c.fillStyle='#16A34A';c.beginPath();c.roundRect(cx-tw/2,cy+R-4,tw,18,9);c.fill();c.fillStyle='#fff';c.fillText(t,cx,cy+R+5);}}
+    const br=this.barra;if(!br)return;br.style.display=(this.on||this.pts.length)?'flex':'none';
+    const btn=(t,f,on)=>'<button data-m="'+f+'" style="border:0;background:'+(on?'#16A34A':'rgba(255,255,255,.14)')+';color:#fff;border-radius:999px;padding:5px 10px;font:700 12px Inter,system-ui,sans-serif;cursor:pointer">'+t+'</button>';
+    const n=L.length;const ul=this.ult&&this.iman?' <small style="opacity:.75">· '+this.ult+'</small>':'';
+    br.innerHTML='<span>📏 '+(n<2?(this.on?(n?'Toca el punto siguiente':'Toca el primer punto'):'Medición'):this.fm(tot)+' m'+(n>2?' <small style="opacity:.7">· '+(n-1)+' tramos</small>':'')+ul)+'</span>'+(this.on?btn('🧲','iman',this.iman):'')+(this.pts.length?btn('↶','des')+btn('✕','bor'):'');
+    br.querySelectorAll('[data-m]').forEach(x=>x.onclick=e=>{e.stopPropagation();const m=x.dataset.m;
+      if(m==='iman'){this.iman=!this.iman;try{localStorage.setItem('fp_iman',this.iman?'1':'0');}catch(_){} if(typeof toast==='function')toast(this.iman?'🧲 Imán activado: se pega a extremos, esquinas y líneas':'Imán desactivado');}
+      else if(m==='des')this.pts.pop();else this.pts=[];this.ult=null;this.pintar();});}};
+
+</script>
 </head>
 <body>
 <header id="barra">
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 470C900 600 1010 740 1010 860A210 210 0 0 1 590 860C590 740 700 600 800 470Z"/><path d="M520 1080H1080V1120H520Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Imper</span><span class="np2">Plan</span><span class="ver">v0.10 β</span></span>
+      <span class="brand-name"><span class="np">Imper</span><span class="np2">Plan</span><span class="ver">v0.11 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Impermeabilización</span>
     </div>
   </div>
@@ -480,7 +652,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#0369A1"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3c3.5 4.2 6 7.4 6 10.5A6 6 0 0 1 6 13.5C6 10.4 8.5 7.2 12 3z"/></svg></div>
-          <div><span class="eyebrow">ImperPlan v0.10 β · Módulo de impermeabilización de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
+          <div><span class="eyebrow">ImperPlan v0.11 β · Módulo de impermeabilización de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
         </div>
         <p>Toda superficie con impermeabilización del modelo (bajo pavimentos de baños, cocinas y recintos húmedos, terrazas y cubiertas transitables, estacionamientos, rampas y radieres) está en la planta con un color tenue según su sistema: <b>cementicio flexible</b>, <b>poliuretano con mortero de protección</b>, poliuretano de tránsito vehicular o polietileno bajo radier. Viene cortada en paños de obra (por recinto y ejes). Elige el nivel, la capa y toca los paños: los m² y el % se calculan solos.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#E0F2FE;border:1px solid #94A3B8"></span>Cementicio flexible</span><span class="ley"><span class="ic g" style="background:#EDE9FE;border:1px solid #94A3B8"></span>Poliuretano + mortero de protección</span><span class="ley"><span class="ic g" style="background:#FFEDD5;border:1px solid #94A3B8"></span>Poliuretano de tránsito</span><span class="ley"><span class="ic g" style="background:#E2E8F0;border:1px solid #94A3B8"></span>Radier: polietileno + hidrófugo</span></div>
@@ -534,7 +706,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">ImperPlan</span> <span class="vpie">v0.10 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">ImperPlan</span> <span class="vpie">v0.11 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 470C900 600 1010 740 1010 860A210 210 0 0 1 590 860C590 740 700 600 800 470Z"/><path d="M520 1080H1080V1120H520Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -563,7 +735,7 @@ html.oscuro .brand-name .np{color:#F59E0B}
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.10 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.11 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas por sistema ---------------- */
@@ -639,7 +811,7 @@ async function deshacer(){const lote=estado.deshacer.pop();if(!lote){toast('Nada
 /* ---------------- carga ---------------- */
 async function cargarModelos(){progreso('Abriendo los planos…');
   const [mb,pb]=await Promise.all([bajar(RUTA_TABI+'modelo.enc'),bajar('imper.enc')]);
-  MOD=await descifrar(CLAVE,mb);const PZ=await descifrar(CLAVE,pb);
+  MOD=await descifrar(CLAVE,mb);if(typeof FONDO!=='undefined')FONDO.cargar(CLAVE,()=>render());   /* v0.11: planta de impermeabilización de Revit de fondo */const PZ=await descifrar(CLAVE,pb);
   const porId=new Map(MOD.niveles.map(n=>[n.id,n]));
   NIVELES=PZ.niveles.map(n=>{const m=porId.get(n.base||n.id)||{};return {id:n.id,nombre:n.nombre||m.nombre||n.id,techo:!!n.base,base:n.base,techosBase:!!n.techos_base,bbox:n.base?null:m.bbox,tab:m.tab||[],col:m.col||[],mur:m.mur||[],ejes:m.ejes||[],los:m.los||[],pex:m.pex||[],esc:m.esc||[],art:m.art||[],pis:n.pis};});
   PIS=new Map();PADRE=new Map();TOT.A=0;
@@ -717,20 +889,22 @@ function baseTerreno(ctx,n,px){const osc=document.documentElement.classList.cont
 function render(){if(!ctx||!estado.nivel)return;const n=estado.nivel;const W=cv.width,H=cv.height;ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,W,H);
   ctx.setTransform(V.s*dpr,0,0,V.s*dpr,V.tx*dpr,V.ty*dpr);const px=1/V.s;
   const vx0=-V.tx/V.s,vy0=-V.ty/V.s,vx1=vx0+W/dpr/V.s,vy1=vy0+H/dpr/V.s;const vis=bb=>!(bb[2]<vx0||bb[0]>vx1||bb[3]<vy0||bb[1]>vy1);
+  const _f=!n.techo&&typeof FONDO!=='undefined'&&FONDO.dibujar(ctx,n.id,vx0,vy0,vx1,vy1);
   if(n.techo){ctx.globalAlpha=.3;baseTerreno(ctx,n,px);ctx.fillStyle='#475569';n.mur.forEach(r=>poly(r,true));n.col.forEach(r=>poly(r,true));
     if(n.techosBase){/* N9: debajo se ve la forma de la cubierta de N8 (sus paños), no los recintos de N8 */const b=NIVELES.find(x=>x.id===n.base);ctx.globalAlpha=.55;ctx.fillStyle='#E2E8F0';ctx.strokeStyle='#94A3B8';ctx.lineWidth=.8*px;(b?b.pis:[]).forEach(q=>{ctx.fill(q.path);ctx.stroke(q.path);});ctx.globalAlpha=.6;dibujarEscaleras(ctx,n,px);}
     else{ctx.fillStyle='#64748B';n.tab.forEach(t=>t.p.forEach(r=>poly(r,true)));}ctx.globalAlpha=1;}
-  else baseTerreno(ctx,n,px);
-  for(const p of n.pis){if(!vis(p.bb))continue;const c=colorPiso(p);const osc_=document.documentElement.classList.contains('oscuro');ctx.fillStyle=c?c.c:(SIS[p.s]||SIS.pend).tenue[osc_?1:0];ctx.globalAlpha=c?c.a:(n.techo?.8:1);ctx.fill(p.path);ctx.globalAlpha=1;
+  else if(!_f)baseTerreno(ctx,n,px);
+  for(const p of n.pis){if(!vis(p.bb))continue;const c=colorPiso(p);const osc_=document.documentElement.classList.contains('oscuro');if(_f){/* sobre la planta de Revit (que ya trae el color de cada sistema): solo el avance pintado y el borde del paño */if(c){ctx.fillStyle=c.c;ctx.globalAlpha=Math.min(.6,c.a);ctx.fill(p.path);ctx.globalAlpha=1;}ctx.lineWidth=(c?1.6:.9)*px;ctx.strokeStyle=c?c.c:'rgba(28,65,146,.5)';ctx.stroke(p.path);continue;}
+    ctx.fillStyle=c?c.c:(SIS[p.s]||SIS.pend).tenue[osc_?1:0];ctx.globalAlpha=c?c.a:(n.techo?.8:1);ctx.fill(p.path);ctx.globalAlpha=1;
     ctx.lineWidth=(c&&c.a>.8?1.4:.8)*px;ctx.strokeStyle=c?c.c:'#B6C0CE';ctx.stroke(p.path);}
-  if(!n.techo){dibujarEscaleras(ctx,n,px);dibujarArtefactos(ctx,n,px);
+  if(!n.techo&&!_f){dibujarEscaleras(ctx,n,px);dibujarArtefactos(ctx,n,px);
   ctx.fillStyle='#475569';n.mur.forEach(r=>poly(r,true));ctx.fillStyle='#334155';n.col.forEach(r=>poly(r,true));
   ctx.fillStyle='#64748B';n.tab.forEach(t=>t.p.forEach(r=>poly(r,true)));}
-  if(V.s>0.02){ctx.strokeStyle='rgba(215,0,31,.35)';ctx.lineWidth=1*px;ctx.setLineDash([6*px,4*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);ctx.lineTo(e.p[2],e.p[3]);ctx.stroke();});ctx.setLineDash([]);}
+  if(!_f&&V.s>0.02){ctx.strokeStyle='rgba(215,0,31,.35)';ctx.lineWidth=1*px;ctx.setLineDash([6*px,4*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);ctx.lineTo(e.p[2],e.p[3]);ctx.stroke();});ctx.setLineDash([]);}
   const conEv=new Set(estado.local.filter(e=>!e.borrado&&e.dia===hoyDia()&&e.por===estado.persona).map(e=>e.g));
   ctx.strokeStyle='#0F172A';ctx.lineWidth=2.2*px;for(const p of n.pis){if(conEv.has(p.g)&&vis(p.bb))ctx.stroke(p.path);}
   if(estado.sel){const p=PIS.get(estado.sel);if(p&&p.nv===n.id){ctx.strokeStyle='#1C4192';ctx.lineWidth=3.5*px;ctx.setLineDash([8*px,5*px]);ctx.stroke(p.path);ctx.setLineDash([]);}}
-  if(V.s>0.045){ctx.fillStyle='#334155';ctx.textAlign='center';ctx.textBaseline='middle';const fs=10*px;ctx.font='600 '+fs+'px Inter,system-ui,sans-serif';
+  if(!_f&&V.s>0.045){ctx.fillStyle='#334155';ctx.textAlign='center';ctx.textBaseline='middle';const fs=10*px;ctx.font='600 '+fs+'px Inter,system-ui,sans-serif';
     for(const p of n.pis){if(!vis(p.bb)||!p.r||!p.etq)continue;const w=(p.bb[2]-p.bb[0]);if(w<fs*5)continue;let t=p.r;const max=Math.floor(w/(fs*.55));if(t.length>max)t=t.slice(0,Math.max(4,max-1))+'…';ctx.fillText(t,p.cx,p.cy);}}
   $('#etqFlot').innerHTML='<b>'+corto(n.id)+'</b> · 1 m = '+fmt0(V.s*100)+' px';}
 function poly(r,fill){if(r.length<4)return;ctx.beginPath();ctx.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)ctx.lineTo(r[i],r[i+1]);ctx.closePath();fill?ctx.fill():ctx.stroke();}
