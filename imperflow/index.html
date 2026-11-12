@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>ImperPlan v0.11 β · Hospital de Coquimbo</title>
+<title>ImperPlan v0.12 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -637,7 +637,7 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 470C900 600 1010 740 1010 860A210 210 0 0 1 590 860C590 740 700 600 800 470Z"/><path d="M520 1080H1080V1120H520Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Imper</span><span class="np2">Plan</span><span class="ver">v0.11 β</span></span>
+      <span class="brand-name"><span class="np">Imper</span><span class="np2">Plan</span><span class="ver">v0.12 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Impermeabilización</span>
     </div>
   </div>
@@ -652,7 +652,7 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#0369A1"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3c3.5 4.2 6 7.4 6 10.5A6 6 0 0 1 6 13.5C6 10.4 8.5 7.2 12 3z"/></svg></div>
-          <div><span class="eyebrow">ImperPlan v0.11 β · Módulo de impermeabilización de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
+          <div><span class="eyebrow">ImperPlan v0.12 β · Módulo de impermeabilización de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
         </div>
         <p>Toda superficie con impermeabilización del modelo (bajo pavimentos de baños, cocinas y recintos húmedos, terrazas y cubiertas transitables, estacionamientos, rampas y radieres) está en la planta con un color tenue según su sistema: <b>cementicio flexible</b>, <b>poliuretano con mortero de protección</b>, poliuretano de tránsito vehicular o polietileno bajo radier. Viene cortada en paños de obra (por recinto y ejes). Elige el nivel, la capa y toca los paños: los m² y el % se calculan solos.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#E0F2FE;border:1px solid #94A3B8"></span>Cementicio flexible</span><span class="ley"><span class="ic g" style="background:#EDE9FE;border:1px solid #94A3B8"></span>Poliuretano + mortero de protección</span><span class="ley"><span class="ic g" style="background:#FFEDD5;border:1px solid #94A3B8"></span>Poliuretano de tránsito</span><span class="ley"><span class="ic g" style="background:#E2E8F0;border:1px solid #94A3B8"></span>Radier: polietileno + hidrófugo</span></div>
@@ -695,6 +695,7 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
     <div class="contenedor">
       <h2>Avance de impermeabilización</h2>
       <p class="nota" style="margin-bottom:14px">Superficie impermeabilizada de cada paño multiplicada por el avance registrado y por el peso de cada capa según su sistema.</p>
+      <button class="btn principal" data-acc="informe" style="width:100%;margin-bottom:14px">📊 Informe de cantidades (m²) para el EEPP</button>
       <div class="tarjeta"><h3>🏢 Avance por nivel</h3><div id="avMatriz"></div></div>
       <div class="tarjeta"><h3>💧 Avance por tipo de impermeabilización</h3><div id="avTipos"></div></div>
       <div class="tarjeta"><h3>⚖️ Etapas y ponderación</h3><div id="avEtapas"></div></div>
@@ -706,7 +707,7 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">ImperPlan</span> <span class="vpie">v0.11 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">ImperPlan</span> <span class="vpie">v0.12 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 470C900 600 1010 740 1010 860A210 210 0 0 1 590 860C590 740 700 600 800 470Z"/><path d="M520 1080H1080V1120H520Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -735,7 +736,7 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.11 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.12 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas por sistema ---------------- */
@@ -787,7 +788,7 @@ async function infoClave(){return (await fetch(RUTA_TABI+'clave.json?t='+Date.no
 async function verificar(key){const info=await infoClave();await descifrar(key,Uint8Array.from(atob(info.check),c=>c.charCodeAt(0)).buffer);return key;}
 /* ---------------- estado ---------------- */
 const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nivel:null,modo:'ver',etapa:'pu',previas:true,sel:null,deshacer:[]};
-let CLAVE=null,MOD=null,NIVELES=[],PIS=new Map(),PADRE=new Map(),ESTADO=new Map(),TOT={A:0};
+let IMP_MODELO='',CLAVE=null,MOD=null,NIVELES=[],PIS=new Map(),PADRE=new Map(),ESTADO=new Map(),TOT={A:0};
 function combinar(){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
   ESTADO=new Map();for(const e of m.values()){if(e.borrado)continue;const gs=PIS.has(e.g)?[e.g]:(PADRE.get(e.g)||[]);
     for(const g of gs){let s=ESTADO.get(g);if(!s){s={};ESTADO.set(g,s);}const o=s[e.et];if(!o||e.f>o.f||(e.f===o.f&&e.ts<o.ev.ts))s[e.et]={f:e.f,ev:e};}}}
@@ -811,7 +812,7 @@ async function deshacer(){const lote=estado.deshacer.pop();if(!lote){toast('Nada
 /* ---------------- carga ---------------- */
 async function cargarModelos(){progreso('Abriendo los planos…');
   const [mb,pb]=await Promise.all([bajar(RUTA_TABI+'modelo.enc'),bajar('imper.enc')]);
-  MOD=await descifrar(CLAVE,mb);if(typeof FONDO!=='undefined')FONDO.cargar(CLAVE,()=>render());   /* v0.11: planta de impermeabilización de Revit de fondo */const PZ=await descifrar(CLAVE,pb);
+  MOD=await descifrar(CLAVE,mb);if(typeof FONDO!=='undefined')FONDO.cargar(CLAVE,()=>render());   /* v0.11: planta de impermeabilización de Revit de fondo */const PZ=await descifrar(CLAVE,pb);IMP_MODELO=PZ.modelo||'';
   const porId=new Map(MOD.niveles.map(n=>[n.id,n]));
   NIVELES=PZ.niveles.map(n=>{const m=porId.get(n.base||n.id)||{};return {id:n.id,nombre:n.nombre||m.nombre||n.id,techo:!!n.base,base:n.base,techosBase:!!n.techos_base,bbox:n.base?null:m.bbox,tab:m.tab||[],col:m.col||[],mur:m.mur||[],ejes:m.ejes||[],los:m.los||[],pex:m.pex||[],esc:m.esc||[],art:m.art||[],pis:n.pis};});
   PIS=new Map();PADRE=new Map();TOT.A=0;
@@ -961,14 +962,109 @@ async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.ap
   for(const e of d.eventos||[]){if(estado.local.some(x=>x.id===e.id))continue;e.enviado=true;estado.local.push(e);await put('eventos',e);n++;}combinar();renderTodo();toast(n+' registros restaurados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
 /* ---------------- menú ---------------- */
+/* ================= informe de cantidades (m²) para el estado de pago · v0.12 (12-11-2026, pedido de Renato) =================
+   Lo ejecutado ANTES del período, EN el período y ACUMULADO, por tipo de avance (etapa), sistema, nivel y paño. Sale en pantalla y en Excel.
+   Avance de un paño en una etapa a una fecha = el mayor avance registrado hasta ese día (los registros del piso completo valen para sus paños),
+   igual que `combinar`. Nada se estima: paño sin registro = 0. */
+function avanceA(cond){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
+  const E=new Map();for(const e of m.values()){if(e.borrado||!cond(e.dia||''))continue;const gs=PIS.has(e.g)?[e.g]:(PADRE.get(e.g)||[]);
+    for(const g of gs){let s=E.get(g);if(!s){s={};E.set(g,s);}const o=s[e.et];if(!o||e.f>o.f||(e.f===o.f&&e.ts<o.ev.ts))s[e.et]={f:e.f,ev:e};}}return {E,ev:[...m.values()]};}
+function datosInforme(desde,hasta){const X0=avanceA(d=>d<desde),X1=avanceA(d=>d<=hasta);const fr=(X,g,et)=>{const s=X.E.get(g);return s&&s[et]?s[et].f:0;};
+  const R={desde,hasta,et:new Map(),niv:new Map(),sis:new Map(),det:[],reg:[]};
+  const suma=(M,k,base,A,a0,a1)=>{let o=M.get(k);if(!o){o=Object.assign({A:0,a0:0,a1:0,n:0},base);M.set(k,o);}o.A+=A;o.a0+=a0;o.a1+=a1;o.n++;return o;};
+  for(const n of NIVELES)for(const p of n.pis){const ets=etapasDe(p),w=pesosDe(p);let q0=0,q1=0,m0=1,m1=1,ult=null;const pe={};
+    ets.forEach(et=>{const f1=fr(X1,p.g,et),f0=Math.min(fr(X0,p.g,et),f1);pe[et]=[f0,f1];q0+=f0*w[et]/100;q1+=f1*w[et]/100;m0=Math.min(m0,f0);m1=Math.min(m1,f1);
+      suma(R.et,et+'|'+p.t,{et,t:p.t,d:p.d,s:p.s},p.A,p.A*f0,p.A*f1);suma(R.niv,n.id+'|'+et,{nv:n.id,nom:n.nombre,et},p.A,p.A*f0,p.A*f1);
+      const s=X1.E.get(p.g);if(s&&s[et]&&(!ult||s[et].ev.ts>ult.ts))ult=s[et].ev;});
+    const o=suma(R.sis,p.t,{t:p.t,d:p.d,s:p.s,q0:0,q1:0},p.A,p.A*m0,p.A*m1);o.q0+=p.A*q0;o.q1+=p.A*q1;
+    R.det.push({n,p,pe,ult});}
+  X1.ev.forEach(e=>{if(e.borrado||!(e.dia>=desde&&e.dia<=hasta))return;const gs=PIS.has(e.g)?[e.g]:(PADRE.get(e.g)||[]);if(!gs.length)return;const ps=gs.map(g=>PIS.get(g));
+    R.reg.push({e,p:ps[0],A:ps.reduce((a,p)=>a+p.A,0),todo:!PIS.has(e.g)});});
+  R.reg.sort((a,b)=>(a.e.ts||'').localeCompare(b.e.ts||''));return R;}
+const dmy=d=>d?d.slice(8,10)+'-'+d.slice(5,7)+'-'+d.slice(0,4):'';
+const fmt2=n=>(Math.round(n*100)/100).toLocaleString('es-CL',{minimumFractionDigits:2,maximumFractionDigits:2});
+function periodoInforme(){let d=null;try{d=JSON.parse(localStorage.getItem('fp_imper_inf')||'null');}catch(_){}const h=hoyDia();
+  return d&&d.desde&&d.hasta&&d.dia===h?d:{desde:h.slice(0,8)+'01',hasta:h};}
+function abrirInforme(){const pr=periodoInforme();
+  abrirHoja('<h2 style="font-size:19px">📊 Informe de cantidades (m²)</h2><p class="nota" style="margin-bottom:10px">Para el estado de pago: lo ejecutado antes del período, en el período y acumulado, por tipo de avance. Usa tus registros de este teléfono y el avance del equipo ya publicado.</p>'+
+    '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px"><label class="nota" style="flex:1;min-width:130px">Desde<input type="date" id="infDesde" class="campo" value="'+pr.desde+'"></label><label class="nota" style="flex:1;min-width:130px">Hasta<input type="date" id="infHasta" class="campo" value="'+pr.hasta+'"></label></div>'+
+    '<div id="infTabla"></div><button class="btn principal" data-acc="informe-xlsx" style="width:100%;margin-top:12px">📥 Descargar Excel para el EEPP</button>'+
+    '<p class="nota" style="margin-top:8px">El Excel trae 4 hojas: resumen para el EEPP, por nivel, detalle por paño y registros del período.</p>');
+  const pinta=()=>{let a=$('#infDesde').value,b=$('#infHasta').value;if(!a||!b)return;if(a>b){const t=a;a=b;b=t;}try{localStorage.setItem('fp_imper_inf',JSON.stringify({desde:a,hasta:b,dia:hoyDia()}));}catch(_){}
+    const R=datosInforme(a,b);let h='<table class="prog-matriz"><tr><th>Tipo de avance</th><th>Total m²</th><th>Anterior</th><th>Período</th><th>Acum.</th><th>%</th></tr>';
+    etUsadas().forEach(et=>{const fs=[...R.et.values()].filter(x=>x.et===et).sort((x,y)=>x.t.localeCompare(y.t));if(!fs.length)return;const T=fs.reduce((s,x)=>({A:s.A+x.A,a0:s.a0+x.a0,a1:s.a1+x.a1}),{A:0,a0:0,a1:0});
+      h+='<tr style="background:var(--linea)"><td style="white-space:normal">'+escapar(ETAPAS[et].c)+'</td><td><b>'+fmt1(T.A)+'</b></td><td><b>'+fmt1(T.a0)+'</b></td><td><b>'+fmt1(T.a1-T.a0)+'</b></td><td><b>'+fmt1(T.a1)+'</b></td><td><b>'+fmt1(pct(T.a1,T.A))+'</b></td></tr>';
+      fs.forEach(x=>{h+='<tr><td style="font-weight:500;padding-left:12px">'+escapar(x.t)+'</td><td>'+fmt1(x.A)+'</td><td>'+fmt1(x.a0)+'</td><td>'+fmt1(x.a1-x.a0)+'</td><td>'+fmt1(x.a1)+'</td><td>'+fmt1(pct(x.a1,x.A))+'</td></tr>';});});
+    $('#infTabla').innerHTML=h+'</table><p class="nota" style="margin-top:6px">'+R.reg.length+' registro'+(R.reg.length===1?'':'s')+' entre el '+dmy(a)+' y el '+dmy(b)+'.</p>';};
+  $('#infDesde').onchange=pinta;$('#infHasta').onchange=pinta;pinta();}
+/* ----- Excel (.xlsx) sin librerías: zip + XML mínimo (mismo método que VentanaPlan, con estilos y compresión) ----- */
+const CRCT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+const crc32=u=>{let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=CRCT[(c^u[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;};
+/* con CompressionStream (Chrome, Safari 16.4+, Firefox) el Excel va comprimido (~10 veces menos); si no existe, va sin comprimir */
+async function desinflar(u){if(typeof CompressionStream==='undefined')return null;try{const cs=new CompressionStream('deflate-raw'),w=cs.writable.getWriter();w.write(u);w.close();return new Uint8Array(await new Response(cs.readable).arrayBuffer());}catch(e){return null;}}
+async function zipSin(files){const enc=new TextEncoder(),partes=[],cd=[];let off=0;const w16=(a,v)=>a.push(v&255,(v>>8)&255),w32=(a,v)=>{w16(a,v&0xFFFF);w16(a,(v>>>16)&0xFFFF);};
+  for(const [nombre,txt] of files){const nm=enc.encode(nombre),d=enc.encode(txt),c=crc32(d),z=await desinflar(d),dat=z&&z.length<d.length?z:d,met=dat===d?0:8;const h=[];w32(h,0x04034b50);w16(h,20);w16(h,0x0800);w16(h,met);w16(h,0);w16(h,0x21);w32(h,c);w32(h,dat.length);w32(h,d.length);w16(h,nm.length);w16(h,0);
+    partes.push(new Uint8Array(h),nm,dat);const e=[];w32(e,0x02014b50);w16(e,20);w16(e,20);w16(e,0x0800);w16(e,met);w16(e,0);w16(e,0x21);w32(e,c);w32(e,dat.length);w32(e,d.length);w16(e,nm.length);w16(e,0);w16(e,0);w16(e,0);w16(e,0);w32(e,0);w32(e,off);cd.push(new Uint8Array(e),nm);off+=h.length+nm.length+dat.length;}
+  let tam=0;cd.forEach(x=>tam+=x.length);const f=[];w32(f,0x06054b50);w16(f,0);w16(f,0);w16(f,files.length);w16(f,files.length);w32(f,tam);w32(f,off);w16(f,0);
+  return new Blob([...partes,...cd,new Uint8Array(f)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});}
+/* celda = valor o [valor, estilo]; estilos: 0 normal · 1 encabezado · 2 negrita · 3 número 0,00 · 4 número negrita · 5 % · 6 % negrita · 7 título · 8/9/10 subtotal (texto / número / %) */
+function xlsxBlob(hojas){const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
+  const col=i=>{let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26);}return s;};const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  const xf=(f,fi,nf)=>'<xf numFmtId="'+nf+'" fontId="'+f+'" fillId="'+fi+'" borderId="0" xfId="0" applyFont="1" applyFill="1" applyNumberFormat="1"/>';
+  const arch=[['[Content_Types].xml',X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+hojas.map((h,i)=>'<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('')+'</Types>'],
+   ['_rels/.rels',X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
+   ['xl/workbook.xml',X+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+hojas.map((h,i)=>'<sheet name="'+esc(h.nombre).slice(0,31)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>').join('')+'</sheets></workbook>'],
+   ['xl/_rels/workbook.xml.rels',X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+hojas.map((h,i)=>'<Relationship Id="rId'+(i+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>').join('')+'<Relationship Id="rId'+(hojas.length+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'],
+   ['xl/styles.xml',X+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="2"><numFmt numFmtId="164" formatCode="#,##0.00"/><numFmt numFmtId="165" formatCode="0.0%"/></numFmts>'+
+     '<fonts count="4"><font><sz val="10"/><name val="Calibri"/></font><font><b/><sz val="10"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font><font><b/><sz val="10"/><name val="Calibri"/></font><font><b/><sz val="13"/><name val="Calibri"/></font></fonts>'+
+     '<fills count="4"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1C4192"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE8EEF8"/></patternFill></fill></fills>'+
+     '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'+
+     '<cellXfs count="11">'+xf(0,0,0)+xf(1,2,0)+xf(2,0,0)+xf(0,0,164)+xf(2,0,164)+xf(0,0,165)+xf(2,0,165)+xf(3,0,0)+xf(2,3,0)+xf(2,3,164)+xf(2,3,165)+'</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>']];
+  hojas.forEach((h,i)=>{arch.push(['xl/worksheets/sheet'+(i+1)+'.xml',X+'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'+(h.fijar?'<sheetViews><sheetView workbookViewId="0"><pane ySplit="'+h.fijar+'" topLeftCell="A'+(h.fijar+1)+'" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>':'')+'<cols>'+h.anchos.map((a,k)=>'<col min="'+(k+1)+'" max="'+(k+1)+'" width="'+a+'" customWidth="1"/>').join('')+'</cols><sheetData>'+
+    h.filas.map((f,r)=>'<row r="'+(r+1)+'">'+f.map((cel,c)=>{let v=cel,s=0;if(Array.isArray(cel)){v=cel[0];s=cel[1];}const ref=col(c)+(r+1);if(v===null||v===undefined||v==='')return s?'<c r="'+ref+'" s="'+s+'"/>':'';
+      if(typeof v==='number'&&isFinite(v))return '<c r="'+ref+'" s="'+s+'"><v>'+v+'</v></c>';return '<c r="'+ref+'" s="'+s+'" t="inlineStr"><is><t xml:space="preserve">'+esc(v)+'</t></is></c>';}).join('')+'</row>').join('')+'</sheetData></worksheet>']);});
+  return zipSin(arch);}
+async function informeExcel(){let a=$('#infDesde')?$('#infDesde').value:'',b=$('#infHasta')?$('#infHasta').value:'';if(!a||!b){const pr=periodoInforme();a=pr.desde;b=pr.hasta;}if(a>b){const t=a;a=b;b=t;}
+  try{progreso('Armando la planilla…');const R=datosInforme(a,b),r2=x=>Math.round(x*100)/100,N=(x,s)=>[r2(x),s||3],P=(x,y,s)=>[y>0?Math.round(1e4*x/y)/1e4:0,s||5];
+    const ahora=new Date(),em=String(ahora.getDate()).padStart(2,'0')+'-'+String(ahora.getMonth()+1).padStart(2,'0')+'-'+ahora.getFullYear()+' '+String(ahora.getHours()).padStart(2,'0')+':'+String(ahora.getMinutes()).padStart(2,'0');
+    const eq=estado.base&&estado.base.actualizado?('avance del equipo publicado el '+dmy(estado.base.actualizado.slice(0,10))):'sin avance del equipo publicado';
+    const H=t=>[t,1],ETS=etUsadas();
+    /* --- hoja 1: resumen para el EEPP --- */
+    const F1=[[['ImperPlan · Informe de cantidades de impermeabilización',7]],['Obra',OBRA],['Período',dmy(a)+' al '+dmy(b)],['Emitido',em+' · '+(estado.persona||'')],['Modelo',IMP_MODELO||''],['Avance considerado','Registros de este teléfono + '+eq],[],
+      [['1. Cantidades por tipo de avance (etapa) y sistema',2]],['Tipo de avance','Código','Sistema / ubicación','Unidad','Cantidad total','Avance anterior','Avance del período','Acumulado a la fecha','Saldo','% acumulado','N° de paños'].map(H)];
+    ETS.forEach(et=>{const fs=[...R.et.values()].filter(x=>x.et===et).sort((x,y)=>x.t.localeCompare(y.t));if(!fs.length)return;let T={A:0,a0:0,a1:0,n:0};
+      fs.forEach(x=>{T.A+=x.A;T.a0+=x.a0;T.a1+=x.a1;T.n+=x.n;F1.push([ETAPAS[et].n,x.t,x.d,'m²',N(x.A),N(x.a0),N(x.a1-x.a0),N(x.a1),N(x.A-x.a1),P(x.a1,x.A),x.n]);});
+      F1.push([['Subtotal '+ETAPAS[et].c,8],['',8],['',8],['m²',8],N(T.A,9),N(T.a0,9),N(T.a1-T.a0,9),N(T.a1,9),N(T.A-T.a1,9),P(T.a1,T.A,10),[T.n,8]]);});
+    F1.push([],[['2. Cantidades por sistema (m² terminados y m² equivalentes)',2]],['Código','Sistema / ubicación','Etapas del sistema','Unidad','Cantidad total','Terminado anterior','Terminado del período','Terminado acumulado','Saldo','% terminado','N° de paños','Equivalente anterior','Equivalente del período','Equivalente acumulado','% equivalente'].map(H));
+    const TS={A:0,a0:0,a1:0,n:0,q0:0,q1:0};[...R.sis.values()].sort((x,y)=>x.t.localeCompare(y.t)).forEach(x=>{TS.A+=x.A;TS.a0+=x.a0;TS.a1+=x.a1;TS.n+=x.n;TS.q0+=x.q0;TS.q1+=x.q1;
+      F1.push([x.t,x.d,(SIS[x.s]||SIS.pend).et.map(e=>ETAPAS[e].c+' '+Math.round(pesosDe({s:x.s})[e])+' %').join(' + '),'m²',N(x.A),N(x.a0),N(x.a1-x.a0),N(x.a1),N(x.A-x.a1),P(x.a1,x.A),x.n,N(x.q0),N(x.q1-x.q0),N(x.q1),P(x.q1,x.A)]);});
+    F1.push([['TOTAL',8],['',8],['',8],['m²',8],N(TS.A,9),N(TS.a0,9),N(TS.a1-TS.a0,9),N(TS.a1,9),N(TS.A-TS.a1,9),P(TS.a1,TS.A,10),[TS.n,8],N(TS.q0,9),N(TS.q1-TS.q0,9),N(TS.q1,9),P(TS.q1,TS.A,10)],[],
+      [['Notas',2]],['· Cantidad total: superficie impermeabilizada de los paños según el modelo (m²).'],['· Avance anterior: ejecutado hasta el día anterior al inicio del período. Avance del período: ejecutado entre las dos fechas. Acumulado = anterior + período.'],
+      ['· Tabla 1: m² de cada paño × avance registrado de esa etapa. Un sistema de dos etapas aparece en las dos (no sumar etapas distintas).'],
+      ['· Tabla 2, «Terminado»: m² con todas las etapas del sistema ejecutadas (en cada paño manda la etapa más atrasada). «Equivalente»: m² × avance ponderado con el peso de cada etapa.'],
+      ['· Paño sin registro = 0. Solo cuenta el avance ya enviado y publicado por el equipo, más los registros de este teléfono.']);
+    /* --- hoja 2: por nivel --- */
+    const F2=[['Nivel','Tipo de avance','Unidad','Cantidad total','Avance anterior','Avance del período','Acumulado a la fecha','Saldo','% acumulado','N° de paños'].map(H)];
+    NIVELES.forEach(n=>ETS.forEach(et=>{const x=R.niv.get(n.id+'|'+et);if(x)F2.push([n.id+(n.nombre&&n.nombre!==n.id?' · '+n.nombre:''),ETAPAS[et].n,'m²',N(x.A),N(x.a0),N(x.a1-x.a0),N(x.a1),N(x.A-x.a1),P(x.a1,x.A),x.n]);}));
+    /* --- hoja 3: detalle por paño --- */
+    const c3=['Nivel','Recinto','Ejes','Paño','Código','Sistema / ubicación','Pavimento','Área m²'];ETS.forEach(et=>c3.push(ETAPAS[et].c+' · % acum.',ETAPAS[et].c+' · m² anterior',ETAPAS[et].c+' · m² período',ETAPAS[et].c+' · m² acum.'));c3.push('Último registro','Registrado por','ID Revit','GUID');
+    const F3=[c3.map(H)];R.det.forEach(({n,p,pe,ult})=>{const f=[n.id,p.r||'',p.e||'',p.pn||'',p.t,p.d,p.pav||'',N(p.A)];
+      ETS.forEach(et=>{const x=pe[et];if(!x){f.push('','','','');return;}f.push(P(x[1],1),N(p.A*x[0]),N(p.A*(x[1]-x[0])),N(p.A*x[1]));});f.push(ult?dmy(ult.dia):'',ult?ult.por||'':'',p.id||'',p.g);F3.push(f);});
+    /* --- hoja 4: registros del período --- */
+    const F4=[['Fecha','Nivel','Recinto','Ejes','Paño','Código','Tipo de avance','Avance registrado','Área m²','m² con ese avance','Registrado por'].map(H)];
+    R.reg.forEach(({e,p,A,todo})=>F4.push([dmy(e.dia),p.nv,p.r||'',todo?'':(p.e||''),todo?'piso completo':(p.pn||''),p.t,ETAPAS[e.et]?ETAPAS[e.et].n:e.et,P(e.f,1),N(A),N(A*e.f),e.por||'']));
+    const an3=[9,30,14,7,8,40,10,9];ETS.forEach(()=>an3.push(13,13,13,13));an3.push(13,22,11,26);
+    const blob=await xlsxBlob([{nombre:'Resumen EEPP',filas:F1,anchos:[30,10,46,8,14,16,17,19,12,13,12,18,20,20,14]},{nombre:'Por nivel',filas:F2,anchos:[30,38,8,14,16,17,19,12,13,12],fijar:1},{nombre:'Detalle por paño',filas:F3,anchos:an3,fijar:1},{nombre:'Registros del período',filas:F4,anchos:[11,9,30,14,13,8,38,16,10,17,24],fijar:1}]);
+    progreso(null);await compartirArchivo(blob,'ImperPlan_cantidades_EEPP_'+a+'_al_'+b+'.xlsx','Cantidades de impermeabilización','ImperPlan · cantidades del '+dmy(a)+' al '+dmy(b));}
+  catch(e){progreso(null);toast('No se pudo armar la planilla: '+e.message,'error');}}
 function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">ImperPlan '+APP_VER+' · '+OBRA+' · www.flujoplan.cl · @flujoplan</p>'+
-  '<button class="menu-item" data-acc="enviar">📤 Enviar mi avance por WhatsApp o correo</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
+  '<button class="menu-item" data-acc="informe">📊 Informe de cantidades (m²) para el EEPP</button><button class="menu-item" data-acc="enviar">📤 Enviar mi avance por WhatsApp o correo</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
   '<button class="menu-item" data-acc="restaurar">⬇️ Restaurar mi avance desde un archivo</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
   '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiPlan (tabiques)</a>'+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
 function pedirNombre(){abrirHoja('<h2 style="font-size:19px">Tu nombre</h2><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');}
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-acc]');if(!b)return;const a=b.dataset.acc;
-  if(a==='enviar'){cerrarHoja();exportar();}else if(a==='equipo'){cerrarHoja();cargarEquipo(true);}else if(a==='restaurar'){cerrarHoja();$('#inputRespaldo').click();}
+  if(a==='informe'){abrirInforme();}else if(a==='informe-xlsx'){informeExcel();}else if(a==='enviar'){cerrarHoja();exportar();}else if(a==='equipo'){cerrarHoja();cargarEquipo(true);}else if(a==='restaurar'){cerrarHoja();$('#inputRespaldo').click();}
   else if(a==='nombre')pedirNombre();else if(a==='nombreok'){const v=$('#inNombre').value.trim();if(v.length<2)return;estado.persona=v;await metaSet('persona',v);try{localStorage.setItem('obraflow_nombre',v);}catch(_){}cerrarHoja();renderTodo();toast('Hola, '+v,'ok');}
   else if(a==='salir'){await metaSet('clave',null);location.reload();}});
 /* ---------------- acceso ---------------- */
