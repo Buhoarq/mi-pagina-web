@@ -28,18 +28,22 @@ def unir(a):
         try: d = json.load(open(f, encoding='utf8'))
         except Exception as e: L.append('⚠ %s: no se pudo leer (%s)' % (os.path.basename(f), e)); continue
         if d.get('app') != 'ImperFlowHCQ': L.append('⚠ %s: no es un archivo de ImperFlow' % os.path.basename(f)); continue
-        nuevos = anul = ign = 0
+        nuevos = anul = ign = comps = 0
         for e in d.get('eventos', []):
-            if e.get('g') not in pis and e.get('g') not in hijos: ign += 1; continue
+            # v0.14 (12-11-2026): compromisos Last Planner (k = 'comp', gs = paños) viajan junto con el avance
+            gs = e.get('gs') if e.get('k') == 'comp' else [e.get('g')]
+            if not gs or any(g not in pis and g not in hijos for g in gs): ign += 1; continue
             x = ev.get(e['id'])
-            if x is None: ev[e['id']] = e; nuevos += 1
+            if x is None: ev[e['id']] = e; nuevos += 1; comps += e.get('k') == 'comp'
             elif e.get('borrado') and not x.get('borrado'): x['borrado'] = True; x['borradoTs'] = e.get('borradoTs'); anul += 1
+            elif e.get('k') == 'comp' and not x.get('borrado'):          # el compromiso puede recibir después la causa de no cumplimiento
+                if e.get('causa') and e.get('causa') != x.get('causa'): x['causa'] = e['causa']
         if d.get('por'): personas.add(d['por'])
         fuentes.append({'archivo': os.path.basename(f), 'por': d.get('por'), 'exportado': d.get('exportado')})
-        L.append('- ✓ %s (%s): %d registros nuevos, %d anulados%s' % (os.path.basename(f), d.get('por'), nuevos, anul, (', %d ignorados (paño inexistente)' % ign) if ign else ''))
+        L.append('- ✓ %s (%s): %d registros nuevos%s, %d anulados%s' % (os.path.basename(f), d.get('por'), nuevos, (' (%d compromisos)' % comps) if comps else '', anul, (', %d ignorados (paño inexistente)' % ign) if ign else ''))
     est = collections.defaultdict(dict)
     for e in ev.values():
-        if e.get('borrado'): continue
+        if e.get('borrado') or e.get('k') == 'comp' or 'g' not in e: continue
         for g in ([e['g']] if e['g'] in pis else hijos.get(e['g'], [])):
             o = est[g].get(e['et'])
             if o is None or e['f'] > o: est[g][e['et']] = e['f']
@@ -47,7 +51,8 @@ def unir(a):
     for g, p in pis.items():
         eq = sum(est.get(g, {}).get(et, 0) * w for et, w in p['w'].items()) / 100
         tot[p['nv']][0] += p['A'] * eq; tot[p['nv']][1] += p['A']
-    L += ['', 'Registros vigentes: %d · personas: %s' % (sum(1 for e in ev.values() if not e.get('borrado')), ', '.join(sorted(personas)) or '—'), '', '| Nivel | m² modelo | m² eq. | % pond. |', '|---|---:|---:|---:|']
+    L += ['', 'Compromisos Last Planner vigentes: %d' % sum(1 for e in ev.values() if e.get('k') == 'comp' and not e.get('borrado'))]
+    L += ['', 'Registros vigentes: %d · personas: %s' % (sum(1 for e in ev.values() if not e.get('borrado') and e.get('k') != 'comp'), ', '.join(sorted(personas)) or '—'), '', '| Nivel | m² modelo | m² eq. | % pond. |', '|---|---:|---:|---:|']
     for nv, (q, A) in tot.items():
         if q > 0: L.append('| %s | %d | %d | %.1f %% |' % (nv, A, q, 100 * q / A))
     out = {'modulo': 'imper', 'actualizado': datetime.datetime.now().astimezone().isoformat(), 'eventos': list(ev.values()), 'personas': sorted(personas), 'fuentes': fuentes}

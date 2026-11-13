@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<title>ImperPlan v0.13 β · Hospital de Coquimbo</title>
+<title>ImperPlan v0.14 β · Hospital de Coquimbo</title>
 <link rel="icon" href="icono.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -410,6 +410,27 @@ html.oscuro .lienzo-wrap{background:#0F172A}
 .etiqueta-flotante{position:absolute;left:10px;top:10px;z-index:5;pointer-events:none;background:rgba(255,255,255,.92);border:1px solid var(--linea);border-radius:10px;padding:5px 9px;font-size:11px;font-weight:700;color:var(--cuerpo);box-shadow:var(--sombra-sm)}
 .etiqueta-flotante b{color:var(--texto)}
 .paleta-tipos .tipo-btn .pct{font-size:9.5px;font-weight:800;color:var(--apagado)}
+.sem-nav{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-bottom:10px}
+.sem-nav button{width:38px;height:38px;border-radius:11px;border:1px solid var(--linea);background:#fff;font-size:18px;font-weight:800}
+.sem-nav .tit{flex:1;text-align:center;font-weight:800;color:var(--texto);font-size:14px}
+.sem-nav .tit small{display:block;font-weight:600;color:var(--tenue);font-size:11px}
+.comp-card{border:1px solid var(--linea);border-left:5px solid var(--c);border-radius:14px;padding:10px 12px;margin-bottom:8px;background:var(--panel);cursor:pointer}
+.comp-card .top{display:flex;align-items:center;gap:8px;font-size:13px}
+.comp-card .top b{color:var(--texto);flex:1}
+.est-badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:99px;background:var(--c);color:#fff;white-space:nowrap}
+.comp-card .sub{font-size:11.5px;color:var(--tenue);margin:3px 0 6px}
+.mini-prog.ancha{max-width:none}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
+.kpi{border:1px solid var(--linea);border-radius:14px;padding:10px 12px;background:var(--panel)}
+.kpi b{display:block;font-family:var(--display);font-weight:900;font-size:25px;line-height:1.1;color:var(--texto)}
+.kpi span{display:block;font-size:11.5px;font-weight:800;color:var(--cuerpo);margin-top:2px}
+.kpi small{display:block;font-size:10.5px;color:var(--tenue);margin-top:2px}
+.chipf{flex:none;padding:6px 11px;border-radius:99px;border:1px solid var(--linea);background:#fff;font-size:12px;font-weight:800;color:var(--cuerpo);white-space:nowrap}
+.chipf.on{background:var(--primario-osc);border-color:var(--primario-osc);color:#fff}
+.fila-acc{display:flex;gap:6px;margin-top:8px}
+.fila-acc button{flex:1;padding:9px 4px;border-radius:12px;font-size:12px;font-weight:800;border:1px solid var(--linea);background:#fff;color:var(--cuerpo)}
+.fila-acc button.prim{background:var(--primario-osc);border-color:var(--primario-osc);color:#fff}
+html.oscuro .fila-acc button,html.oscuro .chipf,html.oscuro .sem-nav button{background:var(--panel2);color:var(--texto)}
 .prog-matriz{width:100%;border-collapse:collapse;font-size:12px}
 .prog-matriz th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--tenue);padding:6px 4px;border-bottom:1px solid var(--linea2);font-weight:800;text-align:center}
 .prog-matriz th:first-child{text-align:left}
@@ -637,7 +658,7 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
   <div class="brand">
     <div class="brand-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 470C900 600 1010 740 1010 860A210 210 0 0 1 590 860C590 740 700 600 800 470Z"/><path d="M520 1080H1080V1120H520Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
     <div class="brand-txt">
-      <span class="brand-name"><span class="np">Imper</span><span class="np2">Plan</span><span class="ver">v0.13 β</span></span>
+      <span class="brand-name"><span class="np">Imper</span><span class="np2">Plan</span><span class="ver">v0.14 β</span></span>
       <span class="brand-sub" id="subMarca">Hospital de Coquimbo · Impermeabilización</span>
     </div>
   </div>
@@ -652,7 +673,7 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
         <div class="saludo" id="saludo"></div>
         <div class="heroe-top">
           <div class="heroe-ico" style="background:#0369A1"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 3c3.5 4.2 6 7.4 6 10.5A6 6 0 0 1 6 13.5C6 10.4 8.5 7.2 12 3z"/></svg></div>
-          <div><span class="eyebrow">ImperPlan v0.13 β · Módulo de impermeabilización de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
+          <div><span class="eyebrow">ImperPlan v0.14 β · Módulo de impermeabilización de FlujoPlan</span><h2>Toca un paño y queda pintado con su etapa</h2></div>
         </div>
         <p>Toda superficie con impermeabilización del modelo (bajo pavimentos de baños, cocinas y recintos húmedos, terrazas y cubiertas transitables, estacionamientos, rampas y radieres) está en la planta con un color tenue según su sistema: <b>cementicio flexible</b>, <b>poliuretano con mortero de protección</b>, poliuretano de tránsito vehicular o polietileno bajo radier. Viene cortada en paños de obra (por recinto y ejes). Elige el nivel, la capa y toca los paños: los m² y el % se calculan solos.</p>
         <div class="leyenda-tipos"><span class="ley"><span class="ic g" style="background:#E0F2FE;border:1px solid #94A3B8"></span>Cementicio flexible</span><span class="ley"><span class="ic g" style="background:#EDE9FE;border:1px solid #94A3B8"></span>Poliuretano + mortero de protección</span><span class="ley"><span class="ic g" style="background:#FFEDD5;border:1px solid #94A3B8"></span>Poliuretano de tránsito</span><span class="ley"><span class="ic g" style="background:#E2E8F0;border:1px solid #94A3B8"></span>Radier: polietileno + hidrófugo</span></div>
@@ -677,11 +698,12 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
       <div class="visor-titulo"><strong id="tituloNivel">—</strong><span id="subNivel">—</span></div>
     </div>
     <div class="niveles-strip"><button id="btnNivelAntes" class="nav" aria-label="Nivel inferior">‹</button><div id="nivelChips"></div><button id="btnNivelDespues" class="nav" aria-label="Nivel superior">›</button></div>
-    <div class="visor-modos"><div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button></div></div>
+    <div class="visor-modos"><div class="segmentado"><button id="segVer" class="activo">👁 Ver</button><button id="segPincel">🖌 Pincel</button><button id="segComp">📌 Comprometer</button></div></div>
     <div class="paleta oculto" id="paleta">
       <div class="paleta-tipos" id="paletaTipos"></div>
       <div class="fila-herr"><label class="toggle-mini"><input type="checkbox" id="chkPrevias" checked> Completar etapas previas</label><button class="herr-btn" id="btnDeshacer">↩ Deshacer</button></div>
     </div>
+    <div class="paleta oculto" id="barraComp"><div class="fila-herr"><span id="compInfo" class="nota" style="font-weight:700;flex:1"></span><button class="herr-btn" id="btnCompLimpiar">Limpiar</button><button class="herr-btn activo" id="btnCompOk">📌 Comprometer</button></div></div>
     <div id="avisoPlano" class="aviso oculto"><span id="avisoTexto"></span><button id="btnCerrarAviso">OK</button></div>
     <div class="lienzo-wrap" id="lienzoWrap">
       <canvas id="lienzo"></canvas>
@@ -689,6 +711,13 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
       <button class="btn-flot" id="btnZoomMas" style="bottom:110px" aria-label="Acercar">＋</button>
       <button class="btn-flot" id="btnZoomMenos" style="bottom:62px" aria-label="Alejar">−</button>
       <button class="btn-flot" id="btnAjustar" style="bottom:14px" aria-label="Ver nivel completo">⤢</button>
+    </div>
+  </section>
+  <section id="vista-semana" class="vista">
+    <div class="contenedor">
+      <h2>Last Planner · impermeabilización</h2>
+      <p class="nota" style="margin-bottom:12px">Superficies comprometidas por semana (jueves a miércoles) y su cumplimiento según el avance registrado.</p>
+      <div id="semanaCont"></div>
     </div>
   </section>
   <section id="vista-avance" class="vista">
@@ -705,9 +734,10 @@ const MEDIR={on:false,pts:[],nv:null,cv:null,barra:null,iman:true,cur:null,ult:n
 <nav id="pestanas">
   <button class="pestana activa" data-v="inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Inicio</span></button>
   <button class="pestana" data-v="plano"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 11h8M11 5v14M15 11h6"/></svg><span>Planta</span></button>
+  <button class="pestana" data-v="semana"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8.5 15.5l2.5 2.5 4.5-5"/></svg><span>Semana</span></button>
   <button class="pestana" data-v="avance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Avance</span></button>
 </nav>
-<footer id="pie"><span class="marca">ImperPlan</span> <span class="vpie">v0.13 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
+<footer id="pie"><span class="marca">ImperPlan</span> <span class="vpie">v0.14 β</span> · © 2026 FlujoPlan · <a href="https://www.flujoplan.cl" target="_blank" rel="noopener" style="color:inherit">www.flujoplan.cl</a> · <a href="https://www.instagram.com/flujoplan" target="_blank" rel="noopener" style="color:inherit;white-space:nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg> @flujoplan</a> · <a href="../obraflow/" style="color:inherit;white-space:nowrap;font-weight:700">🏗 Todos los módulos</a> · Hospital de Coquimbo</footer>
 <div id="acceso">
   <div class="acceso-caja">
     <div class="acceso-logo"><svg viewBox="192 208 1218 1198" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="192" y="208" width="1218" height="1198" rx="200" fill="#DC0428"/><g fill="#fff"><path d="M800 470C900 600 1010 740 1010 860A210 210 0 0 1 590 860C590 740 700 600 800 470Z"/><path d="M520 1080H1080V1120H520Z" opacity=".55"/><path d="M430 815C330 975 360 1205 745 1236C1110 1252 1410 960 1135 703C1295 905 1080 1175 740 1166C420 1158 335 985 430 815Z"/><path d="M462 652C625 455 860 375 1045 437L1050 388L1140 515H988L1020 483C860 440 650 480 462 652Z"/></g></svg></div>
@@ -1135,7 +1165,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
    Hospital de Coquimbo · Desarrollado por Renato Martínez Palominos
    © 2026 Renato Martínez Palominos – Todos los derechos reservados. */
 'use strict';
-const APP_VER='v0.13 β',OBRA='Hospital de Coquimbo';
+const APP_VER='v0.14 β',OBRA='Hospital de Coquimbo';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RUTA_TABI='../tabiflow/';
 /* ---------------- etapas por sistema ---------------- */
@@ -1189,7 +1219,9 @@ async function verificar(key){const info=await infoClave();await descifrar(key,U
 const estado={persona:'',disp:'',local:[],base:null,vista:'inicio',nivel:null,modo:'ver',etapa:'pu',previas:true,sel:null,deshacer:[]};
 let IMP_MODELO='',CLAVE=null,MOD=null,NIVELES=[],PIS=new Map(),PADRE=new Map(),ESTADO=new Map(),TOT={A:0};
 function combinar(){const m=new Map();((estado.base&&estado.base.eventos)||[]).forEach(e=>m.set(e.id,e));estado.local.forEach(e=>m.set(e.id,e));
-  ESTADO=new Map();for(const e of m.values()){if(e.borrado)continue;const gs=PIS.has(e.g)?[e.g]:(PADRE.get(e.g)||[]);
+  ESTADO=new Map();COMPS=[];for(const e of m.values()){if(e.borrado)continue;
+    if(e.k==='comp'){const cg=[];(e.gs||[]).forEach(g=>{if(PIS.has(g))cg.push(g);else if(PADRE.has(g))cg.push(...PADRE.get(g));});if(cg.length&&ETAPAS[e.et])COMPS.push(Object.assign({},e,{gs:cg,src:e}));continue;}
+    const gs=PIS.has(e.g)?[e.g]:(PADRE.get(e.g)||[]);
     for(const g of gs){let s=ESTADO.get(g);if(!s){s={};ESTADO.set(g,s);}const o=s[e.et];if(!o||e.f>o.f||(e.f===o.f&&e.ts<o.ev.ts))s[e.et]={f:e.f,ev:e};}}}
 const fEt=(g,et)=>{const s=ESTADO.get(g);return s&&s[et]?s[et].f:0;};
 function pondPiso(p){const w=pesosDe(p);let s=0;etapasDe(p).forEach(et=>s+=fEt(p.g,et)*w[et]);return s/100;}
@@ -1197,7 +1229,7 @@ function ultimaEt(p){let u=null;etapasDe(p).forEach(et=>{if(fEt(p.g,et)>0)u=et;}
 function resumen(filtro){const r={A:0,eq:0,et:{}};ORDEN_ET.forEach(e=>r.et[e]=[0,0]);
   for(const p of PIS.values()){if(filtro&&!filtro(p))continue;r.A+=p.A;r.eq+=p.A*pondPiso(p);etapasDe(p).forEach(et=>{r.et[et][1]+=p.A;r.et[et][0]+=p.A*fEt(p.g,et);});}return r;}
 function m2Hoy(){let s=0;const d=hoyDia();estado.local.forEach(e=>{if(e.borrado||e.dia!==d||e.por!==estado.persona)return;const p=PIS.get(e.g);if(p)s+=p.A*e.f*(pesosDe(p)[e.et]||0)/100;});return s;}
-function pisosHoy(){const d=hoyDia();return new Set(estado.local.filter(e=>!e.borrado&&e.dia===d&&e.por===estado.persona).map(e=>e.g)).size;}
+function pisosHoy(){const d=hoyDia();return new Set(estado.local.filter(e=>!e.borrado&&e.k!=='comp'&&e.dia===d&&e.por===estado.persona).map(e=>e.g)).size;}
 const pendientes=()=>estado.local.filter(e=>!e.enviado).length;
 /* ---------------- registro ---------------- */
 async function registrar(p,et,f,lote){const e={id:uid(),g:p.g,nv:p.nv,et,f,dia:hoyDia(),ts:new Date().toISOString(),por:estado.persona,disp:estado.disp};estado.local.push(e);await put('eventos',e);lote&&lote.push(e.id);}
@@ -1226,7 +1258,7 @@ async function cargarEquipo(manual){try{const b=await descifrar(CLAVE,await baja
 /* ---------------- vistas ---------------- */
 function cambiarVista(v){estado.vista=v;$$('.vista').forEach(s=>s.classList.toggle('activa',s.id==='vista-'+v));$$('.pestana').forEach(b=>b.classList.toggle('activa',b.dataset.v===v));
   if(v==='plano'){if(!estado.nivel)abrirNivel(NIVELES.find(n=>n.id==='EP-N1')?'EP-N1':NIVELES[0].id,true);requestAnimationFrame(()=>{ajustarLienzo();render();});}
-  if(v==='avance')renderAvance();if(v==='inicio')renderInicio();}
+  if(v==='avance')renderAvance();if(v==='inicio')renderInicio();if(v==='semana')renderSemana();}
 function saludoHora(){const h=new Date().getHours();return h<12?'Buenos días':h<20?'Buenas tardes':'Buenas noches';}
 function filaNivel(n,click){const r=resumen(p=>p.nv===n.id);const c=(et,col)=>{const [a,b]=r.et[et];return b?'<td><div class="celda-pct"><b>'+fmt0(pct(a,b))+'%</b><div class="mini-prog" style="--c:'+col+'"><i style="width:'+pct(a,b)+'%"></i></div></div></td>':'<td>—</td>';};
   return '<tr'+(click?' class="click" data-nv="'+n.id+'"':'')+'><td>'+corto(n.id)+'</td><td>'+fmt0(r.A)+'</td><td><b>'+fmt1(pct(r.eq,r.A))+'%</b></td>'+etUsadas().map(e=>c(e,ETAPAS[e].color)).join('')+'</tr>';}
@@ -1246,7 +1278,7 @@ function renderAvance(){$('#avMatriz').innerHTML=tablaNiveles(false);
   const porT={};for(const p of PIS.values()){const k=p.t;porT[k]=porT[k]||{d:p.d,s:p.s,A:0,eq:0};porT[k].A+=p.A;porT[k].eq+=p.A*pondPiso(p);}
   $('#avTipos').innerHTML='<table class="prog-matriz"><tr><th>Tipo</th><th>Sistema</th><th>m²</th><th>Pond.</th></tr>'+Object.entries(porT).sort((a,b)=>b[1].A-a[1].A).map(([k,v])=>'<tr><td title="'+escapar(v.d)+'">'+escapar(k)+'</td><td style="font-size:11px">'+(SIS[v.s]||SIS.pend).n+'</td><td>'+fmt0(v.A)+'</td><td><b>'+fmt1(pct(v.eq,v.A))+'%</b></td></tr>').join('')+'</table>';
   $('#avEtapas').innerHTML='<table class="prog-matriz"><tr><th>Sistema</th><th>Capas y pesos</th></tr>'+Object.keys(SIS).map(k=>{const ej={s:k};const w=pesosDe(ej);return '<tr><td><span style="background:'+SIS[k].tenue[0]+';border:1px solid #94A3B8;width:12px;height:12px;display:inline-block;border-radius:3px;vertical-align:-1px"></span> '+SIS[k].n+'</td><td style="text-align:left;font-size:11.5px">'+etapasDe(ej).map(e=>nombreEt(ej,e)+' '+Math.round(w[e])+'%').join(' · ')+'</td></tr>';}).join('')+'</table><p class="nota" style="margin-top:8px">En la planta, toda superficie con impermeabilización tiene un color tenue según su sistema; al marcar avance toma el color de la capa.</p>';}
-function renderTodo(){if(estado.vista==='inicio')renderInicio();if(estado.vista==='avance')renderAvance();if(estado.vista==='plano'){renderPaleta();render();}}
+function renderTodo(){if(estado.vista==='semana')renderSemana();if(estado.vista==='inicio')renderInicio();if(estado.vista==='avance')renderAvance();if(estado.vista==='plano'){renderPaleta();render();}}
 /* ---------------- planta ---------------- */
 const V={s:0.05,tx:0,ty:0};let cv,ctx,dpr=1;
 function ajustarLienzo(){const w=$('#lienzoWrap');dpr=window.devicePixelRatio||1;cv.width=w.clientWidth*dpr;cv.height=w.clientHeight*dpr;cv.style.width=w.clientWidth+'px';cv.style.height=w.clientHeight+'px';}
@@ -1301,8 +1333,9 @@ function render(){if(!ctx||!estado.nivel)return;const n=estado.nivel;const W=cv.
   ctx.fillStyle='#475569';n.mur.forEach(r=>poly(r,true));ctx.fillStyle='#334155';n.col.forEach(r=>poly(r,true));
   ctx.fillStyle='#64748B';n.tab.forEach(t=>t.p.forEach(r=>poly(r,true)));}
   if(!_f&&V.s>0.02){ctx.strokeStyle='rgba(215,0,31,.35)';ctx.lineWidth=1*px;ctx.setLineDash([6*px,4*px]);n.ejes.forEach(e=>{ctx.beginPath();ctx.moveTo(e.p[0],e.p[1]);ctx.lineTo(e.p[2],e.p[3]);ctx.stroke();});ctx.setLineDash([]);}
-  const conEv=new Set(estado.local.filter(e=>!e.borrado&&e.dia===hoyDia()&&e.por===estado.persona).map(e=>e.g));
+  const conEv=new Set(estado.local.filter(e=>!e.borrado&&e.k!=='comp'&&e.dia===hoyDia()&&e.por===estado.persona).map(e=>e.g));
   ctx.strokeStyle='#0F172A';ctx.lineWidth=2.2*px;for(const p of n.pis){if(conEv.has(p.g)&&vis(p.bb))ctx.stroke(p.path);}
+  dibujarComp(ctx,n,px,vis);
   if(estado.sel){const p=PIS.get(estado.sel);if(p&&p.nv===n.id){ctx.strokeStyle='#1C4192';ctx.lineWidth=3.5*px;ctx.setLineDash([8*px,5*px]);ctx.stroke(p.path);ctx.setLineDash([]);}}
   if(!_f&&V.s>0.045){ctx.fillStyle='#334155';ctx.textAlign='center';ctx.textBaseline='middle';const fs=10*px;ctx.font='600 '+fs+'px Inter,system-ui,sans-serif';
     for(const p of n.pis){if(!vis(p.bb)||!p.r||!p.etq)continue;const w=(p.bb[2]-p.bb[0]);if(w<fs*5)continue;let t=p.r;const max=Math.floor(w/(fs*.55));if(t.length>max)t=t.slice(0,Math.max(4,max-1))+'…';ctx.fillText(t,p.cx,p.cy);}}
@@ -1327,14 +1360,15 @@ function initGestos(){const w=$('#lienzoWrap');
     if(estado.modo==='pincel'&&gesto.t==='uno'){pintarEn(...p);return;}
     if(gesto.mov){V.tx=gesto.tx+p[0]-gesto.x0[0];V.ty=gesto.ty+p[1]-gesto.x0[1];render();}});
   const fin=e=>{ptrs.delete(e.pointerId);if(!gesto)return;
-    if(gesto.t==='uno'&&estado.modo==='ver'&&!gesto.mov){const p=pisoEn(...gesto.x0);estado.sel=p?p.g:null;render();if(p)abrirFicha(p);}
+    if(gesto.t==='uno'&&estado.modo==='comp'&&!gesto.mov){const p=pisoEn(...gesto.x0);if(p){if(SELC.has(p.g))SELC.delete(p.g);else SELC.add(p.g);barraComp();render();}}
+    if(gesto.t==='uno'&&estado.modo==='ver'&&!gesto.mov){const p=pisoEn(...gesto.x0);estado.sel=p?p.g:null;estado.resalta=null;render();if(p)abrirFicha(p);}
     if(gesto.t==='uno'&&estado.modo==='pincel'&&loteActual&&loteActual.length){estado.deshacer.push(loteActual);renderNiveles();renderPaleta();}
     if(ptrs.size===0){gesto=null;loteActual=null;}};
   w.addEventListener('pointerup',fin);w.addEventListener('pointercancel',fin);
   w.addEventListener('wheel',e=>{e.preventDefault();const [x,y]=xy(e);const f=Math.exp(-e.deltaY*0.0015);const s=Math.max(.004,Math.min(1.2,V.s*f));const wx=(x-V.tx)/V.s,wy=(y-V.ty)/V.s;V.s=s;V.tx=x-wx*s;V.ty=y-wy*s;render();},{passive:false});}
 function zoom(f){const w=$('#lienzoWrap');const x=w.clientWidth/2,y=w.clientHeight/2;const s=Math.max(.004,Math.min(1.2,V.s*f));const wx=(x-V.tx)/V.s,wy=(y-V.ty)/V.s;V.s=s;V.tx=x-wx*s;V.ty=y-wy*s;render();}
 function aviso(t){$('#avisoTexto').textContent=t;$('#avisoPlano').classList.remove('oculto');}
-function setModo(m){estado.modo=m;$('#segVer').classList.toggle('activo',m==='ver');$('#segPincel').classList.toggle('activo',m==='pincel');$('#segPincel').classList.toggle('marcando',m==='pincel');
+function setModo(m){estado.modo=m;estado.resalta=null;$('#segVer').classList.toggle('activo',m==='ver');$('#segPincel').classList.toggle('activo',m==='pincel');$('#segComp').classList.toggle('activo',m==='comp');$('#barraComp').classList.toggle('oculto',m!=='comp');if(m==='comp'){barraComp();aviso('Toca los paños que se van a comprometer (puedes cambiar de nivel) y luego «📌 Comprometer».');}$('#segPincel').classList.toggle('marcando',m==='pincel');
   $('#paleta').classList.toggle('oculto',m!=='pincel');$('#lienzoWrap').classList.toggle('pincel',m==='pincel');if(m==='pincel'){aviso('Toca o arrastra un dedo sobre los paños para pintarlos con la etapa elegida. Con dos dedos mueves y haces zoom.');}
   requestAnimationFrame(()=>{ajustarLienzo();render();});}
 /* ---------------- ficha ---------------- */
@@ -1350,17 +1384,106 @@ function abrirFicha(p){const w=pesosDe(p);const hist=[];const m=new Map();((esta
    '<p class="nota" style="margin-top:10px;font-size:11px">ID Revit '+escapar(p.id||'—')+' · GUID IFC '+escapar(p.g)+'</p>');
   $$('#hojaContenido input[type=range]').forEach(i=>{i.oninput=()=>{i.nextElementSibling.textContent=i.value+'%';};i.onchange=async()=>{const lote=[];await aplicar(p,i.dataset.et,+i.value/100,lote);if(lote.length)estado.deshacer.push(lote);render();renderNiveles();abrirFicha(p);};});}
 /* ---------------- enviar / restaurar ---------------- */
-async function exportar(){const mios=estado.local.filter(e=>e.por===estado.persona);if(!mios.length){toast('Todavía no tienes registros');return;}
+async function exportar(){const mios=estado.local.filter(e=>e.por===estado.persona||e.k==='comp');if(!mios.length){toast('Todavía no tienes registros');return;}
   const d={app:'ImperFlowHCQ',modulo:'imper',tipo:'avance',ver:1,por:estado.persona,disp:estado.disp,exportado:new Date().toISOString(),eventos:mios.map(e=>{const o=Object.assign({},e);delete o.enviado;return o;})};
   const ahora=new Date();const slug=(estado.persona||'persona').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'_');
   const nombre='Avance_ImperFlow_'+slug+'_'+hoyDia()+'_'+String(ahora.getHours()).padStart(2,'0')+'h'+String(ahora.getMinutes()).padStart(2,'0')+'.json';
-  const hoy=mios.filter(e=>!e.borrado&&e.dia===hoyDia());const texto='Avance ImperPlan · '+estado.persona+' · '+diaCorta(hoyDia())+': '+new Set(hoy.map(e=>e.g)).size+' paños, '+hoy.length+' registros, '+fmt0(m2Hoy())+' m² eq.';
+  const hoy=mios.filter(e=>!e.borrado&&e.k!=='comp'&&e.dia===hoyDia()),nc=mios.filter(e=>!e.borrado&&e.k==='comp'&&e.dia===hoyDia()).length;const texto='Avance ImperPlan · '+estado.persona+' · '+diaCorta(hoyDia())+': '+new Set(hoy.map(e=>e.g)).size+' paños, '+hoy.length+' registros, '+fmt0(m2Hoy())+' m² eq.'+(nc?' · '+nc+' compromiso'+(nc===1?'':'s')+' nuevo'+(nc===1?'':'s'):'');
   await compartirArchivo(new Blob([JSON.stringify(d)],{type:'application/json'}),nombre,'Avance ImperPlan',texto);
   for(const e of estado.local){if(!e.enviado){e.enviado=true;await put('eventos',e);}}renderInicio();}
 async function restaurar(file){try{const d=JSON.parse(await file.text());if(d.app!=='ImperFlowHCQ')throw new Error('no es un archivo de ImperPlan');let n=0;
   for(const e of d.eventos||[]){if(estado.local.some(x=>x.id===e.id))continue;e.enviado=true;estado.local.push(e);await put('eventos',e);n++;}combinar();renderTodo();toast(n+' registros restaurados','ok');}
   catch(e){toast('No se pudo leer: '+e.message,'error');}}
 /* ---------------- menú ---------------- */
+/* ================= Last Planner en ImperPlan · v0.14 (12-11-2026, pedido de Renato: «comprometer superficies a impermeabilizar y ver después si cumplieron») =================
+   Compromiso = paños + etapa + semana (jueves a miércoles, igual que LastPlan y HormiPlan). Viaja como un registro más (k:'comp', gs:[paños]) en el
+   archivo «Enviar mi avance» y se consolida en imperflow/avance.enc. Cumplido = todos sus paños con la etapa al 100 % registrada dentro de la semana;
+   «cumplido tarde» si se terminó después; «no cumplido» si la semana pasó y falta. La causa la indica quien revisa el compromiso. */
+const DIA_INI=4,DS=['dom','lun','mar','mié','jue','vie','sáb'];
+const CAUSAS=['Falta de mano de obra','Falta de materiales','Superficie no entregada por la partida anterior','Humedad de la superficie o clima','Interferencia con otra especialidad','Diseño / RDI pendiente','Prueba de estanqueidad pendiente','Mala planificación','Otra'];
+const COMP={ok:{n:'Cumplido',color:'#16A34A'},tarde:{n:'Cumplido tarde',color:'#D97706'},prog:{n:'En curso',color:'#0EA5E9'},pend:{n:'Por hacer',color:'#2563EB'},venc:{n:'No cumplido',color:'#DC2626'}};
+const fechaADia=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const aFecha=dia=>{const p=dia.split('-');return new Date(+p[0],+p[1]-1,+p[2]);};
+const sumarDias=(dia,n)=>{const d=aFecha(dia);d.setDate(d.getDate()+n);return fechaADia(d);};
+const inicioSem=dia=>{const d=aFecha(dia);d.setDate(d.getDate()-((d.getDay()-DIA_INI+7)%7));return fechaADia(d);};
+const diaLarga=d=>d?DS[aFecha(d).getDay()]+' '+diaCorta(d):'—';
+const barra=(a,b,col)=>'<div class="mini-prog ancha" style="--c:'+col+'"><i style="width:'+pct(a,b)+'%"></i></div>';
+let COMPS=[];const SELC=new Set();
+function estadoComp(c){const gs=c.gs,tot=gs.length;let hechos=0,ult='',parc=false,A=0,Ah=0;
+  gs.forEach(g=>{const p=PIS.get(g),x=ESTADO.get(g),o=x&&x[c.et],f=o?o.f:0;A+=p.A;Ah+=p.A*Math.min(1,f);if(f>=1){hechos++;if(o.ev.dia>ult)ult=o.ev.dia;}else if(f>0)parc=true;});
+  const fin=sumarDias(c.sem,6),hoy=hoyDia();let k;if(tot&&hechos===tot)k=ult>fin?'tarde':'ok';else if(hoy>fin)k='venc';else k=(hechos||parc)?'prog':'pend';
+  return {k,tot,hechos,parc,A,Ah,fin};}
+const compsDe=sem=>COMPS.filter(c=>c.sem===sem).sort((a,b)=>(a.ts||'').localeCompare(b.ts||''));
+function ppcSem(sem){const L=compsDe(sem);if(!L.length)return null;let ok=0,A=0,Aok=0,Ah=0,np=0;L.forEach(c=>{const s=estadoComp(c);A+=s.A;Ah+=s.Ah;np+=s.tot;if(s.k==='ok'){ok++;Aok+=s.A;}});
+  return {ok,n:L.length,p:100*ok/L.length,A,Aok,Ah,np,pa:A?100*Aok/A:0,ph:A?100*Ah/A:0};}
+async function crearComp(gs,et,sem,nota,extra){const c=Object.assign({id:uid(),k:'comp',gs,et,sem,nota:nota||'',nv:[...new Set(gs.map(g=>PIS.get(g).nv))].join(','),dia:hoyDia(),ts:new Date().toISOString(),por:estado.persona,disp:estado.disp},extra||{});
+  estado.local.push(c);await put('eventos',c);combinar();return c;}
+async function reprogramar(c,semDest){const gs=c.gs.filter(g=>fEt(g,c.et)<1);if(!gs.length)return null;return crearComp(gs,c.et,semDest,c.nota,{de:c.id,resp:c.resp||''});}
+/* --- elegir paños en la planta (modo 📌 Comprometer) --- */
+function barraComp(){let A=0;SELC.forEach(g=>{const p=PIS.get(g);if(p)A+=p.A;});const n=SELC.size;
+  $('#compInfo').textContent=n?n+' paño'+(n===1?'':'s')+' · '+fmt1(A)+' m²':'Toca los paños que se van a comprometer';$('#btnCompOk').disabled=!n;$('#btnCompLimpiar').disabled=!n;}
+function hojaComprometer(){const ps=[...SELC].map(g=>PIS.get(g)).filter(Boolean);if(!ps.length){toast('Primero toca los paños que quieres comprometer');return;}
+  const h=inicioSem(hoyDia()),sems=[h,sumarDias(h,7),sumarDias(h,14)],sumA=L=>L.reduce((s,p)=>s+p.A,0);
+  const ets=ORDEN_ET.filter(et=>ps.some(p=>etapasDe(p).includes(et))),pend=et=>ps.filter(p=>etapasDe(p).includes(et)&&fEt(p.g,et)<1),def=ets.find(et=>pend(et).length)||ets[0];
+  let resp='';try{resp=localStorage.getItem('fp_imper_resp')||'';}catch(_){}
+  abrirHoja('<div class="hoja-titulo">📌 Nuevo compromiso</div><div class="hoja-sub">'+ps.length+' paño'+(ps.length===1?'':'s')+' elegido'+(ps.length===1?'':'s')+' · '+fmt1(sumA(ps))+' m²</div>'+
+   '<label class="etiqueta">Etapa que se compromete a terminar</label><div class="fila-acc" id="cmEt" style="flex-wrap:wrap">'+ets.map(et=>'<button data-cet="'+et+'" class="'+(et===def?'prim':'')+'" style="min-width:45%">'+ETAPAS[et].c+' <small>('+fmt1(sumA(pend(et)))+' m² por hacer)</small></button>').join('')+'</div>'+
+   '<label class="etiqueta" style="margin-top:10px">Semana (jueves a miércoles)</label><select id="cmSem" class="campo">'+sems.map((s,i)=>'<option value="'+s+'"'+(i===0?' selected':'')+'>'+(i===0?'Esta semana':i===1?'Próxima semana':'En 2 semanas')+' · '+diaLarga(s)+' a '+diaLarga(sumarDias(s,6))+'</option>').join('')+'</select>'+
+   '<label class="etiqueta" style="margin-top:10px">Responsable (capataz o subcontrato)</label><input id="cmResp" class="campo" maxlength="60" value="'+escapar(resp)+'" placeholder="Quién se compromete">'+
+   '<label class="etiqueta" style="margin-top:10px">Nota (opcional)</label><input id="cmNota" class="campo" maxlength="120" placeholder="Ej.: después de la prueba de estanqueidad">'+
+   '<button class="btn principal grande" id="cmOk" style="width:100%;margin-top:12px">📌 Comprometer</button><p class="nota" style="margin-top:8px">Se comprometen solo los paños que llevan esa etapa y todavía no la tienen terminada.</p>');
+  let et=def;$$('#cmEt [data-cet]').forEach(b=>b.onclick=()=>{et=b.dataset.cet;$$('#cmEt [data-cet]').forEach(x=>x.classList.toggle('prim',x===b));});
+  $('#cmOk').onclick=async()=>{const L=pend(et);if(!L.length){toast('Esos paños ya tienen esa etapa terminada');return;}const r=$('#cmResp').value.trim();try{localStorage.setItem('fp_imper_resp',r);}catch(_){}
+    await crearComp(L.map(p=>p.g),et,$('#cmSem').value,$('#cmNota').value.trim(),{resp:r});SELC.clear();cerrarHoja();barraComp();render();toast('Compromiso creado · '+L.length+' paño'+(L.length===1?'':'s')+' · '+fmt1(sumA(L))+' m²','ok');};}
+/* --- pestaña Semana --- */
+function renderSemana(){const C=$('#semanaCont');if(!C||!PIS.size)return;if(!estado.sem)estado.sem=inicioSem(hoyDia());if(!estado.fSem)estado.fSem='todos';
+  const sem=estado.sem,L=compsDe(sem),pp=ppcSem(sem),ahora=inicioSem(hoyDia()),F=estado.fSem,orden={venc:0,prog:1,pend:2,tarde:3,ok:4};
+  const en=(k,s)=>k==='todos'||(k==='ok'&&(s==='ok'||s==='tarde'))||(k==='pend'&&(s==='pend'||s==='prog'))||(k==='venc'&&s==='venc');
+  const items=L.map(c=>({c,s:estadoComp(c)})),vis=items.filter(x=>en(F,x.s.k)).sort((a,b)=>orden[a.s.k]-orden[b.s.k]||(a.c.ts||'').localeCompare(b.c.ts||''));
+  const cards=vis.map(({c,s})=>{const col=COMP[s.k].color,falta=(s.k==='venc'||s.k==='tarde')&&!c.causa;
+    return '<div class="comp-card" data-comp="'+c.id+'" style="--c:'+col+'"><div class="top"><b>'+ETAPAS[c.et].c+' · '+s.tot+' paño'+(s.tot===1?'':'s')+' · '+fmt1(s.A)+' m²</b><span class="est-badge">'+COMP[s.k].n+'</span></div>'+
+    '<div class="sub">'+escapar(c.nv.split(',').map(corto).join(', '))+(c.resp?' · 👷 '+escapar(c.resp):' · '+escapar(c.por||''))+(c.de?' · ↪ arrastrado':'')+(c.nota?' · '+escapar(c.nota):'')+(c.causa?' · ⚠ '+escapar(c.causa):'')+'</div>'+barra(s.Ah,s.A,col)+
+    '<div class="sub" style="margin:4px 0 0">'+s.hechos+' de '+s.tot+' terminados · '+fmt1(s.Ah)+' de '+fmt1(s.A)+' m² ('+fmt0(pct(s.Ah,s.A))+'%)'+(falta?' · <b style="color:var(--peligro-osc)">falta indicar la causa</b>':'')+'</div></div>';}).join('');
+  const prev=sumarDias(sem,-7),arr=sem>=ahora?compsDe(prev).filter(c=>{const s=estadoComp(c);return s.k!=='ok'&&s.k!=='tarde'&&s.tot>s.hechos&&!L.some(x=>x.de===c.id);}):[];
+  const hist=[];for(let i=5;i>=0;i--){const s=sumarDias(ahora,-7*i),q=ppcSem(s);if(q)hist.push('<tr'+(s===sem?' style="background:var(--linea)"':'')+'><td>'+diaCorta(s)+' al '+diaCorta(sumarDias(s,6))+'</td><td>'+q.ok+' de '+q.n+'</td><td><b>'+fmt0(q.p)+'%</b></td><td>'+fmt1(q.A)+'</td><td>'+fmt1(q.Ah)+'</td><td><b>'+fmt0(q.ph)+'%</b></td></tr>');}
+  const cau={};COMPS.forEach(c=>{if(c.causa)cau[c.causa]=(cau[c.causa]||0)+1;});const pareto=Object.entries(cau).sort((a,b)=>b[1]-a[1]),totC=pareto.reduce((s,x)=>s+x[1],0);
+  C.innerHTML='<div class="sem-nav"><button data-sm="-1">‹</button><div class="tit">'+(sem===ahora?'Esta semana':sem>ahora?'Semana futura':'Semana pasada')+'<small>'+diaLarga(sem)+' a '+diaLarga(sumarDias(sem,6))+'</small></div><button data-sm="1">›</button></div>'+
+    '<div class="kpis"><div class="kpi"><b>'+(pp?fmt0(pp.p)+'%':'—')+'</b><span>PPC · compromisos cumplidos</span><small>'+(pp?pp.ok+' de '+pp.n:'sin compromisos')+'</small></div>'+
+    '<div class="kpi"><b>'+(pp?fmt0(pp.pa)+'%':'—')+'</b><span>PPC en superficie</span><small>'+(pp?fmt1(pp.Aok)+' de '+fmt1(pp.A)+' m²':'—')+'</small></div>'+
+    '<div class="kpi"><b>'+(pp?fmt1(pp.A):'—')+'</b><span>m² comprometidos</span><small>'+(pp?pp.np+' paños':'')+'</small></div>'+
+    '<div class="kpi"><b>'+(pp?fmt0(pp.ph)+'%':'—')+'</b><span>Avance de lo comprometido</span><small>'+(pp?fmt1(pp.Ah)+' m² hechos':'')+'</small></div></div>'+
+    (L.length?'<div style="display:flex;gap:6px;overflow-x:auto;margin:8px 0">'+[['todos','Todos'],['venc','No cumplidos'],['pend','En curso / por hacer'],['ok','Cumplidos']].map(([k,n])=>'<button class="chipf'+(F===k?' on':'')+'" data-fs="'+k+'">'+n+' · '+items.filter(x=>en(k,x.s.k)).length+'</button>').join('')+'</div>':'')+
+    (cards||'<div class="tarjeta"><p class="nota">'+(L.length?'Ningún compromiso en este filtro.':'No hay compromisos en esta semana. En la planta toca <b>📌 Comprometer</b>, elige los paños y crea el compromiso.')+'</p></div>')+
+    '<button class="btn principal grande" id="btnNuevoComp" style="width:100%">🗺️ Elegir paños en la planta para comprometer</button>'+
+    (arr.length?'<button class="btn secundario" id="btnArrastrar" style="width:100%;margin-top:8px;justify-content:center">↪ Arrastrar a esta semana lo pendiente de la anterior ('+arr.length+')</button>':'')+
+    '<button class="btn secundario" id="btnInfLP" style="width:100%;margin-top:8px;justify-content:center">📄 Informe Last Planner (PDF) de esta semana</button>'+
+    (hist.length?'<div class="tarjeta" style="margin-top:12px"><h3>📈 Últimas semanas</h3><table class="prog-matriz"><tr><th>Semana</th><th>Cumplidos</th><th>PPC</th><th>m² comp.</th><th>m² hechos</th><th>Avance</th></tr>'+hist.join('')+'</table></div>':'')+
+    (pareto.length?'<div class="tarjeta"><h3>⚠ Causas de no cumplimiento</h3>'+pareto.map(([k,n])=>'<div style="display:flex;align-items:center;gap:8px;font-size:12px;margin:5px 0"><span style="flex:1.3">'+escapar(k)+'</span><div style="flex:1">'+barra(n,totC,'#DC2626')+'</div><b>'+n+'</b></div>').join('')+'</div>':'');
+  $$('#semanaCont [data-sm]').forEach(b=>b.onclick=()=>{estado.sem=sumarDias(estado.sem,7*(+b.dataset.sm));renderSemana();});
+  $$('#semanaCont [data-fs]').forEach(b=>b.onclick=()=>{estado.fSem=b.dataset.fs;renderSemana();});
+  $$('#semanaCont [data-comp]').forEach(b=>b.onclick=()=>hojaComp(b.dataset.comp));
+  $('#btnNuevoComp').onclick=()=>{cambiarVista('plano');setModo('comp');};$('#btnInfLP').onclick=()=>informeLP(estado.sem);
+  if($('#btnArrastrar'))$('#btnArrastrar').onclick=async()=>{let n=0;for(const c of arr){if(await reprogramar(c,sem))n++;}renderSemana();toast(n+' compromiso'+(n===1?'':'s')+' arrastrado'+(n===1?'':'s'),'ok');};}
+function hojaComp(id){const c=COMPS.find(x=>x.id===id);if(!c)return;const s=estadoComp(c),propio=c.por===estado.persona&&estado.local.some(x=>x.id===c.id),falta=s.tot-s.hechos;
+  const filas=c.gs.map(g=>PIS.get(g)).sort((a,b)=>a.nv.localeCompare(b.nv)||(a.r||'').localeCompare(b.r||'')).slice(0,60).map(p=>{const f=fEt(p.g,c.et);return '<li>'+corto(p.nv)+' · '+escapar(p.r||'sin nombre')+(p.e?' · ejes '+escapar(p.e):'')+' · '+fmt1(p.A)+' m² · <b style="color:'+(f>=1?'#16A34A':f>0?'#0EA5E9':'var(--tenue)')+'">'+Math.round(f*100)+'%</b></li>';}).join('');
+  abrirHoja('<div class="hoja-titulo">📌 '+ETAPAS[c.et].n+' · sem. '+diaCorta(c.sem)+'</div><div class="hoja-sub"><b style="color:'+COMP[s.k].color+'">'+COMP[s.k].n+'</b> · '+s.hechos+' de '+s.tot+' paños · '+fmt1(s.Ah)+' de '+fmt1(s.A)+' m² · creado por '+escapar(c.por||'')+' el '+diaCorta(c.dia)+'</div>'+
+   (c.resp?'<p>👷 Responsable: <b>'+escapar(c.resp)+'</b></p>':'')+(c.nota?'<p>📝 '+escapar(c.nota)+'</p>':'')+(c.de?'<p class="nota">↪ Viene arrastrado de la semana anterior.</p>':'')+
+   '<ul style="font-size:12px;color:var(--cuerpo);padding-left:18px;margin:8px 0">'+filas+(c.gs.length>60?'<li>… y '+(c.gs.length-60)+' más</li>':'')+'</ul>'+
+   (s.k!=='ok'?'<label class="etiqueta" style="margin-top:10px">Causa de no cumplimiento</label><select id="cpCausa" class="campo"><option value="">— sin causa —</option>'+CAUSAS.map(x=>'<option'+(c.causa===x?' selected':'')+'>'+x+'</option>').join('')+'</select>':'')+
+   '<div class="fila-acc" style="margin-top:10px"><button class="prim" id="cpVer">🗺️ Ver en la planta</button>'+(propio?'<button id="cpAnular" style="color:var(--peligro-osc)">Anular</button>':'')+'</div>'+
+   (s.k!=='ok'&&s.k!=='tarde'&&falta>0?'<button class="menu-item" id="cpRep" style="margin-top:8px">↪ Reprogramar los '+falta+' paños pendientes para la semana siguiente</button>':''));
+  const sel=$('#cpCausa');if(sel)sel.onchange=async()=>{const loc=estado.local.find(x=>x.id===c.id);if(loc){loc.causa=sel.value;loc.enviado=false;await put('eventos',loc);}else{const copia=Object.assign({},c.src,{causa:sel.value,enviado:false});estado.local.push(copia);await put('eventos',copia);}combinar();renderSemana();toast('Causa guardada','ok');};
+  $('#cpVer').onclick=()=>{cerrarHoja();verComp(c);};
+  if($('#cpAnular'))$('#cpAnular').onclick=async()=>{const loc=estado.local.find(x=>x.id===c.id);if(!loc)return;loc.borrado=true;loc.borradoTs=new Date().toISOString();loc.enviado=false;await put('eventos',loc);combinar();cerrarHoja();renderSemana();toast('Compromiso anulado');};
+  if($('#cpRep'))$('#cpRep').onclick=async()=>{const n=await reprogramar(c,sumarDias(c.sem,7));cerrarHoja();renderSemana();toast(n?'Reprogramado para la semana del '+diaCorta(n.sem):'Nada pendiente','ok');};}
+function verComp(c){const ps=c.gs.map(g=>PIS.get(g)),nv=ps[0].nv,L=ps.filter(p=>p.nv===nv);cambiarVista('plano');abrirNivel(nv,true);setModo('ver');estado.resalta=new Set(c.gs);
+  const b=[1e12,1e12,-1e12,-1e12];L.forEach(p=>{b[0]=Math.min(b[0],p.bb[0]);b[1]=Math.min(b[1],p.bb[1]);b[2]=Math.max(b[2],p.bb[2]);b[3]=Math.max(b[3],p.bb[3]);});
+  requestAnimationFrame(()=>{ajustarLienzo();const w=$('#lienzoWrap'),m=600,s=Math.max(.004,Math.min(.5,Math.min(w.clientWidth/(b[2]-b[0]+2*m),w.clientHeight/(b[3]-b[1]+2*m))));V.s=s;V.tx=w.clientWidth/2-(b[0]+b[2])/2*s;V.ty=w.clientHeight/2-(b[1]+b[3])/2*s;render();});}
+/* lo comprometido se marca en la planta: borde ámbar punteado = comprometido esta semana y sin terminar; relleno ámbar = elegido para comprometer */
+function dibujarComp(ctx,n,px,vis){const semA=inicioSem(hoyDia()),cg=new Set();COMPS.forEach(c=>{if(c.sem===semA)c.gs.forEach(g=>{if(fEt(g,c.et)<1)cg.add(g);});});
+  if(cg.size){ctx.strokeStyle='#D97706';ctx.lineWidth=2.6*px;ctx.setLineDash([7*px,4*px]);for(const p of n.pis){if(cg.has(p.g)&&vis(p.bb))ctx.stroke(p.path);}ctx.setLineDash([]);}
+  if(estado.resalta&&estado.resalta.size){ctx.strokeStyle='#C026D3';ctx.lineWidth=3.4*px;for(const p of n.pis){if(estado.resalta.has(p.g)&&vis(p.bb)){ctx.globalAlpha=.22;ctx.fillStyle='#C026D3';ctx.fill(p.path);ctx.globalAlpha=1;ctx.stroke(p.path);}}}
+  if(SELC.size){ctx.strokeStyle='#B45309';ctx.lineWidth=3.2*px;for(const p of n.pis){if(SELC.has(p.g)&&vis(p.bb)){ctx.globalAlpha=.4;ctx.fillStyle='#F59E0B';ctx.fill(p.path);ctx.globalAlpha=1;ctx.stroke(p.path);}}}}
 /* ================= informe de cantidades (m²) para el estado de pago · v0.12 (12-11-2026, pedido de Renato) =================
    Lo ejecutado ANTES del período, EN el período y ACUMULADO, por tipo de avance (etapa), sistema, nivel y paño. Sale en pantalla y en Excel.
    Avance de un paño en una etapa a una fecha = el mayor avance registrado hasta ese día (los registros del piso completo valen para sus paños),
@@ -1475,17 +1598,47 @@ function pdfTabla(doc,y,titulo,cols,filas,tit,sub){const H=6;const nueva=()=>{do
   return y+7;}
 /* plano del nivel con lo ejecutado: azul = en el período, gris = antes del período; sobre la lámina de Revit si el nivel la tiene */
 const COL_PER='#2563EB',COL_ANT='#94A3B8';
-function planoInforme(n,R){const W=2200,H=1320;let b=n.bbox||[0,0,20000,15000];const ps=R.det.filter(d=>d.n===n);
-  if(ps.length){const q=[1e12,1e12,-1e12,-1e12];ps.forEach(({p})=>{q[0]=Math.min(q[0],p.bb[0]);q[1]=Math.min(q[1],p.bb[1]);q[2]=Math.max(q[2],p.bb[2]);q[3]=Math.max(q[3],p.bb[3]);});b=[q[0]-400,q[1]-400,q[2]+400,q[3]+400];}
-  const pinta=(ctx,k,velo)=>{ctx.save();ctx.lineJoin='round';if(velo){ctx.fillStyle='rgba(255,255,255,.72)';ctx.fillRect(b[0]-1e4,b[1]-1e4,b[2]-b[0]+2e4,b[3]-b[1]+2e4);}ps.forEach(({p,pe})=>{let per=false,ant=false;for(const et in pe){if(pe[et][1]>pe[et][0]+1e-9)per=true;if(pe[et][0]>0)ant=true;}
-      if(per||ant){ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.85;ctx.fillStyle=per?COL_PER:COL_ANT;ctx.fill(p.path);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;}
-      ctx.strokeStyle=per?'#1D4ED8':ant?'#475569':'#94A3B8';ctx.lineWidth=(per||ant?2.2:0.8)/k;ctx.stroke(p.path);});ctx.restore();};
+/* plano de un nivel para los informes: encuadra los paños dados; sobre la lámina de Revit atenuada si el nivel la tiene, si no sobre muros y tabiques */
+function planoBase(n,ps,pintar){const W=2200,H=1320;let b=n.bbox||[0,0,20000,15000];
+  if(ps.length){const q=[1e12,1e12,-1e12,-1e12];ps.forEach(p=>{q[0]=Math.min(q[0],p.bb[0]);q[1]=Math.min(q[1],p.bb[1]);q[2]=Math.max(q[2],p.bb[2]);q[3]=Math.max(q[3],p.bb[3]);});b=[q[0]-400,q[1]-400,q[2]+400,q[3]+400];}
+  const pinta=(ctx,k,velo)=>{ctx.save();ctx.lineJoin='round';if(velo){ctx.fillStyle='rgba(255,255,255,.72)';ctx.fillRect(b[0]-1e4,b[1]-1e4,b[2]-b[0]+2e4,b[3]-b[1]+2e4);}pintar(ctx,k);ctx.restore();};
   if(!n.techo&&typeof FONDO!=='undefined'&&FONDO.existe(n.id)){try{const im=FONDO.imagen(n.id,b,W,H,(c2,k2)=>pinta(c2,k2,true));if(im)return {url:im.url,W,H,lam:true};}catch(e){}}
   const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
   const k=Math.min(W/(b[2]-b[0]),H/(b[3]-b[1])),tx=(W-(b[2]-b[0])*k)/2-b[0]*k,ty=(H-(b[3]-b[1])*k)/2-b[1]*k;ctx.setTransform(k,0,0,k,tx,ty);
   if(!n.techo){const anillo=(r,col)=>{if(!r||r.length<6)return;ctx.beginPath();ctx.moveTo(r[0],r[1]);for(let i=2;i<r.length;i+=2)ctx.lineTo(r[i],r[i+1]);ctx.closePath();ctx.fillStyle=col;ctx.fill();};
     (n.mur||[]).forEach(r=>anillo(r,'#94A3B8'));(n.col||[]).forEach(r=>anillo(r,'#94A3B8'));(n.tab||[]).forEach(t=>(t.p||[]).forEach(r=>anillo(r,'#CBD5E1')));}
   pinta(ctx,k);return {url:c.toDataURL('image/jpeg',0.86),W,H,lam:false};}
+/* paños del nivel pintados: mapa g → color (los demás, solo el borde fino) */
+function planoColores(n,col){return planoBase(n,n.pis.filter(p=>col.has(p.g)),(ctx,k)=>{n.pis.forEach(p=>{const c=col.get(p.g);if(c){ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.85;ctx.fillStyle=c;ctx.fill(p.path);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;}
+    ctx.strokeStyle=c||'#94A3B8';ctx.lineWidth=(c?2.2:0.8)/k;ctx.stroke(p.path);});});}
+function planoInforme(n,R){const col=new Map();R.det.forEach(({n:m,p,pe})=>{if(m!==n)return;let per=false,ant=false;for(const et in pe){if(pe[et][1]>pe[et][0]+1e-9)per=true;if(pe[et][0]>0)ant=true;}if(per)col.set(p.g,COL_PER);else if(ant)col.set(p.g,COL_ANT);});return planoColores(n,col);}
+function pdfPlano(doc,TIT,sub,titulo,im,leyenda){doc.addPage();pdfCab(doc,TIT,sub);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(30,41,59);doc.text(titulo,PM,23);
+  let lx=PW-PM;leyenda.slice().reverse().forEach(([col,t])=>{doc.setFont('helvetica','normal');doc.setFontSize(8);const w=doc.getTextWidth(t);lx-=w;doc.setTextColor(51,65,85);doc.text(t,lx,23);lx-=5;doc.setFillColor(...[1,3,5].map(i=>parseInt(col.slice(i,i+2),16)));doc.rect(lx,20.2,3.6,3.2,'F');lx-=6;});
+  const mw=PW-2*PM,mh=PH-27-14,k=Math.min(mw/im.W,mh/im.H),w=im.W*k,h=im.H*k;doc.addImage(im.url,'JPEG',PM+(mw-w)/2,27,w,h);doc.setDrawColor(203,213,225);doc.rect(PM+(mw-w)/2,27,w,h);}
+/* informe Last Planner de una semana: PPC, compromisos, historial, causas y plano por nivel (verde = terminado, azul = por hacer, rojo = no cumplido) */
+async function informeLP(sem){if(!window.jspdf){toast('No se pudo cargar el generador de PDF','error');return;}const L=compsDe(sem);if(!L.length){toast('No hay compromisos en esa semana');return;}
+  try{progreso('Armando el informe…');await new Promise(r=>setTimeout(r,60));const {jsPDF}=window.jspdf,doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
+    const TIT='Informe Last Planner · impermeabilización',sub=OBRA+' · semana '+dmy(sem)+' al '+dmy(sumarDias(sem,6)),pp=ppcSem(sem),r=c=>({t:c[0],w:c[1],al:c[2]}),pc=(x,y)=>fmt0(pct(x,y))+' %';
+    const ahora=new Date(),em=String(ahora.getDate()).padStart(2,'0')+'-'+String(ahora.getMonth()+1).padStart(2,'0')+'-'+ahora.getFullYear()+' '+String(ahora.getHours()).padStart(2,'0')+':'+String(ahora.getMinutes()).padStart(2,'0');
+    pdfCab(doc,TIT,sub);let y=22;doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(100,116,139);
+    doc.text('Emitido el '+em+' por '+(estado.persona||'')+' · Semana de jueves a miércoles · Cumplido = todos los paños del compromiso con la etapa al 100 % registrada dentro de la semana.',PM,y);y+=5;
+    const kw=(PW-2*PM-3*4)/4;pdfKpi(doc,PM,y,kw,fmt0(pp.p)+' %','PPC · compromisos cumplidos',pp.ok+' de '+pp.n+' compromisos',[22,163,74]);
+    pdfKpi(doc,PM+kw+4,y,kw,fmt0(pp.pa)+' %','PPC en superficie',fmt1(pp.Aok)+' de '+fmt1(pp.A)+' m²',[28,65,146]);
+    pdfKpi(doc,PM+2*(kw+4),y,kw,fmt1(pp.A)+' m²','Superficie comprometida',pp.np+' paños',[37,99,235]);
+    pdfKpi(doc,PM+3*(kw+4),y,kw,fmt0(pp.ph)+' %','Avance de lo comprometido',fmt1(pp.Ah)+' m² hechos · saldo '+fmt1(pp.A-pp.Ah)+' m²',[234,88,12]);y+=30;
+    const orden={venc:0,prog:1,pend:2,tarde:3,ok:4},it=L.map(c=>({c,s:estadoComp(c)})).sort((a,b)=>orden[a.s.k]-orden[b.s.k]||(a.c.ts||'').localeCompare(b.c.ts||''));
+    const F1=it.map(({c,s})=>({c:[ETAPAS[c.et].c,c.nv.split(',').map(corto).join(', '),[...new Set(c.gs.map(g=>PIS.get(g).r||'sin nombre'))].join(', '),s.tot,fmt2(s.A),fmt2(s.Ah),pc(s.Ah,s.A),COMP[s.k].n,c.resp||c.por||'',[c.causa||(s.k==='venc'||s.k==='tarde'?'(sin indicar)':''),c.de?'arrastrado de la semana anterior':''].filter(Boolean).join(' · ')]}));
+    F1.push({b:1,c:['TOTAL','','',pp.np,fmt2(pp.A),fmt2(pp.Ah),pc(pp.Ah,pp.A),pp.ok+' de '+pp.n+' cumplidos','','']});
+    y=pdfTabla(doc,y,'1. Compromisos de la semana',[['Etapa',30],['Nivel',18],['Recintos',55],['Paños',13,'r'],['m² comp.',20,'r'],['m² hechos',20,'r'],['Avance',13,'r'],['Estado',26],['Responsable',32],['Causa de no cumplimiento',46]].map(r),F1,TIT,sub);
+    const F2=[];for(let i=7;i>=0;i--){const s=sumarDias(sem,-7*i),q=ppcSem(s);if(q)F2.push({b:s===sem?1:0,c:[dmy(s)+' al '+dmy(sumarDias(s,6)),q.n,q.ok,fmt0(q.p)+' %',fmt2(q.A),fmt2(q.Aok),fmt0(q.pa)+' %',fmt2(q.Ah),fmt0(q.ph)+' %']});}
+    y=pdfTabla(doc,y,'2. PPC por semana (hasta 8 semanas)',[['Semana',60],['Compromisos',25,'r'],['Cumplidos',25,'r'],['PPC',22,'r'],['m² comprometidos',32,'r'],['m² de cumplidos',30,'r'],['PPC en m²',25,'r'],['m² hechos',29,'r'],['Avance',25,'r']].map(r),F2,TIT,sub);
+    const cau={};L.forEach(c=>{const k=estadoComp(c).k;if(k==='venc'||k==='tarde')cau[c.causa||'(sin indicar)']=(cau[c.causa||'(sin indicar)']||0)+1;});const pa=Object.entries(cau).sort((a,b)=>b[1]-a[1]);
+    if(pa.length)y=pdfTabla(doc,y,'3. Causas de no cumplimiento de la semana',[['Causa',213],['Compromisos',60,'r']].map(r),pa.map(([k,n])=>({c:[k,n]})),TIT,sub);
+    for(const n of NIVELES){const col=new Map();let A=0;it.forEach(({c,s})=>c.gs.forEach(g=>{const p=PIS.get(g);if(p.nv!==n.id)return;A+=p.A;col.set(g,fEt(g,c.et)>=1?'#16A34A':s.k==='venc'?'#DC2626':'#2563EB');}));if(!col.size)continue;
+      progreso('Dibujando '+n.id+'…');await new Promise(r=>setTimeout(r,20));
+      pdfPlano(doc,TIT,sub,n.id+(n.nombre&&n.nombre!==n.id?' · '+n.nombre:'')+' · '+col.size+' paños comprometidos · '+fmt1(A)+' m²',planoColores(n,col),[['#16A34A','Terminado'],['#2563EB','Por hacer / en curso'],['#DC2626','No cumplido']]);}
+    pdfPie(doc);progreso(null);await compartirArchivo(doc.output('blob'),'ImperPlan_LastPlanner_semana_'+sem+'.pdf','Informe Last Planner · impermeabilización','ImperPlan · Last Planner semana del '+dmy(sem)+': PPC '+fmt0(pp.p)+' % ('+pp.ok+' de '+pp.n+')');}
+  catch(e){progreso(null);console.error(e);toast('No se pudo armar el informe: '+e.message,'error');}}
 async function informePDF(){let a=$('#infDesde')?$('#infDesde').value:'',b=$('#infHasta')?$('#infHasta').value:'';if(!a||!b){const pr=periodoInforme();a=pr.desde;b=pr.hasta;}if(a>b){const t=a;a=b;b=t;}
   if(!window.jspdf){toast('No se pudo cargar el generador de PDF','error');return;}
   try{progreso('Armando el informe…');await new Promise(r=>setTimeout(r,60));const R=datosInforme(a,b),ETS=etUsadas(),{jsPDF}=window.jspdf,doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
@@ -1522,20 +1675,17 @@ async function informePDF(){let a=$('#infDesde')?$('#infDesde').value:'',b=$('#i
     /* planos: un nivel por página, solo los que tienen avance a la fecha */
     for(const n of NIVELES){const ps=R.det.filter(d=>d.n===n);let Aper=0,Aant=0;ps.forEach(({p,pe})=>{let per=false,ant=false;for(const et in pe){if(pe[et][1]>pe[et][0]+1e-9)per=true;if(pe[et][0]>0)ant=true;}if(per)Aper+=p.A;else if(ant)Aant+=p.A;});
       if(!Aper&&!Aant)continue;progreso('Dibujando '+n.id+'…');await new Promise(r=>setTimeout(r,20));const im=planoInforme(n,R);
-      doc.addPage();pdfCab(doc,TIT,sub);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(30,41,59);doc.text(n.id+(n.nombre&&n.nombre!==n.id?' · '+n.nombre:'')+' · paños con avance',PM,23);
-      let lx=PW-PM;const ley=(col,t)=>{doc.setFont('helvetica','normal');doc.setFontSize(8);const w=doc.getTextWidth(t);lx-=w;doc.setTextColor(51,65,85);doc.text(t,lx,23);lx-=5;doc.setFillColor(...[1,3,5].map(i=>parseInt(col.slice(i,i+2),16)));doc.rect(lx,20.2,3.6,3.2,'F');lx-=6;};
-      ley(COL_ANT,'Con avance antes del período ('+fmt1(Aant)+' m² de paños)');ley(COL_PER,'Con avance en el período ('+fmt1(Aper)+' m² de paños)');
-      const mw=PW-2*PM,mh=PH-27-14,k=Math.min(mw/im.W,mh/im.H),w=im.W*k,h=im.H*k;doc.addImage(im.url,'JPEG',PM+(mw-w)/2,27,w,h);doc.setDrawColor(203,213,225);doc.rect(PM+(mw-w)/2,27,w,h);}
+      pdfPlano(doc,TIT,sub,n.id+(n.nombre&&n.nombre!==n.id?' · '+n.nombre:'')+' · paños con avance',im,[[COL_PER,'Con avance en el período ('+fmt1(Aper)+' m² de paños)'],[COL_ANT,'Con avance antes del período ('+fmt1(Aant)+' m² de paños)']]);}
     pdfPie(doc);progreso(null);await compartirArchivo(doc.output('blob'),'ImperPlan_cantidades_EEPP_'+a+'_al_'+b+'.pdf','Informe de cantidades de impermeabilización','ImperPlan · cantidades del '+dmy(a)+' al '+dmy(b));}
   catch(e){progreso(null);console.error(e);toast('No se pudo armar el informe: '+e.message,'error');}}
 function abrirMenu(){abrirHoja('<h2 style="font-size:19px">Menú</h2><p class="nota" style="margin-bottom:10px">ImperPlan '+APP_VER+' · '+OBRA+' · www.flujoplan.cl · @flujoplan</p>'+
-  '<button class="menu-item" data-acc="informe">📊 Informe de cantidades (PDF y Excel)</button><button class="menu-item" data-acc="enviar">📤 Enviar mi avance por WhatsApp o correo</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
+  '<button class="menu-item" data-acc="semana">📌 Last Planner · compromisos de la semana</button><button class="menu-item" data-acc="informe">📊 Informe de cantidades (PDF y Excel)</button><button class="menu-item" data-acc="enviar">📤 Enviar mi avance por WhatsApp o correo</button><button class="menu-item" data-acc="equipo">🔄 Actualizar avance del equipo</button>'+
   '<button class="menu-item" data-acc="restaurar">⬇️ Restaurar mi avance desde un archivo</button><button class="menu-item" data-acc="nombre">👤 Cambiar mi nombre <span class="chip" style="margin-left:auto">'+escapar(estado.persona)+'</span></button>'+
   '<a class="menu-item" href="../obraflow/">🏗️ Ir a FlujoPlan</a><a class="menu-item" href="../tabiflow/">🧱 Ir a TabiPlan (tabiques)</a>'+
   '<button class="menu-item" data-acc="salir">🔒 Olvidar la clave en este teléfono</button>');}
 function pedirNombre(){abrirHoja('<h2 style="font-size:19px">Tu nombre</h2><input id="inNombre" class="campo" maxlength="40" value="'+escapar(estado.persona)+'"><button class="btn principal" data-acc="nombreok">Guardar</button>');}
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-acc]');if(!b)return;const a=b.dataset.acc;
-  if(a==='informe'){abrirInforme();}else if(a==='informe-pdf'){informePDF();}else if(a==='informe-xlsx'){informeExcel();}else if(a==='enviar'){cerrarHoja();exportar();}else if(a==='equipo'){cerrarHoja();cargarEquipo(true);}else if(a==='restaurar'){cerrarHoja();$('#inputRespaldo').click();}
+  if(a==='semana'){cerrarHoja();cambiarVista('semana');}else if(a==='informe'){abrirInforme();}else if(a==='informe-pdf'){informePDF();}else if(a==='informe-xlsx'){informeExcel();}else if(a==='enviar'){cerrarHoja();exportar();}else if(a==='equipo'){cerrarHoja();cargarEquipo(true);}else if(a==='restaurar'){cerrarHoja();$('#inputRespaldo').click();}
   else if(a==='nombre')pedirNombre();else if(a==='nombreok'){const v=$('#inNombre').value.trim();if(v.length<2)return;estado.persona=v;await metaSet('persona',v);try{localStorage.setItem('obraflow_nombre',v);}catch(_){}cerrarHoja();renderTodo();toast('Hola, '+v,'ok');}
   else if(a==='salir'){await metaSet('clave',null);location.reload();}});
 /* ---------------- acceso ---------------- */
@@ -1567,7 +1717,7 @@ async function iniciar(){
   renderInicio();cargarEquipo(false);}
 window.addEventListener('DOMContentLoaded',()=>{cv=$('#lienzo');ctx=cv.getContext('2d');ctxHit=document.createElement('canvas').getContext('2d');initGestos();
   $$('.pestana').forEach(b=>b.onclick=()=>cambiarVista(b.dataset.v));$('#btnIrPlano').onclick=()=>cambiarVista('plano');$('#btnIrAvance').onclick=()=>cambiarVista('avance');
-  $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#btnDeshacer').onclick=deshacer;$('#chkPrevias').onchange=e=>estado.previas=e.target.checked;
+  $('#segVer').onclick=()=>setModo('ver');$('#segPincel').onclick=()=>setModo('pincel');$('#segComp').onclick=()=>setModo('comp');$('#btnCompOk').onclick=hojaComprometer;$('#btnCompLimpiar').onclick=()=>{SELC.clear();barraComp();render();};$('#btnDeshacer').onclick=deshacer;$('#chkPrevias').onchange=e=>estado.previas=e.target.checked;
   $('#btnZoomMas').onclick=()=>zoom(1.5);$('#btnZoomMenos').onclick=()=>zoom(1/1.5);$('#btnAjustar').onclick=()=>{encuadrar();render();};$('#btnCerrarAviso').onclick=()=>$('#avisoPlano').classList.add('oculto');
   $('#btnVolverPlano').onclick=()=>cambiarVista('inicio');$('#btnMenu').onclick=abrirMenu;$('#velo').onclick=cerrarHoja;
   $('#btnNivelAntes').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i>0)abrirNivel(NIVELES[i-1].id);};$('#btnNivelDespues').onclick=()=>{const i=NIVELES.indexOf(estado.nivel);if(i<NIVELES.length-1)abrirNivel(NIVELES[i+1].id);};

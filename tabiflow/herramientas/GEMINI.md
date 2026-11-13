@@ -175,6 +175,9 @@ git commit -m "Avance ImperFlow consolidado DD/MM/AAAA (nombres)"
 git push
 ```
 
+Desde ImperPlan v0.14 (12-11-2026) el mismo archivo trae también los **compromisos Last Planner** de impermeabilización (registros con `k: "comp"`). No hay que hacer nada distinto: `consolidar_imper.py` los guarda en `imperflow/avance.enc` junto con el avance y el reporte dice cuántos compromisos entraron.
+
+
 Misma `TABIFLOW_CLAVE`. No toques `imperflow/imper.enc` (lo mantiene Claude). Después copia `imperflow/avance.enc` también a `flujoplan/publicar/hcq/imperflow/` (ver «Publicar también en flujoplan.cl»).
 Desde el 25-10-2026 PaviFlow ya no tiene etapa de impermeabilización: si llega un `Avance_PaviFlow_` antiguo con registros de impermeabilización, `consolidar_pavi.py` los ignora (es normal).
 
