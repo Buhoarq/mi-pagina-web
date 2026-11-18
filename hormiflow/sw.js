@@ -1,19 +1,9 @@
-/* HormiPlan HCQ — service worker: la app y el modelo cifrado quedan disponibles sin conexión.
-   avance.enc (consolidado del equipo) se pide siempre a la red primero y, sin señal, se usa la copia guardada. */
-const CACHE='hormiflow-hcq-v0.17';
-const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg','./hormi.enc','./hormi_ind.enc','./hormi_cosam.enc','../tabiflow/clave.json'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('hormiflow-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
-self.addEventListener('fetch',e=>{
-  const req=e.request;if(req.method!=='GET')return;
-  const url=new URL(req.url);if(url.origin!==location.origin){return;}
-  const clave=url.pathname.replace(/^.*\//,'');
-  const redPrimero=(/\.enc$/.test(clave)||/^(avance\.enc|hormi(_\w+)?\.enc|clave\.json|index\.html|)$/.test(clave))||req.mode==='navigate';
-  if(redPrimero){
-    e.respondWith(fetch(req).then(r=>{if(r.ok){const cp=r.clone();caches.open(CACHE).then(c=>c.put(new Request(url.origin+url.pathname),cp));}return r;})
-      .catch(()=>caches.match(new Request(url.origin+url.pathname)).then(h=>h||caches.match('./index.html'))));
-    return;}
-  e.respondWith(caches.match(new Request(url.origin+url.pathname)).then(hit=>{
-    const red=fetch(req).then(r=>{if(r.ok){const cp=r.clone();caches.open(CACHE).then(c=>c.put(new Request(url.origin+url.pathname),cp));}return r;}).catch(()=>hit);
-    return hit||red;}));
-});
+/* FlujoPlan · fuera de servicio (18-11-2026). Reemplaza al service worker de la aplicación: borra todo lo guardado en caché
+   (páginas, modelos y avances cifrados descargados), se da de baja y recarga las pestañas abiertas, que pasan a mostrar «fuera de servicio». */
+self.addEventListener('install',e=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil((async()=>{
+  try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}catch(_){}
+  try{await self.registration.unregister();}catch(_){}
+  try{const cs=await self.clients.matchAll({type:'window'});cs.forEach(c=>{try{c.navigate(c.url);}catch(_){}});}catch(_){}
+})()));
+self.addEventListener('fetch',e=>{});

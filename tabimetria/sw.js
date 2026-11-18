@@ -1,21 +1,9 @@
-/* TabiMetría — service worker: deja la app disponible sin conexión.
-   Estrategia: responde desde caché al instante y actualiza en segundo plano. */
-const CACHE='tabimetria-v2.0';
-const BASE=['./','./index.html','./manifest.webmanifest','./icono.svg'];
-self.addEventListener('install',e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))));
-  self.skipWaiting();
-});
-self.addEventListener('activate',e=>{
-  e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
-});
-self.addEventListener('fetch',e=>{
-  const req=e.request;if(req.method!=='GET')return;
-  e.respondWith(caches.match(req,{ignoreSearch:true}).then(hit=>{
-    const red=fetch(req).then(r=>{
-      if(r&&(r.ok||r.type==='opaque')){const cp=r.clone();caches.open(CACHE).then(c=>c.put(req,cp));}
-      return r;
-    }).catch(()=>hit||(req.mode==='navigate'?caches.match('./index.html'):undefined));
-    return hit||red;
-  }));
-});
+/* FlujoPlan · fuera de servicio (18-11-2026). Reemplaza al service worker de la aplicación: borra todo lo guardado en caché
+   (páginas, modelos y avances cifrados descargados), se da de baja y recarga las pestañas abiertas, que pasan a mostrar «fuera de servicio». */
+self.addEventListener('install',e=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil((async()=>{
+  try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}catch(_){}
+  try{await self.registration.unregister();}catch(_){}
+  try{const cs=await self.clients.matchAll({type:'window'});cs.forEach(c=>{try{c.navigate(c.url);}catch(_){}});}catch(_){}
+})()));
+self.addEventListener('fetch',e=>{});
