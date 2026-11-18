@@ -2,8 +2,19 @@
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>Fuera de servicio</title>
 <style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F1F5F9;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1E293B}
-main{max-width:420px;margin:24px;padding:28px;background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(15,23,42,.08);text-align:center}h1{font-size:20px;margin:0 0 10px}p{margin:0;color:#475569;line-height:1.5;font-size:15px}</style></head>
-<body><main><h1>Aplicación fuera de servicio</h1><p>Esta aplicación no está disponible por ahora.</p></main>
-<script>/* borra lo que la aplicación anterior dejó guardado en este navegador (cachés y service workers) */
+main{max-width:620px;margin:24px 16px;padding:26px;background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(15,23,42,.08)}
+h1{font-size:21px;margin:0 0 8px;text-align:center}.sub{margin:0 0 20px;color:#475569;text-align:center;font-size:15px;line-height:1.5}
+.inst{border-left:4px solid #B91C1C;background:#FEF2F2;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.inst h2{font-size:16px;margin:0 0 4px;color:#7F1D1D}.inst .fecha{font-size:12.5px;color:#7F1D1D;margin:0 0 12px;opacity:.85}
+.inst p{margin:0 0 10px;font-size:14.5px;line-height:1.55;color:#1F2937}.inst p:last-child{margin-bottom:0}
+.nota{font-size:13.5px;line-height:1.5;color:#334155;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:12px 14px;margin:0}</style></head>
+<body><main><h1>Aplicación fuera de servicio</h1><p class="sub">Esta aplicación no está disponible por ahora.</p>
+<section class="inst"><h2>Instrucción obligatoria – Control y entrega de documentación de obra</h2><p class="fecha">Martes 17 de noviembre de 2026</p>
+<p>Favor transmitir formalmente a todo el equipo de obra que <b>queda estrictamente prohibido entregar planos, fichas técnicas o cualquier otro antecedente documental directamente a subcontratistas, supervisores, capataces u otro personal</b>, sin que previamente dicha documentación haya sido revisada y canalizada a través del Departamento de Calidad o de Control Documental, según corresponda.</p>
+<p>El incumplimiento de esta instrucción constituye una falta gravísima a los lineamientos establecidos desde el inicio del proyecto y dará lugar a una amonestación formal por parte de Recursos Humanos a la persona responsable de dicha desviación.</p>
+<p>Es fundamental que esta instrucción sea difundida y comprendida por todos los integrantes del equipo, sin excepción, y que se respete rigurosamente el procedimiento establecido para la distribución y control de documentos.</p>
+<p>El objetivo de esta medida es evitar desviaciones en la ejecución de los trabajos que puedan generar impactos negativos en los costos, los plazos y el desarrollo general del proyecto.</p></section>
+<p class="nota">📱 <b>Si registraste avances o fotos que no alcanzaste a enviar:</b> siguen guardados en tu teléfono. No borres los datos del navegador ni desinstales la aplicación; cuando vuelva a estar disponible podrás enviarlos.</p></main>
+<script>/* borra lo que la aplicación anterior dejó guardado en caché (no toca los avances sin enviar) */
 (async()=>{try{if('serviceWorker' in navigator){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}}catch(e){}
 try{if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}}catch(e){}})();</script></body></html>
